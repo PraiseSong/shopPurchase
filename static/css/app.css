@@ -1,1 +1,148 @@
+.pure-button-success,
+.pure-button-error,
+.pure-button-warning,
+.pure-button-secondary {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.pure-button-success {
+    background: rgb(28, 184, 65); /* this is a green */
+}
+
+.pure-button-error {
+    background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.pure-button-warning {
+    background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.pure-button-secondary {
+    background: rgb(66, 184, 221); /* this is a light blue */
+}
+
 /*The css file by Praise*/
+#header{
+    background: #191818;
+    color: #fff;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    display: -webkit-box;
+}
+#header .pure-button,
+#header .content,
+#header .back{
+    display: block;
+    padding: 0;
+    text-align: center;
+}
+#header .pure-button,
+#header .back{
+    height: 25px;
+    line-height: 25px;
+    width: 50px;
+    font-size: 14px;
+    margin-top: 12.5px;
+}
+#header .pure-button{
+    margin-right: 5px;
+}
+#header .back{
+    margin-left: 5px;
+    text-decoration: none;
+    color:#fff;
+}
+#header .content{
+    -webkit-box-flex: 1;
+}
+.pure-control-group,
+.pure-controls{
+    display: -webkit-box;
+    margin: 0 5px 10px;
+}
+.pure-control-group label,
+.pure-control-group input,
+.pure-controls button
+{
+    display: block;
+}
+.pure-control-group input{
+    margin-left: 10px;
+}
+.pure-control-group input{
+    -webkit-box-flex: 1;
+}
+.pure-control-group label.inline{
+    text-align: left;
+    display: inline;
+}
+.pure-control-group label.inline input{
+    display: inline;
+}
+.addForm button[type=submit]{
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+}
+.takePhotoBox{
+    position: relative;
+    height: 40px;
+    width: 80px;
+}
+.takePhotoBox input,
+.takePhotoBox .pure-button{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70px;
+    height: 20px;
+    display: block;
+    margin: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.takePhotoBox input{
+    z-index: 2;
+    opacity: 0;
+    cursor: pointer;
+}
+.imgBox{
+    -webkit-box-flex: 1;
+    margin-left: 10px;
+}
+.imgBox img{
+    max-width: 200px;
+    max-height: 200px;
+    border: 2px solid #b7b7b7;
+}
+.propsBox{
+    margin-left: 10px;
+}
+.J-props{
+    margin-bottom: 10px;
+}
+.addProps  .pure-controls button{
+    -webkit-box-flex: 1;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+body .addProps .valueBox input{
+    display: inline;
+    width: 130px;
+}
+.J-addValue,
+.J-delProp{
+    font-size: 12px;
+    padding-left: 10px;
+}
+.J-delProp{
+    color: red;
+    cursor: pointer;
+}
+.noProps{
+    margin-left: 10px;
+}
