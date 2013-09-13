@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="uft-8"/>
+    <title></title>
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link href="http://farm5.static.flickr.com/4074/4793927456_a0228873de_d.jpg" rel="apple-touch-icon-precomposed" />
+</head>
+<body>
+<a href="index2.html">index2.html</a>
+</body>
+<script src="static/js/zepto.min.js"></script>
+<script type="text/javascript">
+    $( document ).on(
+            "click",
+            "a",
+            function( event ){
+                event.preventDefault();
+                location.href = $( event.target ).attr( "href" );
+
+            }
+    );
+</script>
+</html>

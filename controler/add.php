@@ -1,7 +1,16 @@
 <?php
-@include_once('config.php');
+include_once('config.php');
+include_once('db.php');
 
-$attachments_dir = "../attachments";
+$db_host = 'localhost';
+$db_name = 'shoppurchase';
+$db_username = 'root';
+$db_password = '';
+
+$db = new DB($db_name,$db_host,$db_username,$db_password);
+$db->query("SET NAMES 'UTF8'");
+
+$attachments_dir = "attachments";
 
 $name = @$_POST['name'];
 $price = @$_POST['price'];
@@ -10,20 +19,36 @@ $man = @$_POST['man'];
 $from = @$_POST['from'];
 $props = @$_POST['properties'];
 $pic = @$_FILES['pic'];
+$pic_link = false;
+$date = date("Y-m-d h:m:s");
 
-$error_msg = '';
+$error_msg = false;
+$writed_product = 0;
 
-if ($pic["error"] > 0)
-{
+if ($pic["error"] > 0){
     $error_msg = '图片上传错误';
 }else{
-    if (file_exists("$attachments_dir/" . $pic["name"]))
-    {
+    if (file_exists("../$attachments_dir/" . $pic["name"])){
         $error_msg = '图片已存在';
     }else{
-        move_uploaded_file($pic["tmp_name"], "$attachments_dir/" . $pic["name"]);
+        if(move_uploaded_file($pic["tmp_name"], "../$attachments_dir/" . $pic["name"])){
+            $pic_link = "$attachments_dir/" . $pic["name"];
+        }
     }
 }
+if($pic_link){
+    $sql = "insert into products(`p_name`, `p_count`, `p_from`, `p_man`, `p_price`, `p_pic`, `p_props`, `p_date`) ".
+        "values ('$name', '$count', '$from', '   $man', '$price', '$pic_link', '$props', '$date')";
+    $writed_product = $db->query($sql);
+    $db->close();
+}
+
+if($writed_product){
+  echo '添加成功';
+}else{
+    echo $error_msg;
+}
+
 //$author = @$_POST['author'];
 //$type = @$_POST['type'];
 //$thumb = @$_POST['thumb'];
