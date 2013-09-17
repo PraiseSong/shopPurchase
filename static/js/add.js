@@ -78,7 +78,7 @@ $(function (){
                 top: ($(window).height()-$('.addProps').height())/2+window.scrollY,
                 left: ($(window).width()-250)/2,
                 zIndex: 101,
-                width: 250,
+                width: "auto",
                 '-webkit-border-radius': "10px",
                 '-webkit-box-shadow': '3px 3px 3px #666'
             });
