@@ -2,10 +2,10 @@
 .pure-form input[type=tel]{
     display: block;
 }
-.pure-control-group label{
+.filed-group label{
     width: 60px;
 }
-.addForm button[type=submit]{
+.addProduct-form button[type=submit]{
     height: 40px;
     font-size: 20px;
 }
@@ -44,68 +44,69 @@
     font-size: 20px;
     display: -webkit-box;
 }
-#header .pure-button,
-#header .content,
-#header .back{
+#header .btn,
+#header .bd,
+#header .back-btn{
     display: block;
     padding: 0;
     text-align: center;
 }
-#header .pure-button,
-#header .back{
+#header .btn,
+#header .back-btn{
     height: 25px;
     line-height: 25px;
     width: 50px;
     font-size: 14px;
     margin-top: 12.5px;
 }
-#header .pure-button{
+#header .btn{
     margin-right: 5px;
 }
-#header .back{
+#header .back-btn{
     margin-left: 5px;
     text-decoration: none;
     color:#fff;
 }
-#header .content{
+#header .bd{
     -webkit-box-flex: 1;
 }
-.pure-control-group,
+
+.filed-group,
 .pure-controls{
     display: -webkit-box;
     margin: 0 5px 10px;
 }
-.pure-control-group label,
-.pure-control-group input,
+.filed-group label,
+.filed-group input,
 .pure-controls button
 {
     display: block;
 }
-.pure-control-group input{
+.filed-group input{
     margin-left: 10px;
 }
-.pure-control-group input{
+.filed-group input{
     -webkit-box-flex: 1;
 }
-.pure-control-group label.inline{
+.filed-group label.inline{
     text-align: left;
     display: inline;
 }
-.pure-control-group label.inline input{
+.filed-group label.inline input{
     display: inline;
 }
-.addForm button[type=submit]{
+.addProduct-form  button[type=submit]{
     width: 80%;
     margin: 0 auto;
     display: block;
 }
-.takePhotoBox{
+.J-takePhotoBox{
     position: relative;
     height: 40px;
     width: 80px;
 }
-.takePhotoBox input,
-.takePhotoBox .pure-button{
+.J-takePhotoBox input,
+.J-takePhotoBox .pure-button{
     position: absolute;
     top: 0;
     left: 0;
@@ -116,16 +117,16 @@
     padding-left: 5px;
     padding-right: 5px;
 }
-.takePhotoBox input{
+.J-takePhotoBox input{
     z-index: 2;
     opacity: 0;
     cursor: pointer;
 }
-.imgBox{
+.J-photoPreview{
     -webkit-box-flex: 1;
     margin-left: 10px;
 }
-.imgBox img{
+.J-photoPreview img{
     max-width: 200px;
     max-height: 200px;
     border: 2px solid #b7b7b7;
@@ -133,17 +134,17 @@
 .propsBox{
     margin-left: 10px;
 }
-.J-props{
+.J-propsHTMLBox{
     margin-bottom: 10px;
     color: #f50;
     font-size: 12px;
 }
-.addProps  .pure-controls button{
+.addPropsForm  .pure-controls button{
     -webkit-box-flex: 1;
     margin-left: 3px;
     margin-right: 3px;
 }
-body .addProps .valueBox input{
+body .addPropsForm .valueBox input{
     display: block;
     -webkit-box-flex: 1;
     width: 130px;
@@ -161,7 +162,7 @@ body .addProps .valueBox input{
 .noProps{
     margin-left: 10px;
 }
-.valuesContainer{
+.J-propValsContainer{
     -webkit-box-flex: 1;
 }
 .valueBox{

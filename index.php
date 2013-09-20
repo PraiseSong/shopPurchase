@@ -13,9 +13,12 @@
 </head>
 <body>
   <header id="header">
-      <span class="content">商品进存管理</span>
-      <a class="pure-button" href="add.html">新增</a>
+      <span class="bd">商品进存管理</span>
+      <a class="pure-button btn" href="add.php">新增</a>
   </header>
+  <div class="J-dataList">
+
+  </div>
 </body>
 <script src="static/js/index.js"></script>
 </html>

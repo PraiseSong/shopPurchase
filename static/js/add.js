@@ -7,8 +7,8 @@
 //take a photo
 $(function (){
     /*上传图片*/
-    var btn = $('#J-takePhoto');
-    var prev = $('.imgBox');
+    var btn = $('.J-takePhotoBox input[type=file]');
+    var prev = $('.J-photoPreview');
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -29,29 +29,29 @@ $(function (){
     btn.on('change', takePhoto);
 
     /*添加属性*/
-    var addBtn = $('#J-addProps');
-    var addProps = function (){
-        var html = '<form class="pure-form addProps"><fieldset>'+
-                        '<div class="pure-control-group">'+
+    var addBtn = $('#J-addProps-btn');
+    var addPropsForm = function (){
+        var html = '<form class="pure-form addPropsForm"><fieldset>'+
+                        '<div class="pure-control-group  filed-group">'+
                             '<label>属性名称</label>'+
-                            '<input type="text" placeholder="如：颜色" id="prop_name">'+
+                            '<input type="text" placeholder="如：颜色" id="J-propName-input">'+
                         '</div>'+
-                        '<div class="pure-control-group">'+
+                        '<div class="pure-control-group  filed-group">'+
                             '<label>属性值</label>'+
-                            '<div class="valuesContainer">'+
+                            '<div class="J-propValsContainer">'+
                                 '<div class="valueBox"><input type="text" placeholder="如：红色" /></div>'+
-                                '<a href="javascript:void(0)" class="J-addValue">增加一个属性值</a>' +
+                                '<a href="javascript:void(0)" class="J-addValue-btn">增加一个属性值</a>' +
                             '</div>'+
                         '</div>'+
                        '<div class="pure-controls">'+
-                            '<button class="pure-button pure-button-error ok">确定</button>'+
+                            '<button class="pure-button pure-button-error J-addPropVal-btn">确定</button>'+
                             '<button class="pure-button close">关闭</button>'+
                        '</div>'+
                    '</fieldset></form>';
         function renderHTML(html){
             var body = $('body');
-            if(!body.find('.addProps').get(0)){
-                $('.addProps').remove();
+            if(!body.find('.addPropsForm').get(0)){
+                $('.addPropsForm').remove();
             }
             body.append(html);
         }
@@ -72,10 +72,10 @@ $(function (){
                 width: "100%",
                 height: $(document).height()
             });
-            $('.addProps').css({
+            $('.addPropsForm').css({
                 background: '#fff',
                 position: "absolute",
-                top: ($(window).height()-$('.addProps').height())/2+window.scrollY,
+                top: ($(window).height()-$('.addPropsForm').height())/2+window.scrollY,
                 left: ($(window).width()-250)/2,
                 zIndex: 101,
                 width: "auto",
@@ -84,23 +84,23 @@ $(function (){
             });
         }
         function closePop(){
-            $('.addProps').remove();
+            $('.addPropsForm').remove();
             $('.mask').remove();
         }
         function bindUI(){
             var delBtns = $('.J-delProp');
             delBtns.unbind().bind("click", function (e){
-                var valueBoxes = $('.valuesContainer .valueBox');
+                var valueBoxes = $('.J-propValsContainer .valueBox');
                 if(valueBoxes.length <= 1){
                     return false;
                 }
                 $(this).parent().remove();
             });
-            $('.addProps .close').unbind().bind('click', function (e){
+            $('.addPropsForm .close').unbind().bind('click', function (e){
                 closePop();
                 return false;
             });
-            $('.J-addValue').unbind().bind('click', function (e){
+            $('.J-addValue-btn').unbind().bind('click', function (e){
                 e.preventDefault();
                 var html =  '<div class="valueBox">'+
                                 '<input type="text" /><span class="J-delProp">删除</span>' +
@@ -108,20 +108,20 @@ $(function (){
                 if($('.noProps').get(0)){
                     $('.noProps').remove();
                 }
-                $('.valuesContainer').prepend(html);
+                $('.J-propValsContainer').prepend(html);
                 bindUI();
             });
-            $('.addProps .ok').unbind().bind('click', function (e){
+            $('.J-addPropVal-btn').unbind().bind('click', function (e){
                 e.preventDefault();
-                var name = $.trim($('.addProps #prop_name').val());
+                var name = $.trim($('.addPropsFormForm #J-propName-input').val());
                 var values = [];
-                var valueBoxes = $('.valuesContainer input[type=text]');
-                var propsContainer = $('.J-props');
+                var valueBoxes = $('.J-propValsContainer input[type=text]');
+                var propsContainer = $('.J-propsHTMLBox');
                 $.each(valueBoxes, function (i, box){
                     values.push($.trim($(box).val()));
                 });
                 if(!name){
-                    $('.addProps #prop_name').focus();
+                    $('.addPropsForm #J-propName-input').focus();
                     return alert("属性名称不能为空");
                 }else if(!values.join('')){
                     return alert('属性值不能为空');
@@ -135,15 +135,15 @@ $(function (){
                 propsContainer.append(html);
                 syncProperties();
                 closePop();
-                $('.J-props .J-delProp').unbind().bind('click', function (){
+                $('.J-propsHTMLBox .J-delProp').unbind().bind('click', function (){
                     $(this).parent().remove();
                     syncProperties();
-                    if($('.J-props .prop').length <= 0){
-                        return $('.J-props').html('暂无商品属性');
+                    if($('.J-propsHTMLBox .prop').length <= 0){
+                        return $('.J-propsHTMLBox').html('暂无商品属性');
                     }
                 });
                 function syncProperties(){
-                    var node = $('.J-properties');
+                    var node = $('.J-properties-field');
                     var props = propsContainer.find('.prop .v');
                     var value = '';
                     $.each(props, function (i, p){
@@ -161,16 +161,16 @@ $(function (){
     };
     addBtn.on('click', function (e){
         e.preventDefault();
-        addProps();
+        addPropsForm();
     });
 
-    $('#J-submit').click(function (e){
+    $('#J-addPropduct-bttn').click(function (e){
         var pNameNode = $('#name');
         var pPriceNode = $('#price');
         var pCount = $('#count');
         var from = $('input[name=from]');
         var man = $('input[name=man]');
-        var photo = $('#J-takePhoto');
+        var photo = $('.J-takePhotoBox input[type=file]');
         var hasFrom = false;
         var hasMan = false;
 

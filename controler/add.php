@@ -13,11 +13,10 @@
 <body>
 
 <?php
-include_once('config.php');
 include_once('db.php');
 
 $db_host = 'localhost';
-$db_name = 'shoppurchase';
+$db_name = 'rib';
 $db_username = 'root';
 $db_password = '';
 
