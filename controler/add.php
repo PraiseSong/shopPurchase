@@ -46,7 +46,7 @@ if ($pic["error"] > 0){
         $error_msg = '图片已存在';
     }else{
         if(move_uploaded_file($pic["tmp_name"], "../$attachments_dir/" . $attachment_name)){
-            $pic_link = "$attachments_dir/" . $pic["name"];
+            $pic_link = "$attachments_dir/" . $attachment_name;
         }
     }
 }
