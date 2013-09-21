@@ -31,7 +31,7 @@ $(function (){
     /*添加属性*/
     var addBtn = $('#J-addProps-btn');
     var addPropsForm = function (){
-        var html = '<form class="pure-form addPropsForm"><fieldset>'+
+        var html = '<form class="pure-form addPropsForm" novalidate><fieldset>'+
                         '<div class="pure-control-group  filed-group">'+
                             '<label>属性名称</label>'+
                             '<input type="text" placeholder="如：颜色" id="J-propName-input">'+
@@ -113,7 +113,7 @@ $(function (){
             });
             $('.J-addPropVal-btn').unbind().bind('click', function (e){
                 e.preventDefault();
-                var name = $.trim($('.addPropsFormForm #J-propName-input').val());
+                var name = $.trim($('.addPropsForm #J-propName-input').val());
                 var values = [];
                 var valueBoxes = $('.J-propValsContainer input[type=text]');
                 var propsContainer = $('.J-propsHTMLBox');

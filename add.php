@@ -18,7 +18,7 @@
     <a class="back-btn" href="index.php">返回</a>
     <span class="bd">添加商品</span>
 </header>
-<form class="pure-form addProduct-form" method="post" action="controler/add.php" enctype="multipart/form-data">
+<form class="pure-form addProduct-form" method="post" action="controler/add.php" enctype="multipart/form-data" novalidate>
     <fieldset>
         <div class="pure-control-group filed-group">
             <label for="name">名称</label>
@@ -27,7 +27,7 @@
 
         <div class="pure-control-group filed-group">
             <label for="price">单价</label>
-            <input id="price" name="price" type="tel" placeholder="商品单价">
+            <input id="price" name="price" type="number" placeholder="商品单价">
         </div>
 
         <div class="pure-control-group filed-group">

@@ -1,5 +1,6 @@
 .pure-form input[type=text],
-.pure-form input[type=tel]{
+.pure-form input[type=tel],
+.pure-form input[type=number]{
     display: block;
 }
 .filed-group label{

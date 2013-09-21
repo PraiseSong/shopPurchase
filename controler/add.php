@@ -34,6 +34,7 @@ $props = @$_POST['properties'];
 $pic = @$_FILES['pic'];
 $pic_link = false;
 $date = date("Y-m-d h:m:s");
+$attachment_name = md5($pic["name"].$date);
 
 $error_msg = false;
 $writed_product = 0;
@@ -41,10 +42,10 @@ $writed_product = 0;
 if ($pic["error"] > 0){
     $error_msg = '图片上传错误';
 }else{
-    if (file_exists("../$attachments_dir/" . $pic["name"])){
+    if (file_exists("../$attachments_dir/" . $attachment_name)){
         $error_msg = '图片已存在';
     }else{
-        if(move_uploaded_file($pic["tmp_name"], "../$attachments_dir/" . $pic["name"])){
+        if(move_uploaded_file($pic["tmp_name"], "../$attachments_dir/" . $attachment_name)){
             $pic_link = "$attachments_dir/" . $pic["name"];
         }
     }
