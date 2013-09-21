@@ -27,6 +27,9 @@ $(function (){
         readURL(btn[0]);
     };
     btn.on('change', takePhoto);
+    btn.on('click', function (){
+        $(this).val('');
+    });
 
     /*添加属性*/
     var addBtn = $('#J-addProps-btn');

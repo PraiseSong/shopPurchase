@@ -14,6 +14,7 @@
 
 <?php
 include_once('db.php');
+include_once('config.php');
 
 $db_host = 'localhost';
 $db_name = 'rib';
@@ -33,8 +34,8 @@ $from = @$_POST['from'];
 $props = @$_POST['properties'];
 $pic = @$_FILES['pic'];
 $pic_link = false;
-$date = date("Y-m-d h:m:s");
-$attachment_name = md5($pic["name"].$date);
+$date = date("Y-m-d h:i:s A");
+$attachment_name = md5($date) . '_' . str_replace(' ', '', $pic["name"]);
 
 $error_msg = false;
 $writed_product = 0;
