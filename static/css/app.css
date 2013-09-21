@@ -168,3 +168,15 @@ body .addPropsForm .valueBox input{
 .valueBox{
     display: -webkit-box;
 }
+
+/*dataList*/
+.J-dataList li{
+    margin: 0;
+    padding: 0;
+    display: -webkit-box;
+    border-bottom: 1px solid #b7b7b7;
+    padding: 3px;
+}
+.J-dataList img{
+    max-width: 150px;
+}
