@@ -1,3 +1,4 @@
+/*cover pure css*/
 .pure-form input[type=text],
 .pure-form input[type=tel],
 .pure-form input[type=number]{
@@ -18,7 +19,6 @@
     border-radius: 4px;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
-
 .pure-button-success {
     background: rgb(28, 184, 65); /* this is a green */
 }
@@ -35,7 +35,7 @@
     background: rgb(66, 184, 221); /* this is a light blue */
 }
 
-/*The css file by Praise*/
+/*common*/
 #header{
     background: #191818;
     color: #fff;
@@ -71,7 +71,36 @@
 #header .bd{
     -webkit-box-flex: 1;
 }
+.tip-box{
+    padding: 5px;
+}
+.tip-box .tip{
+    padding: 5px;
+    -webkit-border-radius: 5px;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.tip-default{
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+}
+.tip-box .tip-default{
+    color: #333;
+}
+.tip-error{
+    background-color: #da4f49;
+}
+.tip-success{
+    background-color: #5bb75b;
+}
+.tip-info{
+    background-color: #49afcd;
+}
+.tip-inverse{
+    background-color: #363636;
+}
 
+/*add product*/
 .filed-group,
 .pure-controls{
     display: -webkit-box;
@@ -177,6 +206,15 @@ body .addPropsForm .valueBox input{
     display: -webkit-box;
     border-bottom: 1px solid #b7b7b7;
     padding: 3px;
+}
+.J-dataList .imgBox{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 0;
+    vertical-align: middle;
+    margin-right: 10px;
 }
 .J-dataList img{
     max-width: 150px;

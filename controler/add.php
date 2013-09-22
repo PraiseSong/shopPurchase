@@ -1,30 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
-    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-    <meta content="telephone=no" name="format-detection" />
-    <title>添加商品----商品进存系统</title>
-    <link rel="stylesheet" href="static/css/pure-min.css" />
-    <link rel="stylesheet" href="static/css/app.css" />
-    <script src="static/js/zepto.min.js"></script>
-</head>
-<body>
-
 <?php
-include_once('db.php');
 include_once('config.php');
+include_once('db.php');
 
 $db_host = 'localhost';
 $db_name = 'rib';
 $db_username = 'root';
-$db_password = '';
+$db_password = 'ZHUqi@159';
 
 $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
 
 $attachments_dir = "attachments";
+$error_msg = '访问异常';
 
 $name = @$_POST['name'];
 $price = @$_POST['price'];
@@ -37,7 +24,6 @@ $pic_link = false;
 $date = date("Y-m-d h:i:s A");
 $attachment_name = md5($date) . '_' . str_replace(' ', '', $pic["name"]);
 
-$error_msg = false;
 $writed_product = 0;
 
 if ($pic["error"] > 0){
@@ -57,13 +43,39 @@ if($pic_link){
     $writed_product = $db->query($sql);
     $db->close();
 }
-
-if($writed_product){
-  echo '添加成功';
-}else{
-    echo $error_msg;
-}
 ?>
 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <title>
+        <?php
+        if($writed_product){
+            echo '添加成功';
+        }else{
+            echo $error_msg;
+        }
+        ?>
+        ----商品进存系统
+    </title>
+    <link rel="stylesheet" href="../static/css/pure-min.css" />
+    <link rel="stylesheet" href="../static/css/reset.css" />
+    <link rel="stylesheet" href="../static/css/app.css" />
+    <script src="../static/js/zepto.min.js"></script>
+</head>
+<body>
+<div class="tip-box">
+    <?php
+    if($writed_product){
+        echo '<p class="tip tip-success">商品添加成功</p>';
+    }else{
+        echo "<p class=\"tip tip-error\">$error_msg</p>";
+    }
+    ?>
+</div>
 </body>
 </html>

@@ -17,12 +17,13 @@ $(function (){
                 url: parameters.api || api,
                 type: parameters.type || 'post',
                 data: parameters.data || '',
-                success: ProductsGetter.success
+                success: ProductsGetter.success,
+                dataType: "json"
             });
         },
         Data2HTML: function (data){
-            var html = '<li>'+
-                '<img src="'+data.attachment+'" alt="'+data.name+'" />'+
+            var html = '<li data-id="p_'+data.id+'">'+
+                '<div class="imgBox"><img src="'+data.attachment+'" alt="'+data.name+'" /></div>'+
                 '<div class="info">'+
                 '<p class="pName">'+data.name+'</p>'+
                 '<div class="extra">'+
@@ -34,16 +35,50 @@ $(function (){
         },
         success: function (data){
             ProductsGetter.pageNum++;
-            console.log(data)
+            if(data.code*1 === 1){
+                if(data.products.length > 0){
+                    ProductsGetter.render(data.products);
+                }else{
+                    ProductsGetter.noData(data);
+                }
+            }else{
+                ProductsGetter.failure(data);
+            }
         },
         abort: function (){},
         failure: function (){},
-        render: function (){
+        render: function (data){
+            var html = '';
+            $.each(data, function (i, p){
+                var pObj = {
+                    id: p.p_id,
+                    name: p.p_name,
+                    frome: p.p_from,
+                    man: p.p_man,
+                    count: p.p_count,
+                    price: p.p_price,
+                    attachment: p.p_pic
+                };
+                html += ProductsGetter.Data2HTML(pObj);
+            });
+
+            dataList.append(html);
+
+            new $.Pop().show();
+        },
+        noData: function (){
 
         }
     };
 
     ProductsGetter.io({
-        data: "limit=10&page="+ProductsGetter.pageNum+""
+        data: "page="+ProductsGetter.pageNum+"&limit=2"
+    });
+
+    $('#J-loadMore-bttn').click(function (e){
+        e.preventDefault();
+        ProductsGetter.io({
+            data: "page="+ProductsGetter.pageNum+"&limit=2"
+        });
     });
 });

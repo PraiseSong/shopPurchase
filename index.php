@@ -13,15 +13,15 @@ include_once('controler/config.php');
     <link rel="stylesheet" href="static/css/reset.css" />
     <link rel="stylesheet" href="static/css/app.css" />
     <script src="static/js/zepto.min.js"></script>
+    <script type="text/javascript" src="static/js/widgets.js"></script>
 </head>
 <body>
   <header id="header">
       <span class="bd">商品进存管理</span>
       <a class="pure-button btn" href="add.php">新增</a>
   </header>
-  <ul class="J-dataList">
-
-  </ul>
+  <ul class="J-dataList"></ul>
+  <button class="pure-button" id="J-loadMore-bttn">加载更多</button>
 </body>
 <script src="static/js/index.js"></script>
 </html>

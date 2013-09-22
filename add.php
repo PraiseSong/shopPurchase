@@ -10,6 +10,7 @@
     <meta content="telephone=no" name="format-detection" />
     <title>添加商品----<?php echo $Product_name; ?></title>
     <link rel="stylesheet" href="static/css/pure-min.css" />
+    <link rel="stylesheet" href="static/css/reset.css" />
     <link rel="stylesheet" href="static/css/app.css" />
     <script src="static/js/zepto.min.js"></script>
 </head>
