@@ -36,6 +36,30 @@
 }
 
 /*common*/
+a:link{
+    color: #0078e7;
+}
+.btn{
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    text-align: center;
+    line-height: 20px;
+}
+.btn-del{
+    color: #fff;
+    font-size: 15px;
+    background: #ff0814;
+}
+.input-text{
+    -webkit-border-radius: 5px;
+    border: 1px solid #bfbfbf;
+    height: 40px;
+    line-height: 40px;
+    outline: none;
+}
+.input-text:focus{
+    border-color: #ffb510;
+}
 #header{
     background: #191818;
     color: #fff;
@@ -98,6 +122,25 @@
 }
 .tip-inverse{
     background-color: #363636;
+}
+.webkit-box{
+    display: -webkit-box;
+}
+.webkit-box .tag,
+.webkit-box .tag-obj{
+    display: block;
+    -webkit-box-flex: 1;
+}
+.webkit-box p{
+    margin-right: 10px;
+    width: 40px;
+}
+.webkit-box .btn{
+    width: 40px;
+    margin-left: 10px;
+    display: block;
+    height: 42px;
+    line-height: 42px;
 }
 
 /*add product*/
@@ -218,4 +261,19 @@ body .addPropsForm .valueBox input{
 }
 .J-dataList img{
     max-width: 150px;
+}
+.input-popUnitPrice{
+    width: 60px;
+    -webkit-box-flex: none;
+}
+.unit-operator{
+    display: block;
+    text-align: center;
+    line-height: 42px;
+    height: 42px;
+    margin: 0 5px;
+}
+.J-Pop-countSelector{
+    width: 45px;
+    height: 42px;
 }

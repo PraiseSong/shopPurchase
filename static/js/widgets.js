@@ -86,7 +86,8 @@ $.Pop.prototype.renderFt = function (){
         height: 40,
         lineHeight: '40px',
         '-webkit-box-flex': '1',
-        cursor: "pointer"
+        cursor: "pointer",
+        '-webkit-border-radius': "0"
     });
     var btn = $('.J-Pop-ft .btn');
     $.each(btn, function (i, n){
@@ -195,10 +196,6 @@ $.Pop.prototype.sync = function (){
     cfg.hd && hd.html(cfg.hd);
     cfg.bd && bd.html(cfg.bd);
     cfg.ft && ft.html();
-
-    setTimeout(function (){
-        self.syncStyle();
-    }, 1500);
 };
 $.Pop.prototype.render = function (){
     this.renderMask();
@@ -211,8 +208,13 @@ $.Pop.prototype.render = function (){
     this.bindUI();
 };
 $.Pop.prototype.show = function (){
+    var self = this;
+
     $('.J-mask').show();
     $('.J-Pop-container').show();
+    setTimeout(function (){
+        self.syncStyle();
+    }, 1500);
     return this;
 };
 $.Pop.prototype.hide = function (){

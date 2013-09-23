@@ -70,25 +70,70 @@ $(function (){
 
         },
         bindUI: function (){
-            var html = '<div class="webkit-box"><p>数量</p><input type="tel" class="tag-obj input-text" />';
+            var pName = '';
+            var pPrice = 0;
+            var pId = null;
+
+            function bindToAddSellPrice(){
+                var self = this;
+                this.bd.find('.J-add-sellPrice').bind('click', function (e){
+                    e.preventDefault();
+                    var html = '<div class="webkit-box"><p>价格</p>';
+                    html += '<input type="number" class="tag-obj input-text input-popUnitPrice" />';
+                    html += '<span class="unit-operator">X</span><select class="J-Pop-countSelector"></select>';
+                    html += '<span class="btn btn-del">删除</span></div>';
+                    $(this).before(html);
+                    bindToDel.call(self);
+                });
+            }
+            function bindToCount(){
+                $('#J-sellCount').bind('blur', function (){
+                    var val = $(this).val();
+                    if(!/\d+/.test(val)){
+                        return;
+                    }
+                    var html = '';
+                    var countSelector = $('.J-Pop-countSelector');
+                    for(var i = 1; i < (val*1)+1; i++){
+                        html += '<option value='+i+'>'+i+'</option>';
+                    }
+                    countSelector.html(html);
+                    var options = countSelector.find("option");
+                    countSelector.find("option")[options.length-1].selected = true;
+                });
+            }
+            function bindToDel(){
+                this.bd.find('.btn-del').unbind().bind('click', function (e){
+                    $(this).parent().remove();
+                });
+            }
+            function bindToOK(){
+                var btn = this.ft.find("btn1");
+                var sellCount = $.trim($('#J-sellCount').val())*1;
+
+            }
+            var html = '<div class="webkit-box"><p>数量</p><input type="tel" class="tag-obj input-text" id="J-sellCount" />';
             html += '</div>';
-            html += '<div class="webkit-box"><p>价格</p><input type="text" class="tag-obj input-text" />';
+            html += '<div class="webkit-box"><p>价格</p><input type="number" class="tag-obj input-text input-popUnitPrice" />';
+            html += '<span class="unit-operator">X</span><select class="J-Pop-countSelector"></select>';
             html += '</div>';
             html += '<a href="javascript:void(0)" class="J-add-sellPrice">增加一种价格</a>';
             ProductsGetter.pop = ProductsGetter.pop || new $.Pop({
                 bd: html,
                 bindUI: function (){
-                    this.bd.find('.J-add-sellPrice').bind('click', function (e){
-                        e.preventDefault();
-                        var html = '<div class="webkit-box"><p>价格</p>';
-                        html += '<input type="text" class="tag-obj input-text" /><span class="btn btn-del">删除</span></div>';
-                        $(this).before(html);
-                    });
+                    bindToAddSellPrice.call(this);
+                    bindToCount.call(this);
+                    bindToOK.call(this);
                 }
             });
             ProductsGetter.pop.render();
             var fn = function (e){
-                ProductsGetter.pop.show().hd.html($(this).find('.pName').html()+' 的销售');
+                pName = $.trim($(this).find('.pName').html());
+                pId = $.trim($(this).attr("data-id"));
+                pPrice = $.trim($(this).find('.cb').html())*1;
+                ProductsGetter.pop.show().hd.html(pName+' 的销售');
+                ProductsGetter.pop.bd.html(html);
+                ProductsGetter.pop.bindUI();
             };
             dataList.find("li").unbind().bind('click', fn);
         }
