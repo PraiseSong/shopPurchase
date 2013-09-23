@@ -35,6 +35,10 @@ $.Pop.prototype.renderBox = function (){
     if(!body.find(".J-Pop-container").get(0)){
         body.append('<div class="J-Pop-container"></div>');
     }
+    $('.J-Pop-container').css({
+        display: 'none'
+    });
+    this.container = $('.J-Pop-container');
 };
 $.Pop.prototype.renderHd = function (){
     var container = $('.J-Pop-container');
@@ -48,15 +52,19 @@ $.Pop.prototype.renderHd = function (){
         fontWeight: 700,
         borderBottom: '1px solid rgb(187, 187, 187)'
     });
+    this.hd = $('.J-Pop-hd');
 };
 $.Pop.prototype.renderBd = function (){
     var container = $('.J-Pop-container');
     if(!container.find('.J-Pop-bd').get(0)){
         container.append('<section class="J-Pop-bd">'+this.renderHTML()+'</section>');
         $('.J-Pop-bd').css({
-            padding: 20
+            padding: 20,
+            height: 100,
+            overflow: "auto"
         });
     }
+    this.bd = $('.J-Pop-bd');
 };
 $.Pop.prototype.renderFt = function (){
     var container = $('.J-Pop-container');
@@ -72,7 +80,7 @@ $.Pop.prototype.renderFt = function (){
     $('.J-Pop-ft .btn').css({
         display: "block",
         textDecoration: "none",
-        color:  "blue",
+        color:  "rgb(6, 67, 107)",
         fontSize: 14,
         textAlign: "center",
         height: 40,
@@ -88,12 +96,16 @@ $.Pop.prototype.renderFt = function (){
             });
         }
     });
+    this.ft = $('.J-Pop-ft');
 };
 $.Pop.prototype.renderMask = function (){
     var body = $('body');
     if(!body.find('.J-mask').get(0)){
         body.append('<div class="J-mask"></div>');
     }
+    $('.J-mask').css({
+        display: 'none'
+    });
 };
 $.Pop.prototype.renderHTML = function (){
     var html = 'body';
@@ -101,6 +113,14 @@ $.Pop.prototype.renderHTML = function (){
     return html;
 };
 $.Pop.prototype.adjustStyle = function (){
+    var viewPortH = 0;
+
+    if($(document).height() <= $(window).height()){
+        viewPortH = $(window).height();
+    }else{
+        viewPortH = $(document).height();
+    }
+
     $('.J-mask').css({
         background: 'rgba(0, 0, 0, .5)',
         position: "absolute",
@@ -108,13 +128,46 @@ $.Pop.prototype.adjustStyle = function (){
         left: 0,
         zIndex: 100,
         width: "100%",
-        height: $(document).height()
+        height: viewPortH
     });
     $('.J-Pop-container').css({
         width: 240,
         background: '#fff',
         position: "absolute",
-        top: ($(window).height()-$('.J-Pop-container').height())/2+window.scrollY,
+        top: (viewPortH-244)/2+window.scrollY,
+        left: ($(window).width()-240)/2,
+        zIndex: 999999999,
+        '-webkit-border-radius': "5px",
+        color: "#333",
+        lineHeight: '22px'
+    });
+};
+$.Pop.prototype.syncStyle = function (){
+    var viewPortH = 0;
+
+    if($(document).height() <= $(window).height()){
+        viewPortH = $(window).height();
+    }else{
+        viewPortH = $(document).height();
+    }
+
+    $('.J-mask').css({
+        background: 'rgba(0, 0, 0, .5)',
+        position: "absolute",
+        top: 0,
+        left: 0,
+        zIndex: 100,
+        width: "100%",
+        height: viewPortH
+    });
+    this.bd.css({
+        height: "auto"
+    });
+    this.container.css({
+        width: 240,
+        background: '#fff',
+        position: "absolute",
+        top: (viewPortH-$('.J-Pop-container').height())/2+window.scrollY,
         left: ($(window).width()-240)/2,
         zIndex: 999999999,
         '-webkit-border-radius': "5px",
@@ -137,12 +190,15 @@ $.Pop.prototype.sync = function (){
     var bd = $('.J-Pop-bd');
     var ft = $('.J-Pop-ft');
     var cfg = this.cfg;
+    var self = this;
 
     cfg.hd && hd.html(cfg.hd);
     cfg.bd && bd.html(cfg.bd);
     cfg.ft && ft.html();
 
-    this.adjustStyle();
+    setTimeout(function (){
+        self.syncStyle();
+    }, 1500);
 };
 $.Pop.prototype.render = function (){
     this.renderMask();
@@ -150,13 +206,14 @@ $.Pop.prototype.render = function (){
     this.renderHd();
     this.renderBd();
     this.renderFt();
+    this.adjustStyle();
     this.sync();
     this.bindUI();
 };
 $.Pop.prototype.show = function (){
-    this.render();
     $('.J-mask').show();
     $('.J-Pop-container').show();
+    return this;
 };
 $.Pop.prototype.hide = function (){
     $('.J-mask').hide();

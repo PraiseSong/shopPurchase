@@ -64,10 +64,33 @@ $(function (){
 
             dataList.append(html);
 
-            new $.Pop().show();
+            ProductsGetter.bindUI();
         },
         noData: function (){
 
+        },
+        bindUI: function (){
+            var html = '<div class="webkit-box"><p>数量</p><input type="tel" class="tag-obj input-text" />';
+            html += '</div>';
+            html += '<div class="webkit-box"><p>价格</p><input type="text" class="tag-obj input-text" />';
+            html += '</div>';
+            html += '<a href="javascript:void(0)" class="J-add-sellPrice">增加一种价格</a>';
+            ProductsGetter.pop = ProductsGetter.pop || new $.Pop({
+                bd: html,
+                bindUI: function (){
+                    this.bd.find('.J-add-sellPrice').bind('click', function (e){
+                        e.preventDefault();
+                        var html = '<div class="webkit-box"><p>价格</p>';
+                        html += '<input type="text" class="tag-obj input-text" /><span class="btn btn-del">删除</span></div>';
+                        $(this).before(html);
+                    });
+                }
+            });
+            ProductsGetter.pop.render();
+            var fn = function (e){
+                ProductsGetter.pop.show().hd.html($(this).find('.pName').html()+' 的销售');
+            };
+            dataList.find("li").unbind().bind('click', fn);
         }
     };
 
