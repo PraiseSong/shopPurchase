@@ -189,12 +189,11 @@ p{
     position: absolute;
     top: 0;
     left: 0;
-    width: 70px;
     height: 20px;
     display: block;
     margin: 0;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .J-takePhotoBox input{
     z-index: 2;
@@ -292,4 +291,33 @@ body .addPropsForm .valueBox input{
     -webkit-appearance: button;
     background: #fff;
     border: 1px solid #ddd;
+}
+a.J-takePhoto-btn{
+    width: auto;
+    background: #0078e7;
+    color: #fff;
+}
+#J-takePhoto-btn{
+    -webkit-appearance: button;
+    -webkit-border-radius: 5px;
+    height: 36px;
+}
+
+/*optional*/
+.optional{
+    margin-top: 20px;
+}
+.optional header{
+    height: 50px;
+    line-height: 40px;
+    text-indent: 10px;
+    border-bottom: 1px solid #aeaeae;
+}
+.optional a{
+    height: 40px;
+    line-height: 40px;
+    text-indent: 10px;
+    display: block;
+    border-bottom: 1px solid #ddd;
+    text-decoration: none;
 }

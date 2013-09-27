@@ -1,5 +1,8 @@
 <?php
   include_once('controler/config.php');
+  include_once('controler/Mobile_Detect.php');
+
+  $detect = new Mobile_Detect;
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,7 +19,7 @@
 </head>
 <body>
 <header id="header">
-    <a class="back-btn" href="index.php">返回</a>
+    <a class="back-btn" href="index.php">&lt; 返回</a>
     <span class="bd">添加商品</span>
 </header>
 <form class="pure-form addProduct-form" method="post" action="controler/add.php" enctype="multipart/form-data" novalidate>
@@ -55,14 +58,22 @@
                 <div class="J-propsHTMLBox">
                     暂无商品属性
                 </div>
-                <a href="javascript:void(0)" id="J-addProps-btn">添加属性</a>
+                <a href="javascript:void(0)" id="J-addProps-btn">&#43; 添加属性</a>
             </div>
         </div>
 
         <div class="pure-control-group filed-group">
             <div class="J-takePhotoBox">
                 <input type="file" name="pic" id="J-takePhoto-btn"/>
-                <a href="javascript:void(0)" class="pure-button pure-button-secondary">上传商品</a>
+                <a href="javascript:void(0)" class="pure-button pure-button-secondary J-takePhoto-btn">
+                    <?php
+                      if ( $detect->isMobile() || $detect->isTablet()) {
+                          echo "拍产品";
+                      }else{
+                          echo "上传产品照";
+                      }
+                    ?>
+                </a>
             </div>
             <div class="J-photoPreview"></div>
         </div>

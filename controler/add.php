@@ -77,5 +77,10 @@ if($pic_link){
     }
     ?>
 </div>
+<aslide class="optional">
+    <header>您还可以</header>
+    <a href="../add.php">继续添加</a>
+    <a href="../index.php">回主页</a>
+</aslide>
 </body>
 </html>
