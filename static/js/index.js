@@ -73,6 +73,7 @@ $(function (){
             var pName = '';
             var pPrice = 0;
             var pId = null;
+            var pMan = '';
 
             function bindToAddSellPrice(){
                 var self = this;
@@ -80,26 +81,34 @@ $(function (){
                     e.preventDefault();
                     var html = '<div class="webkit-box"><p>价格</p>';
                     html += '<input type="number" class="tag-obj input-text input-popUnitPrice" />';
-                    html += '<span class="unit-operator">X</span><select class="J-Pop-countSelector"></select>';
+                    html += '<span class="unit-operator">X</span><select class="J-Pop-countSelector"></select>个';
                     html += '<span class="btn btn-del">删除</span></div>';
                     $(this).before(html);
+                    renderCountSelector();
                     bindToDel.call(self);
                 });
             }
+            function renderCountSelector(){
+                var val = $('#J-sellCount').val();
+                if(!/\d+/.test(val)){
+                    return;
+                }
+                var html = '';
+                var countSelector = $('.J-Pop-countSelector');
+                for(var i = 1; i < (val*1)+1; i++){
+                    html += '<option value='+i+'>'+i+'</option>';
+                }
+                countSelector.html(html);
+                var options = countSelector.find("option");
+                for(var j = 0; j < countSelector.length; j++){
+                    var s = countSelector[j];
+                    var ops = $(s).find('option');
+                    ops[ops.length-1].selected = true;
+                }
+            }
             function bindToCount(){
                 $('#J-sellCount').bind('blur', function (){
-                    var val = $(this).val();
-                    if(!/\d+/.test(val)){
-                        return;
-                    }
-                    var html = '';
-                    var countSelector = $('.J-Pop-countSelector');
-                    for(var i = 1; i < (val*1)+1; i++){
-                        html += '<option value='+i+'>'+i+'</option>';
-                    }
-                    countSelector.html(html);
-                    var options = countSelector.find("option");
-                    countSelector.find("option")[options.length-1].selected = true;
+                    renderCountSelector();
                 });
             }
             function bindToDel(){
@@ -108,14 +117,62 @@ $(function (){
                 });
             }
             function bindToOK(){
-                var btn = this.ft.find("btn1");
-                var sellCount = $.trim($('#J-sellCount').val())*1;
+                var self = this;
+                var btn = this.ft.find(".btn1");
+                var sellCount = 0;
 
+                btn.unbind().bind('click', function (e){
+                    e.preventDefault();
+                    sellCount = $.trim($('#J-sellCount').val())*1;
+                    if(!sellCount){
+                        return alert('销售数量不能为空');
+                    }else if(!/\d+/.test(sellCount)){
+                        return alert('销售数量必须是正数');
+                    }
+                    var countSelector = $('.J-Pop-countSelector');
+                    var unitPrices = $('.input-popUnitPrice');
+                    var selectorsVal = 0;
+                    $.each(countSelector, function (i, s){
+                        selectorsVal += $(s).val()*1;
+                    });
+                    if(selectorsVal !== sellCount){
+                        return alert('总销售数量不匹配');
+                    }
+
+                    var sellDetail = '';
+                    $.each(unitPrices, function (i, price){
+                        if(!$.trim($(price).val())){
+                            sellDetail += '';
+                        }else{
+                            sellDetail += $.trim($(price).val())+'*'+$(countSelector[i]).val();
+                        }
+                        sellDetail += '|';
+                    });
+                    pMan = self.bd.find('input[name=man]').val();
+                    var data = 'count='+sellCount+'&price='+pPrice+"&id="+pId+'&detail='+sellDetail+'&man='+encodeURI(pMan);
+                    sellRecordIO(data);
+                    ProductsGetter.pop.hide();
+                });
             }
-            var html = '<div class="webkit-box"><p>数量</p><input type="tel" class="tag-obj input-text" id="J-sellCount" />';
+            function sellRecordIO(data){
+                $.ajax({
+                    url: "controler/sellRecord.php",
+                    data: data || "",
+                    dataType: 'json',
+                    type: "post",
+                    success: function (data){
+                        console.log(data)
+                    }
+                });
+            }
+            var html = '<div class="webkit-box manBox"><p>谁？</p><div class="tag-obj">';
+            html += '<label><input type="radio" name="man" checked value="黄伟丽">黄伟丽</label>';
+            html += '<label><input type="radio" name="man" value="朱琦">朱琦</label>';
+            html += '</div></div>';
+            html += '<div class="webkit-box"><p>数量</p><input type="tel" class="tag-obj input-text" id="J-sellCount" />';
             html += '</div>';
             html += '<div class="webkit-box"><p>价格</p><input type="number" class="tag-obj input-text input-popUnitPrice" />';
-            html += '<span class="unit-operator">X</span><select class="J-Pop-countSelector"></select>';
+            html += '<span class="unit-operator">X</span><select class="J-Pop-countSelector"></select>个';
             html += '</div>';
             html += '<a href="javascript:void(0)" class="J-add-sellPrice">增加一种价格</a>';
             ProductsGetter.pop = ProductsGetter.pop || new $.Pop({
@@ -124,6 +181,9 @@ $(function (){
                     bindToAddSellPrice.call(this);
                     bindToCount.call(this);
                     bindToOK.call(this);
+                },
+                styles: {
+                    width: 260
                 }
             });
             ProductsGetter.pop.render();
@@ -134,6 +194,7 @@ $(function (){
                 ProductsGetter.pop.show().hd.html(pName+' 的销售');
                 ProductsGetter.pop.bd.html(html);
                 ProductsGetter.pop.bindUI();
+                ProductsGetter.pop.syncStyle();
             };
             dataList.find("li").unbind().bind('click', fn);
         }
@@ -143,7 +204,7 @@ $(function (){
         data: "page="+ProductsGetter.pageNum+"&limit=2"
     });
 
-    $('#J-loadMore-bttn').click(function (e){
+    $('#J-loadMore-btn').click(function (e){
         e.preventDefault();
         ProductsGetter.io({
             data: "page="+ProductsGetter.pageNum+"&limit=2"

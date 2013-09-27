@@ -39,6 +39,10 @@
 a:link{
     color: #0078e7;
 }
+p{
+    margin: 0;
+    padding: 0;
+}
 .btn{
     cursor: pointer;
     -webkit-border-radius: 5px;
@@ -132,8 +136,10 @@ a:link{
     -webkit-box-flex: 1;
 }
 .webkit-box p{
-    margin-right: 10px;
+    margin: 0 10px 10px 0;
     width: 40px;
+    line-height: 42px;
+    height: 42px;
 }
 .webkit-box .btn{
     width: 40px;
@@ -274,6 +280,16 @@ body .addPropsForm .valueBox input{
     margin: 0 5px;
 }
 .J-Pop-countSelector{
-    width: 45px;
+    width: 40px;
     height: 42px;
+}
+.manBox label{
+    margin-right: 10px;
+}
+.J-Pop-countSelector{
+    height: 42px;
+    display: block;
+    -webkit-appearance: button;
+    background: #fff;
+    border: 1px solid #ddd;
 }

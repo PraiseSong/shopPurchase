@@ -6,6 +6,7 @@
  * Time: 6:44 PM
  * To change this template use File | Settings | File Templates.
  */
+include_once('config.php');
 include_once('db.php');
 
 $db_host = 'localhost';
