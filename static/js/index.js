@@ -27,8 +27,8 @@ $(function (){
                 '<div class="info">'+
                 '<p class="pName">'+data.name+'</p>'+
                 '<div class="extra">'+
-                '<p class="kc">'+data.count+'</p>'+
-                '<p class="cb">'+data.price+'</p>'+
+                '<p class="kc">库存：'+data.count+' 个</p>'+
+                '<p class="cbBox">成本：<span class="cb">'+data.price+'</span>元</p>'+
                 '</div>'+
                 '</li>';
             return html;

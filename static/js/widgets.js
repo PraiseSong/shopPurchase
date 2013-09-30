@@ -209,6 +209,7 @@ $.Pop.prototype.render = function (){
     this.adjustStyle();
     this.sync();
     this.bindUI();
+    return this;
 };
 $.Pop.prototype.show = function (){
     var self = this;

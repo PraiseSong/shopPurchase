@@ -12,46 +12,46 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <meta content="telephone=no" name="format-detection" />
     <title>添加商品----<?php echo $Product_name; ?></title>
-    <link rel="stylesheet" href="static/css/pure-min.css" />
     <link rel="stylesheet" href="static/css/reset.css" />
     <link rel="stylesheet" href="static/css/app.css" />
     <script src="static/js/zepto.min.js"></script>
+    <script src="static/js/widgets.js"></script>
 </head>
 <body>
 <header id="header">
     <a class="back-btn" href="index.php">&lt; 返回</a>
     <span class="bd">添加商品</span>
 </header>
-<form class="pure-form addProduct-form" method="post" action="controler/add.php" enctype="multipart/form-data" novalidate>
+<form class="addProduct-form" method="post" action="controler/add.php" enctype="multipart/form-data" novalidate>
     <fieldset>
-        <div class="pure-control-group filed-group">
+        <div class="filed-group">
             <label for="name">名称</label>
             <input id="name" name="name" type="text" placeholder="商品名称">
         </div>
 
-        <div class="pure-control-group filed-group">
+        <div class="filed-group">
             <label for="price">单价</label>
             <input id="price" name="price" type="number" placeholder="商品单价">
         </div>
 
-        <div class="pure-control-group filed-group">
+        <div class="filed-group">
             <label for="count">数量</label>
             <input id="count" name="count" type="tel" placeholder="采购数量">
         </div>
 
-        <div class="pure-control-group filed-group">
+        <div class="filed-group">
             <label>采购人</label>
             <label class="inline"><input type="radio" checked name="man" value="黄伟丽">黄伟丽</label>
             <label class="inline"><input type="radio" name="man" value="朱琦">朱琦</label>
         </div>
 
-        <div class="pure-control-group filed-group">
+        <div class="filed-group">
             <label>采购源</label>
             <label class="inline"><input type="radio" checked name="from" value="东站">东站</label>
             <label class="inline"><input type="radio" name="from" value="义乌">义乌</label>
         </div>
 
-        <div class="pure-control-group filed-group">
+        <div class="filed-group">
             <label>属性</label>
             <div class="propsBox">
                 <input type="hidden" class="J-properties-field" name="properties">
@@ -62,10 +62,10 @@
             </div>
         </div>
 
-        <div class="pure-control-group filed-group">
+        <div class="filed-group">
             <div class="J-takePhotoBox">
                 <input type="file" name="pic" id="J-takePhoto-btn"/>
-                <a href="javascript:void(0)" class="pure-button pure-button-secondary J-takePhoto-btn">
+                <a href="javascript:void(0)" class="pure-button pure-button-secondary J-takePhoto-btn-skin">
                     <?php
                       if ( $detect->isMobile() || $detect->isTablet()) {
                           echo "拍产品";
@@ -78,9 +78,7 @@
             <div class="J-photoPreview"></div>
         </div>
 
-        <div class="pure-controls">
-            <button type="submit" class="pure-button pure-button-error" id="J-addPropduct-bttn">确定</button>
-        </div>
+        <button type="submit" class="btn btn-ok" id="J-addPropduct-btn">确定</button>
     </fieldset>
 </form>
 </body>
