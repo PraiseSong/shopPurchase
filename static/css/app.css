@@ -172,7 +172,7 @@ input[type=email]:focus{
 .J-takePhotoBox{
     position: relative;
     height: 40px;
-    width: 120px;
+    width: 100px;
 }
 .J-takePhotoBox input,
 .J-takePhoto-btn-skin{

@@ -29,8 +29,14 @@ if(!$man){
 
 $sql = "insert into cashier(`p_id`, `count`, `detail`, `man`, `date`) values('$id', $count, '$detail', '$man', '$date')";
 $data = $db->query($sql);
+
+$query_kc_sql = "select p_count from `products` where `p_id` = '$id'";
+$kc_data = $db->queryObject($query_kc_sql);
+$new_count = $kc_data-> p_count - $count;
+$update_kb_sql = "update `products` set `p_count` = $new_count where `p_id` = '$id'";
+$updated_result = $db->query($update_kb_sql);
 $db->close();
 
-$result = array("code" => $data);
+$result = array("code" => $updated_result);
 echo json_encode($result);
 ?>

@@ -27,7 +27,7 @@ $(function (){
                 '<div class="info">'+
                 '<p class="pName">'+data.name+'</p>'+
                 '<div class="extra">'+
-                '<p class="kc">库存：'+data.count+' 个</p>'+
+                '<p class="kcBox">库存：<span class="kc">'+data.count+'</span> 个</p>'+
                 '<p class="cbBox">成本：<span class="cb">'+data.price+'</span>元</p>'+
                 '</div>'+
                 '</li>';
@@ -74,6 +74,8 @@ $(function (){
             var pPrice = 0;
             var pId = null;
             var pMan = '';
+            var sellCount = 0;
+            var currentProduct = null;
 
             function bindToAddSellPrice(){
                 var self = this;
@@ -119,7 +121,6 @@ $(function (){
             function bindToOK(){
                 var self = this;
                 var btn = this.ft.find(".btn1");
-                var sellCount = 0;
 
                 btn.unbind().bind('click', function (e){
                     e.preventDefault();
@@ -164,9 +165,13 @@ $(function (){
                     url: "controler/sellRecord.php",
                     data: data || "",
                     dataType: 'json',
-                    type: "post",
+                    type: "POST",
                     success: function (data){
-                        console.log(data)
+                        if(data.code){
+                            var newCount = currentProduct.find(".kc").html()*1 - sellCount;
+                            currentProduct.find(".kc").html(newCount);
+                            queryTodayOperation();
+                        }
                     }
                 });
             }
@@ -193,6 +198,7 @@ $(function (){
             });
             ProductsGetter.pop.render();
             var fn = function (e){
+                currentProduct = $(this);
                 pName = $.trim($(this).find('.pName').html());
                 pId = $.trim($(this).attr("data-id"));
                 pPrice = $.trim($(this).find('.cb').html())*1;
@@ -206,7 +212,7 @@ $(function (){
     };
 
     ProductsGetter.io({
-        data: "page="+ProductsGetter.pageNum+"&limit=2"
+        data: "page="+ProductsGetter.pageNum+"&limit=10"
     });
 
     $('#J-loadMore-btn').click(function (e){
@@ -215,47 +221,54 @@ $(function (){
             data: "page="+ProductsGetter.pageNum+"&limit=2"
         });
     });
-});
 
-/*查询今日运营状况*/
-$(function (){
-    var yyeNode = $('.yye'),
-        lrNode = $('.lr'),
-        cbNode = $('.cb');
+    /**
+     * 查询今日运营情况
+     */
+    function queryTodayOperation(){
+        var yyeNode = $('.yye'),
+            lrNode = $('.lr'),
+            cbNode = $('.cb');
 
-    var api = 'controler/queryTodayOperation.php';
+        var api = 'controler/queryTodayOperation.php';
 
-    $.ajax({
-        url: api,
-        dataType: "json",
-        type: "POST",
-        success: function (data){
-            if(data.code){
-                renderTodayOperation(data.result);
-            }
-        }
-    });
-
-    function renderTodayOperation(data){
-        var cb = 0;
-        var lr = 0;
-        var yye = 0;
-        $.each(data, function (i, o){
-            var price = o.p_price * 1;
-            var detail = o.detail.split('|');
-            $.each(detail, function (j, d){
-                if(d){
-                    var de = d.split('*');
-                    var selledPrice = de[0];
-                    var selledCount = de[1];
-                    yye += selledPrice * selledCount;
-                    cb += price * selledCount;
+        $.ajax({
+            url: api,
+            dataType: "json",
+            type: "POST",
+            success: function (data){
+                if(data.code){
+                    renderTodayOperation(data.result);
                 }
-            });
+            }
         });
 
-        yyeNode.html(yye);
-        cbNode.html(cb);
-        lrNode.html(yye-cb);
+        function renderTodayOperation(data){
+            var cb = 0;
+            var lr = 0;
+            var yye = 0;
+            $.each(data, function (i, o){
+                var price = o.p_price * 1;
+                var detail = o.detail.split('|');
+                $.each(detail, function (j, d){
+                    if(d){
+                        var de = d.split('*');
+                        var selledPrice = de[0];
+                        var selledCount = de[1];
+                        yye += selledPrice * selledCount;
+                        cb += price * selledCount;
+                    }
+                });
+            });
+
+            yyeNode.html(yye);
+            cbNode.html(cb);
+            lrNode.html(yye-cb);
+        }
     }
+
+    setInterval(function (){
+        queryTodayOperation();
+    }, 600000);
+    queryTodayOperation();
 });
