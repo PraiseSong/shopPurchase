@@ -226,9 +226,10 @@ $(function (){
      * 查询今日运营情况
      */
     function queryTodayOperation(){
-        var yyeNode = $('.yye'),
-            lrNode = $('.lr'),
-            cbNode = $('.cb');
+        var today = $('.todayOperation');
+        var yyeNode = today.find('.yye'),
+            lrNode = today.find('.lr'),
+            cbNode = today.find('.cb');
 
         var api = 'controler/queryTodayOperation.php';
 
