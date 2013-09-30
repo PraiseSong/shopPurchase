@@ -352,3 +352,30 @@ input[type=email]:focus{
     border-bottom: 1px solid #ddd;
     text-decoration: none;
 }
+
+/*index*/
+.todayOperation{
+    line-height: 23px;
+    background: #fbff8a;
+    border: 1px solid #ffd570;
+    margin: 0 30px 20px;
+}
+.todayOperation header{
+    border-bottom: 1px solid #ffd570;
+    color: #c4621f;
+    height: 30px;
+    line-height: 30px;
+    font-weight: 700;
+    font-size: 17px;
+    margin: 0 0 10px 0;
+    text-align: left;
+    text-indent: 10px;
+}
+.todayOperation .bd{
+    padding: 10px;
+}
+.todayOperation .yye,
+.todayOperation .cb,
+.todayOperation .lr{
+    font-weight: 700;
+}

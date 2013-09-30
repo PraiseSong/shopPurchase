@@ -22,7 +22,7 @@ $(function (){
             });
         },
         Data2HTML: function (data){
-            var html = '<li data-id="p_'+data.id+'">'+
+            var html = '<li data-id="'+data.id+'">'+
                 '<div class="imgBox"><img src="'+data.attachment+'" alt="'+data.name+'" /></div>'+
                 '<div class="info">'+
                 '<p class="pName">'+data.name+'</p>'+
@@ -146,10 +146,15 @@ $(function (){
                         }else{
                             sellDetail += $.trim($(price).val())+'*'+$(countSelector[i]).val();
                         }
-                        sellDetail += '|';
+                        if(sellDetail){
+                            sellDetail += '|';
+                        }
                     });
+                    if(!sellDetail){
+                        return alert("价格还没有录入");
+                    }
                     pMan = self.bd.find('input[name=man]').val();
-                    var data = 'count='+sellCount+'&price='+pPrice+"&id="+pId+'&detail='+sellDetail+'&man='+encodeURI(pMan);
+                    var data = 'count='+sellCount+"&id="+pId+'&detail='+sellDetail+'&man='+encodeURI(pMan);
                     sellRecordIO(data);
                     ProductsGetter.pop.hide();
                 });
@@ -210,4 +215,47 @@ $(function (){
             data: "page="+ProductsGetter.pageNum+"&limit=2"
         });
     });
+});
+
+/*查询今日运营状况*/
+$(function (){
+    var yyeNode = $('.yye'),
+        lrNode = $('.lr'),
+        cbNode = $('.cb');
+
+    var api = 'controler/queryTodayOperation.php';
+
+    $.ajax({
+        url: api,
+        dataType: "json",
+        type: "POST",
+        success: function (data){
+            if(data.code){
+                renderTodayOperation(data.result);
+            }
+        }
+    });
+
+    function renderTodayOperation(data){
+        var cb = 0;
+        var lr = 0;
+        var yye = 0;
+        $.each(data, function (i, o){
+            var price = o.p_price * 1;
+            var detail = o.detail.split('|');
+            $.each(detail, function (j, d){
+                if(d){
+                    var de = d.split('*');
+                    var selledPrice = de[0];
+                    var selledCount = de[1];
+                    yye += selledPrice * selledCount;
+                    cb += price * selledCount;
+                }
+            });
+        });
+
+        yyeNode.html(yye);
+        cbNode.html(cb);
+        lrNode.html(yye-cb);
+    }
 });

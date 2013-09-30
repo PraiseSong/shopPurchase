@@ -18,7 +18,6 @@ $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
 
 $id = @$_POST['id'];
-$price = @$_POST['price'];
 $count = @$_POST['count'];
 $detail = @$_POST['detail'];
 $man = @$_POST['man'];
@@ -28,7 +27,7 @@ if(!$man){
     $man = '';
 }
 
-$sql = "insert into cashier(`p_id`, `price`, `count`, `detail`, `man`, `date`) values('$id', '$price', $count, '$detail', '$man', '$date')";
+$sql = "insert into cashier(`p_id`, `count`, `detail`, `man`, `date`) values('$id', $count, '$detail', '$man', '$date')";
 $data = $db->query($sql);
 $db->close();
 
