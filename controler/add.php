@@ -42,6 +42,21 @@ if($pic_link){
         "values ('$name', '$count', '$from', '   $man', '$price', '$pic_link', '$props', '$date')";
     $writed_product = $db->query($sql);
     $db->close();
+
+    $file = '../'.$pic_link;
+    $type=getimagesize($file);//取得图片的大小，类型等
+    @$fp=fopen($file,"r");
+    $file_content=chunk_split(base64_encode(fread($fp,filesize($file))));//base64编码
+    switch($type[2]){//判读图片类型
+        case 1:$img_type="gif";break;
+        case 2:$img_type="jpg";break;
+        case 3:$img_type="png";break;
+    }
+    $img='data:image/'.$img_type.';base64,'.$file_content;//合成图片的base64编码
+    $handle = fopen($file . '.txt', 'w');
+    fwrite($handle, $img);
+    fclose($handle);
+    fclose($fp);
 }
 ?>
 

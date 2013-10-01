@@ -212,13 +212,13 @@ $(function (){
     };
 
     ProductsGetter.io({
-        data: "page="+ProductsGetter.pageNum+"&limit=10"
+        data: "page="+ProductsGetter.pageNum+"&limit=10&attachmentsType=base64"
     });
 
     $('#J-loadMore-btn').click(function (e){
         e.preventDefault();
         ProductsGetter.io({
-            data: "page="+ProductsGetter.pageNum+"&limit=2"
+            data: "page="+ProductsGetter.pageNum+"&limit=10&attachmentsType=base64"
         });
     });
 
