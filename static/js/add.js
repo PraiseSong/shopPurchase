@@ -183,6 +183,10 @@ $(function (){
             alert('请上传商品图片');
             return false;
         }
+
+        $(this).attr("disabled", true).unbind().bind('click', function (e){
+            return false;
+        });
     });
 });
 
