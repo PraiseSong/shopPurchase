@@ -20,7 +20,6 @@ $db->query("SET NAMES 'UTF8'");
 $page = @$_POST['page'];
 $limit_start = 0;
 $limit = @$_POST['limit'];
-$attachments_type = @$_POST['attachmentsType'];
 if(!$page){
     $page = 1;
 }
@@ -29,21 +28,9 @@ if(!$limit){
 }
 $limit_end = (int)$limit;
 $limit_start = (int)$limit*((int)$page-1);
-$sql = "select * from `products` limit $limit_start,$limit_end";
+$sql = "select p_id,p_name,p_count,p_price,p_pic from `products` limit $limit_start,$limit_end";
 $data = $db->queryManyObject($sql);
 $db->close();
-
-if($attachments_type === 'base64'){
-    foreach($data as $k => $v){
-        $file = '../'.$v->p_pic.'.txt';
-        $handle = @fopen($file, 'r');
-        $base64 = @fread($handle, filesize($file));
-        @fclose($handle);
-        if($base64){
-            $v -> p_pic = $base64;
-        }
-    }
-}
 
 $result = array("code" => 1, "products" => $data);
 echo json_encode($result);

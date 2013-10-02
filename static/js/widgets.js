@@ -156,27 +156,11 @@ $.Pop.prototype.syncStyle = function (){
     }
 
     $('.J-mask').css({
-        background: 'rgba(0, 0, 0, .5)',
-        position: "absolute",
-        top: 0,
-        left: 0,
-        zIndex: 100,
-        width: "100%",
         height: docH
     });
-    this.bd.css({
-        height: "auto"
-    });
     this.container.css({
-        width: this.cfg.styles.width || 240,
-        background: '#fff',
-        position: "absolute",
         top: (viewPortH-$('.J-Pop-container').height())/2+window.scrollY,
-        left: ($(window).width()-240)/2,
-        zIndex: 999999999,
-        '-webkit-border-radius': "5px",
-        color: "#333",
-        lineHeight: '22px'
+        left: ($(window).width()-240)/2
     });
 };
 $.Pop.prototype.bindUI = function (){

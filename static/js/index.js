@@ -23,7 +23,7 @@ $(function (){
         },
         Data2HTML: function (data){
             var html = '<li data-id="'+data.id+'">'+
-                '<div class="imgBox"><img src="'+data.attachment+'" alt="'+data.name+'" /></div>'+
+                '<div class="imgBox" data-src="'+data.attachment+'" >加载中...</div>'+
                 '<div class="info">'+
                 '<p class="pName">'+data.name+'</p>'+
                 '<div class="extra">'+
@@ -65,6 +65,22 @@ $(function (){
             dataList.append(html);
 
             ProductsGetter.bindUI();
+
+            var imgs = dataList.find('.imgBox');
+            $.each(imgs, function (i, img){
+                if(!$(img).attr('src')){
+                    var src = $(img).attr('data-src').split('/');
+                    $.ajax({
+                        url: "controler/getBase64.php",
+                        type: "post",
+                        data: "src="+encodeURI(src[1]),
+                        success: function (data){
+                            var imgHtml = '<img src="'+data+'" />';
+                            $(img).attr('data-src', null).html(imgHtml);
+                        }
+                    });
+                }
+            });
         },
         noData: function (){
 
@@ -267,9 +283,5 @@ $(function (){
             lrNode.html(yye-cb);
         }
     }
-
-    setInterval(function (){
-        queryTodayOperation();
-    }, 600000);
     queryTodayOperation();
 });
