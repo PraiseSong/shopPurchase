@@ -8,6 +8,7 @@ include_once('controler/config.php');
     <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <meta content="telephone=no" name="format-detection" />
+    <link href="static/imgs/logo.png" rel="apple-touch-icon-precomposed" />
     <title><?php echo $Product_name; ?></title>
     <link rel="stylesheet" href="static/css/pure-min.css" />
     <link rel="stylesheet" href="static/css/reset.css" />
