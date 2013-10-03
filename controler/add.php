@@ -1,6 +1,7 @@
 <?php
 include_once('config.php');
 include_once('db.php');
+include_once('imageResize.php');
 
 $db_host = 'localhost';
 $db_name = 'rib';
@@ -34,16 +35,18 @@ if ($pic["error"] > 0){
     }else{
         if(move_uploaded_file($pic["tmp_name"], "../$attachments_dir/" . $attachment_name)){
             $pic_link = "$attachments_dir/" . $attachment_name;
+            $pic_thumb_link = "$attachments_dir/thumb_" . $attachment_name;
+            $saved_thumb = img2thumb('../'.$pic_link, '../'.$pic_thumb_link, 100, 100, 0, 0);
         }
     }
 }
 if($pic_link){
     $sql = "insert into products(`p_name`, `p_count`, `p_from`, `p_man`, `p_price`, `p_pic`, `p_props`, `p_date`) ".
-        "values ('$name', '$count', '$from', '   $man', '$price', '$pic_link', '$props', '$date')";
+        "values ('$name', '$count', '$from', '   $man', '$price', '$pic_thumb_link', '$props', '$date')";
     $writed_product = $db->query($sql);
     $db->close();
 
-    $file = '../'.$pic_link;
+    $file = '../'.$pic_thumb_link;
     $type=getimagesize($file);//取得图片的大小，类型等
     @$fp=fopen($file,"r");
     $file_content=chunk_split(base64_encode(fread($fp,filesize($file))));//base64编码

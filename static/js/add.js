@@ -184,9 +184,9 @@ $(function (){
             return false;
         }
 
-        $(this).attr("disabled", true).unbind().bind('click', function (e){
+        $(this).unbind().bind('click', function (e){
             return false;
-        });
+        }).html("提交中...");
     });
 });
 

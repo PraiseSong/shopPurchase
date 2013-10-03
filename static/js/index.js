@@ -23,7 +23,7 @@ $(function (){
         },
         Data2HTML: function (data){
             var html = '<li data-id="'+data.id+'">'+
-                '<div class="imgBox" data-src="'+data.attachment+'" >加载中...</div>'+
+                '<div class="imgBox" data-src="'+data.attachment+'" data-id="'+data.id+'">加载中...</div>'+
                 '<div class="info">'+
                 '<p class="pName">'+data.name+'</p>'+
                 '<div class="extra">'+
@@ -68,7 +68,11 @@ $(function (){
 
             var imgs = dataList.find('.imgBox');
             $.each(imgs, function (i, img){
-                if(!$(img).attr('src')){
+                var id = $(img).attr('data-id');
+                if(src = ProductsGetter.getAttachments(id)){
+                    var imgHtml = '<img src="'+src+'" />';
+                    $(img).attr('data-src', null).html(imgHtml);
+                }else if(!$(img).attr('src')){
                     var src = $(img).attr('data-src').split('/');
                     $.ajax({
                         url: "controler/getBase64.php",
@@ -77,10 +81,41 @@ $(function (){
                         success: function (data){
                             var imgHtml = '<img src="'+data+'" />';
                             $(img).attr('data-src', null).html(imgHtml);
+                            ProductsGetter.setAttachments(id, data);
                         }
                     });
                 }
             });
+        },
+        /**
+         * 根据商品id，在本地保存对应的商品图片的base64
+         * @param id
+         * @param src
+         */
+        setAttachments: function (id, src){
+            var attachments = localStorage.getItem('attachments');
+            if(attachments){
+                attachments = JSON.parse(attachments);
+            }else{
+                attachments = {};
+            }
+            attachments[id] = src;
+            localStorage.setItem('attachments', JSON.stringify(attachments));
+        },
+        /**
+         * 获取本地存储的产品图片的base64字符
+         * @param id 商品id
+         * @returns String 返回商品图片的base64
+         */
+        getAttachments: function (id){
+            var attachments = localStorage.getItem('attachments');
+            if(attachments){
+                attachments = JSON.parse(attachments);
+            }else{
+                return null;
+            }
+
+            return attachments[id];
         },
         noData: function (){
 
