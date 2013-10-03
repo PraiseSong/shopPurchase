@@ -23,7 +23,7 @@ $(function (){
         },
         Data2HTML: function (data){
             var html = '<li data-id="'+data.id+'">'+
-                '<div class="imgBox" data-src="'+data.attachment+'" data-id="'+data.id+'">加载中...</div>'+
+                '<div class="imgBox" data-src="'+data.attachment+'" data-id="'+data.id+'"><img src="static/imgs/ajax-loader.gif"></div>'+
                 '<div class="info">'+
                 '<p class="pName">'+data.name+'</p>'+
                 '<div class="extra">'+
@@ -44,6 +44,7 @@ $(function (){
             }else{
                 ProductsGetter.failure(data);
             }
+            $('#J-loadMore-btn').click(ioByBtn).html("加载更多");
         },
         abort: function (){},
         failure: function (){},
@@ -266,12 +267,14 @@ $(function (){
         data: "page="+ProductsGetter.pageNum+"&limit=10&attachmentsType=base64"
     });
 
-    $('#J-loadMore-btn').click(function (e){
+    function ioByBtn(e){
         e.preventDefault();
+        $('#J-loadMore-btn').html('<img src="static/imgs/ajax-loader.gif" />请求中...').unbind();
         ProductsGetter.io({
-            data: "page="+ProductsGetter.pageNum+"&limit=10&attachmentsType=base64"
+           data: "page="+ProductsGetter.pageNum+"&limit=10&attachmentsType=base64"
         });
-    });
+    }
+    $('#J-loadMore-btn').click(ioByBtn);
 
     /**
      * 查询今日运营情况
