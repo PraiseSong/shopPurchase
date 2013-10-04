@@ -1,23 +1,11 @@
 <?php
-  include_once('controler/config.php');
-  include_once('controler/Mobile_Detect.php');
+  $page_name = '添加商品';
+?>
+<?php
+  include_once('templates/header.php');
 
   $detect = new Mobile_Detect;
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
-    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-    <meta content="telephone=no" name="format-detection" />
-    <title>添加商品----<?php echo $Product_name; ?></title>
-    <link rel="stylesheet" href="static/css/reset.css" />
-    <link rel="stylesheet" href="static/css/app.css" />
-    <script src="static/js/zepto.min.js"></script>
-    <script src="static/js/widgets.js"></script>
-</head>
-<body>
 <header id="header">
     <a class="back-btn" href="index.php">&lt; 返回</a>
     <span class="bd">添加商品</span>
@@ -81,6 +69,7 @@
         <button type="submit" class="btn btn-ok" id="J-addPropduct-btn">确定</button>
     </fieldset>
 </form>
-</body>
 <script src="static/js/add.js"></script>
-</html>
+<?php
+  include_once('templates/footer.php');
+?>

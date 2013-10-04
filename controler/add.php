@@ -1,12 +1,7 @@
 <?php
-include_once('config.php');
-include_once('db.php');
-include_once('imageResize.php');
-
-$db_host = 'localhost';
-$db_name = 'rib';
-$db_username = 'root';
-$db_password = 'ZHUqi@159';
+include_once('../config/config.php');
+include_once('../'.$libs_dir.'/db.php');
+include_once('../'.$libs_dir.'/imageResize.php');
 
 $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
@@ -100,5 +95,6 @@ if($pic_link){
     <a href="../add.php">继续添加</a>
     <a href="../index.php">回主页</a>
 </aslide>
-</body>
-</html>
+<?php
+  include_once('../'.$templates_dir.'/footer.php');
+?>

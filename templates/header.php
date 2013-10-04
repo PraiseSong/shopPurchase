@@ -1,0 +1,26 @@
+<?php
+include_once('config/config.php');
+include_once($libs_dir."/Mobile_Detect.php")
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link href="static/imgs/logo.png" rel="apple-touch-icon-precomposed" />
+    <title>
+        <?php
+            if(isset($page_name)){
+                echo $page_name . '----' . constant("PRODUCT_NAME");
+            }else{
+                echo constant("PRODUCT_NAME");
+            }
+        ?></title>
+    <link rel="stylesheet" href="static/css/reset.css" />
+    <link rel="stylesheet" href="static/css/app.css" />
+    <script src="static/js/zepto.min.js"></script>
+    <script src="static/js/widgets.js"></script>
+</head>
+<body>
