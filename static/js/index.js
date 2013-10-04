@@ -28,7 +28,7 @@ $(function (){
                 '<p class="pName">'+data.name+'</p>'+
                 '<div class="extra">'+
                 '<p class="kcBox">库存：<span class="kc">'+data.count+'</span> 个</p>'+
-                '<p class="cbBox">成本：<span class="cb">'+data.price+'</span>元</p>'+
+                '<p class="cbBox">成本：&yen; <span class="cb">'+data.price+'</span>元</p>'+
                 '</div>'+
                 '</li>';
             return html;
@@ -45,6 +45,7 @@ $(function (){
                 ProductsGetter.failure(data);
             }
             $('#J-loadMore-btn').click(ioByBtn).html("加载更多");
+            $('.init-loading').remove();
         },
         abort: function (){},
         failure: function (){},
@@ -119,7 +120,11 @@ $(function (){
             return attachments[id];
         },
         noData: function (){
-
+            $('.datalist-status').show();
+            ProductsGetter.dataStatusTimers && clearTimeout(ProductsGetter.dataStatusTimers);
+            ProductsGetter.dataStatusTimers = setTimeout(function (){
+                $('.datalist-status').hide();
+            }, 5000)
         },
         bindUI: function (){
             var pName = '';

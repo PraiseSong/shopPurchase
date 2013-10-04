@@ -114,6 +114,7 @@ input[type=email]:focus{
 }
 .tip-info{
     background-color: #49afcd;
+    color: #fff;
 }
 .tip-inverse{
     background-color: #363636;
@@ -248,7 +249,7 @@ input[type=email]:focus{
 }
 .addProduct-form .btn-ok{
     margin: 20px auto;
-    width: 100px;
+    width: 90%;
 }
 .addPropsForm .filed-group label{
     width: 60px;
@@ -278,6 +279,7 @@ input[type=email]:focus{
     display: -webkit-box;
     border-bottom: 1px solid #b7b7b7;
     padding: 3px;
+    cursor: pointer;
 }
 .J-dataList .imgBox{
     width: 100px;
@@ -327,10 +329,20 @@ input[type=email]:focus{
     border: 1px solid #ddd;
 }.dataList-box .btn{
     display: block;
-    width: 80%;
+    width: 90%;
     margin: 20px auto;
  }
-
+.init-loading{
+    text-align: center;
+    padding: 20px 0
+}
+.datalist-status{
+    text-align: center;
+    line-height: 30px;
+    width: 90%;
+    margin: 20px auto 0;
+    display: none;
+}
 
 /*optional*/
 .optional{
@@ -358,11 +370,11 @@ input[type=email]:focus{
     line-height: 23px;
     background: #fbff8a;
     border: 1px solid #ffd570;
-    margin: 0 30px 20px;
+    margin: 0 20px 20px;
 }
 .todayOperation header{
     border-bottom: 1px solid #ffd570;
-    color: #c4621f;
+    color: #a1360c;
     height: 30px;
     line-height: 30px;
     font-weight: 700;
@@ -378,4 +390,16 @@ input[type=email]:focus{
 .todayOperation .cb,
 .todayOperation .lr{
     font-weight: 700;
+}
+.todayOperation .yye{
+    font-size: 30px;
+    color: #202020;
+}
+.todayOperation .lr{
+    font-size: 20px;
+    color: #5c5c5c;
+}
+.todayOperation .cb{
+    font-size: 12px;
+    color: #797979;
 }

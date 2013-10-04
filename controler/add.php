@@ -15,7 +15,7 @@ $count = @$_POST['count'];
 $man = @$_POST['man'];
 $from = @$_POST['from'];
 $props = @$_POST['properties'];
-$pic = $_FILES['pic'];
+$pic = @$_FILES['pic'];
 $pic_link = false;
 $date = date("Y-m-d h:i:s A");
 $attachment_name = md5($date) . '_' . str_replace(' ', '', $pic["name"]);
@@ -73,12 +73,11 @@ if($pic_link){
             echo $error_msg;
         }
         ?>
-        ----商品进存系统
+        ----<?php echo constant("PRODUCT_NAME"); ?>
     </title>
     <link rel="stylesheet" href="../static/css/pure-min.css" />
     <link rel="stylesheet" href="../static/css/reset.css" />
     <link rel="stylesheet" href="../static/css/app.css" />
-    <script src="../static/js/zepto.min.js"></script>
 </head>
 <body>
 <div class="tip-box">

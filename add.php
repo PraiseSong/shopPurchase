@@ -1,5 +1,5 @@
 <?php
-  $page_name = '添加商品';
+  $page_name = '入库';
 ?>
 <?php
   include_once('templates/header.php');
