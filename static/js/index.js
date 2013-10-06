@@ -120,11 +120,7 @@ $(function (){
             return attachments[id];
         },
         noData: function (){
-            $('.datalist-status').show();
-            ProductsGetter.dataStatusTimers && clearTimeout(ProductsGetter.dataStatusTimers);
-            ProductsGetter.dataStatusTimers = setTimeout(function (){
-                $('.datalist-status').hide();
-            }, 5000)
+            $.Alert('没有更新的数据');
         },
         bindUI: function (){
             var pName = '';

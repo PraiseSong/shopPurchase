@@ -19,7 +19,6 @@
           数据初始化
       </div>
       <ul class="J-dataList"></ul>
-      <p class="datalist-status tip-info">没有新数据</p>
       <button class="btn btn-ok" id="J-loadMore-btn">加载更多</button>
   </div>
 <script src="static/js/index.js"></script>

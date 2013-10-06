@@ -53,10 +53,10 @@
         <div class="filed-group">
             <div class="J-takePhotoBox">
                 <input type="file" name="pic" id="J-takePhoto-btn"/>
-                <a href="javascript:void(0)" class="pure-button pure-button-secondary J-takePhoto-btn-skin">
+                <a href="javascript:void(0)" class="J-takePhoto-btn-skin">
                     <?php
                       if ( $detect->isMobile() || $detect->isTablet()) {
-                          echo "拍产品";
+                          echo '<span class="camera"></span>拍产品';
                       }else{
                           echo "上传产品照";
                       }

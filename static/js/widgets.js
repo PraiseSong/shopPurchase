@@ -42,9 +42,10 @@ $.Pop.prototype.renderBox = function (){
 };
 $.Pop.prototype.renderHd = function (){
     var container = $('.J-Pop-container');
-    if(!container.find('.J-Pop-hd').get(0)){
-        container.append('<header class="J-Pop-hd">header</header>');
+    if(container.find('.J-Pop-hd').get(0)){
+        container.find('.J-Pop-hd').remove();
     }
+    container.append('<header class="J-Pop-hd">header</header>');
     $('.J-Pop-hd').css({
         padding: 20,
         textAlign: "center",
@@ -56,23 +57,39 @@ $.Pop.prototype.renderHd = function (){
 };
 $.Pop.prototype.renderBd = function (){
     var container = $('.J-Pop-container');
-    if(!container.find('.J-Pop-bd').get(0)){
-        container.append('<section class="J-Pop-bd">'+this.renderHTML()+'</section>');
-        $('.J-Pop-bd').css({
-            padding: 20,
-            height: 100,
-            overflow: "auto"
-        });
+    if(container.find('.J-Pop-bd').get(0)){
+        container.find('.J-Pop-bd').remove();
     }
+    var h = this.cfg.styles ? this.cfg.styles.height : 100;
+    container.append('<section class="J-Pop-bd">'+this.renderHTML()+'</section>');
+    $('.J-Pop-bd').css({
+        padding: 20,
+        height: h,
+        overflow: "auto"
+    });
+
     this.bd = $('.J-Pop-bd');
 };
 $.Pop.prototype.renderFt = function (){
     var container = $('.J-Pop-container');
-    var html = '<a class="btn btn1">确定</a>';
-    html += '<a class="btn btn2 close">取消</a>';
-    if(!container.find('.J-Pop-ft').get(0)){
-        container.append('<footer class="J-Pop-ft">'+html+'</footer>');
+    var html = '';
+    var isCloseBtn = false;
+    var btns = this.cfg.btns;
+    if(btns){
+        if(btns.length === 1){
+            isCloseBtn = true;
+        }
+        $.each(btns, function (i, btn){
+            html += '<a class="btn btn'+(i+1)+' '+(isCloseBtn ? "close" : "")+'">'+btn+'</a>';
+        });
+    }else{
+        html += '<a class="btn btn1">确定</a>';
+        html += '<a class="btn btn2 close">取消</a>';
     }
+    if(container.find('.J-Pop-ft').get(0)){
+        container.find('.J-Pop-ft').remove();
+    }
+    container.append('<footer class="J-Pop-ft">'+html+'</footer>');
     $('.J-Pop-ft').css({
         display: "-webkit-box",
         borderTop: '1px solid rgb(187, 187, 187)'
@@ -122,6 +139,11 @@ $.Pop.prototype.adjustStyle = function (){
         viewPortH = $(document).height();
     }
 
+    if(this.cfg.styles && this.cfg.styles.width){
+        var containerW = this.cfg.styles.width;
+    }else{
+        containerW = 240;
+    }
     $('.J-mask').css({
         background: 'rgba(0, 0, 0, .5)',
         position: "absolute",
@@ -132,11 +154,11 @@ $.Pop.prototype.adjustStyle = function (){
         height: viewPortH
     });
     $('.J-Pop-container').css({
-        width: this.cfg.styles.width || 240,
+        width: containerW,
         background: '#fff',
         position: "absolute",
         top: (viewPortH-244)/2+window.scrollY,
-        left: ($(window).width()-240)/2,
+        left: ($(window).width()-containerW)/2,
         zIndex: 999999999,
         '-webkit-border-radius': "5px",
         color: "#333",
@@ -155,12 +177,17 @@ $.Pop.prototype.syncStyle = function (){
         docH = $(document).height();
     }
 
+    if(this.cfg.styles && this.cfg.styles.width){
+        var containerW = this.cfg.styles.width;
+    }else{
+        containerW = 240;
+    }
     $('.J-mask').css({
         height: docH
     });
     this.container.css({
         top: (viewPortH-$('.J-Pop-container').height())/2+window.scrollY,
-        left: ($(window).width()-240)/2
+        left: ($(window).width()-containerW)/2
     });
 };
 $.Pop.prototype.bindUI = function (){
@@ -182,7 +209,7 @@ $.Pop.prototype.sync = function (){
 
     cfg.hd && hd.html(cfg.hd);
     cfg.bd && bd.html(cfg.bd);
-    cfg.ft && ft.html();
+    cfg.ft && ft.html(cfg.ft);
 };
 $.Pop.prototype.render = function (){
     this.renderMask();
@@ -206,4 +233,15 @@ $.Pop.prototype.hide = function (){
     $('.J-mask').hide();
     $('.J-Pop-container').hide();
 };
+$.Alert = function (msg){
+    $.Alert.self = $.Alert.self || new $.Pop({
+        hd: "夜市记账",
+        bd: msg,
+        btns: ['关闭'],
+        styles: {
+            height: 30
+        }
+    });
+    $.Alert.self.render().show();
+}
 

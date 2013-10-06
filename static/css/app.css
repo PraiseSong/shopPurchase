@@ -11,6 +11,8 @@ input[type=email]{
     line-height: 42px;
     outline: none;
     text-indent: 10px;
+    background: #fff;
+    -webkit-box-shadow: inset 2px 2px 2px #ddd;
 }
 input[type=text]:focus,
 input[type=tel]:focus,
@@ -69,8 +71,10 @@ input[type=email]:focus{
 #header .btn,
 #header .back-btn{
     line-height: 25px;
-    margin-top: 12.5px;
+    margin-top: 10px;
     font-size: 14px;
+    line-height: 30px;
+    height: 30px;
 }
 #header .btn{
     margin-right: 5px;
@@ -85,8 +89,6 @@ input[type=email]:focus{
 #header .btn-info{
     color: #fff;
     text-decoration: none;
-    line-height: 30px;
-    height: 30px;
     padding: 0 10px;
     display: block;
 }
@@ -139,6 +141,17 @@ input[type=email]:focus{
     display: block;
     height: 42px;
     line-height: 42px;
+}
+
+/*icon*/
+.camera{
+    background: url(../imgs/camera.png);
+    background-size: 24px 24px;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    margin: 10px 0 0 -25px;
 }
 
 /*add product*/
@@ -275,7 +288,6 @@ input[type=email]:focus{
 /*dataList*/
 .J-dataList li{
     margin: 0;
-    padding: 0;
     display: -webkit-box;
     border-bottom: 1px solid #b7b7b7;
     padding: 3px;
@@ -289,7 +301,7 @@ input[type=email]:focus{
     line-height: 100px;
     vertical-align: middle;
     margin-right: 10px;
-    border: 1px solid #dddddd;
+    border: 1px solid #ddd;
     padding: 1px;
     background: #fff;
 }
