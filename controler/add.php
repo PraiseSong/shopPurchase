@@ -15,6 +15,7 @@ $count = @$_POST['count'];
 $man = @$_POST['man'];
 $from = @$_POST['from'];
 $props = @$_POST['properties'];
+$types = @$_POST['types'];
 $pic = @$_FILES['pic'];
 $pic_link = false;
 $date = date("Y-m-d h:i:s A");
@@ -36,8 +37,8 @@ if ($pic["error"] > 0){
     }
 }
 if($pic_link){
-    $sql = "insert into products(`p_name`, `p_count`, `p_from`, `p_man`, `p_price`, `p_pic`, `p_props`, `p_date`) ".
-        "values ('$name', '$count', '$from', '   $man', '$price', '$pic_thumb_link', '$props', '$date')";
+    $sql = "insert into products(`p_name`, `p_count`, `p_from`, `p_man`, `p_price`, `p_pic`, `p_props`, `p_date`, `p_type`) ".
+        "values ('$name', '$count', '$from', '   $man', '$price', '$pic_thumb_link', '$props', '$date', '$types')";
     $writed_product = $db->query($sql);
     $db->close();
 

@@ -125,7 +125,7 @@ $(function (){
                 return false;
             });
         }
-        pop.render().show();
+        pop.render().show().syncStyle();
     };
     addBtn.on('click', function (e){
         e.preventDefault();
@@ -188,6 +188,122 @@ $(function (){
             return false;
         }).html("提交中...");
     });
+});
+
+/**
+ * 查询分类
+ */
+$(function (){
+    var typesBox = $('.typesBox');
+    var api = 'controler/types.php';
+    var pop = null;
+    var addTypeBtnHTML = '<a href="javascript:void(0)" id="J-addType">&#43; 添加分类</a>';
+
+    queryTypes();
+
+    function noData(){
+        typesBox.html('<p>暂无商品分类</p>'+addTypeBtnHTML);
+        bindUI();
+    }
+
+    function bindUI(){
+        var addbtn = $('#J-addType');
+        var typeSelect = $('#J-types');
+        addbtn.get(0) && addbtn.unbind().bind('click', function (e){
+            e.preventDefault();
+            var html = '<div class="filed-group"><label>名称</label><input type="text" id="J-typeName" /></div>';
+            pop = new $.Pop({
+                hd: "添加商品分类",
+                bd: html,
+                bindUI: function (){
+                    this.ft.find('.btn1').bind("click", function (e){
+                        e.preventDefault();
+                        var name = $.trim($('#J-typeName').val());
+                        if(!name){
+                            $('#J-typeName').focus();
+                            return alert("请输入分类名称");
+                        }else if(name.length === 1){
+                            $('#J-typeName').focus();
+                            return alert('分类名称至少要2个字符吧');
+                        }
+
+                        addType();
+                    })
+                },
+                styles: {
+                    height: "auto"
+                }
+            });
+            pop.render().show().syncStyle();
+        });
+
+        typeSelect.get(0) && typeSelect.unbind().bind("change", function (){
+            syncTypeHidden();
+        });
+    }
+
+    function syncTypeHidden(){
+        var options = $('#J-types').find("option");
+        var id = null;
+        $.each(options, function (i, o){
+            if($(o).attr("selected")){
+                id = $(o).attr("data-id");
+                return false;
+            }
+        });
+        $('#J-types-hide').val(id);
+    }
+
+    function addType(){
+        $.ajax({
+            url: api,
+            data: "action=add&name="+encodeURI($.trim($('#J-typeName').val())),
+            dataType: "json",
+            type: "POST",
+            success: function (data){
+                if(data.code === 1 && data.data){
+                    console.log("添加分类成功");
+                    queryTypes();
+                    pop.hide();
+                }
+            }
+        });
+    }
+
+    function queryTypes(){
+        $.ajax({
+            url: api,
+            data: "action=query",
+            dataType: "json",
+            type: "POST",
+            success: function (data){
+                if(data.code === 1){
+                    if(data.data.length >= 1){
+                        renderTypes(data.data);
+                    }else{
+                        noData();
+                    }
+                }
+            }
+        });
+    }
+
+    function renderTypes(data){
+        var html = '<select id="J-types" class="full-screen">';
+        $.each(data, function (i, type){
+            var currentName = $('#J-typeName').get(0) && $.trim($('#J-typeName').val());
+            var selected = '';
+            if(currentName && type.name === currentName){
+                selected = "selected";
+            }
+            html += '<option data-id="'+type.id+'" '+selected+'>'+type.name+'</option>';
+        });
+        html += '</select>';
+        html += addTypeBtnHTML;
+        typesBox.html(html);
+        bindUI();
+        syncTypeHidden();
+    }
 });
 
 

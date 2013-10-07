@@ -23,6 +23,14 @@ input[type=email]:focus{
 }
 
 /*common*/
+.full-screen{
+    display: block;
+}
+select.full-screen{
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+}
 .btn{
     cursor: pointer;
     -webkit-border-radius: 3px;
@@ -284,6 +292,15 @@ input[type=email]:focus{
     line-height: 40px;
     display: block;
 }
+.typesBox{
+    margin-left: 10px;
+    -webkit-box-flex: 1;
+}
+#J-addType{
+    height: 40px;
+    line-height: 40px;
+    display: block;
+}
 
 /*dataList*/
 .J-dataList li{
@@ -294,15 +311,13 @@ input[type=email]:focus{
     cursor: pointer;
 }
 .J-dataList .imgBox{
-    width: 100px;
-    height: 100px;
+    width: 104px;
+    height: 104px;
     overflow: hidden;
     text-align: center;
     line-height: 100px;
     vertical-align: middle;
     margin-right: 10px;
-    border: 1px solid #ddd;
-    padding: 1px;
     background: #fff;
 }
 .J-dataList .info{

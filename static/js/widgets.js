@@ -242,6 +242,6 @@ $.Alert = function (msg){
             height: 30
         }
     });
-    $.Alert.self.render().show();
+    $.Alert.self.render().show().syncStyle();
 }
 

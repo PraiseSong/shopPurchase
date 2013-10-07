@@ -28,6 +28,13 @@
         </div>
 
         <div class="filed-group">
+            <label for="count">分类 <input type="hidden" id="J-types-hide" name="types"/> </label>
+            <div class="typesBox">
+                <img src="static/imgs/ajax-loader.gif" alt="loading"/>
+            </div>
+        </div>
+
+        <div class="filed-group">
             <label>采购人</label>
             <label class="inline"><input type="radio" checked name="man" value="黄伟丽">黄伟丽</label>
             <label class="inline"><input type="radio" name="man" value="朱琦">朱琦</label>
