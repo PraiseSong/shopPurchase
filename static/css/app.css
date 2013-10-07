@@ -100,6 +100,10 @@ select.full-screen{
     padding: 0 10px;
     display: block;
 }
+#header .filter{
+    height: 24px;
+    margin-left: 5px;
+}
 .tip-box{
     padding: 5px;
 }
@@ -160,6 +164,14 @@ select.full-screen{
     height: 24px;
     position: absolute;
     margin: 10px 0 0 -25px;
+}
+.filter{
+    background: url(../imgs/filter.png);
+    background-size: 24px 24px;
+    width: 24px;
+    height: 24px;
+    display: block;
+    text-indent: -10000px;
 }
 
 /*add product*/
