@@ -34,6 +34,7 @@ $(function (){
 
     /*添加属性*/
     var addBtn = $('#J-addProps-btn');
+    var pop = null;
     var addPropsForm = function (){
         var html = '<form class="addPropsForm" novalidate><fieldset>'+
                         '<div class="filed-group">'+
@@ -48,7 +49,7 @@ $(function (){
                             '</div>'+
                         '</div>'+
                    '</fieldset></form>';
-        var pop = new $.Pop({
+        pop = pop || new $.Pop({
             hd: "添加商品属性",
             bd: html,
             bindUI: function (){
@@ -66,10 +67,6 @@ $(function (){
                     return false;
                 }
                 $(this).parent().remove();
-            });
-            $('.addPropsForm .close').unbind().bind('click', function (e){
-                closePop();
-                return false;
             });
             $('.J-addValue-btn').unbind().bind('click', function (e){
                 e.preventDefault();
