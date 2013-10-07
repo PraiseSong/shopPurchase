@@ -28,50 +28,49 @@ $.extends = function (sub, par){
  */
 $.Pop = function (cfg){
     this.cfg = cfg || {};
+    this.id = 'pop'+new Date().getTime();
 };
 $.extends($.Pop, $.Widgets);
 $.Pop.prototype.renderBox = function (){
     var body = $('body');
-    if(!body.find(".J-Pop-container").get(0)){
-        body.append('<div class="J-Pop-container"></div>');
-    }
-    $('.J-Pop-container').css({
+    body.append('<div class="J-Pop-container" id="'+this.id+'"></div>');
+    $('#'+this.id+'').css({
         display: 'none'
     });
-    this.container = $('.J-Pop-container');
+    this.container = $('#'+this.id+'');
 };
 $.Pop.prototype.renderHd = function (){
-    var container = $('.J-Pop-container');
+    var container = $('#'+this.id+'');
     if(container.find('.J-Pop-hd').get(0)){
         container.find('.J-Pop-hd').remove();
     }
     container.append('<header class="J-Pop-hd">header</header>');
-    $('.J-Pop-hd').css({
+    container.find('.J-Pop-hd').css({
         padding: 20,
         textAlign: "center",
         fontSize: 15,
         fontWeight: 700,
         borderBottom: '1px solid rgb(187, 187, 187)'
     });
-    this.hd = $('.J-Pop-hd');
+    this.hd = container.find('.J-Pop-hd');
 };
 $.Pop.prototype.renderBd = function (){
-    var container = $('.J-Pop-container');
+    var container = $('#'+this.id+'');
     if(container.find('.J-Pop-bd').get(0)){
         container.find('.J-Pop-bd').remove();
     }
     var h = this.cfg.styles ? this.cfg.styles.height : 100;
     container.append('<section class="J-Pop-bd">'+this.renderHTML()+'</section>');
-    $('.J-Pop-bd').css({
+    container.find('.J-Pop-bd').css({
         padding: 20,
         height: h,
         overflow: "auto"
     });
 
-    this.bd = $('.J-Pop-bd');
+    this.bd = container.find('.J-Pop-bd');
 };
 $.Pop.prototype.renderFt = function (){
-    var container = $('.J-Pop-container');
+    var container = $('#'+this.id+'');
     var html = '';
     var isCloseBtn = false;
     var btns = this.cfg.btns;
@@ -90,11 +89,11 @@ $.Pop.prototype.renderFt = function (){
         container.find('.J-Pop-ft').remove();
     }
     container.append('<footer class="J-Pop-ft">'+html+'</footer>');
-    $('.J-Pop-ft').css({
+    container.find('.J-Pop-ft').css({
         display: "-webkit-box",
         borderTop: '1px solid rgb(187, 187, 187)'
     });
-    $('.J-Pop-ft .btn').css({
+    container.find('.J-Pop-ft .btn').css({
         display: "block",
         textDecoration: "none",
         color:  "rgb(6, 67, 107)",
@@ -106,7 +105,7 @@ $.Pop.prototype.renderFt = function (){
         cursor: "pointer",
         '-webkit-border-radius': "0"
     });
-    var btn = $('.J-Pop-ft .btn');
+    var btn = container.find('.J-Pop-ft .btn');
     $.each(btn, function (i, n){
         if(i !== 0){
             $(n).css({
@@ -153,7 +152,7 @@ $.Pop.prototype.adjustStyle = function (){
         width: "100%",
         height: viewPortH
     });
-    $('.J-Pop-container').css({
+    this.container.css({
         width: containerW,
         background: '#fff',
         position: "absolute",
@@ -186,7 +185,7 @@ $.Pop.prototype.syncStyle = function (){
         height: docH
     });
     this.container.css({
-        top: (viewPortH-$('.J-Pop-container').height())/2+window.scrollY,
+        top: (viewPortH-this.container.height())/2+window.scrollY,
         left: ($(window).width()-containerW)/2
     });
 };
@@ -194,16 +193,16 @@ $.Pop.prototype.bindUI = function (){
     var cfg = this.cfg;
     var self = this;
     cfg.bindUI && cfg.bindUI.call(this);
-    $('.J-Pop-ft .close').unbind().bind("click", function (e){
+    this.container.find('.J-Pop-ft .close').unbind().bind("click", function (e){
         e.preventDefault();
         self.hide();
     });
 };
 $.Pop.prototype.sync = function (){
-    var container = $('.J-Pop-container');
-    var hd = $('.J-Pop-hd');
-    var bd = $('.J-Pop-bd');
-    var ft = $('.J-Pop-ft');
+    var container = this.container;
+    var hd = container.find('.J-Pop-hd');
+    var bd = container.find('.J-Pop-bd');
+    var ft = container.find('.J-Pop-ft');
     var cfg = this.cfg;
     var self = this;
 
@@ -226,22 +225,23 @@ $.Pop.prototype.show = function (){
     var self = this;
 
     $('.J-mask').show();
-    $('.J-Pop-container').show();
+    this.container.show();
     return this;
 };
 $.Pop.prototype.hide = function (){
     $('.J-mask').hide();
-    $('.J-Pop-container').hide();
+    this.container.hide();
 };
 $.Alert = function (msg){
-    $.Alert.self = $.Alert.self || new $.Pop({
+    $.Alert.self = new $.Pop({
         hd: "夜市记账",
         bd: msg,
         btns: ['关闭'],
         styles: {
-            height: 30
+            height: 40
         }
     });
     $.Alert.self.render().show().syncStyle();
+    return $.Alert.self;
 }
 
