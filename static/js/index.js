@@ -10,8 +10,9 @@ $(function (){
 
     var ProductsGetter = {
         pageNum : 1,
+        type: null,//商品分类id
         cleaner: function (){
-            ProductsGetter.pageNum = 0;
+            ProductsGetter.pageNum = 1;
             dataList.html('');
         },
         io: function (parameters){
@@ -275,8 +276,12 @@ $(function (){
     function ioByBtn(e){
         e.preventDefault();
         $('#J-loadMore-btn').html('<img src="static/imgs/ajax-loader.gif" />请求中...').unbind();
+        var data = "page="+ProductsGetter.pageNum+"&limit=10&attachmentsType=base64";
+        if(ProductsGetter.type){
+            data = "page="+ProductsGetter.pageNum+"&limit=10&attachmentsType=base64&type="+ProductsGetter.type+""
+        }
         ProductsGetter.io({
-           data: "page="+ProductsGetter.pageNum+"&limit=10&attachmentsType=base64"
+           data: data
         });
     }
     $('#J-loadMore-btn').click(ioByBtn);
@@ -357,7 +362,7 @@ $(function (){
             $.each(data, function (i, type){
                 html += '<li><a href="javascript:void(0)" data-id="'+type.id+'">'+type.name+'</a></li>';
             });
-            html += '</ul>';
+            html += '<li><a href="javascript:void(0)" data-id="all">查看全部商品</a></li></ul>';
             body.append(html);
             body.find('.overlay-container').css({
                 left: btn.offset().left + 24,
@@ -372,9 +377,13 @@ $(function (){
                 e.preventDefault();
                 container.hide();
                 var typeId = $(this).attr('data-id');
+                if(typeId === 'all'){
+                    typeId = null;
+                }
                 ProductsGetter.cleaner();
+                ProductsGetter.type = typeId;
                 ProductsGetter.io({
-                    data: "page="+ProductsGetter.pageNum+"&limit=10&attachmentsType=base64&type="+typeId+""
+                    data: "page="+ProductsGetter.pageNum+"&limit=10&attachmentsType=base64&type="+(typeId ? typeId : '')+""
                 });
             });
         }
