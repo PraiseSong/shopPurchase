@@ -15,6 +15,7 @@ $db->query("SET NAMES 'UTF8'");
 $page = @$_POST['page'];
 $limit_start = 0;
 $limit = @$_POST['limit'];
+$type = @$_POST['type'];
 if(!$page){
     $page = 1;
 }
@@ -24,6 +25,9 @@ if(!$limit){
 $limit_end = (int)$limit;
 $limit_start = (int)$limit*((int)$page-1);
 $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` limit $limit_start,$limit_end";
+if($type){
+    $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where p_type=$type limit $limit_start,$limit_end";
+}
 $data = $db->queryManyObject($sql);
 $db->close();
 

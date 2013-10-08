@@ -23,6 +23,27 @@ input[type=email]:focus{
 }
 
 /*common*/
+.overlay-container{
+    background: rgba(255, 255, 255, .95);
+    -webkit-border-radius: 3px;
+    border: 1px solid #ddd;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+.overlay-container li{
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #ddd;
+    padding: 0 20px 0 10px;
+}
+.overlay-container li:last-child{
+    border: none;
+}
+.overlay-container li a{
+    display: block;
+}
 .full-screen{
     display: block;
 }

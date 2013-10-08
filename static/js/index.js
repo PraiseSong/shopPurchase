@@ -10,6 +10,10 @@ $(function (){
 
     var ProductsGetter = {
         pageNum : 1,
+        cleaner: function (){
+            ProductsGetter.pageNum = 0;
+            dataList.html('');
+        },
         io: function (parameters){
             var parameters = parameters || {};
             var api = 'controler/queryProducts.php';
@@ -323,6 +327,60 @@ $(function (){
         }
     }
     queryTodayOperation();
+
+    function bindUIToFilter(){
+        var btn = $('#J-filter-btn');
+        var api = 'controler/types.php';
+        var body = $('body');
+        btn.bind("click", showTypes);
+        function showTypes(){
+            if(body.find('.overlay-container').get(0)){
+                body.find('.overlay-container').remove();
+            }
+            $.ajax({
+                url: api,
+                data: "action=query",
+                dataType: "json",
+                type: "POST",
+                success: function (data){
+                    if(data.code === 1){
+                        if(data.data.length >= 1){
+                            renderTypes(data.data);
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderTypes(data){
+            var html = '<ul class="overlay-container">';
+            $.each(data, function (i, type){
+                html += '<li><a href="javascript:void(0)" data-id="'+type.id+'">'+type.name+'</a></li>';
+            });
+            html += '</ul>';
+            body.append(html);
+            body.find('.overlay-container').css({
+                left: btn.offset().left + 24,
+                top: btn.offset().top + 24
+            });
+            bindUI();
+        }
+
+        function bindUI(){
+            var container = $('.overlay-container');
+            container.find("a").unbind().bind('click', function (e){
+                e.preventDefault();
+                container.hide();
+                var typeId = $(this).attr('data-id');
+                ProductsGetter.cleaner();
+                ProductsGetter.io({
+                    data: "page="+ProductsGetter.pageNum+"&limit=10&attachmentsType=base64&type="+typeId+""
+                });
+            });
+        }
+    }
+
+    bindUIToFilter();
 
     $(window).on("load", function (){
         setTimeout(function (){
