@@ -220,7 +220,7 @@ $(function (){
                         return alert("价格还没有录入");
                     }
                     pMan = self.bd.find('input[name=man]').val();
-                    var data = 'count='+sellCount+"&id="+pId+'&detail='+sellDetail+'&man='+encodeURI(pMan);
+                    var data = 'count='+sellCount+"&id="+ProductsGetter.pId+'&detail='+sellDetail+'&man='+encodeURI(pMan);
                     sellRecordIO(data);
                     ProductsGetter.pop.hide();
                 });
@@ -233,8 +233,8 @@ $(function (){
                     type: "POST",
                     success: function (data){
                         if(data.code){
-                            var newCount = currentProduct.find(".kc").html()*1 - sellCount;
-                            currentProduct.find(".kc").html(newCount);
+                            var newCount = ProductsGetter.currentProduct.find(".kc").html()*1 - sellCount;
+                            ProductsGetter.currentProduct.find(".kc").html(newCount);
                             queryTodayOperation();
                         }
                     }
@@ -263,10 +263,10 @@ $(function (){
             });
             ProductsGetter.pop.render();
             var fn = function (e){
-                currentProduct = $(this);
-                pName = $.trim($(this).find('.pName').html());
-                pId = $.trim($(this).attr("data-id"));
-                pPrice = $.trim($(this).find('.cb').html())*1;
+                ProductsGetter.currentProduct = $(this);
+                ProductsGetter.pName = $.trim(ProductsGetter.currentProduct.find('.pName').html());
+                ProductsGetter.pId = $.trim(ProductsGetter.currentProduct.attr("data-id"));
+                ProductsGetter.pPrice = $.trim(ProductsGetter.currentProduct.find('.cb').html())*1;
                 ProductsGetter.pop.show().hd.html(pName+' 的销售');
                 ProductsGetter.pop.bd.html(html);
                 ProductsGetter.pop.bindUI();
