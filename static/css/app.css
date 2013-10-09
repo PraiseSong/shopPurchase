@@ -37,13 +37,13 @@ input[type=email]:focus{
     height: 40px;
     line-height: 40px;
     border-bottom: 1px solid #ddd;
-    padding: 0 20px 0 10px;
 }
 .overlay-container li:last-child{
     border: none;
 }
 .overlay-container li a{
     display: block;
+    padding: 0 20px 0 10px;
 }
 .full-screen{
     display: block;
@@ -343,6 +343,11 @@ select.full-screen{
     border-bottom: 1px solid #b7b7b7;
     padding: 3px;
     cursor: pointer;
+}
+.dataList-box .loading{
+    line-height: 40px;
+    text-align: center;
+    display: none;
 }
 .J-dataList .imgBox{
     width: 104px;

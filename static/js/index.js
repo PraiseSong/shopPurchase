@@ -15,6 +15,12 @@ $(function (){
             ProductsGetter.pageNum = 1;
             dataList.html('');
         },
+        start: function (){
+            $('.dataList-box .loading').show();
+        },
+        complete: function (){
+            $('.dataList-box .loading').hide();
+        },
         io: function (parameters){
             var parameters = parameters || {};
             var api = 'controler/queryProducts.php';
@@ -51,6 +57,7 @@ $(function (){
             }
             $('#J-loadMore-btn').click(ioByBtn).html("加载更多");
             $('.init-loading').remove();
+            ProductsGetter.complete();
         },
         abort: function (){},
         failure: function (){},
@@ -339,9 +346,11 @@ $(function (){
         var body = $('body');
         btn.bind("click", showTypes);
         function showTypes(){
-            if(body.find('.overlay-container').get(0)){
-                body.find('.overlay-container').remove();
-            }
+            $('body').append('<div class="overlay-container" style="padding: 10px;">加载中...</div>');
+            body.find('.overlay-container').css({
+                left: btn.offset().left + 24,
+                top: btn.offset().top + 24
+            });
             $.ajax({
                 url: api,
                 data: "action=query",
@@ -363,6 +372,9 @@ $(function (){
                 html += '<li><a href="javascript:void(0)" data-id="'+type.id+'">'+type.name+'</a></li>';
             });
             html += '<li><a href="javascript:void(0)" data-id="all">查看全部商品</a></li></ul>';
+            if(body.find('.overlay-container').get(0)){
+                body.find('.overlay-container').remove();
+            }
             body.append(html);
             body.find('.overlay-container').css({
                 left: btn.offset().left + 24,
@@ -381,6 +393,7 @@ $(function (){
                     typeId = null;
                 }
                 ProductsGetter.cleaner();
+                ProductsGetter.start();
                 ProductsGetter.type = typeId;
                 ProductsGetter.io({
                     data: "page="+ProductsGetter.pageNum+"&limit=10&attachmentsType=base64&type="+(typeId ? typeId : '')+""

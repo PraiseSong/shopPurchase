@@ -15,6 +15,9 @@
       </section>
   </div>
   <div class="dataList-box">
+      <p class="loading">
+          <img src="static/imgs/ajax-loader.gif" alt="loading..."/>加载中...
+      </p>
       <div class="init-loading">
           <img src="static/imgs/ajax-loader.gif" alt="loading..."/>
           数据初始化
