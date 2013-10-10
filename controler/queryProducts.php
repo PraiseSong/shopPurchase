@@ -24,9 +24,9 @@ if(!$limit){
 }
 $limit_end = (int)$limit;
 $limit_start = (int)$limit*((int)$page-1);
-$sql = "select p_id,p_name,p_count,p_price,p_pic from `products` limit $limit_start,$limit_end";
+$sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where p_count>0 limit $limit_start,$limit_end";
 if($type){
-    $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where p_type=$type limit $limit_start,$limit_end";
+    $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where (p_type=$type and p_count>0) limit $limit_start,$limit_end";
 }
 $data = $db->queryManyObject($sql);
 $db->close();
