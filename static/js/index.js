@@ -263,11 +263,13 @@ $(function (){
             });
             ProductsGetter.pop.render();
             var fn = function (e){
+                dataList.find("li").removeClass("active");
                 ProductsGetter.currentProduct = $(this);
+                ProductsGetter.currentProduct.addClass("active");
                 ProductsGetter.pName = $.trim(ProductsGetter.currentProduct.find('.pName').html());
                 ProductsGetter.pId = $.trim(ProductsGetter.currentProduct.attr("data-id"));
                 ProductsGetter.pPrice = $.trim(ProductsGetter.currentProduct.find('.cb').html())*1;
-                ProductsGetter.pop.show().hd.html(pName+' 的销售');
+                ProductsGetter.pop.show().hd.html(ProductsGetter.pName+' 的销售');
                 ProductsGetter.pop.bd.html(html);
                 ProductsGetter.pop.bindUI();
                 ProductsGetter.pop.syncStyle();
