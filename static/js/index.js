@@ -337,7 +337,7 @@ $(function (){
 
             yyeNode.html(yye);
             cbNode.html(cb);
-            lrNode.html(yye-cb);
+            lrNode.html((yye-cb).toFixed(2));
         }
     }
     queryTodayOperation();

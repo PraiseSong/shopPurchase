@@ -12,8 +12,35 @@ include_once('../'.$libs_dir.'/db.php');
 $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
 
+$start = @$_POST['start'];
+$end = @$_POST['end'];
+
 $date = date("Y-m-d");
 $query_today_sell_sql = "select p_id,detail from `cashier` where date like '%$date%'";
+if($start){
+    $where = "(date like '%$start%'";
+    $start = preg_split("/\-/", $start);
+    $end = preg_split("/\-/", $end);
+    $start_y = $start[0];
+    $start_m = $start[1];
+    $start_d = $start[2];
+    $end_y = $end[0];
+    $end_m = $end[1];
+    $end_d = $end[2];
+    if($start_y === $end_y){
+        if($start_m === $end_m){
+            for(;($start_d++) < $end_d;){
+                if($start_d < 10){
+                    $start_d = '0'.$start_d;
+                }
+                $where .= " or date like '%$start_y-$start_m-$start_d%'";
+            }
+        }
+    }
+    $where .= ')';
+
+    $query_today_sell_sql = "select p_id,detail from `cashier` where $where";
+}
 $today_sell_data = $db->queryManyObject($query_today_sell_sql);
 
 $ids = array();

@@ -25,6 +25,9 @@
       <ul class="J-dataList"></ul>
       <button class="btn btn-ok" id="J-loadMore-btn">加载更多</button>
   </div>
+  <footer id="footer" class="webkit-box">
+      <a href="operation.php">运营数据</a>
+  </footer>
 <script src="static/js/index.js"></script>
 <?php
   include_once('templates/footer.php');
