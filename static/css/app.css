@@ -70,13 +70,13 @@ select.full-screen{
 .btn-ok{
     color: #fff;
     font-size: 15px;
-    background: #f50;
+    background: rgb(213,1,37);
     padding: 10px 0;
 }
 .btn-info{
     color: #fff;
     font-size: 15px;
-    background: #0078e7;
+    background: rgb(51,105, 232);
 }
 #header,
 #footer{
@@ -443,13 +443,13 @@ select.full-screen{
 /*index*/
 .todayOperation{
     line-height: 23px;
-    background: #fbff8a;
-    border: 1px solid #ffd570;
+    background: rgb(238,178,17);
+    border: 1px solid rgb(190, 141, 8);
     margin: 0 20px 20px;
 }
 .todayOperation header{
     border-bottom: 1px solid #ffd570;
-    color: #a1360c;
+    color: #8B5004;
     height: 30px;
     line-height: 30px;
     font-weight: 700;
@@ -460,6 +460,7 @@ select.full-screen{
 }
 .todayOperation .bd{
     padding: 10px;
+    color: #fff;
 }
 .todayOperation .yye,
 .todayOperation .cb,
@@ -480,14 +481,14 @@ select.full-screen{
 }
 #footer{
     position: fixed;
-    background: #03337A;
+    background: rgb(51,105, 232);
     margin: 0;
     bottom: 0;
     left: 0;
     z-index: 2;
     width: 100%;
     border: none;
-    -webkit-box-shadow: 0 -5px 5px #B6B6B6;
+    -webkit-box-shadow: 0 -5px 5px #d1d1d1;
 }
 #footer a{
     display: block;
