@@ -78,7 +78,8 @@ select.full-screen{
     font-size: 15px;
     background: #0078e7;
 }
-#header{
+#header,
+#footer{
     background: #eeeeee;
     border-bottom: 1px solid #bfbfbf;
     color: #404040;
@@ -89,7 +90,8 @@ select.full-screen{
     display: -webkit-box;
     margin: 0 0 20px 0;
 }
-#header a{
+#header a,
+#footer a{
     color: inherit;
 }
 #header .btn,
@@ -403,7 +405,7 @@ select.full-screen{
 }.dataList-box .btn{
     display: block;
     width: 90%;
-    margin: 20px auto;
+    margin: 20px auto 70px;
  }
 .init-loading{
     text-align: center;
@@ -477,21 +479,20 @@ select.full-screen{
     color: #797979;
 }
 #footer{
-    height: 50px;
-    line-height: 50px;
     position: fixed;
+    background: #03337A;
+    margin: 0;
     bottom: 0;
     left: 0;
     z-index: 2;
-    background: rgba(64, 64, 64, .8);
-    display: block;
     width: 100%;
+    border: none;
 }
 #footer a{
     display: block;
     -webkit-box-flex: 1;
-    color: #fff;
     text-align: center;
+    color: #fff;
 }
 
 /*operation*/

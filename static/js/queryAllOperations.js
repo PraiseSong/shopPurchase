@@ -49,13 +49,19 @@ $(function (){
         queryOperation();
     });
 
+    function beforeQuery(){
+        loadingImg.show();
+    }
+
     function queryOperation(){
+        beforeQuery();
         $.ajax({
             url: api,
             dataType: "json",
             data: "start="+getStartTIme()+'&end='+getEndTIme(),
             type: "POST",
             success: function (data){
+                loadingImg.hide();
                 if(data.code){
                     renderOperation(data.result);
                 }
