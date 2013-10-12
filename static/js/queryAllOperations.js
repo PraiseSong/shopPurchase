@@ -50,6 +50,7 @@ $(function (){
     });
 
     function beforeQuery(){
+        dateName.html(getStartTIme()+'  的');
         loadingImg.show();
     }
 
