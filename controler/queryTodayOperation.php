@@ -39,7 +39,7 @@ if($start){
     }
     $where .= ')';
 
-    $query_today_sell_sql = "select p_id,detail from `cashier` where $where";
+    $query_today_sell_sql = "select p_id,detail,count,date from `cashier` where $where";
 }
 $today_sell_data = $db->queryManyObject($query_today_sell_sql);
 

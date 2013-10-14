@@ -448,7 +448,7 @@ select.full-screen{
     margin: 0 20px 20px;
 }
 .todayOperation header{
-    border-bottom: 1px solid #ffd570;
+    border-bottom: 1px solid rgb(190, 141, 8);
     color: #8B5004;
     height: 30px;
     line-height: 30px;
@@ -513,4 +513,7 @@ select.full-screen{
     line-height: 40px;
     display: block;
     padding: 0 3px;
+}
+.selled-products-box{
+    margin: 0 20px;
 }

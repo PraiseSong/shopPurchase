@@ -21,6 +21,9 @@ include_once('templates/header.php');
             <p>成本： &yen; <span class="cb">0</span> 元</p>
         </section>
     </div>
+    <div class="selled-products-box">
+        <a href="javascript:void(0)" id="J-show-selled-products">查看<span class="dateName">当天</span>销售的所有商品</a>
+    </div>
     <script src="static/js/queryAllOperations.js"></script>
 <?php
 include_once('templates/footer.php');

@@ -49,8 +49,79 @@ $(function (){
         queryOperation();
     });
 
+    $('#J-show-selled-products').bind('click', function (e){
+        e.preventDefault();
+        if(!getStartTIme()){
+            return alert('请选择开始时间');
+        }else if(!getEndTIme()){
+            return alert('请选择结束时间');
+        }
+        queryProducts();
+    });
+
+    function queryProducts(){
+        var api = 'controler/queryProducts.php';
+        $.ajax({
+            url: api,
+            type: 'post',
+            data: 'action=custom&'+"start="+getStartTIme()+'&end='+getEndTIme(),
+            success: function (data){
+                if(data.code*1 === 1){
+                    if(data.products){
+                        renderSelledProducts(data.products);
+                    }
+                }
+            },
+            dataType: "json"
+        });
+    }
+
+    function getAttachment(id){
+        var attachments = localStorage.getItem('attachments');
+        if(attachments){
+            attachments = JSON.parse(attachments);
+        }else{
+            return null;
+        }
+
+        return attachments[id];
+    }
+    function renderSelledProducts(data){
+        var html = '<ul>';
+        for(d in data.products){
+            var pdata = data.products[d];
+            var p = data[d][0];
+            if(!p){
+                continue;
+            }
+            var p_price = p.p_price*1;
+            var p_name = p.p_name;
+            var p_pic = getAttachment(p.p_id);
+            $.each(pdata, function (i, prod){
+                var detail = prod.detail.split('|');
+                var counter = 0;
+                $.each(detail, function (j, _det){
+                    _det = _det.split('*');
+                    if(_det[1]){
+                        counter += _det[1]*1;
+                    }
+                });
+                html += '<li data-id="'+prod.order_id+'">'+
+                    '<div class="imgBox"><img src="'+p_pic+'" /></div>'+
+                    '<div class="info">'+
+                    '<p class="pName">'+p_name+'</p>'+
+                    '<div class="extra">'+
+                    '<p class="kcBox">销售量：<span>'+counter+'</span> 个</p>'+
+                    '</div>'+
+                    '</li>';
+            });
+        }
+        html += '</ul>';
+        $('.selled-products-box').append(html);
+    }
+
     function beforeQuery(){
-        dateName.html(getStartTIme()+'  的');
+        dateName.html(getStartTIme()+' 到 '+getEndTIme()+'  ');
         loadingImg.show();
     }
 
