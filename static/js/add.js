@@ -181,6 +181,10 @@ $(function (){
             return false;
         }
 
+        if($('.kc').get(0)){
+            $('#count').val($('#count').val()*1+$('.kc').html()*1);
+        }
+
         $(this).unbind().bind('click', function (e){
             return false;
         }).html("提交中...");

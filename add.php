@@ -54,7 +54,8 @@
         <div class="filed-group">
             <label for="count">数量</label>
             <?php if($data): ?>
-                <input id="count" name="count" type="tel" value="<?php echo $data->p_count; ?>">
+                <input id="count" name="count" type="tel" placeholder="本次采购数量" />
+                <p class="">当前库存为：<small class="kc"><?php echo $data->p_count; ?></small>个</p>
             <?php else: ?>
                 <input id="count" name="count" type="tel" placeholder="采购数量">
             <?php endif; ?>
