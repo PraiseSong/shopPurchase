@@ -88,7 +88,16 @@ select.full-screen{
     line-height: 50px;
     font-size: 20px;
     display: -webkit-box;
-    margin: 0 0 20px 0;
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+}
+#header{
+    top: 0;
+    left; 0;
+}
+.main{
+    margin: 20px auto;
 }
 #header a,
 #footer a{
@@ -480,22 +489,22 @@ select.full-screen{
     color: #797979;
 }
 #footer{
-    position: fixed;
-    background: rgb(51,105, 232);
     margin: 0;
     bottom: 0;
     left: 0;
-    z-index: 2;
-    width: 100%;
     border: none;
-    -webkit-box-shadow: 0 -5px 5px #d1d1d1;
+    -webkit-box-shadow: 0 -5px 5px #e3e3e3;
 }
 #footer a{
     display: block;
     -webkit-box-flex: 1;
     text-align: center;
-    color: #fff;
     font-size: 15px;
+}
+.rk{
+    float: right;
+    cursor: pointer;
+    color: #0078e7;
 }
 
 /*operation*/

@@ -40,6 +40,7 @@ $(function (){
                 '<div class="extra">'+
                 '<p class="kcBox">库存：<span class="kc">'+data.count+'</span> 个</p>'+
                 '<p class="cbBox">成本：&yen; <span class="cb">'+data.price+'</span>元</p>'+
+                '<a href="add.php?action=update&id='+data.id+'" class="rk">入库</a>'+
                 '</div>'+
                 '</li>';
             return html;

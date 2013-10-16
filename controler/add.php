@@ -19,13 +19,14 @@ $types = @$_POST['types'];
 $pic = @$_FILES['pic'];
 $pic_link = false;
 $date = date("Y-m-d h:i:s A");
-$attachment_name = md5($date) . '_' . str_replace(' ', '', $pic["name"]);
+if($pic){
+  $attachment_name = md5($date) . '_' . str_replace(' ', '', $pic["name"]);
 
-$writed_product = 0;
+  $writed_product = 0;
 
-if ($pic["error"] > 0){
+  if ($pic["error"] > 0){
     $error_msg = '图片上传错误';
-}else{
+  }else{
     if (file_exists("../$attachments_dir/" . $attachment_name)){
         $error_msg = '图片已存在';
     }else{
@@ -35,6 +36,7 @@ if ($pic["error"] > 0){
             $saved_thumb = img2thumb('../'.$pic_link, '../'.$pic_thumb_link, 100, 100, 0, 0);
         }
     }
+  }
 }
 if($pic_link){
     $sql = "insert into products(`p_name`, `p_count`, `p_from`, `p_man`, `p_price`, `p_pic`, `p_props`, `p_date`, `p_type`) ".

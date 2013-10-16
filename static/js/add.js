@@ -176,7 +176,7 @@ $(function (){
         }else if(!hasFrom){
             alert('必须选择一个采购源');
             return false;
-        }else if(!$.trim(photo.val())){
+        }else if(photo.get(0) && !$.trim(photo.val())){
             alert('请上传商品图片');
             return false;
         }
@@ -291,6 +291,8 @@ $(function (){
             var currentName = $('#J-typeName').get(0) && $.trim($('#J-typeName').val());
             var selected = '';
             if(currentName && type.name === currentName){
+                selected = "selected";
+            }else if($('#J-types-hide').val() && type.id === $('#J-types-hide').val()){
                 selected = "selected";
             }
             html += '<option data-id="'+type.id+'" '+selected+'>'+type.name+'</option>';

@@ -25,3 +25,9 @@ include_once($libs_dir."/Mobile_Detect.php")
     <script src="static/js/widgets.js"></script>
 </head>
 <body>
+<header id="header">
+    <a href="javascript:void(0)" class="btn filter" id="J-filter-btn">筛选</a>
+    <span class="bd"><?php echo constant("PRODUCT_NAME"); ?></span>
+    <a class="btn btn-info" href="add.php">&#43; 入库</a>
+</header>
+<div class="main">
