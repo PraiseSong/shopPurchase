@@ -97,24 +97,26 @@ $(function (){
             var p_price = p.p_price*1;
             var p_name = p.p_name;
             var p_pic = getAttachment(p.p_id);
+            var orderId = [];
+            var counter = 0;
             $.each(pdata, function (i, prod){
                 var detail = prod.detail.split('|');
-                var counter = 0;
                 $.each(detail, function (j, _det){
                     _det = _det.split('*');
                     if(_det[1]){
                         counter += _det[1]*1;
                     }
                 });
-                html += '<li data-id="'+prod.order_id+'">'+
-                    '<div class="imgBox"><img src="'+p_pic+'" /></div>'+
-                    '<div class="info">'+
-                    '<p class="pName">'+p_name+'</p>'+
-                    '<div class="extra">'+
-                    '<p class="kcBox">销售量：<span>'+counter+'</span> 个</p>'+
-                    '</div>'+
-                    '</li>';
+                orderId.push(prod.order_id);
             });
+            html += '<li data-id="'+orderId.join(',')+'">'+
+                '<div class="imgBox"><img src="'+p_pic+'" /></div>'+
+                '<div class="info">'+
+                '<p class="pName">'+p_name+'</p>'+
+                '<div class="extra">'+
+                '<p class="kcBox">销售量：<span>'+counter+'</span> 个</p>'+
+                '</div>'+
+                '</li>';
         }
         html += '</ul>';
         $('.selled-products-box').find('ul').remove();
