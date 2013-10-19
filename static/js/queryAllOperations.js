@@ -117,6 +117,7 @@ $(function (){
             });
         }
         html += '</ul>';
+        $('.selled-products-box').find('ul').remove();
         $('.selled-products-box').append(html);
     }
 
