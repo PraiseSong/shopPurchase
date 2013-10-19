@@ -21,8 +21,12 @@ include_once($libs_dir."/Mobile_Detect.php")
         ?></title>
     <link rel="stylesheet" href="static/css/reset.css" />
     <link rel="stylesheet" href="static/css/app.css" />
-    <script src="static/js/zepto.min.js"></script>
-    <script src="static/js/widgets.js"></script>
+    <script src="static/libs/sea.js"></script>
+    <script type="text/javascript">
+        seajs.config({
+            base: './static/js/'
+        });
+    </script>
 </head>
 <body>
 <header id="header">

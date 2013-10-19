@@ -153,7 +153,9 @@
         <button type="submit" class="btn btn-ok" id="J-addPropduct-btn">确定</button>
     </fieldset>
 </form>
-<script src="static/js/add.js"></script>
+<script>
+    seajs.use('add.js');
+</script>
 <?php
   include_once('templates/footer.php');
 ?>

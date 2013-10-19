@@ -24,7 +24,9 @@ include_once('templates/header.php');
     <div class="selled-products-box">
         <a href="javascript:void(0)" id="J-show-selled-products">查看<span class="dateName">当天</span>销售的所有商品</a>
     </div>
-    <script src="static/js/queryAllOperations.js"></script>
+    <script>
+        seajs.use('queryAllOperations.js');
+    </script>
 <?php
 include_once('templates/footer.php');
 ?>

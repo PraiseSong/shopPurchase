@@ -22,7 +22,9 @@
       <ul class="J-dataList"></ul>
       <button class="btn btn-ok" id="J-loadMore-btn">加载更多</button>
   </div>
-<script src="static/js/index.js"></script>
+<script>
+    seajs.use('index.js');
+</script>
 <?php
   include_once('templates/footer.php');
 ?>

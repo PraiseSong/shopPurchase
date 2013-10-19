@@ -5,7 +5,10 @@
  * Time: 上午11:34
  */
 //take a photo
-$(function (){
+define(function (require, exports, module){
+    var $ = require('zepto.min.js');
+    var Widgets = require('widgets.js');
+
     /*上传图片*/
     var btn = $('#J-takePhoto-btn');
     var prev = $('.J-photoPreview');
@@ -37,19 +40,19 @@ $(function (){
     var pop = null;
     var addPropsForm = function (){
         var html = '<form class="addPropsForm" novalidate><fieldset>'+
-                        '<div class="filed-group">'+
-                            '<label>属性名称</label>'+
-                            '<input type="text" placeholder="如：颜色" id="J-propName-input">'+
-                        '</div>'+
-                        '<div class="filed-group">'+
-                            '<label>属性值</label>'+
-                            '<div class="J-propValsContainer">'+
-                                '<div class="valueBox"><input type="text" placeholder="如：红色" /></div>'+
-                                '<a href="javascript:void(0)" class="J-addValue-btn">增加一个属性值</a>' +
-                            '</div>'+
-                        '</div>'+
-                   '</fieldset></form>';
-        pop = pop || new $.Pop({
+            '<div class="filed-group">'+
+            '<label>属性名称</label>'+
+            '<input type="text" placeholder="如：颜色" id="J-propName-input">'+
+            '</div>'+
+            '<div class="filed-group">'+
+            '<label>属性值</label>'+
+            '<div class="J-propValsContainer">'+
+            '<div class="valueBox"><input type="text" placeholder="如：红色" /></div>'+
+            '<a href="javascript:void(0)" class="J-addValue-btn">增加一个属性值</a>' +
+            '</div>'+
+            '</div>'+
+            '</fieldset></form>';
+        pop = pop || new Widgets.Pop({
             hd: "添加商品属性",
             bd: html,
             bindUI: function (){
@@ -71,8 +74,8 @@ $(function (){
             $('.J-addValue-btn').unbind().bind('click', function (e){
                 e.preventDefault();
                 var html =  '<div class="valueBox">'+
-                                '<input type="text" /><span class="J-delProp btn btn-del">删除</span>' +
-                            '</div>';
+                    '<input type="text" /><span class="J-delProp btn btn-del">删除</span>' +
+                    '</div>';
                 if($('.noProps').get(0)){
                     $('.noProps').remove();
                 }
@@ -98,8 +101,8 @@ $(function (){
                     propsContainer.html('');
                 }
                 var html = '<div class="prop"><span class="v">'+name+':'+values.join(",")+'</span>' +
-                                '<span class="btn btn-del">删除</span>'
-                            '</div>';
+                    '<span class="btn btn-del">删除</span>'
+                '</div>';
                 propsContainer.append(html);
                 syncProperties();
                 pop.hide();
@@ -189,12 +192,8 @@ $(function (){
             return false;
         }).html("提交中...");
     });
-});
 
-/**
- * 查询分类
- */
-$(function (){
+
     var typesBox = $('.typesBox');
     var api = 'controler/types.php';
     var pop = null;
@@ -213,7 +212,7 @@ $(function (){
         addbtn.get(0) && addbtn.unbind().bind('click', function (e){
             e.preventDefault();
             var html = '<div class="filed-group"><label>名称</label><input type="text" id="J-typeName" /></div>';
-            pop = new $.Pop({
+            pop = new Widgets.Pop({
                 hd: "添加商品分类",
                 bd: html,
                 bindUI: function (){
@@ -309,5 +308,6 @@ $(function (){
         syncTypeHidden();
     }
 });
+
 
 

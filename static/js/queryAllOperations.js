@@ -5,7 +5,10 @@
  * Time: 8:41 PM
  * To change this template use File | Settings | File Templates.
  */
-$(function (){
+define(function (require, exports, module){
+    var $ = require('zepto.min.js');
+    var Widgets = require('widgets.js');
+
     var btn = $('#J-queryBtn');
     var startDate = $('#J-date-start');
     var endDate = $('#J-date-end');

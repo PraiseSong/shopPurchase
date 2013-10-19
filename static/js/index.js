@@ -5,9 +5,11 @@
  * Time: 下午1:23
  */
 //query product
-$(function (){
-    var dataList = $('.J-dataList');
+define(function (require, exports, module){
+    var Widgets = require('widgets.js');
+    var $ = require('zepto.min.js');
 
+    var dataList = $('.J-dataList');
     var ProductsGetter = {
         pageNum : 1,
         type: null,//商品分类id
@@ -251,7 +253,7 @@ $(function (){
             html += '<span class="unit-operator">X</span><select class="J-Pop-countSelector"></select>个';
             html += '</div>';
             html += '<a href="javascript:void(0)" class="J-add-sellPrice">增加一种价格</a>';
-            ProductsGetter.pop = ProductsGetter.pop || new $.Pop({
+            ProductsGetter.pop = ProductsGetter.pop || new Widgets.Pop({
                 bd: html,
                 bindUI: function (){
                     bindToAddSellPrice.call(this);
@@ -291,7 +293,7 @@ $(function (){
             data = "page="+ProductsGetter.pageNum+"&limit=10&attachmentsType=base64&type="+ProductsGetter.type+""
         }
         ProductsGetter.io({
-           data: data
+            data: data
         });
     }
     $('#J-loadMore-btn').click(ioByBtn);
