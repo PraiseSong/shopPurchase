@@ -10,7 +10,7 @@
 
         var winH = $(window).height();
         main.css({
-            overflow: "auto",
+            '-webkit-overflow-scrolling': "touch",
             height: winH - parseInt(footer.css('height'), 10) - parseInt(header.css('height'), 10),
             marginTop: parseInt(header.css('height'), 10)+20,
             marginBottom: parseInt(footer.css('height'), 10)+20
