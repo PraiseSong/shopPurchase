@@ -40,7 +40,7 @@ $.Pop.prototype.renderBox = function (){
     this.container = $('#'+this.id+'');
 };
 $.Pop.prototype.renderHd = function (){
-    var container = $('#'+this.id+'');
+    var container = this.container;
     if(container.find('.J-Pop-hd').get(0)){
         container.find('.J-Pop-hd').remove();
     }
@@ -55,7 +55,7 @@ $.Pop.prototype.renderHd = function (){
     this.hd = container.find('.J-Pop-hd');
 };
 $.Pop.prototype.renderBd = function (){
-    var container = $('#'+this.id+'');
+    var container = this.container;
     if(container.find('.J-Pop-bd').get(0)){
         container.find('.J-Pop-bd').remove();
     }
@@ -70,7 +70,7 @@ $.Pop.prototype.renderBd = function (){
     this.bd = container.find('.J-Pop-bd');
 };
 $.Pop.prototype.renderFt = function (){
-    var container = $('#'+this.id+'');
+    var container = this.container;
     var html = '';
     var isCloseBtn = false;
     var btns = this.cfg.btns;
@@ -113,7 +113,7 @@ $.Pop.prototype.renderFt = function (){
             });
         }
     });
-    this.ft = $('.J-Pop-ft');
+    this.ft = container.find('.J-Pop-ft');
 };
 $.Pop.prototype.renderMask = function (){
     var body = $('body');
@@ -193,18 +193,16 @@ $.Pop.prototype.bindUI = function (){
     var cfg = this.cfg;
     var self = this;
     cfg.bindUI && cfg.bindUI.call(this);
-    this.container.find('.J-Pop-ft .close').unbind().bind("click", function (e){
+    this.ft.find('.close').unbind().bind("click", function (e){
         e.preventDefault();
         self.hide();
     });
 };
 $.Pop.prototype.sync = function (){
-    var container = this.container;
-    var hd = container.find('.J-Pop-hd');
-    var bd = container.find('.J-Pop-bd');
-    var ft = container.find('.J-Pop-ft');
+    var hd = this.hd;
+    var bd = this.bd;
+    var ft = this.ft;
     var cfg = this.cfg;
-    var self = this;
 
     cfg.hd && hd.html(cfg.hd);
     cfg.bd && bd.html(cfg.bd);
@@ -229,8 +227,8 @@ $.Pop.prototype.show = function (){
     return this;
 };
 $.Pop.prototype.hide = function (){
-    $('.J-mask').hide();
-    this.container.hide();
+    $('.J-mask').remove();
+    this.container.remove();
 };
 $.Alert = function (msg){
     $.Alert.self = new $.Pop({

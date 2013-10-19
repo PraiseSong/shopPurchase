@@ -217,7 +217,8 @@ $(function (){
                 hd: "添加商品分类",
                 bd: html,
                 bindUI: function (){
-                    this.ft.find('.btn1').bind("click", function (e){
+                    var self = this;
+                    this.ft.find('.btn1').unbind().bind("click", function (e){
                         e.preventDefault();
                         var name = $.trim($('#J-typeName').val());
                         if(!name){
@@ -228,7 +229,7 @@ $(function (){
                             return alert('分类名称至少要2个字符吧');
                         }
 
-                        addType();
+                        addType.call(self);
                     })
                 },
                 styles: {
@@ -239,7 +240,7 @@ $(function (){
         });
 
         typeSelect.get(0) && typeSelect.unbind().bind("change", function (){
-            syncTypeHidden();
+            syncTypeHidden.call();
         });
     }
 
@@ -256,14 +257,14 @@ $(function (){
     }
 
     function addType(){
+        var self = this;
         $.ajax({
             url: api,
-            data: "action=add&name="+encodeURI($.trim($('#J-typeName').val())),
+            data: "action=add&name="+encodeURI($.trim(self.bd.find('#J-typeName').val())),
             dataType: "json",
             type: "POST",
             success: function (data){
                 if(data.code === 1 && data.data){
-                    console.log("添加分类成功");
                     queryTypes();
                     pop.hide();
                 }
@@ -292,7 +293,7 @@ $(function (){
     function renderTypes(data){
         var html = '<select id="J-types" class="full-screen">';
         $.each(data, function (i, type){
-            var currentName = $('#J-typeName').get(0) && $.trim($('#J-typeName').val());
+            var currentName = pop && $.trim(pop.bd.find('#J-typeName').val());
             var selected = '';
             if(currentName && type.name === currentName){
                 selected = "selected";
