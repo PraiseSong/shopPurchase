@@ -9,6 +9,8 @@ define(function (require, exports, module){
     var Widgets = require('widgets.js');
     var $ = require('zepto.min.js');
 
+    require('rent.js');
+
     var dataList = $('.J-dataList');
     var ProductsGetter = {
         pageNum : 1,
