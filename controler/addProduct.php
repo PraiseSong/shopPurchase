@@ -7,7 +7,7 @@ $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
 
 $attachments_dir = "attachments";
-$error_msg = '访问异常';
+$error_msg = null;
 
 $name = @$_POST['name'];
 $price = @$_POST['price'];
@@ -19,46 +19,61 @@ $types = @$_POST['types'];
 $pic = @$_FILES['pic'];
 $pic_link = false;
 $date = date("Y-m-d H:i:s");
-if($pic){
+$saved_img_to_base64_error_msg = null;
+$writed_product = false;
+
+$query_isExist_sql = "select p_name from products where p_name='$name'";
+$query_isExist = $db->queryUniqueObject($query_isExist_sql);
+if($query_isExist){
+    $error_msg = '商品名称重复';
+}else if($pic){
   $attachment_name = md5($date) . '_' . str_replace(' ', '', $pic["name"]);
 
-  $writed_product = 0;
-
   if ($pic["error"] > 0){
-    $error_msg = '图片上传错误';
+    $error_msg = '商品图片上传出现错误';
   }else{
     if (file_exists("../$attachments_dir/" . $attachment_name)){
-        $error_msg = '图片已存在';
+        $error_msg = '商品图片已存在';
     }else{
         if(move_uploaded_file($pic["tmp_name"], "../$attachments_dir/" . $attachment_name)){
             $pic_link = "$attachments_dir/" . $attachment_name;
             $pic_thumb_link = "$attachments_dir/thumb_" . $attachment_name;
             $saved_thumb = img2thumb('../'.$pic_link, '../'.$pic_thumb_link, 100, 100, 0, 0);
+        }else{
+            $error_msg = '商品图片保存失败';
         }
     }
   }
+}else{
+    $error_msg = '请上传商品图片';
 }
 if($pic_link){
-    $sql = "insert into products(`p_name`, `p_count`, `p_from`, `p_man`, `p_price`, `p_pic`, `p_props`, `p_date`, `p_type`) ".
-        "values ('$name', '$count', '$from', '   $man', '$price', '$pic_thumb_link', '$props', '$date', '$types')";
+    $sql = "insert into products(`p_name`, `p_count`, `p_from`, `p_man`, `p_price`, `p_pic`, `p_props`, `p_date`, ".
+           "`p_type`) values ('$name', '$count', '$from', '   $man', '$price', '$pic_thumb_link', '$props', '$date', ".
+           "'$types')";
     $writed_product = $db->query($sql);
-    $db->close();
 
     $file = '../'.$pic_thumb_link;
     $type=getimagesize($file);//取得图片的大小，类型等
     @$fp=fopen($file,"r");
-    $file_content=chunk_split(base64_encode(fread($fp,filesize($file))));//base64编码
-    switch($type[2]){//判读图片类型
-        case 1:$img_type="gif";break;
-        case 2:$img_type="jpg";break;
-        case 3:$img_type="png";break;
+    if($fp){
+        $file_content=chunk_split(base64_encode(fread($fp,filesize($file))));//base64编码
+        switch($type[2]){//判读图片类型
+            case 1:$img_type="gif";break;
+            case 2:$img_type="jpg";break;
+            case 3:$img_type="png";break;
+        }
+        $img='data:image/'.$img_type.';base64,'.$file_content;//合成图片的base64编码
+        $handle = fopen($file . '.txt', 'w');
+        fwrite($handle, $img);
+        fclose($handle);
+        fclose($fp);
+    }else{
+        $saved_img_to_base64_error_msg = '商品图片缓存失败';
     }
-    $img='data:image/'.$img_type.';base64,'.$file_content;//合成图片的base64编码
-    $handle = fopen($file . '.txt', 'w');
-    fwrite($handle, $img);
-    fclose($handle);
-    fclose($fp);
 }
+
+$db->close();
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +86,7 @@ if($pic_link){
     <title>
         <?php
         if($writed_product){
-            echo '添加成功';
+            echo $name.' 录入成功';
         }else{
             echo $error_msg;
         }
@@ -86,7 +101,10 @@ if($pic_link){
 <div class="tip-box">
     <?php
     if($writed_product){
-        echo '<p class="tip tip-success">商品添加成功</p>';
+        echo '<p class="tip tip-success">'.$name.'录入成功</p>';
+        if($saved_img_to_base64_error_msg){
+            echo "<p class=\"tip tip-error\">$saved_img_to_base64_error_msg</p>";
+        }
     }else{
         echo "<p class=\"tip tip-error\">$error_msg</p>";
     }
@@ -94,8 +112,8 @@ if($pic_link){
 </div>
 <aslide class="optional">
     <header>您还可以</header>
-    <a href="../add.php">继续添加</a>
-    <a href="../index.php">回主页</a>
+    <a href="javascript:history.back();">返回</a>
+    <a href="../add.php">继续录入商品</a>
 </aslide>
 <?php
   include_once('../'.$templates_dir.'/footer.php');

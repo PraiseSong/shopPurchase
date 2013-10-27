@@ -146,6 +146,7 @@ select.full-screen{
     -webkit-border-radius: 5px;
     color: #fff;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    margin: 5px 0;
 }
 .tip-default{
     background-color: #f5f5f5;

@@ -27,7 +27,7 @@
   if($data){
       $action = 'update.php';
   }else{
-      $action = 'add.php';
+      $action = 'addProduct.php';
   }
 ?>
 <form class="addProduct-form" method="post" action="controler/<?php echo $action; ?>" enctype="multipart/form-data" novalidate>
