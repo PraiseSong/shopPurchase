@@ -1,6 +1,5 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
  * User: praise
  * Date: 10/27/13
  * Time: 1:05 PM
@@ -31,17 +30,23 @@ switch($action){
         }
         break;
     case "add":
-        $date = date("Y-m-d H:i:s");
-        $q_sql = "insert into rent(`price`, `date`) values ('$price', '$date')";
-        $db->query($q_sql);
-        $lastId = $db->lastInsertedId();
-        if($lastId){
-            $lastInsertData = $db->queryUniqueObject("select * from rent where(id='$lastId')");
-            $result['code'] = 1;
-            $result['data'] = $lastInsertData;
-        }else{
+        if(!$price){
             $result['code'] = 0;
             $result['data'] = null;
+            $result['memo'] = '没有传入价格参数';
+        }else{
+            $date = date("Y-m-d H:i:s");
+            $q_sql = "insert into rent(`price`, `date`) values ('$price', '$date')";
+            $db->query($q_sql);
+            $lastId = $db->lastInsertedId();
+            if($lastId){
+                $lastInsertData = $db->queryUniqueObject("select * from rent where(id='$lastId')");
+                $result['code'] = 1;
+                $result['data'] = $lastInsertData;
+            }else{
+                $result['code'] = 0;
+                $result['data'] = null;
+            }
         }
         break;
 }
