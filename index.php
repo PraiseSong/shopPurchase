@@ -1,8 +1,6 @@
 <?php
   include_once('templates/header.php');
 ?>
-
-
   <div class="todayOperation">
       <header>今日运营情况</header>
       <section class="bd">

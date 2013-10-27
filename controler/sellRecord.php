@@ -16,7 +16,7 @@ $id = @$_POST['id'];
 $count = @$_POST['count'];
 $detail = @$_POST['detail'];
 $man = @$_POST['man'];
-$date = date("Y-m-d h:i:s A");
+$date = date("Y-m-d H:i:s");
 
 if(!$man){
     $man = '';

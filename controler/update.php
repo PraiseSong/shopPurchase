@@ -14,7 +14,7 @@ $man = @$_POST['man'];
 $from = @$_POST['from'];
 $types = @$_POST['types'];
 
-$date = date("Y-m-d h:i:s A");
+$date = date("Y-m-d H:i:s");
 
 $error_msg = '';
 $writed_product = false;

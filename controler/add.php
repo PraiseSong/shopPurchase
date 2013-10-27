@@ -18,7 +18,7 @@ $props = @$_POST['properties'];
 $types = @$_POST['types'];
 $pic = @$_FILES['pic'];
 $pic_link = false;
-$date = date("Y-m-d h:i:s A");
+$date = date("Y-m-d H:i:s");
 if($pic){
   $attachment_name = md5($date) . '_' . str_replace(' ', '', $pic["name"]);
 
