@@ -37,7 +37,7 @@ define(function (require, exports, module){
     }
 
     startDate.bind('change', function (){
-        if(getStartTIme()){
+        if(getStartTIme() && !getEndTIme()){
             endDate.val(getStartTIme());
         }
     });
