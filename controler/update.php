@@ -1,4 +1,8 @@
 <?php
+if(!$_POST){
+    exit('非法访问');
+}
+
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 include_once('../'.$libs_dir.'/imageResize.php');
@@ -19,14 +23,22 @@ $date = date("Y-m-d H:i:s");
 $error_msg = '';
 $writed_product = false;
 
-$sql = "update `products` set `p_name`='$name',`p_price`='$price',`p_count`='$count',`p_from`='$from',`p_type`='$types',`p_man`='$man',`p_date`='$date' where `p_id`='$id'";
-$result = $db->query($sql);
-$db->close();
+if(!$count){
+    $count = 0;
+}
 
-if($result){
-    $writed_product = true;
+if(!$id || !$name || !$price || !$count || !$from || !$man || !$types){
+    $error_msg = '没有传入正确的参数';
 }else{
-    $error_msg = '入库更新失败';
+    $sql = "update `products` set `p_name`='$name',`p_price`='$price',`p_count`='$count',`p_from`='$from',".
+           "`p_type`='$types',`p_man`='$man',`p_date`='$date' where `p_id`='$id'";
+    $result = $db->query($sql);
+    $db->close();
+    if($result){
+        $writed_product = true;
+    }else{
+        $error_msg = "编辑 $name 失败";
+    }
 }
 ?>
 
@@ -40,7 +52,7 @@ if($result){
     <title>
         <?php
         if($writed_product){
-            echo '更新入库成功';
+            echo "$name 更新成功";
         }else{
             echo $error_msg;
         }
@@ -55,7 +67,7 @@ if($result){
 <div class="tip-box">
     <?php
     if($writed_product){
-        echo '<p class="tip tip-success">更新入库成功</p>';
+        echo "<p class=\"tip tip-success\">$name 更新成功</p>";
     }else{
         echo "<p class=\"tip tip-error\">$error_msg</p>";
     }
@@ -63,7 +75,7 @@ if($result){
 </div>
 <aslide class="optional">
     <header>您还可以</header>
-    <a href="../index.php">回主页</a>
+    <a href="javascript:history.back();">返回</a>
 </aslide>
 <?php
 include_once('../'.$templates_dir.'/footer.php');

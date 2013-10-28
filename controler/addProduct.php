@@ -2,6 +2,7 @@
 if(!$_POST){
     exit('非法访问');
 }
+
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 include_once('../'.$libs_dir.'/imageResize.php');

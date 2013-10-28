@@ -44,7 +44,7 @@ define(function (require, exports, module){
                 '<div class="extra">'+
                 '<p class="kcBox">库存：<span class="kc">'+data.count+'</span> 个</p>'+
                 '<p class="cbBox">成本：&yen; <span class="cb">'+data.price+'</span>元</p>'+
-                '<a href="addProduct.php?action=update&id='+data.id+'" class="rk">入库</a>'+
+                '<a href="add.php?action=update&id='+data.id+'" class="rk">入库</a>'+
                 '</div>'+
                 '</li>';
             return html;
@@ -98,9 +98,11 @@ define(function (require, exports, module){
                         type: "post",
                         data: "src="+encodeURI(src[1]),
                         success: function (data){
-                            var imgHtml = '<img src="'+data+'" />';
-                            $(img).attr('data-src', null).html(imgHtml);
-                            ProductsGetter.setAttachments(id, data);
+                            if(data.code === 1 && data.data){
+                                var imgHtml = '<img src="'+data.data+'" />';
+                                $(img).attr('data-src', null).html(imgHtml);
+                                ProductsGetter.setAttachments(id, data.data);
+                            }
                         }
                     });
                 }
@@ -309,7 +311,7 @@ define(function (require, exports, module){
             lrNode = today.find('.lr'),
             cbNode = today.find('.cb');
 
-        var api = 'controler/queryTodayOperation.php';
+        var api = 'controler/querySold.php';
 
         $.ajax({
             url: api,

@@ -5,6 +5,9 @@
  * Time: 1:05 PM
  * To change this template use File | Settings | File Templates.
  */
+if(!$_POST){
+    exit('非法访问');
+}
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 
@@ -17,8 +20,12 @@ $price = @$_POST['price'];
 $data = null;
 $result = array();
 
-switch($action){
-    case "query":
+if(!$action || !$price){
+    $result['code'] = 0;
+    $result['data'] = "缺少参数";
+}else{
+    switch($action){
+      case "query":
         $sql = "select * from rent where date like '%$date%'";
         $data = $db->queryUniqueObject($sql);
         if(!$data){
@@ -29,7 +36,7 @@ switch($action){
             $result['data'] = $data;
         }
         break;
-    case "add":
+      case "add":
         if(!$price){
             $result['code'] = 0;
             $result['data'] = null;
@@ -49,9 +56,9 @@ switch($action){
             }
         }
         break;
-}
+    }
 $db->close();
-
+}
 
 echo json_encode($result);
 ?>

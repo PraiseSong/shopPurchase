@@ -12,7 +12,7 @@ define(function (require, exports, module){
     var btn = $('#J-queryBtn');
     var startDate = $('#J-date-start');
     var endDate = $('#J-date-end');
-    var api = 'controler/queryTodayOperation.php';
+    var api = 'controler/querySold.php';
     var loadingImg = $('.loadingImg');
     var dateName = $('.dateName');
 

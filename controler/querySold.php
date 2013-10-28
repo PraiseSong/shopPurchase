@@ -6,6 +6,9 @@
  * Time: 6:44 PM
  * To change this template use File | Settings | File Templates.
  */
+if(!$_POST){
+    exit('非法访问');
+}
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 
@@ -16,8 +19,8 @@ $start = @$_POST['start'];
 $end = @$_POST['end'];
 
 $date = date("Y-m-d");
-$query_today_sell_sql = "select p_id,detail from `cashier` where date like '%$date%'";
-if($start){
+$query_sold_sql = "select p_id,detail from `cashier` where date like '%$date%'";
+if($start && $end){
     $where = "(date like '%$start%'";
     $start = preg_split("/\-/", $start);
     $end = preg_split("/\-/", $end);
@@ -39,12 +42,12 @@ if($start){
     }
     $where .= ')';
 
-    $query_today_sell_sql = "select p_id,detail,count,date from `cashier` where $where";
+    $query_sold_sql = "select p_id,detail,count,date from `cashier` where $where";
 }
-$today_sell_data = $db->queryManyObject($query_today_sell_sql);
+$sold_data = $db->queryManyObject($query_sold_sql);
 
 $ids = array();
-foreach($today_sell_data as $k => $v){
+foreach($sold_data as $k => $v){
     array_push($ids, $v->p_id);
 }
 $ids = array_unique($ids);
@@ -65,18 +68,18 @@ if(!$where){
 $query_price_sql = "select p_price,p_id from `products` where $where ";
 $query_price_data = $db->queryManyObject($query_price_sql);
 $db->close();
-$todayOperation = array();
+$operation = array();
 foreach($query_price_data as $k => $v){
-    foreach($today_sell_data as $kk => $vv){
+    foreach($sold_data as $kk => $vv){
         if($v-> p_id == $vv -> p_id){
             array_push(
-                $todayOperation,
+                $operation,
                 array('p_id' => $v-> p_id, 'detail' => $vv -> detail, 'p_price' => $v->p_price)
             );
         }
     }
 }
 
-$result = array("code" => 1, "result" => $todayOperation);
+$result = array("code" => 1, "result" => $operation);
 echo json_encode($result);
 ?>

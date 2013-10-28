@@ -6,6 +6,9 @@
  * Time: 6:44 PM
  * To change this template use File | Settings | File Templates.
  */
+if(!$_POST){
+    exit('非法访问');
+}
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 
@@ -13,25 +16,32 @@ $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
 
 $page = @$_POST['page'];
+if(!$page){
+    $page = 1;
+}
 $limit_start = 0;
 $limit = @$_POST['limit'];
 $type = @$_POST['type'];
-if(!$page){
-    $page = 1;
+$start = @$_POST['start'];
+$end = @$_POST['end'];
+$countIs0 = @$_POST['countIs0'];
+$count_condition = 'p_count>0';
+if($countIs0){
+    $count_condition = 'p_count<=0';
 }
 if(!$limit){
     $limit = 10;
 }
 $limit_end = (int)$limit;
 $limit_start = (int)$limit*((int)$page-1);
-$custom = @$_POST['action'];
-$sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where p_count>0 limit $limit_start,$limit_end";
+
+$sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where $count_condition limit $limit_start,$limit_end";
+
 if($type){
-    $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where (p_type=$type and p_count>0) limit $limit_start,$limit_end";
+    $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where (p_type=$type and $count_condition) ".
+           "limit $limit_start,$limit_end";
 }
-if($custom){
-    $start = @$_POST['start'];
-    $end = @$_POST['end'];
+if($start && $end){
     $where = "(date like '%$start%'";
     $start = preg_split("/\-/", $start);
     $end = preg_split("/\-/", $end);
