@@ -377,8 +377,12 @@ select.full-screen{
     margin-right: 10px;
     background: #fff;
 }
+.J-dataList .controler{
+    width: 60px;
+}
 .J-dataList .info{
     line-height: 23px;
+    -webkit-box-flex: 1;
 }
 .J-dataList .pName{
     font-weight: 700;

@@ -1,0 +1,39 @@
+CACHE MANIFEST
+
+# VERSION 1.6
+
+# 直接缓存的文件
+CACHE:
+index.php
+add.php
+operation.php
+templates/footer.php
+templates/header.php
+static/css/app.css
+static/css/reset.css
+static/imgs/ajax-loader.gif
+static/imgs/camera.png
+static/imgs/filter.png
+static/imgs/logo.png
+static/js/add.js
+static/js/cashier.js
+static/js/footer.js
+static/js/handlebars.js
+static/js/index.js
+static/js/operation.js
+static/js/productsGetter.js
+static/js/queryAllOperations.js
+static/js/rent.js
+static/js/types.js
+static/js/util.js
+static/js/widgets.js
+static/js/zepto.min.js
+static/libs/sea.js
+
+# 需要在时间在线的文件
+NETWORK:
+/wp-admin/
+
+# 替代方案
+FALLBACK:
+/ajax/ ajax.html

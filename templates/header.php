@@ -3,7 +3,7 @@ include_once('config/config.php');
 include_once($libs_dir."/Mobile_Detect.php")
 ?>
 <!DOCTYPE html>
-<html>
+<html manifest="cache.manifest">
 <head>
     <meta charset="utf-8" />
     <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />

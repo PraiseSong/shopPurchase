@@ -25,6 +25,8 @@ define(function (require, exports, module){
         '<div class="extra">'+
         '<p class="kcBox">库存：<span class="kc">{count}</span> 个</p>'+
         '<p class="cbBox">成本：&yen; <span class="cb">{price}</span>元</p>'+
+        '</div>'+
+        '<div class="controler">' +
         '<a href="add.php?action=update&id={id}" class="rk">入库</a>'+
         '</div>'+
         '</li>';
