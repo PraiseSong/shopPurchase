@@ -10,11 +10,12 @@ define(function (require, exports, module){
     var $ = require('zepto.min.js');
 
     var api = 'controler/querySold.php';
-    var cb = 0;//成本
-    var lr = 0;//利润
-    var yye = 0;//营业额
 
     function success(data){
+        var cb = 0;//成本
+        var lr = 0;//利润
+        var yye = 0;//营业额
+
         $.each(data, function (i, o){
             var price = o.p_price * 1;
             var detail = o.detail.split('|');
@@ -28,6 +29,8 @@ define(function (require, exports, module){
                 }
             });
         });
+
+        return {cb: cb, lr: lr, yye: yye};
     }
 
     return {
@@ -51,33 +54,35 @@ define(function (require, exports, module){
                         success: function (data){
                             if(data.bizCode){
                                 if(cfg.range){
-                                    var cb = 0;
-                                    var lr = 0;
-                                    var yye = 0;
-                                    $.each(data.data, function (i, o){
-                                        var price = o.p_price * 1;
-                                        var detail = o.detail.split('|');
-                                        $.each(detail, function (j, d){
-                                            if(d){
-                                                var de = d.split('*');
-                                                var selledPrice = de[0];
-                                                var selledCount = de[1];
-                                                yye += selledPrice * selledCount;
-                                                cb += price * selledCount;
-                                            }
+                                    (function (){
+                                        var cb = 0;
+                                        var lr = 0;
+                                        var yye = 0;
+                                        $.each(data.data, function (i, o){
+                                            var price = o.p_price * 1;
+                                            var detail = o.detail.split('|');
+                                            $.each(detail, function (j, d){
+                                                if(d){
+                                                    var de = d.split('*');
+                                                    var selledPrice = de[0];
+                                                    var selledCount = de[1];
+                                                    yye += selledPrice * selledCount;
+                                                    cb += price * selledCount;
+                                                }
+                                            });
+                                            defaultCfg.on.success.call(this, {
+                                                cb: cb,
+                                                lr: lr,
+                                                yye: yye
+                                            });
                                         });
-                                        defaultCfg.on.success.call(this, {
-                                            cb: cb,
-                                            lr: lr,
-                                            yye: yye
-                                        });
-                                    });
+                                    })();
                                 }else{
-                                    success(data.data);
+                                    var result = success(data.data);
                                     defaultCfg.on.success.call(this, {
-                                        cb: cb,
-                                        lr: lr,
-                                        yye: yye
+                                        cb: result.cb,
+                                        lr: result.lr,
+                                        yye: result.yye
                                     });
                                 }
                             }
