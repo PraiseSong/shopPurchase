@@ -8,11 +8,12 @@
 define(function (require, exports, module){
     var $ = require('zepto.min.js');
     var Widgets = require('widgets.js');
+    var Operation = require("operation.js");
+    var Util = require('util.js');
 
     var btn = $('#J-queryBtn');
     var startDate = $('#J-date-start');
     var endDate = $('#J-date-end');
-    var api = 'controler/querySold.php';
     var loadingImg = $('.loadingImg');
     var dateName = $('.dateName');
 
@@ -69,9 +70,9 @@ define(function (require, exports, module){
             type: 'post',
             data: 'action=custom&'+"start="+getStartTIme()+'&end='+getEndTIme(),
             success: function (data){
-                if(data.code*1 === 1){
-                    if(data.products){
-                        renderSelledProducts(data.products);
+                if(data.bizCode*1 === 1){
+                    if(data.data.products){
+                        renderSelledProducts(data.data);
                     }
                 }
             },
@@ -79,16 +80,6 @@ define(function (require, exports, module){
         });
     }
 
-    function getAttachment(id){
-        var attachments = localStorage.getItem('attachments');
-        if(attachments){
-            attachments = JSON.parse(attachments);
-        }else{
-            return null;
-        }
-
-        return attachments[id];
-    }
     function renderSelledProducts(data){
         var html = '<ul>';
         for(d in data.products){
@@ -99,7 +90,6 @@ define(function (require, exports, module){
             }
             var p_price = p.p_price*1;
             var p_name = p.p_name;
-            var p_pic = getAttachment(p.p_id);
             var orderId = [];
             var counter = 0;
             $.each(pdata, function (i, prod){
@@ -113,7 +103,7 @@ define(function (require, exports, module){
                 orderId.push(prod.order_id);
             });
             html += '<li data-id="'+orderId.join(',')+'">'+
-                '<div class="imgBox"><img src="'+p_pic+'" /></div>'+
+                '<div class="imgBox"><img data-src="'+ p.p_pic+'" / data-id="'+ p.p_id+'"></div>'+
                 '<div class="info">'+
                 '<p class="pName">'+p_name+'</p>'+
                 '<div class="extra">'+
@@ -124,6 +114,7 @@ define(function (require, exports, module){
         html += '</ul>';
         $('.selled-products-box').find('ul').remove();
         $('.selled-products-box').append(html);
+        Util.queryBase64($('.selled-products-box').find('.imgBox img'));
     }
 
     function beforeQuery(){
@@ -133,40 +124,25 @@ define(function (require, exports, module){
 
     function queryOperation(){
         beforeQuery();
-        $.ajax({
-            url: api,
-            dataType: "json",
+
+        Operation.io({
+            range: true,
             data: "start="+getStartTIme()+'&end='+getEndTIme(),
-            type: "POST",
-            success: function (data){
-                loadingImg.hide();
-                if(data.code){
-                    renderOperation(data.result);
+            on: {
+                success: function (data){
+                    loadingImg.hide();
+                    renderOperation(data);
+                },
+                error: function (){
+
                 }
             }
         });
 
         function renderOperation(data){
-            var cb = 0;
-            var lr = 0;
-            var yye = 0;
-            $.each(data, function (i, o){
-                var price = o.p_price * 1;
-                var detail = o.detail.split('|');
-                $.each(detail, function (j, d){
-                    if(d){
-                        var de = d.split('*');
-                        var selledPrice = de[0];
-                        var selledCount = de[1];
-                        yye += selledPrice * selledCount;
-                        cb += price * selledCount;
-                    }
-                });
-            });
-
-            yyeNode.html(yye);
-            cbNode.html(cb);
-            lrNode.html((yye-cb).toFixed(2));
+            yyeNode.html(data.yye.toFixed(2));
+            cbNode.html(data.cb.toFixed(2));
+            lrNode.html((data.yye-data.cb).toFixed(2));
         }
     }
 });

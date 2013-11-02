@@ -6,18 +6,15 @@
  * Time: 6:44 PM
  * To change this template use File | Settings | File Templates.
  */
-if(!$_POST){
-    exit('非法访问');
-}
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 
 $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
 
-$page = @$_POST['page'];
-if(!$page){
-    $page = 1;
+$page_num = @$_POST['pageNum'];
+if(!$page_num){
+    $page_num = 1;
 }
 $limit_start = 0;
 $limit = @$_POST['limit'];
@@ -33,7 +30,7 @@ if(!$limit){
     $limit = 10;
 }
 $limit_end = (int)$limit;
-$limit_start = (int)$limit*((int)$page-1);
+$limit_start = (int)$limit*((int)$page_num-1);
 
 $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where $count_condition limit $limit_start,$limit_end";
 
@@ -88,9 +85,10 @@ if($start && $end){
     $data = $products;
 }else{
     $data = $db->queryManyObject($sql);
+    $data = array('products' => $data);
     $db->close();
 }
 
-$result = array("code" => 1, "products" => $data);
+$result = array("bizCode" => 1, "data" => $data);
 echo json_encode($result);
 ?>

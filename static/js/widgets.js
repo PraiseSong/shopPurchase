@@ -246,8 +246,241 @@ define(function(require, exports, module) {
         return $.Alert.self;
     }
 
+    var IO = function (cfg){
+        var defaultCfg = {
+            url: null,
+            dataType: "json",
+            type: "post",
+            data: null,
+            on: {
+                start: function (){},
+                success: function (){},
+                error: function (){}
+            }
+        };
+        cfg.on && ($.extend(defaultCfg.on, cfg.on));
+        if(cfg.url){
+            defaultCfg.url = cfg.url;
+        }
+        if(cfg.dataType){
+            defaultCfg.dataType = cfg.dataType;
+        }
+        if(cfg.type){
+            defaultCfg.type = cfg.type;
+        }
+        if(cfg.data){
+            defaultCfg.data = cfg.data;
+        }
+        this.cfg = defaultCfg;
+    };
+    IO.prototype = {
+        start: function (){
+            this.cfg.on.start.call(this);
+        },
+        success: function (data){
+            this.cfg.on.success.call(this, data);
+        },
+        error: function (data){
+            this.cfg.on.error.call(this, data);
+        },
+        send: function (){
+            this.start();
+
+            var self = this;
+
+            this.ajaxObj = $.ajax({
+                url: this.cfg.url,
+                dataType: this.cfg.dataType,
+                data: this.cfg.data,
+                type: this.cfg.type,
+                success: function (data){self.success(data);},
+                error: function (data){self.error(data);}
+            });
+        },
+        abort: function (){
+            this.ajaxObj.abort();
+        }
+    };
+
+    /**
+     * Created by zhuqi on 13-10-29.
+     */
+    /**
+     * 数据列表
+     * @param options
+     * @constructor
+     */
+    var DataList = function (cfg){
+        var defaultCfg = {
+            container: null,
+            template: null,
+            ajaxCfg: {
+                url: null,
+                data: null
+            },
+            on: {
+                noData: function (){},
+                start: function (){},
+                success: function (){},
+                error: function (){},
+                filter: function (data){
+                    return data;
+                },
+                bindUI: function (){}
+            }
+        };
+
+        cfg.ajaxCfg && ($.extend(defaultCfg.ajaxCfg, cfg.ajaxCfg));
+        cfg.on && $.extend(defaultCfg.on, cfg.on);
+        if(cfg.container){
+            defaultCfg.container = cfg.container;
+        }
+        if(cfg.template){
+            defaultCfg.template = cfg.template;
+        }
+
+        this.cfg = defaultCfg;
+        this.ajaxCfg = defaultCfg.ajaxCfg;
+
+        this.initializer();
+    };
+    DataList.prototype = {
+        initializer: function (){
+            //数据存储器
+            this.dataList = [];
+            //初始化数据请求总量
+            this.dataAmount = 0;
+            //默认的页码
+            this.pageNum = 1;
+            if(this.cfg.pageNum){
+                this.pageNum = this.cfg.pageNum;
+            }
+        },
+        success: function (data){
+            var self = this
+
+            if(data.data.products.length <= 0){
+                return this.noData(data);
+            }
+
+            if(parseInt(data.bizCode,10) !== 1){
+                self.failure(data);
+                return ;
+            }
+
+            self.cfg.on.success.call(self, data);
+            this.pageNum++;
+        },
+        noData: function (data){
+            this.cfg.on.noData.call(this, data);
+        },
+        start: function (){
+            this.cfg.on.start.call(this);
+        },
+        failure: function (data){
+            this.cfg.on.failure.call(this, data);
+        },
+        error: function (data){
+            this.cfg.on.error.call(this, data);
+        },
+        send: function (){
+            var self = this;
+
+            var page = '';
+            if($.trim(this.ajaxCfg.data) && !/\&$/.test(this.ajaxCfg.data)){
+                page = '&pageNum='+this.pageNum;
+            }else{
+                page = 'pageNum='+this.pageNum;
+            }
+
+            self.io = new IO({
+                url: this.ajaxCfg.url,
+                data: this.ajaxCfg.data+page,
+                on: {
+                    start: function (){
+                        self.start();
+                    },
+                    error: function (data){
+                        self.error(data);
+                    },
+                    success: function (data){
+                        self.success(data);
+                    }
+                }
+            });
+            self.io.send();
+        },
+        renderData: function (data){
+            var self = this;
+            var html = '';
+
+            for(var i = 0,l = data.length;i < l;i++){
+                data[i] = self.cfg.on.filter(data[i]);
+                html += dataTemplate(self.cfg.template,data[i]);
+            }
+            self.cfg.container.append(html);
+            self.bindUI();
+        },
+        cleaner: function (){
+            this.pageNum = 1;
+            this.cfg.container.html('');
+        },
+        abort: function (){
+            this.io.abort();
+        },
+        bindUI: function (){
+            this.cfg.on.bindUI();
+        }
+    };
+
+    /**
+     * 一个非常简单的数据模版
+     * @param {String} tem
+     * @param {Object} data
+     * @example '<p>{userName}</p><p>{userID}</p>'  {userName:"朱琦",userID:"53421"}
+     * @return 返回已经填充数据的tem片段
+     */
+    var dataTemplate = function (tem,data){
+        var varReg = /{\w+}/g,
+            keyReg = /^{(\w+)}$/,
+            result;
+
+        result = tem.replace(varReg,function ($0,$1){
+            $0 = $0.replace(keyReg,function ($0,$1){
+                for(var k in data){
+                    data = data;
+
+                    if(k === $1){
+                        $1 = data[k];
+
+                        //如果需要对数据进行过滤
+                        if(dataTemplate.filter){
+                            $1 = dataTemplate.filter.call(dataTemplate.filter,k,$1,data) || $1;
+                        }
+
+                        return $1;
+                    }
+                }
+                //假如服务端的数据与模版中的变量不匹配
+                return $1 = '';
+            });
+
+            return $0;
+        });
+
+        return result;
+    };
+
+    var ListView = function (options){
+
+    }
+
     return {
-        Pop: $.Pop
+        Pop: $.Pop,
+        DataTem: dataTemplate,
+        DataList: DataList,
+        ListView: ListView,
+        IO: IO
     }
 });
 

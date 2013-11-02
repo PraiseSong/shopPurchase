@@ -6,9 +6,6 @@
  * Time: 6:44 PM
  * To change this template use File | Settings | File Templates.
  */
-if(!$_POST){
-    exit('非法访问');
-}
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 
@@ -61,7 +58,7 @@ foreach($ids as $k => $v){
 }
 
 if(!$where){
-    $result = array('code' => 0, 'result' => array());
+    $result = array('bizCode' => 0, 'result' => array());
     echo json_encode($result);
     exit;
 }
@@ -80,6 +77,6 @@ foreach($query_price_data as $k => $v){
     }
 }
 
-$result = array("code" => 1, "result" => $operation);
+$result = array("bizCode" => 1, "data" => $operation);
 echo json_encode($result);
 ?>

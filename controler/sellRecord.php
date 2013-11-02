@@ -6,9 +6,6 @@
  * Time: 9:46 PM
  * To change this template use File | Settings | File Templates.
  */
-if(!$_POST){
-    exit('非法访问');
-}
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 
@@ -22,7 +19,7 @@ $man = @$_POST['man'];
 $date = date("Y-m-d H:i:s");
 
 if(!$detail || !$count){
-    json_encode(array("code" => 0, 'memo' => "缺少参数"));
+    json_encode(array("bizCode" => 0, 'memo' => "缺少参数"));
     exit;
 }
 
@@ -40,6 +37,6 @@ $update_kb_sql = "update `products` set `p_count` = $new_count where `p_id` = '$
 $updated_result = $db->query($update_kb_sql);
 $db->close();
 
-$result = $updated_result ? array("code" => 1) : array("code" => 0);
+$result = $updated_result ? array("bizCode" => 1) : array("bizCode" => 0);
 echo json_encode($result);
 ?>

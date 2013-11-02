@@ -93,11 +93,10 @@ select.full-screen{
     z-index: 10;
 }
 #header{
-    top: 0;
-    left; 0;
+    margin-bottom: 10px;
 }
 .main{
-    margin: 20px auto;
+    margin: 0 auto;
 }
 #header a,
 #footer a{

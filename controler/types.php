@@ -36,5 +36,5 @@ switch($action){
         break;
 }
 
-echo json_encode(array("code" => 1, "data" => $data));
+echo json_encode(array("bizCode" => 1, "data" => array('types' => $data)));
 ?>
