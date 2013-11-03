@@ -154,8 +154,16 @@
     </fieldset>
 </form>
 <script>
+    <?php
+      if($update):
+    ?>
+    seajs.use('update.js');
+    <?php
+      else:
+    ?>
     seajs.use('add.js');
-</script>
+    <?php endif; ?>
+    </script>
 <?php
   include_once('templates/footer.php');
 ?>

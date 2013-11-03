@@ -81,37 +81,54 @@ define(function (require, exports, module){
     }
 
     function renderSelledProducts(data){
-        var html = '<ul>';
-        for(d in data.products){
-            var pdata = data.products[d];
-            var p = data[d][0];
-            if(!p){
-                continue;
-            }
-            var p_price = p.p_price*1;
-            var p_name = p.p_name;
-            var orderId = [];
-            var counter = 0;
-            $.each(pdata, function (i, prod){
+        var html = '';
+        for(dateType in data.products){
+            var dateHtml = '<p>'+dateType+' 的售出商品</p>';
+            var ulHtml = dateHtml+'<ul>';
+            var dateProducts = data.products[dateType];
+//            var pdata = data.products[d];
+//            var p = data[d][0];
+//            if(!p){
+//                continue;
+//            }
+
+
+            $.each(dateProducts, function (i, prod){
+                var p = data[prod.p_id][0];
+
+                var p_price = p.p_price*1;
+                var p_name = p.p_name;
+
                 var detail = prod.detail.split('|');
+                var counter = 0;
+                var detailHtml = '';
+                var date = prod.date;
                 $.each(detail, function (j, _det){
+                    if(_det){
                     _det = _det.split('*');
                     if(_det[1]){
                         counter += _det[1]*1;
                     }
+                    detailHtml += '<p>'+(_det[0]*1).toFixed(2)+'元 x '+_det[1]*1+'</p>';
+                    }
                 });
-                orderId.push(prod.order_id);
+                ulHtml += '<li data-id="'+prod.order_id+'">'+
+                    '<div class="imgBox"><img data-src="'+ p.p_pic+'" / data-id="'+ p.p_id+'"></div>'+
+                    '<div class="info">'+
+                    '<p class="pName">'+p_name+'</p>'+
+                    '<div class="extra">'+
+                    '<p class="kcBox">销售量：<span>'+counter+'</span> 个</p>'+
+                    '<div>详细：'+detailHtml+'</div>'+
+                    '</div>'+
+                    '<p>时间：'+(date.split(' ')[1])+'</p>'+
+                    '</li>';
+                //orderId.push(prod.order_id);
             });
-            html += '<li data-id="'+orderId.join(',')+'">'+
-                '<div class="imgBox"><img data-src="'+ p.p_pic+'" / data-id="'+ p.p_id+'"></div>'+
-                '<div class="info">'+
-                '<p class="pName">'+p_name+'</p>'+
-                '<div class="extra">'+
-                '<p class="kcBox">销售量：<span>'+counter+'</span> 个</p>'+
-                '</div>'+
-                '</li>';
+            ulHtml += '</ul>';
+            html+= ulHtml;
         }
-        html += '</ul>';
+        html += '';
+
         $('.selled-products-box').find('ul').remove();
         $('.selled-products-box').append(html);
         Util.queryBase64($('.selled-products-box').find('.imgBox img'));

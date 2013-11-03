@@ -19,12 +19,13 @@ define(function (require, exports, module){
     productList.container = $('.J-dataList');
     productList.tem = '<li data-id="{id}">'+
         '<div class="imgBox">'+
-        '<img data-src="{attachment}"  data-id="{id}" /></div>'+
-        '<div class="info">'+
+        '<img data-src="{attachment}" data-id="{id}" /></div>'+
+        '<div class="info" data-id="{id}">'+
         '<p class="pName">{name}</p>'+
         '<div class="extra">'+
         '<p class="kcBox">库存：<span class="kc">{count}</span> 个</p>'+
         '<p class="cbBox">成本：&yen; <span class="cb">{price}</span>元</p>'+
+        '</div>'+
         '</div>'+
         '<div class="controler">' +
         '<a href="add.php?action=update&id={id}" class="rk">入库</a>'+
@@ -69,7 +70,7 @@ define(function (require, exports, module){
                     }
                 });
             };
-            productList.container.find("li").unbind().bind('click', fn);
+            productList.container.find(".info").unbind().bind('click', fn);
         }
     };
 

@@ -16,11 +16,10 @@ $db->query("SET NAMES 'UTF8'");
 
 $date = date("Y-m-d");
 $action = $_POST['action'];
-$price = @$_POST['price'];
 $data = null;
 $result = array();
 
-if(!$action || !$price){
+if(!$action){
     $result['code'] = 0;
     $result['data'] = "缺少参数";
 }else{
@@ -37,6 +36,7 @@ if(!$action || !$price){
         }
         break;
       case "add":
+        $price = @$_POST['price'];
         if(!$price){
             $result['code'] = 0;
             $result['data'] = null;

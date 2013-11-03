@@ -60,16 +60,19 @@ if($start && $end){
     }
     $where .= ')';
 
-    $sql = "select p_id,detail,order_id from `cashier` where $where";
+    $sql = "select p_id,detail,order_id,date from `cashier` where $where order by `cashier`.`date` desc";
     $data = $db->queryManyObject($sql);
     $ids = array();
     $products = array('products'=>array());
     foreach($data as $k => $v){
         array_push($ids, $v->p_id);
-        if(!isset($products['products'][$v->p_id])){
-            $products['products'][$v->p_id] = array();
+        $date = preg_split('/\s/', $v->date);
+
+        if(!isset($products['products'][$date[0]])){
+            $products['products'][$date[0]] = array();
         }
-        array_push($products['products'][$v->p_id], $v);
+
+        array_push($products['products'][$date[0]], $v);
     }
 
     $ids = array_unique($ids);
