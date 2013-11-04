@@ -530,3 +530,88 @@ select.full-screen{
 .selled-products-box{
     margin: 0 20px;
 }
+
+/*快捷按钮*/
+.shortMenu,
+.shortFullMenu{
+    position: fixed;
+    z-index: 99999999;
+    left: 20px;
+    bottom: 20px;
+}
+.shortMenu .mainMenu,
+.shortFullMenu .bd{
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, .7);
+    -webkit-border-radius: 60px;
+    position: relative;
+    cursor: pointer;
+}
+.shortMenu .mainMenu .lt,
+.shortMenu .mainMenu .rt,
+.shortMenu .mainMenu .lb,
+.shortMenu .mainMenu .rb{
+    display: block;
+    position: absolute;
+    width:15px;
+    height: 15px;
+    background: #ddd;
+    -webkit-border-radius: 15px;
+}
+.shortMenu .mainMenu .lt,
+.shortMenu .mainMenu .lb{
+    left: 13px;
+}
+.shortMenu .mainMenu .rt,
+.shortMenu .mainMenu .rb{
+    right: 13px;
+}
+.shortMenu .mainMenu .lt,
+.shortMenu .mainMenu .rt{
+    top: 13px;
+}
+.shortMenu .mainMenu .lb,
+.shortMenu .mainMenu .rb{
+    bottom: 13px;
+}
+.shortFullMenu{
+    left: 90px;
+    bottom: 90px;
+}
+.shortFullMenu .bd{
+    width: 200px;
+    height: 200px;
+    -webkit-border-radius: 10px;
+}
+.shortFullMenu .bd .t,
+.shortFullMenu .bd .r,
+.shortFullMenu .bd .b,
+.shortFullMenu .bd .l{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    -webkit-border-radius: 10px;
+    text-align: center;
+}
+.shortFullMenu .bd .t,
+.shortFullMenu .bd .b{
+    left: 75px;
+}
+.shortFullMenu .bd .t{
+    top: 10px;
+}
+.shortFullMenu .bd .b{
+    bottom: 10px;
+}
+.shortFullMenu .bd .l,
+.shortFullMenu .bd .r{
+    top: 75px;
+}
+.shortFullMenu .bd .l{
+    left: 10px;
+}
+.shortFullMenu .bd .r{
+    right: 10px;
+}

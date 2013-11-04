@@ -29,6 +29,22 @@
 <script>
     seajs.use('index.js');
 </script>
+<div class="shortMenu">
+    <div class="mainMenu">
+        <span class="lt"></span>
+        <span class="rt"></span>
+        <span class="lb"></span>
+        <span class="rb"></span>
+    </div>
+</div>
+<div class="shortFullMenu">
+    <div class="bd">
+        <div class="t">上</div>
+        <div class="r">右</div>
+        <div class="b">下</div>
+        <div class="l">左</div>
+    </div>
+</div>
 <?php
   include_once('templates/footer.php');
 ?>
