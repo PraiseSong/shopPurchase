@@ -22,6 +22,9 @@ input[type=url]:focus,
 input[type=email]:focus{
     border-color: #ffb70a;
 }
+a:hover{
+    text-decoration: none;
+}
 
 /*common*/
 .overlay-container{
@@ -531,6 +534,38 @@ select.full-screen{
     margin: 0 20px;
 }
 
+/*css3 animation*/
+@-webkit-keyframes scale-in{
+    0%{
+        -webkit-transform: scale(0);
+        left: -200px;
+        bottom: -200px;
+    }
+    100%{
+        -webkit-transform: scale(1);
+        left: 90px;
+        bottom: 90px;
+    }
+}
+@-webkit-keyframes scale-out{
+    0%{
+        -webkit-transform: scale(1);
+        left: 90px;
+        bottom: 90px;
+    }
+    100%{
+        -webkit-transform: scale(0);
+        left: -200px;
+        bottom: -200px;
+    }
+}
+.scale-in{
+    -webkit-animation: scale-in .5s both;
+}
+.scale-out{
+    -webkit-animation: scale-out .5s both;
+}
+
 /*快捷按钮*/
 .shortMenu,
 .shortFullMenu{
@@ -538,6 +573,7 @@ select.full-screen{
     z-index: 99999999;
     left: 20px;
     bottom: 20px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .shortMenu .mainMenu,
 .shortFullMenu .bd{
@@ -547,6 +583,10 @@ select.full-screen{
     -webkit-border-radius: 60px;
     position: relative;
     cursor: pointer;
+    -webkit-box-shadow: 0 0 8px #606060;
+}
+.shortFullMenu .bd a{
+    color: #000;
 }
 .shortMenu .mainMenu .lt,
 .shortMenu .mainMenu .rt,
@@ -576,22 +616,31 @@ select.full-screen{
     bottom: 13px;
 }
 .shortFullMenu{
-    left: 90px;
-    bottom: 90px;
+    left: -200px;
+    bottom: -200px;
+    display: none;
 }
 .shortFullMenu .bd{
     width: 200px;
     height: 200px;
     -webkit-border-radius: 10px;
+    background: rgba(255, 255, 255, .9);
+}
+.shortFullMenu .bd img{
+    display: block;
+    margin-bottom: 5px;
+    width: 36px;
+    height: 36px;
+    margin: 0 auto;
 }
 .shortFullMenu .bd .t,
 .shortFullMenu .bd .r,
 .shortFullMenu .bd .b,
-.shortFullMenu .bd .l{
+.shortFullMenu .bd .l,
+.shortFullMenu .bd .c{
     position: absolute;
     width: 50px;
     height: 50px;
-    background: #fff;
     -webkit-border-radius: 10px;
     text-align: center;
 }
@@ -614,4 +663,8 @@ select.full-screen{
 }
 .shortFullMenu .bd .r{
     right: 10px;
+}
+.shortFullMenu .bd .c{
+    top: 75px;
+    left: 75px;
 }
