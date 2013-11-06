@@ -10,6 +10,7 @@ define(function (require, exports, module){
     var Widgets = require('widgets.js');
     var Operation = require("operation.js");
     var Util = require('util.js');
+    var Refund = require('refund.js');
 
     var btn = $('#J-queryBtn');
     var startDate = $('#J-date-start');
@@ -109,7 +110,7 @@ define(function (require, exports, module){
                     if(_det[1]){
                         counter += _det[1]*1;
                     }
-                    detailHtml += '<p>'+(_det[0]*1).toFixed(2)+'元 x '+_det[1]*1+'</p>';
+                    detailHtml += '<p class="detail" data-detailNum="'+(j+1)+'" data-detail="'+(_det[0]*1)+'*'+(_det[1]*1)+'">'+(_det[0]*1).toFixed(2)+'元 x '+_det[1]*1+'</p>';
                     }
                 });
                 ulHtml += '<li data-id="'+prod.order_id+'">'+
@@ -132,6 +133,28 @@ define(function (require, exports, module){
         $('.selled-products-box').find('ul').remove();
         $('.selled-products-box').append(html);
         Util.queryBase64($('.selled-products-box').find('.imgBox img'));
+        $('.selled-products-box').find('li').unbind().bind('click', function (){
+            var id = $(this).attr('data-id');
+            var detailNodes = $(this).find('.detail');
+            var details = [];
+            $.each(detailNodes, function (i, n){
+                details.push($(n).attr('data-detail'));
+            });
+            var data = {
+                name: $(this).find('.pName').html(),
+                id: id,
+                details: details
+            };
+            Refund.showPanel(data, function (data){
+                if(data.data.deleted){
+                    alert("销售记录已删除");
+                    location.reload();
+                }else if(data.data.sold){
+                    alert("退货成功");
+                    location.reload();
+                }
+            });
+        });
     }
 
     function beforeQuery(){
