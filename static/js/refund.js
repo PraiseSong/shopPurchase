@@ -40,9 +40,8 @@ define(function (require, exports, module){
             return alert('请勾选一个退货商品');
         }
         if(checkeds === detailNodes.length){
-            alert("系统将直接删除这条销售记录");
+            confirm = window.confirm("系统将直接删除这条销售记录");
             details = 'null';
-            confirm = true;
         }else{
             confirm = window.confirm(data.name+" 退货："+refundDetail.join('和 ').replace(/\*/g, ' x '));
         }
