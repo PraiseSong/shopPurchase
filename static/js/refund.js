@@ -24,25 +24,25 @@ define(function (require, exports, module){
 
     function submitRefund(data, callback){
         var detailNodes = pop.bd.find('.detailsBox .detail');
-        var details = [];
-        var checkeds = 0;
-        var refundDetail = [];
+        var details = [];//最终传入服务端的details值
+        var checkeds = 0;//已勾选的销售记录
+        var refundDetail = [];//销售记录的退货存储器
         var confirm = null;
 
-        var selectCountMax = 0;
-        var selectCount = 0;
+        var selectCountMax = 0;//有多少下拉框的值选择中的是销售数量的最大值
+        var selectCount = 0;//弹框里有多少带有下拉框的销售记录
         $.each(detailNodes, function (i, n){
             var select = $(n).find('.J-counter');
 
             if(!$(n).find('input[type=checkbox]').attr('checked')){
                 details.push($(n).attr('data-detail'))
-            }else if($(n).find('input[type=checkbox]').attr('checked')
+            }else if($(n).find('input[type=checkbox]').attr('checked')//如果勾选，并且下拉列表的值小于当前销售数量的最大值
                 && select.get(0)
                 && (select.val() !== select.attr('data-max'))
                 ){
-                refundDetail.push($(n).attr('data-detail'));
-                details.push(select.attr('data-price')+'*'+(select.attr('data-max')-select.val()))
-                checkeds++;
+                refundDetail.push($(n).attr('data-detail'));//存储这条销售记录
+                details.push(select.attr('data-price')+'*'+(select.attr('data-max')-select.val()))//存储剩余的销售记录到服务端
+                checkeds++;//记录当前勾选状态
             }else{
                 checkeds++;
                 refundDetail.push($(n).attr('data-detail'))
@@ -83,9 +83,10 @@ define(function (require, exports, module){
 
     function bindUItoPop(){
         pop.bd.find('.J-counter').unbind().bind('change', function (){
-            var max = $(this).attr('data-max');
+            var max = $(this).attr('data-max');//
             var val = $(this).val();
             var price = $(this).attr('data-price');
+            //如果选择了这条销售记录，就改变data-detail的值
             if($(this).parent().find('input[type=checkbox]').attr('checked')){
                 $(this).parent().attr('data-detail', price+'*'+val);
             }
@@ -94,9 +95,11 @@ define(function (require, exports, module){
         pop.bd.find('.detail input[type=checkbox]').unbind().bind('click', function (e){
             var select = $(this).parent().find('.J-counter');
             if(select.get(0)){
+                //如果勾选上，也要改变data-detail的值
                 if($(this).attr('checked')){
                     $(this).parent().attr('data-detail', select.attr('data-price')+"*"+select.val());
                 }else{
+                    //如果不勾选，也恢复data-detail
                     $(this).parent().attr('data-detail', select.attr('data-price')+"*"+select.attr('data-max'));
                 }
             }
@@ -109,14 +112,14 @@ define(function (require, exports, module){
             var detailHtml = '<div class="detailsBox">';
             $.each(data.details, function (i, detail){
                 detail = detail.split('*');
-                var uPrice = detail[0];
-                var uCount = detail[1];
-                var price = (detail[0]*1).toFixed(2)+'元';
-                if(detail[1] < 2){
-                    var count = detail[1]+"";
-                }else{
-                    count = '<select class="J-counter" data-max="'+detail[1]+'" data-price="'+(detail[0]*1)+'">';
-                    for(var j= 1; j<=detail[1]; j++){
+                var uPrice = detail[0];//销售价格
+                var uCount = detail[1];//销售数据
+                var price = (uPrice*1).toFixed(2)+'元';//拼装后的销售价格
+                if(uCount < 2){
+                    var count = uCount;
+                }else{//如果销售数量大于1,就渲染一个下拉框
+                    count = '<select class="J-counter" data-max="'+uCount+'" data-price="'+uPrice*1+'">';
+                    for(var j= 1; j<=uCount; j++){
                         var selected = '';
                         if(j === uCount){
                             selected = 'selected';
