@@ -205,7 +205,7 @@ define(function (require, exports, module){
                     prices += date.price*1;
                 });
                 $('.zj').html(prices.toFixed(2));
-                $('.clr').html((data.yye-prices).toFixed(2));
+                $('.clr').html((data.yye-prices-data.cb).toFixed(2));
             });
         }
     }
