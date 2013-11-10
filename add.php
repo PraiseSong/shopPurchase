@@ -20,7 +20,7 @@
   }
 ?>
 <header id="header">
-    <a class="back-btn" href="index.php">&lt; 返回</a>
+    <a class="back-btn" href="cashier.php">&lt; 返回</a>
     <span class="bd">添加商品</span>
 </header>
 <?php

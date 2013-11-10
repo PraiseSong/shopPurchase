@@ -1,35 +1,47 @@
 <?php
-  include_once('templates/header.php');
-?>
-<header id="header">
-    <a href="javascript:void(0)" class="btn filter" id="J-filter-btn">筛选</a>
-    <span class="bd"><?php echo constant("PRODUCT_NAME"); ?></span>
-    <a class="btn btn-info" href="add.php">&#43; 入库</a>
-</header>
+/*
+UserCake Version: 2.0.2
+http://usercake.com
+*/
 
-  <div class="todayOperation">
-      <header>今日运营情况</header>
-      <section class="bd">
-          <p>营业额： &yen; <span class="yye">0</span> 元</p>
-          <p>利润： &yen; <span class="lr">0</span> 元</p>
-          <p>成本： &yen; <span class="cb">0</span> 元</p>
-      </section>
-  </div>
-  <div class="dataList-box">
-      <p class="loading">
-          <img src="static/imgs/ajax-loader.gif" alt="loading..."/>加载中...
-      </p>
-      <div class="init-loading">
-          <img src="static/imgs/ajax-loader.gif" alt="loading..."/>
-          数据初始化
-      </div>
-      <ul class="J-dataList"></ul>
-      <button class="btn btn-ok" id="J-loadMore-btn">加载更多</button>
-  </div>
-<script>
-    seajs.use('index.js');
-</script>
+require_once("models/config.php");
+if (!securePage($_SERVER['PHP_SELF'])){die();}
+require_once("models/header.php");
 
-<?php
-  include_once('templates/footer.php');
+echo "
+<body>
+<div id='wrapper'>
+<div id='top'><div id='logo'></div></div>
+<div id='content'>
+<h1>UserCake</h1>
+<h2>2.00</h2>
+<div id='left-nav'>";
+include("portal.php");
+
+echo "
+</div>
+<div id='main'>
+<p>Thank you for downloading UserCake. 100% Free and Opensource.</p>
+<p>Copyright (c) 2009-2012</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the 'Software'), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
+</div>
+<div id='bottom'></div>
+</div>
+</body>
+</html>";
+
 ?>

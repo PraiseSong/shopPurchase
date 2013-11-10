@@ -187,7 +187,7 @@ class Mobile_Detect
         'EbodaTablet'       => 'E-Boda (Supreme|Impresspeed|Izzycomm|Essential)',
         // @ref: http://www.allview.ro/produse/droseries/lista-tablete-pc/
         'AllViewTablet'           => 'Allview.*(Viva|Alldro|City|Speed|All TV|Frenzy|Quasar|Shine|TX1|AX1|AX2)',
-        // @reference: http://wiki.archosfans.com/index.php?title=Main_Page
+        // @reference: http://wiki.archosfans.com/cashier.php?title=Main_Page
         'ArchosTablet'      => '\b(101G9|80G9|A101IT)\b',
         // @ref: http://www.ainol.com/plugin.php?identifier=ainol&module=product
         'AinolTablet'       => 'NOVO7|NOVO8|NOVO10|Novo7Aurora|Novo7Basic|NOVO7PALADIN|novo9-Spark',
@@ -201,10 +201,10 @@ class Mobile_Detect
         'CobyTablet'        => 'MID1042|MID1045|MID1125|MID1126|MID7012|MID7014|MID7015|MID7034|MID7035|MID7036|MID7042|MID7048|MID7127|MID8042|MID8048|MID8127|MID9042|MID9740|MID9742|MID7022|MID7010',
         // @ref: http://www.match.net.cn/products.asp
         'MIDTablet'         => 'M9701|M9000|M9100|M806|M1052|M806|T703|MID701|MID713|MID710|MID727|MID760|MID830|MID728|MID933|MID125|MID810|MID732|MID120|MID930|MID800|MID731|MID900|MID100|MID820|MID735|MID980|MID130|MID833|MID737|MID960|MID135|MID860|MID736|MID140|MID930|MID835|MID733',
-        // @ref: http://pdadb.net/index.php?m=pdalist&list=SMiT (NoName Chinese Tablets)
+        // @ref: http://pdadb.net/cashier.php?m=pdalist&list=SMiT (NoName Chinese Tablets)
         // @ref: http://www.imp3.net/14/show.php?itemid=20454
         'SMiTTablet'        => 'Android.*(\bMID\b|MID-560|MTV-T1200|MTV-PND531|MTV-P1101|MTV-PND530)',
-        // @ref: http://www.rock-chips.com/index.php?do=prod&pid=2
+        // @ref: http://www.rock-chips.com/cashier.php?do=prod&pid=2
         'RockChipTablet'    => 'Android.*(RK2818|RK2808A|RK2918|RK3066)|RK2738|RK2808A',
         // @ref: http://www.fly-phone.com/devices/tablets/ ; http://www.fly-phone.com/service/
         'FlyTablet'         => 'IQ310|Fly Vision',
@@ -221,7 +221,7 @@ class Mobile_Detect
         'BronchoTablet'     => 'Broncho.*(N701|N708|N802|a710)',
         // @ref: http://versusuk.com/support.html
         'VersusTablet'      => 'TOUCHPAD.*[78910]|\bTOUCHTAB\b',
-        // @ref: http://www.zync.in/index.php/our-products/tablet-phablets
+        // @ref: http://www.zync.in/cashier.php/our-products/tablet-phablets
         'ZyncTablet'        => 'z1000|Z99 2G|z99|z930|z999|z990|z909|Z919|z900',
         // @ref: http://www.positivoinformatica.com.br/www/pessoal/tablet-ypy/
         'PositivoTablet'    => 'TB07STA|TB10STA|TB07FTA|TB10FTA',
@@ -317,7 +317,7 @@ class Mobile_Detect
         'UCBrowser'       => 'UC.*Browser|UCWEB',
         // @ref: https://github.com/serbanghita/Mobile-Detect/issues/7
         'DiigoBrowser'    => 'DiigoBrowser',
-        // http://www.puffinbrowser.com/index.php
+        // http://www.puffinbrowser.com/cashier.php
         'Puffin'            => 'Puffin',
         // @ref: http://mercury-browser.com/index.html
         'Mercury'          => '\bMercury\b',

@@ -2,7 +2,7 @@
 include_once('templates/header.php');
 ?>
 <header id="header">
-    <a class="back-btn" href="index.php"><img src="static/imgs/back-icon.png" width="36" height="36" alt="返回" /></a>
+    <a class="back-btn" href="cashier.php"><img src="static/imgs/back-icon.png" width="36" height="36" alt="返回" /></a>
     <span class="bd">历史业绩</span>
 </header>
     <div class="operationBox">
