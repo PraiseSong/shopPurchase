@@ -70,11 +70,11 @@ define(function (require, exports, module){
                                                     cb += price * selledCount;
                                                 }
                                             });
-                                            defaultCfg.on.success.call(this, {
-                                                cb: cb,
-                                                lr: lr,
-                                                yye: yye
-                                            });
+                                        });
+                                        defaultCfg.on.success.call(this, {
+                                            cb: cb,
+                                            lr: lr,
+                                            yye: yye
                                         });
                                     })();
                                 }else{
