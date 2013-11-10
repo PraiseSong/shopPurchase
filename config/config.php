@@ -30,6 +30,7 @@ define("SITE_ROOT_DIR", "");
  */
 $attachments_dir = constant('SITE_ROOT_DIR')."attachment";
 $libs_dir = constant('SITE_ROOT_DIR')."libraries";
+$utils_dir = constant('SITE_ROOT_DIR')."utils";
 $templates_dir = constant('SITE_ROOT_DIR')."templates";
 $controler_dir = constant('SITE_ROOT_DIR')."controler";
 ?>

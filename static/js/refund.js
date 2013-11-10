@@ -108,7 +108,7 @@ define(function (require, exports, module){
 
     return {
         showPanel: function (data, callback){
-            pop.show().hd.html(data.name+" 的退货");
+            pop.show().hd.html(data.name+" 的退单");
             var detailHtml = '<div class="detailsBox">';
             $.each(data.details, function (i, detail){
                 detail = detail.split('*');

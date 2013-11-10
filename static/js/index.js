@@ -8,7 +8,7 @@
 define(function (require, exports, module){
     var Widgets = require('widgets.js');
     var $ = require('zepto.min.js');
-    var Util = require('util.js');
+    var Util = require('utils.js');
     var productList = require('productsGetter.js');
     var Operation = require("operation.js");
     var Cashier = require('cashier.js');

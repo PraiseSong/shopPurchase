@@ -7,7 +7,7 @@
  */
 define(function (require, exports, module){
     var $ = require("zepto.min.js");
-    var Util = require('util.js');
+    var Util = require('utils.js');
 
     var promptTitle = '请设定今日租金';
     var defaultPrice = 70;
@@ -36,9 +36,9 @@ define(function (require, exports, module){
                 dataType: "json",
                 data: "action=query",
                 success: function (data){
-                    if(data.code !== 1){
+                    if(data.bizCode !== 1){
                         add();
-                    }else if(data.code === 1 && data.data && data.data.id){
+                    }else if(data.bizCode === 1 && data.data && data.data.id){
                         saveToLocal(data.data);
                     }
                 }
@@ -54,7 +54,7 @@ define(function (require, exports, module){
                 dataType: "json",
                 data: 'action=add&price='+rent,
                 success: function (data){
-                    if(data.code === 1 && data.data && data.data.id){
+                    if(data.bizCode === 1 && data.data && data.data.id){
                         saveToLocal(data.data);
                     }
                 }
@@ -70,4 +70,23 @@ define(function (require, exports, module){
         return rent;
     }
     query();
+
+    return {
+        getRange: function (start, end, callback){
+            callback || (callback = function (){});
+            if(start && end){
+                $.ajax({
+                    type: ioType,
+                    url: url,
+                    dataType: "json",
+                    data: "action=query&start="+start+"&end="+end+"",
+                    success: function (data){
+                        if(data.bizCode === 1){
+                            callback.call(callback, data);
+                        }
+                    }
+                });
+            }
+        }
+    };
 });

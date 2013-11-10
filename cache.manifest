@@ -25,7 +25,7 @@ static/js/productsGetter.js
 static/js/queryAllOperations.js
 static/js/rent.js
 static/js/types.js
-static/js/util.js
+static/js/utils.js
 static/js/widgets.js
 static/js/zepto.min.js
 static/libs/sea.js

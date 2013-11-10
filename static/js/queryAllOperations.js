@@ -9,8 +9,9 @@ define(function (require, exports, module){
     var $ = require('zepto.min.js');
     var Widgets = require('widgets.js');
     var Operation = require("operation.js");
-    var Util = require('util.js');
+    var Util = require('utils.js');
     var Refund = require('refund.js');
+    var Rent = require('rent.js');;
 
     var btn = $('#J-queryBtn');
     var startDate = $('#J-date-start');
@@ -84,7 +85,7 @@ define(function (require, exports, module){
     function renderSelledProducts(data){
         var html = '';
         for(dateType in data.products){
-            var dateHtml = '<p>'+dateType+' 的售出商品</p>';
+            var dateHtml = '<p class="dateCat">'+dateType+' 的售出商品</p>';
             var ulHtml = dateHtml+'<ul>';
             var dateProducts = data.products[dateType];
 //            var pdata = data.products[d];
@@ -122,6 +123,10 @@ define(function (require, exports, module){
                     '<div>详细：'+detailHtml+'</div>'+
                     '</div>'+
                     '<p>时间：'+(date.split(' ')[1])+'</p>'+
+                    '</div>'+
+                    '<div class="controler">' +
+                    '<a class="refund" href="javascript:void(0)">退单</a>'+
+                    '</div>'+
                     '</li>';
                 //orderId.push(prod.order_id);
             });
@@ -140,8 +145,18 @@ define(function (require, exports, module){
             $.each(detailNodes, function (i, n){
                 details.push($(n).attr('data-detail'));
             });
+
+        });
+        $('.selled-products-box .controler .refund').unbind().bind('click', function (){
+            var id = $(this).parent().parent().attr('data-id');
+            var detailNodes = $(this).parent().parent().find('.detail');
+            var details = [];
+            $.each(detailNodes, function (i, n){
+                details.push($(n).attr('data-detail'));
+            });
+
             var data = {
-                name: $(this).find('.pName').html(),
+                name: $(this).parent().parent().find('.pName').html(),
                 id: id,
                 details: details
             };
@@ -183,6 +198,15 @@ define(function (require, exports, module){
             yyeNode.html(data.yye.toFixed(2));
             cbNode.html(data.cb.toFixed(2));
             lrNode.html((data.yye-data.cb).toFixed(2));
+
+            Rent.getRange(getStartTIme(), getEndTIme(), function (o){
+                var prices = 0;
+                $.each(o.data.dates, function (i, date){
+                    prices += date.price*1;
+                });
+                $('.zj').html(prices.toFixed(2));
+                $('.clr').html((data.yye-prices).toFixed(2));
+            });
         }
     }
 });

@@ -19,7 +19,7 @@ define(function (require, exports, module){
                 '<div class="shortFullMenu">'+
                 '<div class="bd">'+
                 '<div class="t">'+
-                '<a href="operation.php"><img src="static/imgs/money_bag.png" alt="销售数据"/>销售</a>'+
+                '<a href="operation.php"><img src="static/imgs/money_bag.png" alt="销售数据"/>历史业绩</a>'+
                 '</div>'+
                 '<div class="b">'+
                 '<a href="index.php"><img src="static/imgs/home-48.png" alt="主页"/>主页</a>'+

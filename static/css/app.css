@@ -118,7 +118,9 @@ select.full-screen{
     margin-top: 10px;
     font-size: 14px;
     line-height: 30px;
-    height: 30px;
+    height: 36px;
+    width: 36px;
+    text-align: center;
 }
 #header .btn{
     margin-right: 5px;
@@ -495,6 +497,14 @@ select.full-screen{
     font-size: 12px;
     color: #797979;
 }
+.todayOperation .zj{
+    font-size: 12px;
+    color: #ddd;
+}
+.todayOperation .clr{
+    font-size: 40px;
+    color:#000;
+}
 #footer{
     margin: 0;
     bottom: 0;
@@ -631,7 +641,7 @@ select.full-screen{
     margin-bottom: 5px;
     width: 36px;
     height: 36px;
-    margin: 0 auto;
+    margin: 0 auto 5px;
 }
 .shortFullMenu .bd .t,
 .shortFullMenu .bd .r,
@@ -639,32 +649,62 @@ select.full-screen{
 .shortFullMenu .bd .l,
 .shortFullMenu .bd .c{
     position: absolute;
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 60px;
     -webkit-border-radius: 10px;
     text-align: center;
 }
 .shortFullMenu .bd .t,
 .shortFullMenu .bd .b{
-    left: 75px;
+    left: 65px;
 }
 .shortFullMenu .bd .t{
-    top: 10px;
+    top: 5px;
 }
 .shortFullMenu .bd .b{
-    bottom: 10px;
+    bottom: 5px;
 }
 .shortFullMenu .bd .l,
 .shortFullMenu .bd .r{
-    top: 75px;
+    top: 70px;
 }
 .shortFullMenu .bd .l{
-    left: 10px;
+    left: 5px;
 }
 .shortFullMenu .bd .r{
-    right: 10px;
+    right: 5px;
 }
 .shortFullMenu .bd .c{
-    top: 75px;
-    left: 75px;
+    top: 70px;
+    left: 65px;
+}
+
+/*产品列表*/
+.productList{
+    margin: 0 20px;
+}
+.productList .dateCat{
+    text-align: left;
+    padding: 10px 0;
+    line-height: 30px;
+    font-weight: 700;
+    text-indent: 5px;
+    background: #000;
+    color: #fff;
+    font-size: 20px;
+}
+.productList li{
+    margin: 15px 0;
+    background: #fff;
+    -webkit-box-shadow: 0 0 15px #b2b2b2;
+    padding: 5px;
+    display: -webkit-box;
+}
+.productList li .info{
+    padding: 0 5px;
+    -webkit-box-flex: 1;
+}
+.productList .pName{
+    font-weight: 700;
+    line-height: 25px;
 }

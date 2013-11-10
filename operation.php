@@ -2,8 +2,8 @@
 include_once('templates/header.php');
 ?>
 <header id="header">
-    <a class="back-btn" href="index.php">&lt; 返回</a>
-    <span class="bd">运营数据</span>
+    <a class="back-btn" href="index.php"><img src="static/imgs/back-icon.png" width="36" height="36" alt="返回" /></a>
+    <span class="bd">历史业绩</span>
 </header>
     <div class="operationBox">
         <div class="webkit-box date-controler-box">
@@ -14,14 +14,16 @@ include_once('templates/header.php');
         </div>
     </div>
     <div class="todayOperation">
-        <header> <span class="dateName"></span>运营情况 <img src="static/imgs/ajax-loader.gif" alt="loading" class="hide loadingImg" /> </header>
+        <header> <span class="dateName"></span>历史运营摘要<img src="static/imgs/ajax-loader.gif" alt="loading" class="hide loadingImg" /> </header>
         <section class="bd">
+            <p>纯利润：&yen;<span class="clr">0</span>元</p>
             <p>营业额： &yen; <span class="yye">0</span> 元</p>
             <p>利润： &yen; <span class="lr">0</span> 元</p>
             <p>成本： &yen; <span class="cb">0</span> 元</p>
+            <p>租金：&yen; <span class="zj">0</span>元</p>
         </section>
     </div>
-    <div class="selled-products-box">
+    <div class="selled-products-box productList">
         <a href="javascript:void(0)" id="J-show-selled-products">查看<span class="dateName">当天</span>销售的所有商品</a>
     </div>
     <script>
