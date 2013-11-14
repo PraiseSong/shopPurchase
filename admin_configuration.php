@@ -123,9 +123,9 @@ if(!empty($_POST))
 			$template = $newTemplate;
 		}
 	}
-	
-	//Update configuration table with new settings
-	if (count($errors) == 0 AND count($cfgId) > 0) {
+
+    //Update configuration table with new settings
+	if (count($errors) == 0 AND count($cfgId) > 0) {mysql_query("SET NAMES 'UTF8'");
 		updateConfig($cfgId, $cfgValue);
 		$successes[] = lang("CONFIG_UPDATE_SUCCESSFUL");
 	}
@@ -138,6 +138,7 @@ require_once("models/header.php");
 
 echo "
 <body>
+<link rel=\"stylesheet\" href=\"static/css/admin_configuration.css\" />
 <div id='wrapper'>
 <div id='top'><div id='logo'></div></div>
 <div id='content'>

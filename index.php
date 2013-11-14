@@ -3,13 +3,13 @@
 UserCake Version: 2.0.2
 http://usercake.com
 */
-
 require_once("models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 require_once("models/header.php");
 
 echo "
 <body>
+<link rel=\"stylesheet\" href=\"static/css/index.css\" />
 <div id='wrapper'>
 <div id='top'><div id='logo'></div></div>
 <div id='content'>
@@ -39,7 +39,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.</p>
 </div>
-<div id='bottom'></div>
 </div>
 </body>
 </html>";

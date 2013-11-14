@@ -18,7 +18,7 @@ $stmt->close();
 
 //Set Settings
 $emailActivation = $settings['activation']['value'];
-$mail_templates_dir = "models/mail-templates/";
+$mail_templates_dir = "mail-templates/";
 $websiteName = $settings['website_name']['value'];
 $websiteUrl = $settings['website_url']['value'];
 $emailAddress = $settings['email']['value'];
@@ -33,10 +33,10 @@ $default_hooks = array("#WEBSITENAME#","#WEBSITEURL#","#DATE#");
 $default_replace = array($websiteName,$websiteUrl,$emailDate);
 
 if (!file_exists($language)) {
-	$language = "models/languages/en.php";
+	$language = "languages/en.php";
 }
 
-if(!isset($language)) $language = "models/languages/en.php";
+if(!isset($language)) $language = "languages/en.php";
 
 //Pages to require
 require_once($language);
@@ -53,5 +53,4 @@ if(isset($_SESSION["userCakeUser"]) && is_object($_SESSION["userCakeUser"]))
 {
 	$loggedInUser = $_SESSION["userCakeUser"];
 }
-
 ?>

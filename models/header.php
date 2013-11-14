@@ -1,17 +1,19 @@
-<?php
-/*
-UserCake Version: 2.0.2
-http://usercake.com
-*/
-echo "
-<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
-<html xmlns='http://www.w3.org/1999/xhtml'>
+<html>
 <head>
-<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-<title>".$websiteName."</title>
-<link href='".$template."' rel='stylesheet' type='text/css' />
-<script src='models/funcs.js' type='text/javascript'>
-</script>
-</head>";
-
-?>
+    <meta charset="utf-8" />
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <link href="static/imgs/logo.png" rel="apple-touch-icon-precomposed" />
+    <title>
+        <?php echo $websiteName; ?>
+    </title>
+    <link rel="stylesheet" href="static/css/reset.css" />
+    <script src="static/libs/sea.js"></script>
+    <script type="text/javascript">
+        seajs.config({
+            base: './static/js/'
+        });
+    </script>
+</head>

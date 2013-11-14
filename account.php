@@ -3,13 +3,13 @@
 UserCake Version: 2.0.2
 http://usercake.com
 */
-
 require_once("models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 require_once("models/header.php");
 
 echo "
 <body>
+<link rel=\"stylesheet\" href=\"static/css/account.css\" />
 <div id='wrapper'>
 <div id='top'><div id='logo'></div></div>
 <div id='content'>
@@ -28,5 +28,5 @@ Hey, $loggedInUser->displayname. This is an example secure page designed to demo
 </div>
 </body>
 </html>";
-
+var_dump($loggedInUser);
 ?>

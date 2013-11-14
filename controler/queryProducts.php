@@ -8,7 +8,7 @@
  */
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
-
+require_once("../models/config.php");
 $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
 
@@ -32,7 +32,7 @@ if(!$limit){
 $limit_end = (int)$limit;
 $limit_start = (int)$limit*((int)$page_num-1);
 
-$sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where $count_condition limit $limit_start,$limit_end";
+$sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where ($count_condition and user_id=$loggedInUser->user_id) limit $limit_start,$limit_end";
 
 if($type){
     $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where (p_type=$type and $count_condition) ".

@@ -1,6 +1,8 @@
 <?php
 include_once('config/config.php');
-include_once($libs_dir."/Mobile_Detect.php")
+include_once($libs_dir."/Mobile_Detect.php");
+require_once("models/config.php");
+if (!securePage($_SERVER['PHP_SELF'])){die();}
 ?>
 <!DOCTYPE html>
 <!--<html manifest="cache.manifest">-->
@@ -13,13 +15,8 @@ include_once($libs_dir."/Mobile_Detect.php")
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
     <link href="static/imgs/logo.png" rel="apple-touch-icon-precomposed" />
     <title>
-        <?php
-            if(isset($page_name)){
-                echo $page_name . '----' . constant("PRODUCT_NAME");
-            }else{
-                echo constant("PRODUCT_NAME");
-            }
-        ?></title>
+        <?php echo $websiteName; ?>
+    </title>
     <link rel="stylesheet" href="static/css/reset.css" />
     <link rel="stylesheet" href="static/css/app.css" />
     <script src="static/libs/sea.js"></script>

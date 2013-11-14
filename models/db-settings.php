@@ -19,6 +19,10 @@ $successes = array();
 
 /* Create a new mysqli object with database connection parameters */
 $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+/* change character set to utf8 */
+@$mysqli->set_charset("utf8");
+
 GLOBAL $mysqli;
 
 if(mysqli_connect_errno()) {

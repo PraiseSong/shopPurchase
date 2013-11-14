@@ -24,6 +24,7 @@ $userData = fetchAllUsers(); //Fetch information for all users
 require_once("models/header.php");
 echo "
 <body>
+<link rel=\"stylesheet\" href=\"static/css/admin_users.css\" />
 <div id='wrapper'>
 <div id='top'><div id='logo'></div></div>
 <div id='content'>

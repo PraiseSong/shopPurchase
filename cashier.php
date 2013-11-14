@@ -4,7 +4,12 @@
 <header id="header">
     <a href="javascript:void(0)" class="btn filter" id="J-filter-btn">筛选</a>
     <span class="bd"><?php echo constant("PRODUCT_NAME"); ?></span>
-    <a class="btn btn-info" href="add.php">&#43; 入库</a>
+    <?php
+      if(isUserLoggedIn()){
+          echo $loggedInUser->displayname;
+      }
+
+    ?>
 </header>
 
   <div class="todayOperation">

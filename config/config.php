@@ -22,15 +22,17 @@ $db_password = 'ZHUqi@159';
  * Product config
  */
 define("PRODUCT_NAME", "夜市记账");
-define("SITE_URL", "http://localhost/shopPurchase/");
+define("SITE_URL", "/shopPurchase/");
 define("SITE_ROOT_DIR", "");
 
 /**
  * Directories config
  */
+
 $attachments_dir = constant('SITE_ROOT_DIR')."attachment";
 $libs_dir = constant('SITE_ROOT_DIR')."libraries";
 $utils_dir = constant('SITE_ROOT_DIR')."utils";
 $templates_dir = constant('SITE_ROOT_DIR')."templates";
 $controler_dir = constant('SITE_ROOT_DIR')."controler";
+$models_dir = constant('SITE_ROOT_DIR')."models";
 ?>

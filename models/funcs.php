@@ -1118,7 +1118,7 @@ function removePage($page, $permission) {
 
 //Check if a user has access to a page
 function securePage($uri){
-	
+
 	//Separate document name from uri
 	$tokens = explode('/', $uri);
 	$page = $tokens[sizeof($tokens)-1];
