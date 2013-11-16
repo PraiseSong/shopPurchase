@@ -8,6 +8,17 @@
  */
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
+require_once("../models/config.php");
+
+$user_id = null;
+if(isset($loggedInUser) && $loggedInUser->user_id){
+    $user_id = $loggedInUser->user_id;
+}
+if(!$user_id){
+    $result = array("bizCode" => 0, "memo" => "用户未登", "data"=>array("status" => 100));
+    echo json_encode($result);
+    exit;
+}
 
 $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
@@ -27,13 +38,13 @@ if(!$man){
     $man = '';
 }
 
-$sql = "insert into cashier(`p_id`, `count`, `detail`, `man`, `date`) values('$id', $count, '$detail', '$man', '$date')";
+$sql = "insert into cashier(`user_id`, `p_id`, `count`, `detail`, `man`, `date`) values($user_id, '$id', $count, '$detail', '$man', '$date')";
 $data = $db->query($sql);
 
-$query_kc_sql = "select p_count from `products` where `p_id` = '$id'";
+$query_kc_sql = "select p_count from `products` where (`user_id`=$user_id and `p_id` = '$id')";
 $kc_data = $db->queryObject($query_kc_sql);
 $new_count = $kc_data-> p_count - $count;
-$update_kb_sql = "update `products` set `p_count` = $new_count where `p_id` = '$id'";
+$update_kb_sql = "update `products` set `p_count` = $new_count where (`user_id`=$user_id and `p_id` = '$id')";
 $updated_result = $db->query($update_kb_sql);
 $db->close();
 

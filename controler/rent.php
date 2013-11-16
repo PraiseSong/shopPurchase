@@ -8,6 +8,17 @@
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 include_once('../'.$utils_dir.'/utils.php');
+require_once("../models/config.php");
+
+$user_id = null;
+if(isset($loggedInUser) && $loggedInUser->user_id){
+    $user_id = $loggedInUser->user_id;
+}
+if(!$user_id){
+    $result = array("bizCode" => 0, "memo" => "用户未登", "data"=>array("status" => 100));
+    echo json_encode($result);
+    exit;
+}
 
 $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
@@ -27,18 +38,18 @@ if(!$action){
       case "query":
         if($start && $end){
             $dates = getDateRange($start, $end);
-            $where = "(date ";
+            $where = "((user_id=$user_id) and (date ";
             foreach($dates as $k => $d){
                 if($k === 0){
                     $where .= "like '%$d%'";
                 }else{
-                    $where .= " or date like '%$d%'";
+                    $where .= " or date like '%$d%')";
                 }
             }
             $where .= ')';
             $sql = "select * from rent where $where";
         }else{
-            $sql = "select * from rent where date like '%$date%'";
+            $sql = "select * from rent where ((user_id=$user_id) and (date like '%$date%'))";
         }
 
         $data = $db->queryManyObject($sql);
@@ -58,11 +69,11 @@ if(!$action){
             $result['memo'] = '没有传入价格参数';
         }else{
             $date = date("Y-m-d H:i:s");
-            $q_sql = "insert into rent(`price`, `date`) values ('$price', '$date')";
+            $q_sql = "insert into rent(`user_id`, `price`, `date`) values ($user_id, '$price', '$date')";
             $db->query($q_sql);
             $lastId = $db->lastInsertedId();
             if($lastId){
-                $lastInsertData = $db->queryUniqueObject("select * from rent where(id='$lastId')");
+                $lastInsertData = $db->queryUniqueObject("select * from rent where(id='$lastId' and user_id=$user_id)");
                 $result['bizCode'] = 1;
                 $result['data'] = $lastInsertData;
             }else{

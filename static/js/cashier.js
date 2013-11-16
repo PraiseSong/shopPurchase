@@ -99,7 +99,11 @@ define(function (require, exports, module){
                     if(!sellDetail){
                         return alert("价格还没有录入");
                     }
-                    Cashier.productMan = self.bd.find('input[name=man]').val();
+                    $.each(self.bd.find('input[name=man]'), function (i, m){
+                        if($(m).attr('checked')){
+                            Cashier.productMan = $(m).val();
+                        }
+                    });
                     var data = 'count='+Cashier.sellCount+"&id="+Cashier.currentProductID+'&detail='+sellDetail+'&man='+encodeURI(Cashier.productMan);
                     sellRecordIO(data);
                     pop.hide();

@@ -1,11 +1,18 @@
 <?php
-if(!$_POST){
-    exit('非法访问');
-}
-
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 include_once('../'.$libs_dir.'/imageResize.php');
+require_once("../models/config.php");
+
+$user_id = null;
+if(isset($loggedInUser) && $loggedInUser->user_id){
+    $user_id = $loggedInUser->user_id;
+}
+if(!$user_id){
+    $result = array("bizCode" => 0, "memo" => "用户未登", "data"=>array("status" => 100));
+    echo json_encode($result);
+    exit;
+}
 
 $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
@@ -31,7 +38,7 @@ if(!$id || !$name || !$price || !$count || !$from || !$man || !$types){
     $error_msg = '没有传入正确的参数';
 }else{
     $sql = "update `products` set `p_name`='$name',`p_price`='$price',`p_count`='$count',`p_from`='$from',".
-           "`p_type`='$types',`p_man`='$man',`p_date`='$date' where `p_id`='$id'";
+           "`p_type`='$types',`p_man`='$man',`p_date`='$date' where (`user_id`=$user_id and `p_id`='$id')";
     $result = $db->query($sql);
     $db->close();
     if($result){

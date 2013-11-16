@@ -1,11 +1,18 @@
 <?php
-if(!$_POST){
-    exit('非法访问');
-}
-
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 include_once('../'.$libs_dir.'/imageResize.php');
+require_once("../models/config.php");
+
+$user_id = null;
+if(isset($loggedInUser) && $loggedInUser->user_id){
+    $user_id = $loggedInUser->user_id;
+}
+if(!$user_id){
+    $result = array("bizCode" => 0, "memo" => "用户未登", "data"=>array("status" => 100));
+    echo json_encode($result);
+    exit;
+}
 
 $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
@@ -29,7 +36,7 @@ $writed_product = false;
 if(!$name || !$price || !$count || !$from || !$man){
     $error_msg = '没有传入正确的参数';
 }else{
-    $query_isExist_sql = "select p_name from products where p_name='$name'";
+    $query_isExist_sql = "select p_name from products where (p_name='$name' and user_id=$user_id)";
     $query_isExist = $db->queryUniqueObject($query_isExist_sql);
     if($query_isExist){
         $error_msg = '商品名称重复';
@@ -55,8 +62,8 @@ if(!$name || !$price || !$count || !$from || !$man){
         $error_msg = '请上传商品图片';
     }
     if($pic_link){
-        $sql = "insert into products(`p_name`, `p_count`, `p_from`, `p_man`, `p_price`, `p_pic`, `p_props`, `p_date`, ".
-            "`p_type`) values ('$name', '$count', '$from', '   $man', '$price', '$pic_thumb_link', '$props', '$date', ".
+        $sql = "insert into products(`user_id`, `p_name`, `p_count`, `p_from`, `p_man`, `p_price`, `p_pic`, `p_props`, `p_date`, ".
+            "`p_type`) values ($user_id, '$name', '$count', '$from', '   $man', '$price', '$pic_thumb_link', '$props', '$date', ".
             "'$types')";
         $writed_product = $db->query($sql);
 

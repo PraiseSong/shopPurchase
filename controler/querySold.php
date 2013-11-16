@@ -8,6 +8,17 @@
  */
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
+require_once("../models/config.php");
+
+$user_id = null;
+if(isset($loggedInUser) && $loggedInUser->user_id){
+    $user_id = $loggedInUser->user_id;
+}
+if(!$user_id){
+    $result = array("bizCode" => 0, "memo" => "用户未登", "data"=>array("status" => 100));
+    echo json_encode($result);
+    exit;
+}
 
 $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
@@ -16,9 +27,9 @@ $start = @$_POST['start'];
 $end = @$_POST['end'];
 
 $date = date("Y-m-d");
-$query_sold_sql = "select p_id,detail from `cashier` where date like '%$date%'";
+$query_sold_sql = "select p_id,detail from `cashier` where ((user_id=$user_id) and (date like '%$date%'))";
 if($start && $end){
-    $where = "(date like '%$start%'";
+    $where = "((user_id=$user_id) and (date like '%$start%'";
     $start = preg_split("/\-/", $start);
     $end = preg_split("/\-/", $end);
     $start_y = $start[0];
@@ -37,7 +48,7 @@ if($start && $end){
             }
         }
     }
-    $where .= ')';
+    $where .= '))';
 
     $query_sold_sql = "select p_id,detail,count,date from `cashier` where $where";
 }
@@ -49,13 +60,15 @@ foreach($sold_data as $k => $v){
 }
 $ids = array_unique($ids);
 
-$where = '';
+$where = "((user_id=$user_id) and (";
 foreach($ids as $k => $v){
     if($k !== 0){
         $where .= ' or ';
     }
     $where .= "p_id='$v'";
 }
+
+$where .= '))';
 
 if(!$where){
     $result = array('bizCode' => 0, 'result' => array());
