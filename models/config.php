@@ -18,7 +18,7 @@ $stmt->close();
 
 //Set Settings
 $emailActivation = $settings['activation']['value'];
-$mail_templates_dir = "mail-templates/";
+$mail_templates_dir = "models/mail-templates/";
 $websiteName = $settings['website_name']['value'];
 $websiteUrl = $settings['website_url']['value'];
 $emailAddress = $settings['email']['value'];

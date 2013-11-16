@@ -14,7 +14,7 @@ class userCakeMail {
 		global $mail_templates_dir,$debug_mode;
 		
 		$this->contents = file_get_contents($mail_templates_dir.$template);
-		
+
 		//Check to see we can access the file / it has some contents
 		if(!$this->contents || empty($this->contents))
 		{

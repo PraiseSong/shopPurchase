@@ -9,6 +9,18 @@
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 require_once("../models/config.php");
+
+$user_id = null;
+if(isset($loggedInUser) && $loggedInUser->user_id){
+    $user_id = $loggedInUser->user_id;
+}
+
+if(!$user_id){
+    $result = array("bizCode" => 0, "memo" => "用户未登", "data"=>array("status" => 100));
+    echo json_encode($result);
+    exit;
+}
+
 $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
 
@@ -32,14 +44,14 @@ if(!$limit){
 $limit_end = (int)$limit;
 $limit_start = (int)$limit*((int)$page_num-1);
 
-$sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where ($count_condition and user_id=$loggedInUser->user_id) limit $limit_start,$limit_end";
+$sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where ($count_condition and user_id=$user_id) limit $limit_start,$limit_end";
 
 if($type){
-    $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where (p_type=$type and $count_condition) ".
+    $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where (p_type=$type and $count_condition and user_id=$user_id) ".
            "limit $limit_start,$limit_end";
 }
 if($start && $end){
-    $where = "(date like '%$start%'";
+    $where = "((user_id=$user_id) and (date like '%$start%'";
     $start = preg_split("/\-/", $start);
     $end = preg_split("/\-/", $end);
     $start_y = $start[0];
@@ -58,9 +70,10 @@ if($start && $end){
             }
         }
     }
-    $where .= ')';
+    $where .= '))';
 
     $sql = "select p_id,detail,order_id,date from `cashier` where $where order by `cashier`.`date` desc";
+
     $data = $db->queryManyObject($sql);
     $ids = array();
     $products = array('products'=>array());
@@ -77,7 +90,7 @@ if($start && $end){
 
     $ids = array_unique($ids);
     foreach($ids as $k => $id){
-        $sql = "select p_name,p_price,p_pic,p_id from `products` where `p_id` = '$id'";
+        $sql = "select p_name,p_price,p_pic,p_id from `products` where (`p_id` = '$id' and user_id=$user_id)";
         $data = $db->queryManyObject($sql);
         if(!isset($products[$id])){
             $products[$id] = array();
