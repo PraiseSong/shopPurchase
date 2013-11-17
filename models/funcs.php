@@ -42,8 +42,10 @@ function destroySession($name)
 {
 	if(isset($_SESSION[$name]))
 	{
-		$_SESSION[$name] = NULL;
-		unset($_SESSION[$name]);
+        //if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 3600*24)) {
+            $_SESSION[$name] = NULL;
+            unset($_SESSION[$name]);
+        //}
 	}
 }
 
@@ -146,7 +148,6 @@ function resultBlock($errors,$successes){
 	if(count($errors) > 0)
 	{
 		echo "<div id='error'>
-		<a href='#' onclick=\"showHide('error');\">[X]</a>
 		<ul>";
 		foreach($errors as $error)
 		{
@@ -159,7 +160,6 @@ function resultBlock($errors,$successes){
 	if(count($successes) > 0)
 	{
 		echo "<div id='success'>
-		<a href='#' onclick=\"showHide('success');\">[X]</a>
 		<ul>";
 		foreach($successes as $success)
 		{
@@ -173,7 +173,7 @@ function resultBlock($errors,$successes){
 //Completely sanitizes text
 function sanitize($str)
 {
-	return strtolower(strip_tags(trim(($str))));
+	return strip_tags(trim(($str)));
 }
 
 //Functions that interact mainly with .users table
@@ -379,7 +379,7 @@ function isUserLoggedIn()
 		AND
 		active = 1
 		LIMIT 1");
-	$stmt->bind_param("is", $loggedInUser->user_id, $loggedInUser->hash_pw);	
+	$stmt->bind_param("is", $loggedInUser->user_id, $loggedInUser->hash_pw);
 	$stmt->execute();
 	$stmt->store_result();
 	$num_returns = $stmt->num_rows;

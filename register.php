@@ -37,9 +37,6 @@ if(!empty($_POST))
 	{
 		$errors[] = lang("ACCOUNT_DISPLAY_CHAR_LIMIT",array(5,25));
 	}
-	if(!ctype_alnum($displayname)){
-		$errors[] = lang("ACCOUNT_DISPLAY_INVALID_CHARACTERS");
-	}
 	if(minMaxRange(8,50,$password) && minMaxRange(8,50,$confirm_pass))
 	{
 		$errors[] = lang("ACCOUNT_PASS_CHAR_LIMIT",array(8,50));
@@ -70,7 +67,7 @@ if(!empty($_POST))
 			//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
 			if(!$user->userCakeAddUser())
 			{
-				if($user->mail_failure) $errors[] = lang("MAIL_ERROR");
+				if($user->mail_failure) $errors[] = lang("MAIL_ERROR", array($websiteName));
 				if($user->sql_failure)  $errors[] = lang("SQL_ERROR");
 			}
 		}
@@ -85,12 +82,8 @@ echo "
 <body>
 <link rel=\"stylesheet\" href=\"static/css/register.css\" />
 <div id='wrapper'>
-<div id='top'><div id='logo'></div></div>
 <div id='content'>
-<h1>UserCake</h1>
-<h2>Register</h2>
-
-<div id='left-nav'>";
+<div id='portal'>";
 include("portal.php");
 echo "
 </div>
@@ -104,41 +97,39 @@ echo "
 <form name='newUser' action='".$_SERVER['PHP_SELF']."' method='post'>
 
 <p>
-<label>User Name:</label>
-<input type='text' name='username' />
+<label>用户名:</label>
+<input type='text' name='username' placeholder=\"5-20位英文或数字\" />
 </p>
 <p>
-<label>Display Name:</label>
-<input type='text' name='displayname' />
+<label>小店名:</label>
+<input type='text' name='displayname' placeholder=\"5-20位字符\" />
 </p>
 <p>
-<label>Password:</label>
-<input type='password' name='password' />
+<label>登录密码:</label>
+<input type='password' name='password' placeholder=\"8-50位英文或数字\" />
 </p>
 <p>
-<label>Confirm:</label>
-<input type='password' name='passwordc' />
+<label>再次输入登录密码:</label>
+<input type='password' name='passwordc' placeholder=\"与前面的登录密码一致\" />
 </p>
 <p>
-<label>Email:</label>
-<input type='text' name='email' />
+<label>邮箱:</label>
+<input type='text' name='email' placeholder=\"您的QQ邮箱或其它常用邮箱\" />
 </p>
 <p>
-<label>Security Code:</label>
+<label>验证码:</label>
 <img src='models/captcha.php'>
 </p>
-<label>Enter Security Code:</label>
-<input name='captcha' type='text'>
+<input name='captcha' type='text' placeholder=\"输入验证码\" />
 </p>
 <label>&nbsp;<br>
-<input type='submit' value='Register'/>
+<input type='submit' value='确认注册'/>
 </p>
 
 </form>
 </div>
 
 </div>
-<div id='bottom'></div>
 </div>
 </body>
 </html>";

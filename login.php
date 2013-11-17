@@ -46,7 +46,7 @@ if(!empty($_POST))
 			else
 			{
 				//Hash the password and use the salt from the database to compare the password.
-				$entered_pass = generateHash($password,$userdetails["password"]);
+				$entered_pass = generateHash($password, $userdetails["password"]);
 				
 				if($entered_pass != $userdetails["password"])
 				{
@@ -70,9 +70,11 @@ if(!empty($_POST))
 					//Update last sign in
 					$loggedInUser->updateLastSignIn();
 					$_SESSION["userCakeUser"] = $loggedInUser;
-					
+                    setcookie("rib_user_name", $loggedInUser->username, time()+3600*24);
+                    $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+
 					//Redirect to user account page
-					header("Location: account.php");
+					header("Location: cashier.php");
 					die();
 				}
 			}
@@ -86,11 +88,8 @@ echo "
 <body>
 <link rel=\"stylesheet\" href=\"static/css/login.css\" />
 <div id='wrapper'>
-<div id='top'><div id='logo'></div></div>
 <div id='content'>
-<h1>UserCake</h1>
-<h2>Login</h2>
-<div id='left-nav'>";
+<div id='portal'>";
 
 include("portal.php");
 
@@ -104,21 +103,20 @@ echo "
 <div id='regbox'>
 <form name='login' action='".$_SERVER['PHP_SELF']."' method='post'>
 <p>
-<label>Username:</label>
-<input type='text' name='username' />
+<label>用户名:</label>
+<input type='text' name='username' value=\"{$_COOKIE['rib_user_name']}\" />
 </p>
 <p>
-<label>Password:</label>
+<label>登录密码:</label>
 <input type='password' name='password' />
 </p>
 <p>
 <label>&nbsp;</label>
-<input type='submit' value='Login' class='submit' />
+<input type='submit' value='登录' class='submit' />
 </p>
 </form>
 </div>
 </div>
-<div id='bottom'></div>
 </div>
 </body>
 </html>";

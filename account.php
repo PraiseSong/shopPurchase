@@ -6,6 +6,7 @@ http://usercake.com
 require_once("models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 require_once("models/header.php");
+echo $_COOKIE['rib_user_name'];
 
 echo "
 <body>

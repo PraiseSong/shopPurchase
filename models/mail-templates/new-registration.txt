@@ -1,6 +1,4 @@
-Hello #USERNAME#
+您好 #USERNAME#
 
-Thank you for joining our website #WEBSITENAME#
+感谢您使用 #WEBSITENAME#
 #ACTIVATION-MESSAGE
-
--Regards
