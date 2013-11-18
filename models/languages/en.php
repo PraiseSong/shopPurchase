@@ -29,30 +29,30 @@ $lang = array_merge($lang,array(
 	"ACCOUNT_USERNAME_IN_USE"		=> "用户名： %m1% 已存在",
 	"ACCOUNT_DISPLAYNAME_IN_USE"		=> "小店名： %m1% 已存在",
 	"ACCOUNT_EMAIL_IN_USE"			=> "邮箱： %m1% 已存在",
-	"ACCOUNT_LINK_ALREADY_SENT"		=> "An activation email has already been sent to this email address in the last %m1% hour(s)",
-	"ACCOUNT_NEW_ACTIVATION_SENT"		=> "We have emailed you a new activation link, please check your email",
-	"ACCOUNT_SPECIFY_NEW_PASSWORD"		=> "Please enter your new password",	
-	"ACCOUNT_SPECIFY_CONFIRM_PASSWORD"	=> "Please confirm your new password",
-	"ACCOUNT_NEW_PASSWORD_LENGTH"		=> "New password must be between %m1% and %m2% characters in length",	
+	"ACCOUNT_LINK_ALREADY_SENT"		=> "对不起，请在 %m1% 个小时后再来激活账户",
+	"ACCOUNT_NEW_ACTIVATION_SENT"		=> "已经为您发送新的激活链接,请检查你的电子邮件",
+	"ACCOUNT_SPECIFY_NEW_PASSWORD"		=> "请输入新的登录密码",
+	"ACCOUNT_SPECIFY_CONFIRM_PASSWORD"	=> "请再次输入新的登录密码",
+	"ACCOUNT_NEW_PASSWORD_LENGTH"		=> "新的登录密码必须是 %m1% 到 %m2% 位",
 	"ACCOUNT_PASSWORD_INVALID"		=> "Current password doesn't match the one we have on record",	
-	"ACCOUNT_DETAILS_UPDATED"		=> "Account details updated",
+	"ACCOUNT_DETAILS_UPDATED"		=> "账户已更新",
 	"ACCOUNT_ACTIVATION_MESSAGE"		=> "激活成功后，可登录 %m1%。请点击下面的链接激活账号\n\n
 	%m2%activate-account.php?token=%m3%",
-	"ACCOUNT_ACTIVATION_COMPLETE"		=> "You have successfully activated your account. You can now login <a href=\"login.php\">here</a>.",
+	"ACCOUNT_ACTIVATION_COMPLETE"		=> "您已成功激活账户，现在就 <a href=\"login.php\">登录</a>.",
 	"ACCOUNT_REGISTRATION_COMPLETE_TYPE1"	=> "您已成功注册:-)，现在就 <a href=\"login.php\">登录</a> .",
 	"ACCOUNT_REGISTRATION_COMPLETE_TYPE2"	=> "您已成功注册:-)，稍后会收到激活邮箱",
-	"ACCOUNT_PASSWORD_NOTHING_TO_UPDATE"	=> "You cannot update with the same password",
-	"ACCOUNT_PASSWORD_UPDATED"		=> "Account password updated",
-	"ACCOUNT_EMAIL_UPDATED"			=> "Account email updated",
-	"ACCOUNT_TOKEN_NOT_FOUND"		=> "Token does not exist / Account is already activated",
+	"ACCOUNT_PASSWORD_NOTHING_TO_UPDATE"	=> "新密码与旧密码相同，更新失败",
+	"ACCOUNT_PASSWORD_UPDATED"		=> "登录密码更新成功",
+	"ACCOUNT_EMAIL_UPDATED"			=> "常用邮箱更新成功",
+	"ACCOUNT_TOKEN_NOT_FOUND"		=> "Token不存在或者账户已激活",
 	"ACCOUNT_USER_INVALID_CHARACTERS"	=> "用户名必须包含英文字母和数字",
-	"ACCOUNT_DELETIONS_SUCCESSFUL"		=> "You have successfully deleted %m1% users",
-	"ACCOUNT_MANUALLY_ACTIVATED"		=> "%m1%'s account has been manually activated",
-	"ACCOUNT_DISPLAYNAME_UPDATED"		=> "Displayname changed to %m1%",
-	"ACCOUNT_TITLE_UPDATED"			=> "%m1%'s title changed to %m2%",
-	"ACCOUNT_PERMISSION_ADDED"		=> "Added access to %m1% permission levels",
-	"ACCOUNT_PERMISSION_REMOVED"		=> "Removed access from %m1% permission levels",
-	"ACCOUNT_INVALID_USERNAME"		=> "Invalid username",
+	"ACCOUNT_DELETIONS_SUCCESSFUL"		=> "成功删除用户： %m1%",
+	"ACCOUNT_MANUALLY_ACTIVATED"		=> "%m1% 的账户已被手动激活",
+	"ACCOUNT_DISPLAYNAME_UPDATED"		=> "小店名修改为 %m1%",
+	"ACCOUNT_TITLE_UPDATED"			=> "%m1% 的Title修改为 %m2%",
+	"ACCOUNT_PERMISSION_ADDED"		=> "添加访问权限级别： %m1%",
+	"ACCOUNT_PERMISSION_REMOVED"		=> "移除访问权限级别： %m1%",
+	"ACCOUNT_INVALID_USERNAME"		=> "无效用户名",
 	));
 
 //Configuration
@@ -73,34 +73,34 @@ $lang = array_merge($lang,array(
 
 //Forgot Password
 $lang = array_merge($lang,array(
-	"FORGOTPASS_INVALID_TOKEN"		=> "Your activation token is not valid",
-	"FORGOTPASS_NEW_PASS_EMAIL"		=> "We have emailed you a new password",
-	"FORGOTPASS_REQUEST_CANNED"		=> "Lost password request cancelled",
-	"FORGOTPASS_REQUEST_EXISTS"		=> "There is already a outstanding lost password request on this account",
-	"FORGOTPASS_REQUEST_SUCCESS"		=> "We have emailed you instructions on how to regain access to your account",
+	"FORGOTPASS_INVALID_TOKEN"		=> "您的激活Token失效",
+	"FORGOTPASS_NEW_PASS_EMAIL"		=> "已经向您的邮箱发送了新的密码",
+	"FORGOTPASS_REQUEST_CANNED"		=> "取消找回密码",
+	"FORGOTPASS_REQUEST_EXISTS"		=> "已经有一个找回密码的请求在处理中。建议到您的邮箱中查找我们给您发送的邮件",
+	"FORGOTPASS_REQUEST_SUCCESS"		=> "我们已经发邮件给您，请按照邮箱里的步骤找回登录密码",
 	));
 
 //Mail
 $lang = array_merge($lang,array(
 	"MAIL_ERROR"				=> "尝试发送邮箱失败，请联系 %m1% 管理员",
-	"MAIL_TEMPLATE_BUILD_ERROR"		=> "Error building email template",
-	"MAIL_TEMPLATE_DIRECTORY_ERROR"		=> "Unable to open mail-templates directory. Perhaps try setting the mail directory to %m1%",
-	"MAIL_TEMPLATE_FILE_EMPTY"		=> "Template file is empty... nothing to send",
+	"MAIL_TEMPLATE_BUILD_ERROR"		=> "邮件模版处理失败",
+	"MAIL_TEMPLATE_DIRECTORY_ERROR"		=> "不能打开邮箱模版目录，请尝试修改为： %m1%",
+	"MAIL_TEMPLATE_FILE_EMPTY"		=> "邮件模版文件为空，没有内容发送",
 	));
 
 //Miscellaneous
 $lang = array_merge($lang,array(
 	"CAPTCHA_FAIL"				=> "验证码错误",
-	"CONFIRM"				=> "Confirm",
-	"DENY"					=> "Deny",
-	"SUCCESS"				=> "Success",
-	"ERROR"					=> "Error",
-	"NOTHING_TO_UPDATE"			=> "Nothing to update",
+	"CONFIRM"				=> "确认找回确认",
+	"DENY"					=> "算了，过一会再找吧",
+	"SUCCESS"				=> "成功",
+	"ERROR"					=> "错误",
+	"NOTHING_TO_UPDATE"			=> "没有更新",
 	"SQL_ERROR"				=> "数据库写入失败",
-	"FEATURE_DISABLED"			=> "This feature is currently disabled",
-	"PAGE_PRIVATE_TOGGLED"			=> "This page is now %m1%",
-	"PAGE_ACCESS_REMOVED"			=> "Page access removed for %m1% permission level(s)",
-	"PAGE_ACCESS_ADDED"			=> "Page access added for %m1% permission level(s)",
+	"FEATURE_DISABLED"			=> "这个特性当前已禁用",
+	"PAGE_PRIVATE_TOGGLED"			=> "这个页面当前是 %m1%",
+	"PAGE_ACCESS_REMOVED"			=> "页面访问权限 %m1% 移除",
+	"PAGE_ACCESS_ADDED"			=> "增加页面访问权限 %m1%",
 	));
 
 //Permissions

@@ -35,7 +35,7 @@ if(!empty($_GET["confirm"]))
 		}
 		else
 		{	
-			if(!$mail->sendMail($userdetails["email"],"Your new password"))
+			if(!$mail->sendMail($userdetails["email"],"您的新密码"))
 			{
 				$errors[] = lang("MAIL_ERROR");
 			}
@@ -136,13 +136,13 @@ if(!empty($_POST))
 				//We use the activation token again for the url key it gets regenerated everytime it's used.
 				
 				$mail = new userCakeMail();
-				$confirm_url = lang("CONFIRM")."\n".$websiteUrl."forgot-password.php?confirm=".$userdetails["activation_token"];
-				$deny_url = lang("DENY")."\n".$websiteUrl."forgot-password.php?deny=".$userdetails["activation_token"];
+				$confirm_url = $websiteUrl."/forgot-password.php?confirm=".$userdetails["activation_token"];
+				$deny_url = $websiteUrl."/forgot-password.php?deny=".$userdetails["activation_token"];
 				
 				//Setup our custom hooks
 				$hooks = array(
-					"searchStrs" => array("#CONFIRM-URL#","#DENY-URL#","#USERNAME#"),
-					"subjectStrs" => array($confirm_url,$deny_url,$userdetails["user_name"])
+					"searchStrs" => array("#CONFIRM-URL#","#DENY-URL#","#USERNAME#","#CONFIRM-TEXT#","#DENY-TEXT#"),
+					"subjectStrs" => array($confirm_url,$deny_url,$userdetails["user_name"],lang("CONFIRM"),lang("DENY"))
 					);
 				
 				if(!$mail->newTemplateMsg("lost-password-request.txt",$hooks))
@@ -151,7 +151,7 @@ if(!empty($_POST))
 				}
 				else
 				{
-					if(!$mail->sendMail($userdetails["email"],"Lost password request"))
+					if(!$mail->sendMail($userdetails["email"],"找回密码反馈"))
 					{
 						$errors[] = lang("MAIL_ERROR");
 					}
@@ -178,11 +178,8 @@ echo "
 <body>
 <link rel=\"stylesheet\" href=\"static/css/forgot-password.css\" />
 <div id='wrapper'>
-<div id='top'><div id='logo'></div></div>
 <div id='content'>
-<h1>UserCake</h1>
-<h2>Forgot Password</h2>
-<div id='left-nav'>";
+<div id='portal'>";
 
 include("portal.php");
 
@@ -196,21 +193,20 @@ echo "
 <div id='regbox'>
 <form name='newLostPass' action='".$_SERVER['PHP_SELF']."' method='post'>
 <p>
-<label>Username:</label>
-<input type='text' name='username' />
+<label>用户名:</label>
+<input type='text' name='username' value='$username' />
 </p>
 <p>    
-<label>Email:</label>
+<label>注册时的邮箱:</label>
 <input type='text' name='email' />
 </p>
 <p>
 <label>&nbsp;</label>
-<input type='submit' value='Submit' class='submit' />
+<input type='submit' value='找回' class='submit' />
 </p>
 </form>
 </div>
 </div>
-<div id='bottom'></div>
 </div>
 </body>
 </html>";

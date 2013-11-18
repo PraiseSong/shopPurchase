@@ -20,6 +20,7 @@ class User
 	public $displayname_taken = false;
 	public $activation_token = 0;
 	public $success = NULL;
+    public $registered_date;
 	
 	function __construct($user,$display,$pass,$email)
 	{
@@ -30,6 +31,7 @@ class User
 		$this->clean_email = sanitize($email);
 		$this->clean_password = trim($pass);
 		$this->username = sanitize($user);
+        $this->registered_date = date("Y-m-d H:i:s");
 		
 		if(usernameExists($this->username))
 		{
@@ -121,7 +123,8 @@ class User
 					active,
 					title,
 					sign_up_stamp,
-					last_sign_in_stamp
+					last_sign_in_stamp,
+					registered_date
 					)
 					VALUES (
 					?,
@@ -134,9 +137,10 @@ class User
 					?,
 					'New Member',
 					'".time()."',
-					'0'
+					'0',
+					'$this->registered_date'
 					)");
-				
+
 				$stmt->bind_param("sssssi", $this->username, $this->displayname, $secure_pass, $this->clean_email, $this->activation_token, $this->user_active);
 				$stmt->execute();
 				$inserted_id = $mysqli->insert_id;

@@ -37,7 +37,7 @@ class userCakeMail {
 		global $websiteName,$emailAddress;
 		
 		$header = "MIME-Version: 1.0\r\n";
-		$header .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+		$header .= "Content-type: text/html; charset=utf-8\r\n";
 		$header .= "From: ". $websiteName . " <" . $emailAddress . ">\r\n";
 		
 		//Check to see if we sending a template email.

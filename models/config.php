@@ -5,6 +5,8 @@ http://usercake.com
 */
 require_once("db-settings.php"); //Require DB connection
 
+date_default_timezone_set('Asia/Shanghai');
+
 //Retrieve settings
 $stmt = $mysqli->prepare("SELECT id, name, value
 	FROM ".$db_table_prefix."configuration");	
@@ -23,14 +25,14 @@ $websiteName = $settings['website_name']['value'];
 $websiteUrl = $settings['website_url']['value'];
 $emailAddress = $settings['email']['value'];
 $resend_activation_threshold = $settings['resend_activation_threshold']['value'];
-$emailDate = date('dmy');
+$date = date("Y-m-d H:i:s");
 $language = $settings['language']['value'];
 $template = $settings['template']['value'];
 
 $master_account = -1;
 
 $default_hooks = array("#WEBSITENAME#","#WEBSITEURL#","#DATE#");
-$default_replace = array($websiteName,$websiteUrl,$emailDate);
+$default_replace = array($websiteName,$websiteUrl,$date);
 
 if (!file_exists($language)) {
 	$language = "languages/en.php";
