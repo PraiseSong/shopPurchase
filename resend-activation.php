@@ -77,7 +77,7 @@ if(!empty($_POST) && $emailActivation)
 					{
 						$mail = new userCakeMail();
 						
-						$activation_url = $websiteUrl."activate-account.php?token=".$new_activation_token;
+						$activation_url = $websiteUrl."/activate-account.php?token=".$new_activation_token;
 						
 						//Setup our custom hooks
 						$hooks = array(
@@ -91,7 +91,7 @@ if(!empty($_POST) && $emailActivation)
 						}
 						else
 						{
-							if(!$mail->sendMail($userdetails["email"],"Activate your ".$websiteName." Account"))
+							if(!$mail->sendMail($userdetails["email"],"激活您的账户"))
 							{
 								$errors[] = lang("MAIL_ERROR");
 							}
