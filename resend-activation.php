@@ -48,7 +48,7 @@ if(!empty($_POST) && $emailActivation)
 			//See if the user's account is activation
 			if($userdetails["active"]==1)
 			{
-				$errors[] = lang("ACCOUNT_ALREADY_ACTIVE");
+				$errors[] = lang("ACCOUNT_ALREADY_ACTIVE")." <a href=\"login.php\">立刻登录</a>";
 			}
 			else
 			{
@@ -117,11 +117,8 @@ echo "
 <body>
 <link rel=\"stylesheet\" href=\"static/css/resend-activation.css\" />
 <div id='wrapper'>
-<div id='top'><div id='logo'></div></div>
 <div id='content'>
-<h1>UserCake</h1>
-<h2>Resend Activation</h2>
-<div id='left-nav'>";
+<div id='portal'>";
 
 include("portal.php");
 
@@ -132,26 +129,25 @@ echo "
 echo resultBlock($errors,$successes);
 
 echo "<div id='regbox'>";
-
 //Show disabled if email activation not required
-if(!$emailActivation)
+if($emailActivation == "false")
 { 
         echo lang("FEATURE_DISABLED");
 }
-else
+else if($emailActivation == "true")
 {
 	echo "<form name='resendActivation' action='".$_SERVER['PHP_SELF']."' method='post'>
 	<p>
-	<label>Username:</label>
+	<label>用户名:</label>
 	<input type='text' name='username' />
         </p>     
         <p>
-        <label>Email:</label>
+        <label>邮箱:</label>
         <input type='text' name='email' />
         </p>    
         <p>
         <label>&nbsp;</label>
-        <input type='submit' value='Submit' class='submit' />
+        <input type='submit' value='激活' class='submit' />
         </p>
         </form>";
 }
@@ -159,7 +155,6 @@ else
 echo "
 </div>           
 </div>
-<div id='bottom'></div>
 </div>
 </body>
 </html>";

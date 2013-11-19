@@ -11,8 +11,8 @@ if(isUserLoggedIn()) {
 	echo "
 	<ul>
 	<li><a href='account.php'>我的小店</a></li>
-	<li><a href='user_settings.php'>账户设置</a></li>
-	<li><a href='logout.php'>安全退出</a></li>
+	<li><a href='user_settings.php'>安全设置</a></li>
+	<li><a href='logout.php'>退出</a></li>
 	</ul>";
 	
 	//Links for permission level 2 (default admin)

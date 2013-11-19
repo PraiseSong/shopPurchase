@@ -106,11 +106,8 @@ echo "
 <body>
 <link rel=\"stylesheet\" href=\"static/css/user_settings.css\" />
 <div id='wrapper'>
-<div id='top'><div id='logo'></div></div>
 <div id='content'>
-<h1>UserCake</h1>
-<h2>User Settings</h2>
-<div id='left-nav'>";
+<div id='portal'>";
 include("portal.php");
 
 echo "
@@ -123,29 +120,28 @@ echo "
 <div id='regbox'>
 <form name='updateAccount' action='".$_SERVER['PHP_SELF']."' method='post'>
 <p>
-<label>Password:</label>
+<label>当前密码:</label>
 <input type='password' name='password' />
 </p>
 <p>
-<label>Email:</label>
+<label>邮箱:</label>
 <input type='text' name='email' value='".$loggedInUser->email."' />
 </p>
 <p>
-<label>New Pass:</label>
+<label>新密码:</label>
 <input type='password' name='passwordc' />
 </p>
 <p>
-<label>Confirm Pass:</label>
+<label>再次输入新密码:</label>
 <input type='password' name='passwordcheck' />
 </p>
 <p>
 <label>&nbsp;</label>
-<input type='submit' value='Update' class='submit' />
+<input type='submit' value='更新' class='submit' />
 </p>
 </form>
 </div>
 </div>
-<div id='bottom'></div>
 </div>
 </body>
 </html>";

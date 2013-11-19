@@ -1,4 +1,4 @@
-您好 #USERNAME#
+<h3>您好 #USERNAME#</h3>
 
-感谢您使用 #WEBSITENAME#
-#ACTIVATION-MESSAGE
+<p>感谢您使用 #WEBSITENAME#</p>
+<div>#ACTIVATION-MESSAGE#</div>

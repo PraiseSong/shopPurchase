@@ -34,7 +34,7 @@ $lang = array_merge($lang,array(
 	"ACCOUNT_SPECIFY_NEW_PASSWORD"		=> "请输入新的登录密码",
 	"ACCOUNT_SPECIFY_CONFIRM_PASSWORD"	=> "请再次输入新的登录密码",
 	"ACCOUNT_NEW_PASSWORD_LENGTH"		=> "新的登录密码必须是 %m1% 到 %m2% 位",
-	"ACCOUNT_PASSWORD_INVALID"		=> "Current password doesn't match the one we have on record",	
+	"ACCOUNT_PASSWORD_INVALID"		=> "当前密码验证失败",
 	"ACCOUNT_DETAILS_UPDATED"		=> "账户已更新",
 	"ACCOUNT_ACTIVATION_MESSAGE"		=> "激活成功后，可登录 %m1%。请点击下面的链接激活账号\n\n
 	%m2%activate-account.php?token=%m3%",
@@ -75,9 +75,9 @@ $lang = array_merge($lang,array(
 $lang = array_merge($lang,array(
 	"FORGOTPASS_INVALID_TOKEN"		=> "您的激活Token失效",
 	"FORGOTPASS_NEW_PASS_EMAIL"		=> "已经向您的邮箱发送了新的密码",
-	"FORGOTPASS_REQUEST_CANNED"		=> "取消找回密码",
+	"FORGOTPASS_REQUEST_CANNED"		=> "您已取消找回密码",
 	"FORGOTPASS_REQUEST_EXISTS"		=> "已经有一个找回密码的请求在处理中。建议到您的邮箱中查找我们给您发送的邮件",
-	"FORGOTPASS_REQUEST_SUCCESS"		=> "我们已经发邮件给您，请按照邮箱里的步骤找回登录密码",
+	"FORGOTPASS_REQUEST_SUCCESS"		=> "我们已经发邮件给您，请按照邮件里的步骤找回登录密码",
 	));
 
 //Mail
@@ -91,13 +91,13 @@ $lang = array_merge($lang,array(
 //Miscellaneous
 $lang = array_merge($lang,array(
 	"CAPTCHA_FAIL"				=> "验证码错误",
-	"CONFIRM"				=> "确认找回确认",
+	"CONFIRM"				=> "确认找回我的密码",
 	"DENY"					=> "算了，过一会再找吧",
 	"SUCCESS"				=> "成功",
 	"ERROR"					=> "错误",
 	"NOTHING_TO_UPDATE"			=> "没有更新",
 	"SQL_ERROR"				=> "数据库写入失败",
-	"FEATURE_DISABLED"			=> "这个特性当前已禁用",
+	"FEATURE_DISABLED"			=> "这个功能当前已禁用",
 	"PAGE_PRIVATE_TOGGLED"			=> "这个页面当前是 %m1%",
 	"PAGE_ACCESS_REMOVED"			=> "页面访问权限 %m1% 移除",
 	"PAGE_ACCESS_ADDED"			=> "增加页面访问权限 %m1%",

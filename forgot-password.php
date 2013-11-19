@@ -37,7 +37,7 @@ if(!empty($_GET["confirm"]))
 		{	
 			if(!$mail->sendMail($userdetails["email"],"您的新密码"))
 			{
-				$errors[] = lang("MAIL_ERROR");
+				$errors[] = lang("MAIL_ERROR", array($websiteName));
 			}
 			else
 			{
@@ -153,7 +153,7 @@ if(!empty($_POST))
 				{
 					if(!$mail->sendMail($userdetails["email"],"找回密码反馈"))
 					{
-						$errors[] = lang("MAIL_ERROR");
+						$errors[] = lang("MAIL_ERROR", array($websiteName));
 					}
 					else
 					{
