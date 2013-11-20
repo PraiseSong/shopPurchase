@@ -115,6 +115,9 @@ echo "
 <input type='submit' value='登录' class='submit' />
 </p>
 </form>
+<div class=\"openPlatforms\">
+  <a href=\"qq_login.php\"><img src=\"static/imgs/qq_16.png\" alt=\"QQ登录\"></a>
+</div>
 </div>
 </div>
 </div>

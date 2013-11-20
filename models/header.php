@@ -5,6 +5,7 @@
     <meta content="telephone=no" name="format-detection" />
     <meta content="yes" name="apple-mobile-web-app-capable" />
     <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta property="qc:admins" content="20612357606212603" />
     <link href="static/imgs/logo.png" rel="apple-touch-icon-precomposed" />
     <title>
         <?php echo $websiteName; ?>
