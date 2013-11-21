@@ -30,9 +30,9 @@ class User
 		//Sanitize
 		$this->clean_email = sanitize($email);
 		$this->clean_password = trim($pass);
-		$this->username = sanitize($user);
+		$this->username = $user;
         $this->registered_date = date("Y-m-d H:i:s");
-		
+
 		if(usernameExists($this->username))
 		{
 			$this->username_taken = true;
@@ -55,7 +55,7 @@ class User
 	public function userCakeAddUser()
 	{
 		global $mysqli,$emailActivation,$websiteUrl,$db_table_prefix;
-		
+
 		//Prevent this function being called if there were construction errors
 		if($this->status)
 		{
@@ -107,7 +107,7 @@ class User
 				$this->user_active = 1;
 				$this->success = lang("ACCOUNT_REGISTRATION_COMPLETE_TYPE1");
 			}	
-			
+
 			
 			if(!$this->mail_failure)
 			{
@@ -140,12 +140,11 @@ class User
 					'0',
 					'$this->registered_date'
 					)");
-
 				$stmt->bind_param("sssssi", $this->username, $this->displayname, $secure_pass, $this->clean_email, $this->activation_token, $this->user_active);
 				$stmt->execute();
 				$inserted_id = $mysqli->insert_id;
 				$stmt->close();
-				
+
 				//Insert default permission into matches table
 				$stmt = $mysqli->prepare("INSERT INTO ".$db_table_prefix."user_permission_matches  (
 					user_id,

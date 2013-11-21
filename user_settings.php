@@ -27,10 +27,11 @@ if(!empty($_POST))
 	//Confirm the hashes match before updating a users password
 	$entered_pass = generateHash($password,$loggedInUser->hash_pw);
 	
-	if (trim($password) == ""){
-		$errors[] = lang("ACCOUNT_SPECIFY_PASSWORD");
-	}
-	else if($entered_pass != $loggedInUser->hash_pw)
+//	if (trim($password) == ""){
+//		$errors[] = lang("ACCOUNT_SPECIFY_PASSWORD");
+//	}
+//	else
+    if($entered_pass != $loggedInUser->hash_pw)
 	{
 		//No match
 		$errors[] = lang("ACCOUNT_PASSWORD_INVALID");

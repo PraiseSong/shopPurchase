@@ -227,6 +227,9 @@ function displayNameExists($displayname)
 //Check if an email exists in the DB
 function emailExists($email)
 {
+    if(!$email){
+        return false;
+    }
 	global $mysqli,$db_table_prefix;
 	$stmt = $mysqli->prepare("SELECT active
 		FROM ".$db_table_prefix."users
@@ -307,6 +310,8 @@ function fetchAllUsers()
 //Retrieve complete user information by username, token or ID
 function fetchUserDetails($username=NULL,$token=NULL, $id=NULL)
 {
+    $row = null;
+
 	if($username!=NULL) {
 		$column = "user_name";
 		$data = $username;
