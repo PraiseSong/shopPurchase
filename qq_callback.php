@@ -26,13 +26,11 @@ $userdetails = fetchUserDetails($uinfo['nickname']);
 //如果没有获取到用户信息
 if(!$userdetails){
     request_register();
-}else if($userdetails){
+}else{
     request_login($userdetails);
 }
 
 function request_login($userdetails){
-    //Passwords match! we're good to go'
-
     //Construct a new logged in user object
     //Transfer some db data to the session object
     $loggedInUser = new loggedInUser();
@@ -50,7 +48,7 @@ function request_login($userdetails){
     $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 
     if(!$loggedInUser->email || !$loggedInUser->displayname){
-        header("Location: account.php");
+        header("Location: user_settings.php");
     }else{
         header("Location: cashier.php");
     }
@@ -58,7 +56,7 @@ function request_login($userdetails){
 }
 
 function request_register(){
-    global $uinfo;
+    global $uinfo,$userdetails;
     $errors = array();
     $successes = array();
     $user = new User($uinfo['nickname'],$uinfo['nickname']."的小店","","");
@@ -66,7 +64,8 @@ function request_register(){
     //Checking this flag tells us whether there were any errors such as possible data duplication occured
     if(!$user->status)
     {
-        request_login();
+        request_login($userdetails);
+        die();
     }
     else
     {
