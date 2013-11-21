@@ -22,6 +22,7 @@ $lang = array_merge($lang,array(
 	"ACCOUNT_INACTIVE"			=> "对不起，您的账户还没有激活！请登录您的邮箱激活",
 	"ACCOUNT_USER_CHAR_LIMIT"		=> "您的用户名必须是 %m1% 到 %m2% 位英文或数字",
 	"ACCOUNT_DISPLAY_CHAR_LIMIT"		=> "您家小店名必须是 %m1% 到 %m2% 位",
+    "ACCOUNT_DISPLAY_NOTHING"   => "小店名没有更新",
 	"ACCOUNT_PASS_CHAR_LIMIT"		=> "您的登录密码必须是 %m1% 到 %m2% 位",
 	"ACCOUNT_TITLE_CHAR_LIMIT"		=> "Titles must be between %m1% and %m2% characters in length",
 	"ACCOUNT_PASS_MISMATCH"			=> "2次输入的登录密码不匹配",

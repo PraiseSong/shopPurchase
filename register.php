@@ -10,6 +10,10 @@ if (!securePage($_SERVER['PHP_SELF'])){die();}
 //Prevent the user visiting the logged in page if he/she is already logged in
 if(isUserLoggedIn()) { header("Location: account.php"); die(); }
 
+$email = "";
+$username = "";
+$displayname = "";
+
 //Forms posted
 if(!empty($_POST))
 {
@@ -98,11 +102,11 @@ echo "
 
 <p>
 <label>用户名:</label>
-<input type='text' name='username' placeholder=\"5-20位英文或数字\" />
+<input type='text' name='username' placeholder=\"5-20位英文或数字\" value=\"$username\" />
 </p>
 <p>
 <label>小店名:</label>
-<input type='text' name='displayname' placeholder=\"5-20位字符\" />
+<input type='text' name='displayname' placeholder=\"5-20位字符\" value=\"$displayname\" />
 </p>
 <p>
 <label>登录密码:</label>
@@ -114,7 +118,7 @@ echo "
 </p>
 <p>
 <label>邮箱:</label>
-<input type='text' name='email' placeholder=\"您的QQ邮箱或其它常用邮箱\" />
+<input type='text' name='email' placeholder=\"您的QQ邮箱或其它常用邮箱\" value=\"$email\" />
 </p>
 <p>
 <label>验证码:</label>

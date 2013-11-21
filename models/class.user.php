@@ -70,6 +70,20 @@ class loggedInUser {
 		$stmt->execute();
 		$stmt->close();	
 	}
+
+    public function updateDisplayName($displayname)
+    {
+        global $mysqli,$db_table_prefix;
+        $this->displayname = $displayname;
+        $stmt = $mysqli->prepare("UPDATE ".$db_table_prefix."users
+			SET
+			display_name = ?
+			WHERE
+			id = ?");
+        $stmt->bind_param("si", $displayname, $this->user_id);
+        $stmt->execute();
+        $stmt->close();
+    }
 	
 	//Is a user has a permission
 	public function checkPermission($permission)
