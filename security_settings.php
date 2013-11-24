@@ -123,6 +123,7 @@ echo "
 <p>
 <label>当前密码:</label>
 <input type='password' name='password' />
+<p>如果你不知道当前密码，请忽略这里</p>
 </p>
 <p>
 <label>邮箱:</label>

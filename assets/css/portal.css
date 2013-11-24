@@ -1,0 +1,29 @@
+body{
+    background: #1caded;
+}
+*{
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+*{
+    -webkit-touch-callout: none;
+    touch-callout: none;
+}
+.portal{
+    margin-top: 50px;
+    text-align: center;
+    width: 100%;
+}
+.portal img{
+    width: 100%;
+    height: auto;
+}
+.portal a{
+    display: block;
+    margin-top: 35px;
+    color: #fff;
+    font-size: 20px;
+    text-shadow: 2px 2px 2px #06577b;
+}
+a:hover{
+    text-decoration: none;
+}

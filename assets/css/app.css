@@ -1,0 +1,710 @@
+/*CSS3 HTML5 reset*/
+input[type=text],
+input[type=tel],
+input[type=number],
+input[type=url],
+input[type=email],
+input[type=date]{
+    display: block;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 3px;
+    height: 42px;
+    line-height: 42px;
+    outline: none;
+    text-indent: 10px;
+    background: #fff;
+    -webkit-box-shadow: inset 2px 2px 2px #ddd;
+}
+input[type=text]:focus,
+input[type=tel]:focus,
+input[type=number]:focus,
+input[type=url]:focus,
+input[type=email]:focus{
+    border-color: #ffb70a;
+}
+a:hover{
+    text-decoration: none;
+}
+
+/*common*/
+.overlay-container{
+    background: rgba(255, 255, 255, .95);
+    -webkit-border-radius: 3px;
+    border: 1px solid #ddd;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    -webkit-box-shadow: 0 0 13px 2px #A5A2A2;
+}
+.overlay-container li{
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #ddd;
+}
+.overlay-container li:last-child{
+    border: none;
+}
+.overlay-container li a{
+    display: block;
+    padding: 0 20px 0 10px;
+}
+.full-screen{
+    display: block;
+}
+select.full-screen{
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+}
+.btn{
+    cursor: pointer;
+    -webkit-border-radius: 3px;
+    text-align: center;
+    line-height: 20px;
+    border: none;
+    display: block;
+}
+.btn-del{
+    color: #fff;
+    font-size: 15px;
+    background: #ff0814;
+}
+.btn-ok{
+    color: #fff;
+    font-size: 15px;
+    background: rgb(213,1,37);
+    padding: 10px 0;
+}
+.btn-info{
+    color: #fff;
+    font-size: 15px;
+    background: rgb(51,105, 232);
+}
+#header,
+#footer{
+    background: #eeeeee;
+    border-bottom: 1px solid #bfbfbf;
+    color: #404040;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    display: -webkit-box;
+    /*position: fixed;*/
+    width: 100%;
+    z-index: 10;
+}
+#header{
+    margin-bottom: 10px;
+}
+.main{
+    margin: 0 auto;
+}
+#header a,
+#footer a{
+    color: inherit;
+}
+#header .btn,
+#header .bd,
+#header .back-btn{
+    display: block;
+    padding: 0;
+    text-align: center;
+}
+#header .btn,
+#header .back-btn{
+    line-height: 25px;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 30px;
+    height: 36px;
+    width: 36px;
+    text-align: center;
+}
+#header .btn{
+    margin-right: 5px;
+}
+#header .back-btn{
+    margin-left: 5px;
+    text-decoration: none;
+}
+#header .bd{
+    -webkit-box-flex: 1;
+}
+#header .btn-info{
+    color: #fff;
+    text-decoration: none;
+    padding: 0 10px;
+    display: block;
+}
+#header .filter{
+    height: 24px;
+    margin-left: 5px;
+}
+.tip-box{
+    padding: 5px;
+}
+.tip-box .tip{
+    padding: 5px;
+    -webkit-border-radius: 5px;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    margin: 5px 0;
+}
+.tip-default{
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+}
+.tip-box .tip-default{
+    color: #333;
+}
+.tip-error{
+    background-color: #da4f49;
+}
+.tip-success{
+    background-color: #5bb75b;
+}
+.tip-info{
+    background-color: #49afcd;
+    color: #fff;
+}
+.tip-inverse{
+    background-color: #363636;
+}
+.webkit-box{
+    display: -webkit-box;
+}
+.webkit-box .tag,
+.webkit-box .tag-obj{
+    display: block;
+    -webkit-box-flex: 1;
+}
+.webkit-box p{
+    margin: 0 10px 10px 0;
+    width: 40px;
+    line-height: 42px;
+    height: 42px;
+}
+.webkit-box .btn{
+    width: 40px;
+    margin-left: 10px;
+    display: block;
+    height: 42px;
+    line-height: 42px;
+}
+
+/*icon*/
+.camera{
+    background: url(../imgs/camera.png);
+    background-size: 24px 24px;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    margin: 10px 0 0 -25px;
+}
+.filter{
+    background: url(../imgs/filter.png);
+    background-size: 24px 24px;
+    width: 24px;
+    height: 24px;
+    display: block;
+    text-indent: -10000px;
+}
+
+/*add product*/
+.filed-group,
+.pure-controls{
+    display: -webkit-box;
+    margin: 0 5px 10px;
+}
+.filed-group label,
+.filed-group input,
+.pure-controls button
+{
+    display: block;
+}
+.filed-group input{
+    margin-left: 10px;
+}
+.filed-group input{
+    -webkit-box-flex: 1;
+}
+.filed-group label.inline{
+    text-align: left;
+    display: inline;
+}
+.filed-group label.inline input{
+    display: inline;
+}
+
+.filed-group label{
+    width: 45px;
+}
+.J-takePhotoBox{
+    position: relative;
+    height: 40px;
+    width: 100px;
+}
+.J-takePhotoBox input,
+.J-takePhoto-btn-skin{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 75px;
+    text-align: center;
+    color: #fff;
+    -webkit-border-radius: 3px;
+    border: 1px solid #075ee7;
+}
+.J-takePhoto-btn-skin{
+    background: #0078e7;
+    color: #fff;
+    height: 44px;
+    line-height: 44px;
+}
+#J-takePhoto-btn{
+    -webkit-appearance: button;
+    -webkit-border-radius: 5px;
+    opacity: 0;
+}
+.J-takePhotoBox input{
+    z-index: 2;
+    opacity: 0;
+    cursor: pointer;
+}
+.J-photoPreview{
+    -webkit-box-flex: 1;
+    margin-left: 10px;
+}
+.J-photoPreview img{
+    max-width: 200px;
+    max-height: 200px;
+    border: 2px solid #b7b7b7;
+}
+.propsBox{
+    margin-left: 10px;
+}
+.J-propsHTMLBox{
+    margin-bottom: 10px;
+}
+.J-propsHTMLBox .btn{
+    padding: 3px 0;
+}
+.J-propsHTMLBox .prop{
+    margin-bottom: 10px;
+}
+.J-addValue{
+    font-size: 12px;
+    padding-left: 10px;
+}
+.J-delProp{
+    margin-left: 5px;
+    line-height: 45px;
+    padding: 0 3px;
+}
+.noProps{
+    margin-left: 10px;
+}
+.J-propValsContainer{
+    -webkit-box-flex: 1;
+}
+.valueBox{
+    display: -webkit-box;
+}
+.addProduct-form .btn-ok{
+    margin: 20px auto;
+    width: 90%;
+}
+.addPropsForm .filed-group label{
+    width: 60px;
+}
+.addPropsForm .filed-group input{
+    width: 100px;
+    margin: 0;
+}
+.addPropsForm .valueBox{
+    margin-bottom: 10px;
+}
+.J-addValue-btn{
+    display: block;
+    height: 40px;
+    line-height: 40px;
+}
+#J-addProps-btn{
+    height: 40px;
+    line-height: 40px;
+    display: block;
+}
+.typesBox{
+    margin-left: 10px;
+    -webkit-box-flex: 1;
+}
+#J-addType{
+    height: 40px;
+    line-height: 40px;
+    display: block;
+}
+
+/*dataList*/
+.J-dataList li{
+    margin: 0;
+    display: -webkit-box;
+    border-bottom: 1px solid #b7b7b7;
+    padding: 3px;
+    cursor: pointer;
+}
+.J-dataList .active{
+    background: -webkit-gradient(linear, left top, left bottom, from(#fff) ,to(#E0E0E0));
+}
+.J-dataList .active .imgBox{
+    border: 1px solid #ddd;
+}
+.dataList-box .loading{
+    line-height: 40px;
+    text-align: center;
+    display: none;
+}
+.J-dataList .imgBox{
+    width: 104px;
+    height: 104px;
+    overflow: hidden;
+    text-align: center;
+    line-height: 100px;
+    vertical-align: middle;
+    margin-right: 10px;
+    background: #fff;
+}
+.J-dataList .controler{
+    width: 60px;
+}
+.J-dataList .info{
+    line-height: 23px;
+    -webkit-box-flex: 1;
+}
+.J-dataList .pName{
+    font-weight: 700;
+    font-size: 17px;
+}
+.J-dataList img{
+    max-width: 150px;
+}
+.input-popUnitPrice{
+    width: 60px;
+    -webkit-box-flex: none;
+}
+.unit-operator{
+    display: block;
+    text-align: center;
+    line-height: 42px;
+    height: 42px;
+    margin: 0 5px;
+}
+.J-Pop-countSelector{
+    width: 40px;
+    height: 42px;
+}
+.manBox label{
+    margin-right: 10px;
+}
+.J-Pop-countSelector{
+    height: 42px;
+    display: block;
+    -webkit-appearance: button;
+    background: #fff;
+    border: 1px solid #ddd;
+}.dataList-box .btn{
+    display: block;
+    width: 90%;
+    margin: 20px auto 70px;
+ }
+.init-loading{
+    text-align: center;
+    padding: 20px 0
+}
+.datalist-status{
+    text-align: center;
+    line-height: 30px;
+    width: 90%;
+    margin: 20px auto 0;
+    display: none;
+}
+
+/*optional*/
+.optional{
+    margin-top: 30px;
+    display: block;
+}
+.optional header{
+    height: 40px;
+    line-height: 40px;
+    text-indent: 10px;
+    border-bottom: 1px solid #aeaeae;
+    font-size: 20px;
+}
+.optional a{
+    height: 40px;
+    line-height: 40px;
+    text-indent: 10px;
+    display: block;
+    border-bottom: 1px solid #ddd;
+    text-decoration: none;
+}
+
+/*index*/
+.todayOperation{
+    line-height: 23px;
+    background: rgb(238,178,17);
+    border: 1px solid rgb(190, 141, 8);
+    margin: 0 20px 20px;
+}
+.todayOperation header{
+    border-bottom: 1px solid rgb(190, 141, 8);
+    color: #8B5004;
+    height: 30px;
+    line-height: 30px;
+    font-weight: 700;
+    font-size: 17px;
+    margin: 0 0 10px 0;
+    text-align: left;
+    text-indent: 10px;
+}
+.todayOperation .bd{
+    padding: 10px;
+    color: #fff;
+}
+.todayOperation .yye,
+.todayOperation .cb,
+.todayOperation .lr{
+    font-weight: 700;
+}
+.todayOperation .yye{
+    font-size: 30px;
+    color: #202020;
+}
+.todayOperation .lr{
+    font-size: 20px;
+    color: #5c5c5c;
+}
+.todayOperation .cb{
+    font-size: 12px;
+    color: #797979;
+}
+.todayOperation .zj{
+    font-size: 12px;
+    color: #ddd;
+}
+.todayOperation .clr{
+    font-size: 40px;
+    color:#000;
+}
+#footer{
+    margin: 0;
+    bottom: 0;
+    left: 0;
+    border: none;
+    -webkit-box-shadow: 0 -5px 5px #e3e3e3;
+}
+#footer a{
+    display: block;
+    -webkit-box-flex: 1;
+    text-align: center;
+    font-size: 15px;
+}
+.rk{
+    float: right;
+    cursor: pointer;
+    color: #0078e7;
+}
+
+/*operation*/
+.date-controler-box{
+    margin: 0 5px 20px;
+}
+.date-controler-box input{
+    -webkit-box-flex: 1;
+}
+.date-controler-box .btn{
+    padding: 0;
+    width: 60px;
+}
+.date-controler-box .separator{
+    line-height: 40px;
+    display: block;
+    padding: 0 3px;
+}
+.selled-products-box{
+    margin: 0 20px;
+}
+
+/*css3 animation*/
+@-webkit-keyframes scale-in{
+    0%{
+        -webkit-transform: scale(0);
+        left: -200px;
+        bottom: -200px;
+    }
+    100%{
+        -webkit-transform: scale(1);
+        left: 90px;
+        bottom: 90px;
+    }
+}
+@-webkit-keyframes scale-out{
+    0%{
+        -webkit-transform: scale(1);
+        left: 90px;
+        bottom: 90px;
+    }
+    100%{
+        -webkit-transform: scale(0);
+        left: -200px;
+        bottom: -200px;
+    }
+}
+.scale-in{
+    -webkit-animation: scale-in .5s both;
+}
+.scale-out{
+    -webkit-animation: scale-out .5s both;
+}
+
+/*快捷按钮*/
+.shortMenu,
+.shortFullMenu{
+    position: fixed;
+    z-index: 99999999;
+    left: 20px;
+    bottom: 20px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.shortMenu .mainMenu,
+.shortFullMenu .bd{
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, .7);
+    -webkit-border-radius: 60px;
+    position: relative;
+    cursor: pointer;
+    -webkit-box-shadow: 0 0 8px #606060;
+}
+.shortFullMenu .bd a{
+    color: #000;
+}
+.shortMenu .mainMenu .lt,
+.shortMenu .mainMenu .rt,
+.shortMenu .mainMenu .lb,
+.shortMenu .mainMenu .rb{
+    display: block;
+    position: absolute;
+    width:15px;
+    height: 15px;
+    background: #ddd;
+    -webkit-border-radius: 15px;
+}
+.shortMenu .mainMenu .lt,
+.shortMenu .mainMenu .lb{
+    left: 13px;
+}
+.shortMenu .mainMenu .rt,
+.shortMenu .mainMenu .rb{
+    right: 13px;
+}
+.shortMenu .mainMenu .lt,
+.shortMenu .mainMenu .rt{
+    top: 13px;
+}
+.shortMenu .mainMenu .lb,
+.shortMenu .mainMenu .rb{
+    bottom: 13px;
+}
+.shortFullMenu{
+    left: -200px;
+    bottom: -200px;
+    display: none;
+}
+.shortFullMenu .bd{
+    width: 200px;
+    height: 200px;
+    -webkit-border-radius: 10px;
+    background: rgba(255, 255, 255, .9);
+}
+.shortFullMenu .bd img{
+    display: block;
+    margin-bottom: 5px;
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 5px;
+}
+.shortFullMenu .bd .t,
+.shortFullMenu .bd .r,
+.shortFullMenu .bd .b,
+.shortFullMenu .bd .l,
+.shortFullMenu .bd .c{
+    position: absolute;
+    width: 70px;
+    height: 60px;
+    -webkit-border-radius: 10px;
+    text-align: center;
+}
+.shortFullMenu .bd .t,
+.shortFullMenu .bd .b{
+    left: 65px;
+}
+.shortFullMenu .bd .t{
+    top: 5px;
+}
+.shortFullMenu .bd .b{
+    bottom: 5px;
+}
+.shortFullMenu .bd .l,
+.shortFullMenu .bd .r{
+    top: 70px;
+}
+.shortFullMenu .bd .l{
+    left: 5px;
+}
+.shortFullMenu .bd .r{
+    right: 5px;
+}
+.shortFullMenu .bd .c{
+    top: 70px;
+    left: 65px;
+}
+
+/*产品列表*/
+.productList{
+    margin: 0 20px;
+}
+.productList .dateCat{
+    text-align: left;
+    padding: 10px 0;
+    line-height: 30px;
+    font-weight: 700;
+    text-indent: 5px;
+    background: #000;
+    color: #fff;
+    font-size: 20px;
+}
+.productList li{
+    margin: 15px 0;
+    background: #fff;
+    -webkit-box-shadow: 0 0 15px #b2b2b2;
+    padding: 5px;
+    display: -webkit-box;
+}
+.productList li .info{
+    padding: 0 5px;
+    -webkit-box-flex: 1;
+}
+.productList .pName{
+    font-weight: 700;
+    line-height: 25px;
+}
