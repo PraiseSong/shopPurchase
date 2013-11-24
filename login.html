@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--<html manifest="cache.manifest">-->
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta property="qc:admins" content="20612357606212603" />
+    <link href="assets/imgs/logo.png" rel="apple-touch-icon-precomposed" />
+    <title>
+        小店记账宝
+    </title>
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/common.css" />
+    <link rel="stylesheet" href="assets/css/login.css" />
+    <script src="assets/libs/sea.js"></script>
+    <script type="text/javascript">
+        seajs.config({
+            base: './assets/js/'
+        });
+    </script>
+</head>
+<body>
+<div class="loginBox container">
+    <header>
+        <div class="avatarBox">
+            <img src="assets/imgs/logo-skin.png" class="skin" alt="头像" />
+            <img src="assets/imgs/logo.png" alt="头像" />
+        </div>
+    </header>
+
+    <form class="form-default" action="">
+        <input type="text" placeholder="用户名" class="first-child" data-title="用户名必须是5到20位英文或数字" id="J-username" />
+        <input type="password" placeholder="登录密码" class="last-child" data-title="登录密码必须是8到50位" id="J-password" />
+    </form>
+
+    <div class="openLogin">
+        <a href="qq_login.php" title="QQ登录" class="touchStatusBtn">
+            <img src="assets/imgs/qq_logo.png" alt="QQ登录"/>
+            QQ登录
+        </a>
+    </div>
+
+    <a class="touchStatusBtn btn btn-primary" href="javascript:void(0)">登录</a>
+
+    <div class="flexBox">
+        <a class="box" href="forgot-password.php" title="找回登录密码">忘记了登录密码</a>
+        <a class="box" href="register.php" title="注册小店">注册小店</a>
+    </div>
+</div>
+</body>
+<script>
+    seajs.use("footer.js");
+    seajs.use("login.js");
+</script>
+</html>

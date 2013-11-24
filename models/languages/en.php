@@ -18,12 +18,12 @@ $lang = array_merge($lang,array(
 	"ACCOUNT_INVALID_EMAIL"			=> "无效的邮箱",
 	"ACCOUNT_USER_OR_EMAIL_INVALID"		=> "用户名或邮箱错误",
 	"ACCOUNT_USER_OR_PASS_INVALID"		=> "用户名或登录密码错误",
-	"ACCOUNT_ALREADY_ACTIVE"		=> "您的账户已经激活，可以正常使用啦。",
-	"ACCOUNT_INACTIVE"			=> "对不起，您的账户还没有激活！请登录您的邮箱激活",
-	"ACCOUNT_USER_CHAR_LIMIT"		=> "您的用户名必须是 %m1% 到 %m2% 位英文或数字",
+	"ACCOUNT_ALREADY_ACTIVE"		=> "账户已经激活，可以正常使用啦。",
+	"ACCOUNT_INACTIVE"			=> "对不起，账户还没有激活！请登录邮箱激活",
+	"ACCOUNT_USER_CHAR_LIMIT"		=> "用户名必须是 %m1% 到 %m2% 位英文或数字",
 	"ACCOUNT_DISPLAY_CHAR_LIMIT"		=> "您家小店名必须是 %m1% 到 %m2% 位",
     "ACCOUNT_DISPLAY_NOTHING"   => "小店名没有更新",
-	"ACCOUNT_PASS_CHAR_LIMIT"		=> "您的登录密码必须是 %m1% 到 %m2% 位",
+	"ACCOUNT_PASS_CHAR_LIMIT"		=> "登录密码必须是 %m1% 到 %m2% 位",
 	"ACCOUNT_TITLE_CHAR_LIMIT"		=> "Titles must be between %m1% and %m2% characters in length",
 	"ACCOUNT_PASS_MISMATCH"			=> "2次输入的登录密码不匹配",
 	//"ACCOUNT_DISPLAY_INVALID_CHARACTERS"	=> "Display name can only include alpha-numeric characters",
@@ -74,10 +74,10 @@ $lang = array_merge($lang,array(
 
 //Forgot Password
 $lang = array_merge($lang,array(
-	"FORGOTPASS_INVALID_TOKEN"		=> "您的激活Token失效",
-	"FORGOTPASS_NEW_PASS_EMAIL"		=> "已经向您的邮箱发送了新的密码",
+	"FORGOTPASS_INVALID_TOKEN"		=> "激活Token失效",
+	"FORGOTPASS_NEW_PASS_EMAIL"		=> "已经向邮箱发送了新的密码",
 	"FORGOTPASS_REQUEST_CANNED"		=> "您已取消找回密码",
-	"FORGOTPASS_REQUEST_EXISTS"		=> "已经有一个找回密码的请求在处理中。建议到您的邮箱中查找我们给您发送的邮件",
+	"FORGOTPASS_REQUEST_EXISTS"		=> "已经有一个找回密码的请求在处理中。建议到邮箱中查找我们给您发送的邮件",
 	"FORGOTPASS_REQUEST_SUCCESS"		=> "我们已经发邮件给您，请按照邮件里的步骤找回登录密码",
 	));
 
