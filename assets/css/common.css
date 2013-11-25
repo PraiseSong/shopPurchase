@@ -17,6 +17,13 @@ a:hover{
     text-decoration: none;
 }
 
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+
 .container{
     padding: 0 10px;
 }
@@ -194,4 +201,17 @@ a:hover{
 }
 .step .current{
     color: #f50;
+}
+
+.warn,
+.info,
+.error{
+    -webkit-border-radius: 10px;
+    overflow: auto;
+    padding: 5px 10px;
+    line-height: 30px;
+}
+.warn{
+    background: #faf8f0;
+    border: 1px solid #faebcc;
 }

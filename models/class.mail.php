@@ -60,8 +60,8 @@ class userCakeMail {
         $mail->SMTPSecure = "ssl";                  // SMTP 安全协议
         $mail->Host       = "smtp.qq.com";       // SMTP 服务器
         $mail->Port       = 465;                    // SMTP服务器的端口号
-        $mail->Username   = "339379186";  // SMTP服务器用户名
-        $mail->Password   = "zhuqiweili";        // SMTP服务器密码
+        $mail->Username   = "2421042542";  // SMTP服务器用户名
+        $mail->Password   = "ZHUqi@WEIli&7";        // SMTP服务器密码
         $mail->SetFrom($emailAddress, $websiteName);    // 设置发件人地址和名称
         $mail->AddReplyTo($emailAddress,$websiteName);
         // 设置邮件回复人地址和名称

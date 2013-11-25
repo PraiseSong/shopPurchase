@@ -1,0 +1,36 @@
+.registerBox{
+    padding-bottom: 50px;
+}
+.registerBox .warn{
+    margin-bottom: 10px;
+}
+.registerBox .warn img{
+    float: left;
+}
+.registerBox .warn a{
+    line-height: 24px;
+    margin-left: 10px;
+}
+.registerBox .checkcodeBox{
+    height: auto;
+    padding: 10px 0;
+}
+.registerBox .checkcodeBox input{
+    margin-right: 10px;
+    width: auto;
+}
+.registerBox .checkcodeBox img{
+    margin-top: 7px;
+}
+
+.registerBox .btn-primary{
+    margin: 10px auto;
+}
+.registerBox .gotoLogin{
+    text-align: center;
+    display: block;
+}
+.registerBox .getCheckcode{
+    display: block;
+    text-align: left;
+}

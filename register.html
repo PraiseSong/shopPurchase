@@ -30,33 +30,49 @@
 <div class="step">
     <span class="current">注册</span> &gt; <span>邮箱验证</span> &gt; <span>注册完成</span>
 </div>
-<div class="registerBox container">
-    <form class="form-default" action="login.php" method="post">
-        <div class="input-skin first-child">
-            <input type="text" placeholder="用户名" name="username" class="first-child" data-title="用户名必须是5到20位英文或数字" id="J-username" />
-        </div>
-        <div class="input-skin last-child">
-            <input type="password" placeholder="登录密码" name="password" class="last-child" data-title="登录密码必须是8到50位" id="J-password" />
-        </div>
-    </form>
 
-    <div class="openLogin">
-        <a href="qq_login.php" title="QQ登录" class="touchStatusBtn">
-            <img src="assets/imgs/qq_logo.png" alt="QQ登录"/>
-            登录
+<div class="registerBox container">
+    <div class="warn">
+        <span class="left">
+            嫌注册太麻烦，可用
+        </span>
+        <a href="qq_login.php" title="QQ登录" class="touchStatusBtn left">
+          <img src="assets/imgs/qq_logo.png" alt="QQ登录" width="24" height="24" />
+          登录
         </a>
     </div>
 
-    <a class="touchStatusBtn btn btn-primary" href="javascript:void(0)" id="J-loginBtn">登录</a>
+    <form class="form-default" action="register.php" method="post">
+        <div class="input-skin first-child">
+            <input type="text" placeholder="用户名" name="username" data-title="用户名必须是5到20位英文或数字" id="J-username" />
+        </div>
+        <div class="input-skin">
+            <input type="email" placeholder="常用邮箱" name="email" data-title="建议使用QQ邮箱" id="J-email" />
+        </div>
+        <div class="input-skin">
+            <input type="password" placeholder="登录密码" name="password" data-title="登录密码必须是8到50位" id="J-password" />
+        </div>
+        <div class="input-skin">
+            <input type="text" placeholder="再次输入登录密码" name="cpassword" data-title="输入和上面同样的登录密码" id="J-cpassword" />
+        </div>
+        <div class="input-skin">
+            <input type="text" placeholder="小店名" name="displayname" data-title="您家的小店名" id="J-displayname" />
+        </div>
+        <div class="input-skin last-child flexBox checkcodeBox">
+            <input type="tel" placeholder="右侧的验证码" name="checkcode" data-title="输入右侧的验证码" id="J-checkcode" class="box" />
+            <span class="box">
+                <img src="models/captcha.php" alt="验证码" />
+                <a class="getCheckcode" href="javascript:void(0)">看不清楚</a>
+            </span>
+        </div>
+    </form>
 
-    <div class="flexBox">
-        <a class="box" href="forgot-password.php" title="找回登录密码">忘记了登录密码</a>
-        <a class="box" href="register.php" title="注册小店">注册小店</a>
-    </div>
+    <a class="touchStatusBtn btn btn-primary" href="javascript:void(0)" id="J-registerBtn">确认</a>
+
+    <a class="gotoLogin" href="login.html" title="登录">登录</a>
 </div>
 </body>
 <script>
     seajs.use("footer.js");
-    seajs.use("login.js");
 </script>
 </html>
