@@ -1,6 +1,7 @@
 body{
     font-size: 15px;
     color: #666;
+    -webkit-user-select: none;
 }
 a{
     color: #1caded;
@@ -49,7 +50,13 @@ a:hover{
     border:1px solid #ddd;
     -webkit-border-radius: 10px;
 }
-.form-default input.first-child{
+.form-default .input-skin{
+    width: 100%;
+    overflow: hidden;
+    height: 44px;
+    border-bottom: 1px solid #ddd;
+}
+.form-default .first-child{
     -webkit-border-top-left-radius: 10px;
     -webkit-border-top-right-radius: 10px;
     -webkit-border-bottom-left-radius: 0;
@@ -64,15 +71,13 @@ a:hover{
 .form-default textarea{
     background: #fff;
     display: block;
-    height: 44px;
     line-height: 44px;
     border: none;
-    border-bottom: 1px solid #ddd;
-    width: 96.5%;
+    width: 100%;
     text-align: left;
     text-indent: 10px;
     outline: none;
-    overflow: hidden;
+    height: 100%;
 }
 .form-default input[type=text]:focus,
 .form-default input[type=password]:focus,
@@ -83,7 +88,7 @@ a:hover{
 .form-default textarea:focus{
     background: #faf8f0;
 }
-.form-default input.last-child{
+.form-default .last-child{
     border-bottom: none;
     -webkit-border-bottom-left-radius: 10px;
     -webkit-border-bottom-right-radius: 10px;
