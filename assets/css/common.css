@@ -78,6 +78,7 @@ a:hover{
     text-indent: 10px;
     outline: none;
     height: 100%;
+    font-size: 15px;
 }
 .form-default input[type=text]:focus,
 .form-default input[type=password]:focus,
