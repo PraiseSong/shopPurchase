@@ -2,6 +2,7 @@ body{
     font-size: 15px;
     color: #666;
     -webkit-user-select: none;
+    -webkit-text-size-adjust: none;
 }
 a{
     color: #1caded;
@@ -113,10 +114,12 @@ a:hover{
     height: 24px;
 }
 .openLogin a{
-    display: block;
+    display: inline-block;
     margin-right: 5px;
     color: #666;
     height: 100%;
+    overflow: auto;
+    width: 70px;
 }
 .openLogin a img{
     float: left;
@@ -207,7 +210,6 @@ a:hover{
 .info,
 .error{
     -webkit-border-radius: 10px;
-    overflow: auto;
     padding: 5px 10px;
     line-height: 30px;
 }

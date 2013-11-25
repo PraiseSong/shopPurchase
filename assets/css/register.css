@@ -3,6 +3,7 @@
 }
 .registerBox .warn{
     margin-bottom: 10px;
+    width: auto;
 }
 .registerBox .warn img{
     float: left;
@@ -10,6 +11,8 @@
 .registerBox .warn a{
     line-height: 24px;
     margin-left: 10px;
+    width: 70px;
+    display: inline-block;
 }
 .registerBox .checkcodeBox{
     height: auto;
