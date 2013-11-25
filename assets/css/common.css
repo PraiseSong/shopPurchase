@@ -155,3 +155,43 @@ a:hover{
     line-height: 22px;
     pointer-events: none;
 }
+
+#header{
+    display: -webkit-box;
+    height: 44px;
+    line-height: 44px;
+    width: 100%;
+    font-size: 20px;
+    background: #282d36;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+#header .back{
+    margin-right: 10px;
+    font-size: 16px;
+}
+#header .back img{
+    width: 24px;
+    height: 24px;
+    float: left;
+    margin-top: 10px;
+}
+#header span,
+#header .back{
+    display: block;
+    color: #fff;
+}
+#header span{
+    -webkit-box-flex: 1;
+    text-align: center;
+}
+
+.step{
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 0 10px 10px 10px;
+    font-size: 14px;
+}
+.step .current{
+    color: #f50;
+}

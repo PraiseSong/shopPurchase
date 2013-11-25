@@ -14,7 +14,7 @@
     </title>
     <link rel="stylesheet" href="assets/css/reset.css" />
     <link rel="stylesheet" href="assets/css/common.css" />
-    <link rel="stylesheet" href="assets/css/login.css" />
+    <link rel="stylesheet" href="assets/css/register.css" />
     <script src="assets/libs/sea.js"></script>
     <script type="text/javascript">
         seajs.config({
@@ -23,14 +23,14 @@
     </script>
 </head>
 <body>
-<div class="loginBox container">
-    <header>
-        <div class="avatarBox">
-            <img src="assets/imgs/logo-skin.png" class="skin" alt="头像" />
-            <img src="assets/imgs/logo.png" alt="头像" />
-        </div>
-    </header>
-
+<header id="header">
+    <a class="back box" href="login.html"><img src="assets/imgs/back-icon.png" alt="返回" />返回</a>
+    <span class="box">注册</span>
+</header>
+<div class="step">
+    <span class="current">注册</span> &gt; <span>邮箱验证</span> &gt; <span>注册完成</span>
+</div>
+<div class="registerBox container">
     <form class="form-default" action="login.php" method="post">
         <div class="input-skin first-child">
             <input type="text" placeholder="用户名" name="username" class="first-child" data-title="用户名必须是5到20位英文或数字" id="J-username" />
@@ -51,7 +51,7 @@
 
     <div class="flexBox">
         <a class="box" href="forgot-password.php" title="找回登录密码">忘记了登录密码</a>
-        <a class="box" href="register.html" title="注册小店">注册小店</a>
+        <a class="box" href="register.php" title="注册小店">注册小店</a>
     </div>
 </div>
 </body>
