@@ -21,7 +21,7 @@ define(function (require, exports, module){
         $(btn).get(0).addEventListener("touchstart", function (e){
             var self = e.currentTarget;
             $(self).css({
-                "-webkit-transform": "scale(.85)",
+                "-webkit-transform": "scale(.97)",
                 opacity: .6
             });
         });

@@ -143,6 +143,10 @@ a:hover{
     background: #f50;
     text-shadow: 1px 1px 2px #cf4703;
 }
+.btn-default{
+    background: #1caded;
+    text-shadow: 1px 1px 2px #0389c4;
+}
 
 .flexBox{
     display: -webkit-box;
@@ -166,7 +170,7 @@ a:hover{
     pointer-events: none;
 }
 
-#header{
+.header{
     display: -webkit-box;
     height: 44px;
     line-height: 44px;
@@ -176,22 +180,22 @@ a:hover{
     font-weight: normal;
     margin-bottom: 10px;
 }
-#header .back{
+.header .back{
     margin-right: 10px;
     font-size: 16px;
 }
-#header .back img{
+.header .back img{
     width: 24px;
     height: 24px;
     float: left;
     margin-top: 10px;
 }
-#header span,
-#header .back{
+.header span,
+.header .back{
     display: block;
     color: #fff;
 }
-#header span{
+.header span{
     -webkit-box-flex: 1;
     text-align: center;
 }
@@ -216,4 +220,118 @@ a:hover{
 .warn{
     background: #faf8f0;
     border: 1px solid #faebcc;
+}
+
+.t-f50{
+    color: #f50;
+}
+
+.perf .detail{
+    position: relative;
+}
+.perf .detail .close{
+    position: absolute;
+    z-index: 2;
+    top: 10px;
+    right: 10px;
+}
+.perf .detail table{
+    width: 100%;
+    border: 1px solid #ddd;
+}
+.perf .detail small{
+    margin-right: 5px;
+}
+.perf .detail table td{
+    line-height: 30px;
+}
+.perf .detail table tr td:first-child{
+    text-align: center;
+}
+.perf .detail .tag{
+    height: 30px;
+    width: 30px;
+    display: block;
+    -webkit-border-radius: 30px;
+    text-align: center;
+    line-height: 30px;
+    margin: 5px auto;
+    font-size: 16px;
+}
+.perf .detail .zu td:last-child{
+    color: #ba974a;
+}
+.perf .detail .y td:last-child{
+    color: #5f8944;
+}
+.perf .detail .z td:last-child{
+    color: #9238d7;
+}
+.perf .detail .c td:last-child{
+    color: #000;
+}
+.perf .detail .zu .tag{
+    background: #f8cb69;
+    color: #a3740d;
+}
+.perf .detail .y .tag{
+    background: #5f8944;
+    color: #fff;
+}
+.perf .detail .z .tag{
+    background: #9238d7;
+    color: #fff;
+}
+.perf .detail .c .tag{
+    background: #000;
+    color: #fff;
+}
+.perf .detail table tr td:last-child{
+    text-indent: 10px;
+    font-size: 18px;
+}
+.perf .detail td a{
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.query{
+    background: url(../imgs/query.png);
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    padding-left: 25px;
+    display: block;
+    height: 24px;
+    line-height: 24px;
+}
+
+.plist li{
+    padding:1px;
+    -webkit-box-shadow: 0 0 10px #b3b3b3;
+    margin-bottom: 10px;
+    -webkit-border-radius: 3px;
+}
+.plist li img{
+    max-width: 100px;
+}
+.plist li .imgSkin{
+    width: 100px;
+    max-width: 100px;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.plist li:last-child{
+    margin-bottom: 0;
+}
+.plist li .information{
+    line-height: 23px;
+    max-width: 50%;
+    padding: 3px 5px 3px 0;
+}
+.plist li .information .name{
+    color: #f50;
+}
+.plist li .information .count{
+    color: #578c0c;
 }

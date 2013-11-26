@@ -48,9 +48,9 @@ function request_login($userdetails){
     $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 
     if(!$loggedInUser->email || !$loggedInUser->displayname){
-        header("Location: user_settings.php");
+        header("Location: user_settings.html");
     }else{
-        header("Location: cashier.php");
+        header("Location: cashier.html");
     }
     die();
 }
