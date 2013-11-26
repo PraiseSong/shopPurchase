@@ -46,14 +46,18 @@
     text-align: center;
     padding-left: 0;
 }
+.cashierTable .product-preview .imgSkin{
+    max-width: 100px;
+    margin-right: 10px;
+}
 .cashierTable .product-preview img{
     max-width: 100px;
     border: 1px solid #ddd;
-    margin-right: 10px;
 }
 .cashierTable .product-preview .information{
     text-align: left;
     line-height: 22px;
+    max-width: 50%;
 }
 .cashierTable input[type=text],
 .cashierTable input[type=tel],
@@ -80,8 +84,9 @@
     line-height: 37px;
     -webkit-appearance: button;
     background: #fff;
-    border: none;
+    border: 1px solid #ddd;
     -webkit-border-radius: 5px;
+    padding-left: 3px;
 }
 .cashierTable .prices li{
     padding-bottom: 5px;
