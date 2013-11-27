@@ -28,6 +28,18 @@ define(function (require, exports, module){
     $('#J-soldCount').on("blur", function (){
         changePricesSelect();
     });
+    setTimeout(function (){
+        var type = require("types.js");
+        type.query(function (data){console.log(data)
+            if(data.bizCode === 1 && data.data && data.data.types.length >= 1){
+                var options = '';
+                $.each(data.data.types, function (i, type){
+                    options += '<option value="'+type.id+'">'+type.name+'</option>';
+                });
+                $('#J-parentTypes').html(options);
+            }
+        });
+    }, 3000);
 
     function gotoCashier(){
         window.scrollTo(0, 0);
