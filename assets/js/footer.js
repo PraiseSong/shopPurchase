@@ -43,9 +43,17 @@ define(function (require, exports, module){
 
     //在standalone模式下，保持链接不外跳
     $('a').on("click",
-        function( event ){
-            event.preventDefault();
-            location.href = $( event.target ).attr( "href" );
+        function( e ){
+            e.preventDefault();
+            var href = $( e.currentTarget ).attr( "href" );
+            if(!href){
+                return false;
+            }
+            if($.trim(href) && href === "javascript:void(0)"){
+                return false;
+            }else if($.trim(href)){
+                location.href = href;
+            }
         }
     );
 });
