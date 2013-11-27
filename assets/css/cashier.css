@@ -22,6 +22,7 @@
 }
 .cashierBox .perf .detail{
     margin: 0 10px;
+    display: none;
 }
 .cashierBox .perf .def img{
     -webkit-transform: rotate(-90deg);
@@ -155,4 +156,7 @@
 }
 .queryProductsBox .plist{
     margin: 0 0 20px;
+}
+.queryProductsContainer{
+    display: none;
 }

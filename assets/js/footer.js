@@ -25,6 +25,13 @@ define(function (require, exports, module){
                 opacity: .6
             });
         });
+        $(btn).get(0).addEventListener("touchmove", function (e){
+            var self = e.currentTarget;
+            $(self).css({
+                "-webkit-transform": "scale(1)",
+                opacity: 1
+            });
+        });
         $(btn).get(0).addEventListener("touchend", function (e){
             var self = e.currentTarget;
             $(self).css({

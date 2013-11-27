@@ -335,3 +335,35 @@ a:hover{
 .plist li .information .count{
     color: #578c0c;
 }
+
+.mask{
+    background: rgba(0, 0, 0, .5);
+    position: absolute;
+    z-index: 99999999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.loadingBox{
+    position: absolute;
+    z-index: 999999999;
+    left: 20px;
+    top: 50px;
+    width: 90%;
+    padding: 10px 0;
+    text-align: center;
+    font-weight: 700;
+    line-height: 22px;
+    border: none;
+}
+.loadingBox.warn{
+    background: #e0c232;
+    color: #9f6406;
+    text-shadow: 1px 1px 1px #fbf3cd;
+}
+.loadingBox.error{
+    background: #e55d19;
+    color: #fff;
+    text-shadow: 1px 1px 1px #4a1b03;
+}
