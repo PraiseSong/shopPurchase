@@ -179,14 +179,14 @@
             <!--<option value="0">子分类</option>-->
         <!--</select>-->
         <div class="flexBox">
-            <input type="search" placeholder="输入商品名称" autocapitalize="off" class="box" />
-            <span class="box">查询</span>
+            <input type="search" placeholder="输入商品名称" autocapitalize="off" class="box" id="J-searchText" />
+            <span class="box touchStatusBtn" id="J-queryBtn">查询</span>
         </div>
     </form>
     <div class="result">
-        <!--<p class="noData">-->
-            <!--没有您要的商品，现在就<a href="#" title="添加商品">添加</a>-->
-        <!--</p>-->
+        <p class="noData">
+            没有您要的商品，现在就<a href="#" title="添加商品">添加</a>
+        </p>
         <ul class="plist">
             <li class="flexBox touchStatusBtn">
                 <div class="imgSkin box">
@@ -209,7 +209,7 @@
                 </div>
             </li>
         </ul>
-        <a class="touchStatusBtn btn btn-default" href="javascript:void(0)">更多商品</a>
+        <a class="touchStatusBtn btn btn-default" href="javascript:void(0)" id="J-requestMoreBtn">更多商品</a>
     </div>
 </div>
 </div>

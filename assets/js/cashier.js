@@ -7,6 +7,8 @@
  */
 define(function (require, exports, module){
     var $ = require('zepto.min.js');
+    var IO = require("io.js");
+    require("userAuth.js");
 
     $('#J-showPerfBtn').on("click", function (){
         showPerf();
@@ -28,18 +30,29 @@ define(function (require, exports, module){
     $('#J-soldCount').on("blur", function (){
         changePricesSelect();
     });
+    $('#J-queryBtn').on("click", function (){
+        pageNum = 1;
+        queryProducts();
+    });
+    $('#J-requestMoreBtn').on("click", function (){
+        queryProducts();
+    });
     setTimeout(function (){
         var type = require("types.js");
-        type.query(function (data){console.log(data)
+        type.query(function (data){
             if(data.bizCode === 1 && data.data && data.data.types.length >= 1){
-                var options = '';
+                var options = '<option value="">商品分类</option>';
                 $.each(data.data.types, function (i, type){
                     options += '<option value="'+type.id+'">'+type.name+'</option>';
                 });
                 $('#J-parentTypes').html(options);
+                $('#J-parentTypes').unbind().bind("change", function (){
+                    pageNum = 1;
+                    queryProducts();
+                });
             }
         });
-    }, 3000);
+    }, 2000);
 
     function gotoCashier(){
         window.scrollTo(0, 0);
@@ -122,5 +135,45 @@ define(function (require, exports, module){
         }
         count = count*1;
         return count;
+    }
+    var pageNum = 1;
+    function queryProducts(){
+        var parentType = $.trim($('#J-parentTypes').val());
+        var searchText = $.trim($('#J-searchText').val());
+        var data = '';
+        if(parentType){
+            data+="type="+parentType;
+        }
+        if(searchText){
+            if(data){
+                data+='&name='+encodeURI(searchText);
+            }else{
+                data+='name='+encodeURI(searchText);
+            }
+        }
+        if(data){
+            new IO({
+                url: "controler/queryProducts.php",
+                data: data+"&pageNum="+pageNum,
+                on: {
+                    success: function (result){
+                        if(result.bizCode === 1){
+                            if(result.data.products.length >= 1){
+                                pageNum++;
+                                renderProducts(data);
+                            }else{
+                                noData(data);
+                            }
+                        }
+                    }
+                }
+            }).send();
+        }
+    }
+    function noData(data){
+        console.log(data)
+    }
+    function renderProducts(data){
+        console.log(data);
     }
 });

@@ -44,12 +44,6 @@ define(function (require, exports, module){
             this.cfg.on.start.call(this);
         },
         success: function (data){
-            if(data.data && data.data.redirect){
-                var originHref = location.href;
-                if(data.data.redirect.indexOf(originHref) <= 0){
-                    location.href = data.data.redirect;
-                }
-            }
             this.cfg.on.success.call(this, data);
         },
         error: function (data){

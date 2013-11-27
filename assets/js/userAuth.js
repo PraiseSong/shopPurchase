@@ -9,14 +9,12 @@ define(function (require, exports, module){
     var $ = require('zepto.min.js');
     var IO = require("io.js");
 
-    var UserAuth = {};
     function callback(data){
-        if(UserAuth.callback){
-            UserAuth.callback.call(UserAuth, data);
-        }else{
-            setTimeout(function (){
-                callback(data)
-            }, 3000);
+        if(data.data && data.data.redirect){
+            var originHref = location.href;
+            if(data.data.redirect.indexOf(originHref) <= 0){
+                location.href = data.data.redirect;
+            }
         }
     }
 
@@ -28,6 +26,4 @@ define(function (require, exports, module){
             }
         }
     }).send();
-
-    return UserAuth;
 });

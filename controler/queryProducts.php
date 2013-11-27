@@ -35,6 +35,7 @@ $start = @$_POST['start'];
 $end = @$_POST['end'];
 $countIs0 = @$_POST['countIs0'];
 $count_condition = 'p_count>0';
+$name = @$_POST['name'];
 if($countIs0){
     $count_condition = 'p_count<=0';
 }
@@ -45,13 +46,22 @@ $limit_end = (int)$limit;
 $limit_start = (int)$limit*((int)$page_num-1);
 
 $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where ($count_condition and user_id=$user_id) limit $limit_start,$limit_end";
-
+if($name){
+    $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where ($count_condition and user_id=$user_id and (p_name like '%$name%')) limit $limit_start,$limit_end";
+}
 if($type){
     $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where (p_type=$type and $count_condition and user_id=$user_id) ".
            "limit $limit_start,$limit_end";
+    if($name){
+        $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where (p_type=$type and $count_condition and user_id=$user_id and (p_name like '%$name%')) ".
+            "limit $limit_start,$limit_end";
+    }
 }
 if($start && $end){
     $where = "((user_id=$user_id) and (date like '%$start%'";
+    if($name){
+        $where = "((p_name like '%$name%') and (user_id=$user_id) and (date like '%$start%'";
+    }
     $start = preg_split("/\-/", $start);
     $end = preg_split("/\-/", $end);
     $start_y = $start[0];
