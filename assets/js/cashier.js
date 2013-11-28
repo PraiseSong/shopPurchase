@@ -118,7 +118,11 @@ define(function (require, exports, module){
             var selects = $('#J-prices select');
             var options = '';
             for(var i=1;i<count+1;i++){
-                options += '<option value="'+i+'">'+i+'</option>';
+                var selected = '';
+                if(i === count){
+                    selected = "selected";
+                }
+                options += '<option value="'+i+'" '+selected+'>'+i+'</option>';
             }
             $.each(selects, function (i, select){
                 $(select).html(options);
@@ -280,28 +284,31 @@ define(function (require, exports, module){
     function selling(){
         tradeData = {};
         if(validate()){
-            new IO({
-                url: "controler/sellRecord.php",
-                data: "count="+tradeData.count+"&detail="+tradeData.detail+"&props="+tradeData.props+"&id="+tradeData.id,
-                on: {
-                    start: function (){
-                        Utils.loading.show("正在收银...");
-                    },
-                    success: function (data){
-                        if(data.bizCode === 1){
-                            Utils.loading.warn("收银成功");
-                            setTimeout(function (){
-                                Utils.loading.hide();
-                            }, 3000);
-                        }else{
-                            alert("收银失败")
+            var confirm = window.confirm("确认记账？");
+            if(confirm){
+                new IO({
+                    url: "controler/sellRecord.php",
+                    data: "count="+tradeData.count+"&detail="+tradeData.detail+"&props="+tradeData.props+"&id="+tradeData.id,
+                    on: {
+                        start: function (){
+                            Utils.loading.show("正在收银...");
+                        },
+                        success: function (data){
+                            if(data.bizCode === 1){
+                                Utils.loading.warn("收银成功");
+                                setTimeout(function (){
+                                    Utils.loading.hide();
+                                }, 3000);
+                            }else{
+                                alert("收银失败")
+                            }
+                        },
+                        error: function (){
+                            Utils.loading.error("收银发生异常，请重试");
                         }
-                    },
-                    error: function (){
-                        Utils.loading.error("收银发生异常，请重试");
                     }
-                }
-            }).send();
+                }).send();
+            }
         }
     }
     function validate(){
@@ -372,8 +379,11 @@ define(function (require, exports, module){
             });
         }
 
-        tradeData.count = getCount();
-        tradeData.id = $('#J-cashierProductPreview').attr("data-id");
+        if(result){
+            tradeData.count = getCount();
+            tradeData.id = $('#J-cashierProductPreview').attr("data-id");
+        }
+
         tradeData.detail = detail.join("|");
         if(result && props.length >= 1){
             var propsData = [];
