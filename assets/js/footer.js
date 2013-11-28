@@ -25,7 +25,7 @@ define(function (require, exports, module){
                 $(btn).get(0).removeEventListener("touchend");
 
                 $(btn).attr("data-hasTouchStatusListener", 1);
-                
+
                 $(btn).get(0).addEventListener("touchstart", function (e){
                     var self = e.currentTarget;
                     $(self).css({
@@ -52,18 +52,20 @@ define(function (require, exports, module){
     }, 1500);
 
     //在standalone模式下，保持链接不外跳
-    $('a').on("click",
-        function( e ){
-            e.preventDefault();
-            var href = $( e.currentTarget ).attr( "href" );
-            if(!href){
-                return false;
+    if(navigator.standalone){
+        $('a').on("click",
+            function( e ){
+                e.preventDefault();
+                var href = $( e.currentTarget ).attr( "href" );
+                if(!href){
+                    return false;
+                }
+                if($.trim(href) && href === "javascript:void(0)"){
+                    return false;
+                }else if($.trim(href)){
+                    location.href = href;
+                }
             }
-            if($.trim(href) && href === "javascript:void(0)"){
-                return false;
-            }else if($.trim(href)){
-                location.href = href;
-            }
-        }
-    );
+        );
+    }
 });
