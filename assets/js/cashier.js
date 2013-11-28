@@ -8,6 +8,7 @@
 define(function (require, exports, module){
     var $ = require('zepto.min.js');
     var IO = require("io.js");
+    var Utils = require("utils.js");
     require("userAuth.js");
 
     $('#J-showPerfBtn').on("click", function (){
@@ -55,6 +56,7 @@ define(function (require, exports, module){
             }
         });
     }, 2000);
+    $('#J-cashierBtn').on("click", selling);
 
     function gotoCashier(){
         //window.scrollTo(0, 0);
@@ -209,13 +211,14 @@ define(function (require, exports, module){
         var data2html = require("template.js?t=1");
         var html = '';
         var tem = '<li class="flexBox touchStatusBtn" data-id="{p_id}">'+
+            '<input type="hidden" value="{p_props}">'+
             '<div class="imgSkin box">'+
-            '<img class="box" src="{p_pic}" alt=""/>'+
+            '<img src="{p_pic}" alt=""/>'+
             '</div>'+
             '<div class="information box">'+
             '<p class="name">{p_name}</p>'+
             '<p class="pprice">单价：{int}<small>.{float}</small>元</p>'+
-            '<p class="count">库存：{p_count}个</p>'+
+            '<p class="count">库存：<span class="J-count">{p_count}</span>个</p>'+
             '</div>'+
             '</li>';
         $.each(data, function (i, d){
@@ -227,10 +230,165 @@ define(function (require, exports, module){
             html += data2html(tem, d);
         });
         productList.show().find("ul").append(html);
+        bindUItoPlist();
+    }
+    function bindUItoPlist(){
+        var preview = $('#J-cashierProductPreview');
+        productList.find("li").unbind().bind("click", function (){
+            var props = $.trim($(this).find("input[type=hidden]").val());
+            preview.html($(this).html()).attr("data-id", $(this).attr("data-id"));
+            $('#J-cashierTable').find(".product-property").remove();
+            if(props){
+                insertProps(Utils.props2Array(props));
+            }
+            gotoCashier();
+            window.scrollTo(0, preview.offset().top);
+        });
     }
     function resetQueryProducts(){
         pageNum = 1;
         productList.find("ul").html("");
         queryProducts();
+    }
+    function insertProps(data){
+        var html = '';
+        for(name in data){
+            var content = '';
+            $.each(data[name], function (i, v){
+                content += '<label>'+
+                             '<input type="radio" name="'+name+'" value="'+v+'"/>'+
+                              v+
+                           '</label>';
+            });
+            html += '<tr class="product-property">'+
+                '<td><span class="J-propName">'+name+'</span>：</td>'+
+                '<td>'+
+                content+
+                '</td>'+
+            '</tr>';
+        }
+        $('#J-cashierTable').append(html);
+        var props = $('#J-cashierTable .product-property');
+        $.each(props, function (j, prop){
+            $(prop).find('label').unbind().bind("click", function (){
+                $(prop).find('label').removeClass("selected").find("input[type=radio]").attr("checked", "");
+                $(this).addClass("selected").find("input[type=radio]").attr("checked", true);
+            });
+        });
+    }
+    var tradeData = {};
+    function selling(){
+        tradeData = {};
+        if(validate()){
+            new IO({
+                url: "controler/sellRecord.php",
+                data: "count="+tradeData.count+"&detail="+tradeData.detail+"&props="+tradeData.props+"&id="+tradeData.id,
+                on: {
+                    start: function (){
+                        Utils.loading.show("正在收银...");
+                    },
+                    success: function (data){
+                        if(data.bizCode === 1){
+                            Utils.loading.warn("收银成功");
+                            setTimeout(function (){
+                                Utils.loading.hide();
+                            }, 3000);
+                        }else{
+                            alert("收银失败")
+                        }
+                    },
+                    error: function (){
+                        Utils.loading.error("收银发生异常，请重试");
+                    }
+                }
+            }).send();
+        }
+    }
+    function validate(){
+        var result = true;
+        var props = $('#J-cashierTable .product-property');
+        var pricesNode = $('#J-prices li');
+        var detail = [];
+
+        if(!$('#J-cashierProductPreview').attr("data-id")){
+            result = false;
+            alert("请先选择一个商品");
+        }else if(!getCount()){
+            result = false;
+        }else if(getCount() > ($.trim($('#J-cashierProductPreview .J-count').html())*1)){
+            result = false;
+            return alert("销售数量大于当前商品的库存！");
+        }else if(pricesNode.length >= 1){
+            var totalCount = 0;
+            $.each(pricesNode, function (i, pn){
+                var price = $.trim($(pn).find("input[type=number]").val())*1;
+                var count = $.trim($(pn).find("select").val())*1;
+                totalCount += count;
+                if(!price){
+                    alert("第 "+(i+1)+" 种销售价格不能为空");
+                    result = false;
+                    return false;
+                }else if(!/^\d+\.?\d{0,2}$/.test(price)){
+                    result = false;
+                    alert("第 "+(i+1)+" 种销售价格不正确");
+                    return false;
+                }else if(!count){
+                    alert("第 "+(i+1)+" 种销售数量不能为空");
+                    result = false;
+                    return false;
+                }else if((count <=0) || (!/^\d+$/.test(count))){
+                    result = false;
+                    alert("第 "+(i+1)+" 种销售数量不正确");
+                    return false;
+                }
+            });
+
+            if(result && (totalCount !== getCount())){
+                result = false;
+                alert("总销售量与"+pricesNode.length+"种价格的销售量不相等");
+            }
+            $.each(pricesNode, function (i, pn){
+                var price = $.trim($(pn).find("input[type=number]").val())*1;
+                var count = $.trim($(pn).find("select").val())*1;
+                detail.push(''+price+'*'+count+'');
+            });
+        }
+        if(result && props.length >= 1){
+            $.each(props, function (j, prop){
+                var name = $.trim($(prop).find(".J-propName").html());
+                var radios = $(prop).find("input[type=radio]");
+                var checked = 0;
+                $.each(radios, function (k, radio){
+                    if($(radio).attr("checked")){
+                        checked++;
+                        return false;
+                    }
+                });
+                if(checked <= 0){
+                    alert("请选择 "+name+" 的属性");
+                    result = false;
+                    return false;
+                }
+            });
+        }
+
+        tradeData.count = getCount();
+        tradeData.id = $('#J-cashierProductPreview').attr("data-id");
+        tradeData.detail = detail.join("|");
+        if(result && props.length >= 1){
+            var propsData = [];
+            $.each(props, function (j, prop){
+                var name = $.trim($(prop).find(".J-propName").html());
+                var radios = $(prop).find("input[type=radio]");
+                $.each(radios, function (k, radio){
+                    if($(radio).attr("checked")){
+                        propsData.push(''+name+':'+$.trim($(radio).val())+'');
+                    }
+                });
+            });
+            tradeData.props = propsData.join('|');
+        }
+
+        return result;
     }
 });

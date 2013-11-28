@@ -81,7 +81,7 @@
     </div>
 
     <form action="register.php" method="post">
-        <table class="cashierTable">
+        <table class="cashierTable" id="J-cashierTable">
             <tbody>
             <tr>
                 <td width="80">销售数量：</td>
@@ -96,7 +96,7 @@
                         <li class="flexBox">
                             <input type="number" autocapitalize="off" class="box" />
                             <span>&Chi;</span>
-                            <select name="" id="" class="box">
+                            <select class="box">
                                 <option value="0">0</option>
                             </select>
                         </li>
@@ -125,41 +125,13 @@
             </tr>
             <tr class="product-preview">
                 <td colspan="2">
-                    <div class="flexBox">
-                        <div class="box imgSkin"><img src="http://gtms01.alicdn.com/tps/i1/T1kQzaXjXtXXbaSroB-188-214.jpg" alt="" /></div>
-                        <div class="information box">
-                            <p class="name">这里是商品名称</p>
-                            <p class="pprice">单价：12<small>.32</small>元</p>
-                            <p class="count">库存：30个</p>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr class="product-property">
-                <td>颜色分类：</td>
-                <td>
-                    <label for="" class="selected">
-                        <input type="radio" name="颜色分类" value="红色" checked/>
-                        红色
-                    </label>
-                    <label for="">
-                        <input type="radio" name="颜色分类" value="绿色"/>
-                        绿色
-                    </label>
-                    <label for="">
-                        <input type="radio" name="颜色分类" value="白色"/>
-                        白色
-                    </label>
-                    <label for="">
-                        <input type="radio" name="颜色分类" value="蓝色"/>
-                        蓝色
-                    </label>
+                    <div class="flexBox" id="J-cashierProductPreview"></div>
                 </td>
             </tr>
             </tbody>
         </table>
 
-        <a class="touchStatusBtn btn btn-primary" href="javascript:void(0)">确认</a>
+        <a class="touchStatusBtn btn btn-primary" href="javascript:void(0)" id="J-cashierBtn">确认</a>
     </form>
 </div>
 </div>
@@ -180,7 +152,7 @@
         <!--</select>-->
         <div class="flexBox">
             <input type="search" placeholder="输入商品名称" autocapitalize="off" class="box" id="J-searchText" />
-            <span class="box touchStatusBtn" id="J-queryBtn">查询</span>
+            <span class="touchStatusBtn" id="J-queryBtn">查询</span>
         </div>
     </form>
     <div class="result">

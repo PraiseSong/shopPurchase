@@ -16,7 +16,7 @@ if(isset($loggedInUser) && $loggedInUser->user_id){
 }
 
 if(!$user_id){
-    $result = array("bizCode" => 0, "memo" => "用户未登", "data"=>array("status" => 100));
+    $result = array("bizCode" => 0, "memo" => "用户未登录", "data"=>array("redirect"=>"login.php"));
     echo json_encode($result);
     exit;
 }
@@ -45,15 +45,15 @@ if(!$limit){
 $limit_end = (int)$limit;
 $limit_start = (int)$limit*((int)$page_num-1);
 
-$sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where ($count_condition and user_id=$user_id) limit $limit_start,$limit_end";
+$sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where ($count_condition and user_id=$user_id) limit $limit_start,$limit_end";
 if($name){
-    $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where ($count_condition and user_id=$user_id and (p_name like '%$name%')) limit $limit_start,$limit_end";
+    $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where ($count_condition and user_id=$user_id and (p_name like '%$name%')) limit $limit_start,$limit_end";
 }
 if($type){
-    $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where (p_type=$type and $count_condition and user_id=$user_id) ".
+    $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where (p_type=$type and $count_condition and user_id=$user_id) ".
            "limit $limit_start,$limit_end";
     if($name){
-        $sql = "select p_id,p_name,p_count,p_price,p_pic from `products` where (p_type=$type and $count_condition and user_id=$user_id and (p_name like '%$name%')) ".
+        $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where (p_type=$type and $count_condition and user_id=$user_id and (p_name like '%$name%')) ".
             "limit $limit_start,$limit_end";
     }
 }
