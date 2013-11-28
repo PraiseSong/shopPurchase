@@ -31,11 +31,12 @@ define(function (require, exports, module){
         changePricesSelect();
     });
     $('#J-queryBtn').on("click", function (){
-        pageNum = 1;
-        queryProducts();
+        if($('#J-parentTypes').val() || $.trim($('#J-searchText').val())){
+            resetQueryProducts();
+        }
     });
     $('#J-requestMoreBtn').on("click", function (){
-        queryProducts();
+        queryProducts($(this));
     });
     setTimeout(function (){
         var type = require("types.js");
@@ -47,15 +48,16 @@ define(function (require, exports, module){
                 });
                 $('#J-parentTypes').html(options);
                 $('#J-parentTypes').unbind().bind("change", function (){
-                    pageNum = 1;
-                    queryProducts();
+                    if($('#J-parentTypes').val()){
+                        resetQueryProducts();
+                    }
                 });
             }
         });
     }, 2000);
 
     function gotoCashier(){
-        window.scrollTo(0, 0);
+        //window.scrollTo(0, 0);
         $('#J-cashierContainer').show();
         $('#J-queryProductsContainer').hide();
     }
@@ -137,7 +139,9 @@ define(function (require, exports, module){
         return count;
     }
     var pageNum = 1;
-    function queryProducts(){
+    var tipBox = $('#J-tip');
+    var productList = $('#J-productList');
+    function queryProducts(byMoreBtn){
         var parentType = $.trim($('#J-parentTypes').val());
         var searchText = $.trim($('#J-searchText').val());
         var data = '';
@@ -151,19 +155,45 @@ define(function (require, exports, module){
                 data+='name='+encodeURI(searchText);
             }
         }
+
+        $('#J-requestMoreBtn').html("更多商品");
+
         if(data){
             new IO({
                 url: "controler/queryProducts.php",
                 data: data+"&pageNum="+pageNum,
                 on: {
+                    start: function (){
+                        if(byMoreBtn){
+                            byMoreBtn.html("正在查询...");
+                        }else{
+                            tipBox.html("正在查询...").show().removeClass("t-f50");
+                            productList.hide();
+                        }
+                    },
                     success: function (result){
+                        if(byMoreBtn){
+                            byMoreBtn.html("更多商品");
+                        }
                         if(result.bizCode === 1){
                             if(result.data.products.length >= 1){
                                 pageNum++;
-                                renderProducts(data);
+                                renderProducts(result.data.products);
                             }else{
-                                noData(data);
+                                if(byMoreBtn){
+                                    byMoreBtn.html("没有了");
+                                }else{
+                                    noData(data);
+                                }
                             }
+                        }
+                    },
+                    error: function (){
+                        if(byMoreBtn){
+                            byMoreBtn.html("发生异常，点击重试");
+                        }else{
+                            tipBox.html("查询商品发生异常").show().addClass("t-f50");
+                            productList.hide();
                         }
                     }
                 }
@@ -171,9 +201,36 @@ define(function (require, exports, module){
         }
     }
     function noData(data){
-        console.log(data)
+        tipBox.html("没有查询到相关商品").show();
+        productList.hide();
     }
     function renderProducts(data){
-        console.log(data);
+        tipBox.hide();
+        var data2html = require("template.js?t=1");
+        var html = '';
+        var tem = '<li class="flexBox touchStatusBtn" data-id="{p_id}">'+
+            '<div class="imgSkin box">'+
+            '<img class="box" src="{p_pic}" alt=""/>'+
+            '</div>'+
+            '<div class="information box">'+
+            '<p class="name">{p_name}</p>'+
+            '<p class="pprice">单价：{int}<small>.{float}</small>元</p>'+
+            '<p class="count">库存：{p_count}个</p>'+
+            '</div>'+
+            '</li>';
+        $.each(data, function (i, d){
+            var price = (d.p_price*1).toFixed(2);
+            price = price.split(".");
+            d.p_price = price;
+            d.int = price[0];
+            d.float = price[1];
+            html += data2html(tem, d);
+        });
+        productList.show().find("ul").append(html);
+    }
+    function resetQueryProducts(){
+        pageNum = 1;
+        productList.find("ul").html("");
+        queryProducts();
     }
 });

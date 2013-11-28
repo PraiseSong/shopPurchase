@@ -128,7 +128,7 @@ a:hover{
 
 .btn{
     display: block;
-    -webkit-border-radius: 10px;
+    -webkit-border-radius: 5px;
     height: 40px;
     line-height: 40px;
     width: 100%;

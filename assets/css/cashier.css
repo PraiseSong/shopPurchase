@@ -130,7 +130,7 @@
     line-height: 24px;
     padding-right: 30px;
     font-size: 15px;
-    margin-right: 10px;
+    margin: 0 10px 10px 0;
 }
 .queryProductsBox form input[type=search]{
     height: 44px;
@@ -153,14 +153,20 @@
     margin-left: 5px;
     cursor: pointer;
 }
-.queryProductsBox .noData{
+.queryProductsBox .tip{
     text-align: center;
+    display: none;
+    margin-bottom: 15px;
 }
-.queryProductsBox .noData a{
+.queryProductsBox .tip a{
     margin-left: 5px;
     font-weight: 700;
 }
 .queryProductsBox .plist{
+    margin: 0 0 20px;
+    display: none;
+}
+.queryProductsBox .plist ul{
     margin: 0 0 20px;
 }
 .queryProductsContainer{
