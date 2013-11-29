@@ -22,7 +22,8 @@ define(function (require, exports, module){
         url: "controler/userAuth.php",
         on: {
             success: function (data){
-                  callback(data);
+                callback(data);
+                return false;
             }
         }
     }).send();

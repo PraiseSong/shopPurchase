@@ -13,7 +13,7 @@ define(function (require, exports, module){
         node: $('#J-password')
     });
     var loginForm = new AjaxForm({
-        node: $('form'),
+        node: $('.loginBox form'),
         items: {
             username: {
                 min: 5,
@@ -40,8 +40,18 @@ define(function (require, exports, module){
             alert(msg[0]);
         }
     });
+    var callbacks = {
+        success: function (data){
+            console.log(data);
+        },
+        error: function (data){
+            alert(data.memo);
+        }
+    };
     $('#J-loginBtn').on('click', function (e){
         e.preventDefault();
-        loginForm.submit();
+        loginForm.submit(callbacks.success, callbacks.error);
     });
+
+    return callbacks;
 });

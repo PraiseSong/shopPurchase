@@ -44,7 +44,14 @@ define(function (require, exports, module){
             this.cfg.on.start.call(this);
         },
         success: function (data){
-            this.cfg.on.success.call(this, data);
+            var extraResult = this.cfg.on.success.call(this, data);
+            if(extraResult !== false && data.bizCode === 0 && data.data && data.data.redirect && data.data.redirect.indexOf("login") !== -1){
+                var loginUI = require("loginUI.js");
+                if(loginUI.ui){
+                    loginUI.ui.show();
+                    loginUI.ui.syncStyle();
+                }
+            }
         },
         error: function (data){
             this.cfg.on.error.call(this, data);

@@ -18,11 +18,15 @@
     <script src="assets/libs/sea.js"></script>
     <script type="text/javascript">
         seajs.config({
-            base: './assets/js/'
+            base: './assets/js/',
+            map: [
+                [".js", ".js?t=" + new Date().getTime()]
+            ]
         });
     </script>
 </head>
 <body>
+
 <div id="J-cashierContainer">
 <header class="header">
     <span class="box">收银台</span>
@@ -41,6 +45,9 @@
         </div>
         <div class="detail" id="J-perf">
             <span class="close touchStatusBtn">隐藏</span>
+            <a class="gotoDetail" href="#">
+                <img src="assets/imgs/back-icon-black.png" alt="查看今日的详细业绩"/>
+            </a>
             <table border="1">
                 <tbody>
                 <tr class="zu">
@@ -48,7 +55,7 @@
                         <span class="tag">赚</span>
                     </td>
                     <td>
-                        188<small>.34</small>元
+                        0<small>.00</small>元
                     </td>
                 </tr>
                 <tr class="y">
@@ -56,7 +63,7 @@
                         <span class="tag">营</span>
                     </td>
                     <td>
-                        18<small>.00</small>元
+                        0<small>.00</small>元
                     </td>
                 </tr>
                 <tr class="z">
@@ -72,7 +79,7 @@
                         <span class="tag">成</span>
                     </td>
                     <td>
-                        1<small>.34</small>元
+                        0<small>.00</small>元
                     </td>
                 </tr>
                 </tbody>

@@ -9,7 +9,7 @@ define(function (require, exports, module){
     var Widgets = require('widgets.js');
     var $ = require('zepto.min.js');
 
-    var api = 'controler/querySold.php';
+    var api = 'controler/performance.php';
 
     function success(data){
         var cb = 0;//成本

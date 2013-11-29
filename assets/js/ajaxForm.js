@@ -29,12 +29,14 @@ define(function (require, exports, module){
             this.validated = false;
             this.errorMsg = [];
         },
-        submit: function (){
+        submit: function (success, error){
             this.errorMsg = [];
 
             if(this.validator()){
                 this.errorMsg = [];
-                alert("提交")
+                alert("提交");
+                console.log(success);
+                console.log(error);
             }else{
                 this.cfg.showErrorMsg.call(this, this.errorMsg);
             }

@@ -300,11 +300,14 @@ define(function (require, exports, module){
                                     Utils.loading.hide();
                                 }, 3000);
                             }else{
-                                alert("收银失败")
+                                Utils.loading.hide();
                             }
                         },
                         error: function (){
                             Utils.loading.error("收银发生异常，请重试");
+                            setTimeout(function (){
+                                Utils.loading.hide();
+                            }, 3000);
                         }
                     }
                 }).send();
