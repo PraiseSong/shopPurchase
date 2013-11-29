@@ -300,7 +300,10 @@ define(function (require, exports, module){
                                     Utils.loading.hide();
                                 }, 3000);
                             }else{
-                                Utils.loading.hide();
+                                Utils.loading.error(data.memo);
+                                setTimeout(function (){
+                                    Utils.loading.hide();
+                                }, 3000);
                             }
                         },
                         error: function (){

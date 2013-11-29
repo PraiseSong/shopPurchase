@@ -39,11 +39,17 @@ if(!$man){
     $man = '';
 }
 
-$sql = "insert into cashier(`user_id`, `p_id`, `count`, `prop`, `detail`, `man`, `date`) values($user_id, '$id', $count, '$props', '$detail', '$man', '$date')";
-$data = $db->query($sql);
-
 $query_kc_sql = "select p_count from `products` where (`user_id`=$user_id and `p_id` = '$id')";
 $kc_data = $db->queryObject($query_kc_sql);
+if(!$kc_data || ($kc_data->p_count <= 0)){
+    echo json_encode(array("bizCode"=>0, "memo" => "商品不存在或库存为0"));
+    exit;
+}
+
+$sql = "insert into cashier(`user_id`, `p_id`, `count`, `prop`, `detail`, `man`, `date`) values($user_id, '$id', $count, '$props', '$detail', '$man', '$date')";
+$db->query($sql);
+
+
 $new_count = $kc_data-> p_count - $count;
 $update_kb_sql = "update `products` set `p_count` = $new_count where (`user_id`=$user_id and `p_id` = '$id')";
 $updated_result = $db->query($update_kb_sql);

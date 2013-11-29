@@ -42,16 +42,28 @@ define(function (require, exports, module){
     });
     var callbacks = {
         success: function (data){
-            console.log(data);
+            if(data && data.bizCode === 1 && data.data && data.data.user && data.data.user.user_id){
+                location.href = data.data.redirect;
+                $('#J-loginBtn').bind('click', requestLogin).html('登录');
+            }else if(data && data.bizCode === 0){
+                var msg = data.data.msg[0] || data.memo;
+                alert(msg);
+                $('#J-loginBtn').bind('click', requestLogin).html('登录');
+            }
         },
         error: function (data){
-            alert(data.memo);
-        }
+            alert("登录时发生异常，请重试");
+            $('#J-loginBtn').bind('click', requestLogin).html('登录');
+        },
+        requestLogin: requestLogin
     };
-    $('#J-loginBtn').on('click', function (e){
+    function requestLogin(e){
         e.preventDefault();
-        loginForm.submit(callbacks.success, callbacks.error);
-    });
+        loginForm.submit(function (){
+            $('#J-loginBtn').unbind().html("正在登录...");
+        }, callbacks.success, callbacks.error);
+    }
+    $('#J-loginBtn').bind('click', requestLogin);
 
     return callbacks;
 });

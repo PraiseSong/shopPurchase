@@ -5,10 +5,6 @@ http://usercake.com
 */
 
 require_once("models/config.php");
-if (!securePage($_SERVER['PHP_SELF'])){die();}
-
-//Prevent the user visiting the logged in page if he/she is already logged in
-if(isUserLoggedIn()) { header("Location: account.php"); die(); }
 
 //Forms posted
 if(!empty($_POST))
@@ -73,55 +69,21 @@ if(!empty($_POST))
                     setcookie("rib_user_name", $loggedInUser->username, time()+3600*24);
                     $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 
-					//Redirect to user account page
-					header("Location: cashier.php");
-					die();
+                    $result = array("bizCode" => 1, "memo" => "登录成功", "data"=>array("user"=>$loggedInUser, "redirect" => "cashier.html"));
+                    echo json_encode($result);
+                    exit;
 				}
 			}
 		}
-	}
+
+        $result = array("bizCode" => 0, "memo" => "登录失败", "data"=>array("msg"=>$errors));
+        echo json_encode($result);
+        exit;
+	}else{
+        $result = array("bizCode" => 0, "memo" => "登录失败", "data"=>array("msg"=>$errors));
+        echo json_encode($result);
+        exit;
+    }
 }
-
-require_once("models/header.php");
-
-echo "
-<body>
-<link rel=\"stylesheet\" href=\"static/css/login.css\" />
-<div id='wrapper'>
-<div id='content'>
-<div id='portal'>";
-
-include("portal.php");
-
-echo "
-</div>
-<div id='main'>";
-
-echo resultBlock($errors,$successes);
-
-echo "
-<div id='regbox'>
-<form name='login' action='".$_SERVER['PHP_SELF']."' method='post'>
-<p>
-<label>用户名:</label>
-<input type='text' name='username' value=\"{$_COOKIE['rib_user_name']}\" />
-</p>
-<p>
-<label>登录密码:</label>
-<input type='password' name='password' />
-</p>
-<p>
-<label>&nbsp;</label>
-<input type='submit' value='登录' class='submit' />
-</p>
-</form>
-<div class=\"openPlatforms\">
-  <a href=\"qq_login.php\"><img src=\"static/imgs/qq_16.png\" alt=\"QQ登录\"></a>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>";
 
 ?>

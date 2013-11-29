@@ -29,14 +29,27 @@ define(function (require, exports, module){
             this.validated = false;
             this.errorMsg = [];
         },
-        submit: function (success, error){
+        submit: function (start, success, error){
             this.errorMsg = [];
 
             if(this.validator()){
                 this.errorMsg = [];
-                alert("提交");
-                console.log(success);
-                console.log(error);
+                var data = [];
+                $.each(this.fields, function (i, field){
+                    var name = $(field).attr('name');
+                    var val = $.trim($(field).val());
+                    data.push(name+"="+encodeURI(val));
+                });
+                start && start();
+                $.ajax({
+                    timeout: 3000,
+                    url: this.cfg.node.attr("action"),
+                    dataType: "json",
+                    data: data.join("&"),
+                    type: this.cfg.node.attr("method"),
+                    success: success,
+                    error: error
+                });
             }else{
                 this.cfg.showErrorMsg.call(this, this.errorMsg);
             }

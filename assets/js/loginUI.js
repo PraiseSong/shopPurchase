@@ -52,10 +52,13 @@ define(function (require, exports, module){
     };
     loginUI.callback = {
         success: function (data){
-            if(data.bizCode === 1){
+            if(data && data.bizCode === 1 && data.data && data.data.user && data.data.user.user_id){
                 pop.hide();
-            }else{
-                alert(data.memo);
+                $('#J-loginBtn').bind('click', login.requestLogin).html('登录');
+            }else if(data && data.bizCode === 0){
+                var msg = data.data.msg[0] || data.memo;
+                alert(msg);
+                $('#J-loginBtn').bind('click', login.requestLogin).html('登录');
             }
         }
     };

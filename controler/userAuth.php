@@ -16,7 +16,7 @@ if(isset($loggedInUser) && $loggedInUser->user_id){
     echo json_encode($data);
 }
 if(!$user_id){
-    $result = array("bizCode" => 0, "memo" => "用户未登录", "data"=>array("redirect"=>"login.php"));
+    $result = array("bizCode" => 0, "memo" => "用户未登录", "data"=>array("redirect"=>"login.html"));
     echo json_encode($result);
     exit;
 }
