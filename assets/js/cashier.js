@@ -296,6 +296,7 @@ define(function (require, exports, module){
                         success: function (data){
                             if(data.bizCode === 1){
                                 Utils.loading.warn("收银成功");
+                                updateCount(data.data);
                                 updateCashier();
                                 setTimeout(function (){
                                     Utils.loading.hide();
@@ -408,11 +409,10 @@ define(function (require, exports, module){
 
         return result;
     }
+    function updateCount(count){
+        $('.J-count').html(count);
+    }
     function updateCashier(){
-        var originCount = $('.J-count').html()*1;
-        var soldCount = getCount();
-        $('.J-count').html(originCount - soldCount);
-        var orignTradeCount = $('#J-tradeCount').html()*1;
-        $('#J-tradeCount').html(orignTradeCount+1);
+
     }
 });

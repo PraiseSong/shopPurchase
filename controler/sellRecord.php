@@ -68,10 +68,11 @@ if($insert_to_cashier_result){
     echo json_encode(array("bizCode"=>0, "memo" => "记账失败，请重试"));
     exit;
 }
-$db->close();
 
 if($updated_kc_result){
-    echo json_encode(array("bizCode"=>1, "memo" => "记账成功"));
+    echo json_encode(array("bizCode"=>1, "memo" => "记账成功", "data" => $new_count));
+
+    $db->close();
     exit;
 }
 ?>
