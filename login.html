@@ -18,7 +18,10 @@
     <script src="assets/libs/sea.js"></script>
     <script type="text/javascript">
         seajs.config({
-            base: './assets/js/'
+            base: './assets/js/',
+            map: [
+                [".js", ".js?t=" + new Date().getTime()]
+            ]
         });
     </script>
 </head>

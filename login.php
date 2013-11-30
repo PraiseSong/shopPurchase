@@ -76,14 +76,20 @@ if(!empty($_POST))
 			}
 		}
 
-        $result = array("bizCode" => 0, "memo" => "登录失败", "data"=>array("msg"=>$errors));
-        echo json_encode($result);
-        exit;
+        if(count($errors) != 0){
+            $result = array("bizCode" => 0, "memo" => "登录失败", "data"=>array("msg"=>$errors));
+            echo json_encode($result);
+            exit;
+        }
 	}else{
         $result = array("bizCode" => 0, "memo" => "登录失败", "data"=>array("msg"=>$errors));
         echo json_encode($result);
         exit;
     }
+}else{
+    $result = array("bizCode" => 0, "memo" => "只支持POST登录");
+    echo json_encode($result);
+    exit;
 }
 
 ?>
