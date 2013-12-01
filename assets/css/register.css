@@ -18,6 +18,9 @@
     height: auto;
     padding: 10px 0;
 }
+.registerBox .checkcodeBox span.box{
+    width: 100px;
+}
 .registerBox .checkcodeBox input{
     margin-right: 10px;
     width: auto;

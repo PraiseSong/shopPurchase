@@ -65,7 +65,12 @@ define(function (require, exports, module){
                     var min = rules.min,
                         max = rules.max,
                         pattern = rules.pattern,
+                        equal = null,
                         msg = rules.errorMsg;
+
+                    if(rules.equal !== undefined){
+                        equal = $.trim(rules.equal.val());
+                    }
 
                     if(!val){
                         Alert.call(self, msg.empty);
@@ -75,6 +80,8 @@ define(function (require, exports, module){
                         Alert.call(self, msg.max);
                     }else if(pattern && !new RegExp(pattern).test(val)){
                         Alert.call(self, msg.pattern);
+                    }else if(equal && val !== equal){
+                        Alert.call(self, msg.equal);
                     }else{
                         validated++;
                     }
