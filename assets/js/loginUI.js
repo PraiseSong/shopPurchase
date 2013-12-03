@@ -51,7 +51,8 @@ define(function (require, exports, module){
         ui: pop
     };
     loginUI.callback = {
-        success: function (data){
+        success: function (data, fn){
+            fn && fn.call(fn, data);
             if(data && data.bizCode === 1 && data.data && data.data.user && data.data.user.user_id){
                 pop.hide();
                 $('#J-loginBtn').bind('click', login.requestLogin).html('登录');
@@ -60,10 +61,11 @@ define(function (require, exports, module){
                 alert(msg);
                 $('#J-loginBtn').bind('click', login.requestLogin).html('登录');
             }
-        }
+        },
+        complete: function (data){}
     };
     login.success = function (data){
-        loginUI.callback.success.call(loginUI.callback.success, data);
+        loginUI.callback.success.call(loginUI.callback.success, data, loginUI.callback.complete);
     };
 
     return loginUI;

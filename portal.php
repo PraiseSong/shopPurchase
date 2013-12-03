@@ -10,7 +10,7 @@ if (!securePage($_SERVER['PHP_SELF'])){die();}
 if(isUserLoggedIn()) {
 	echo "
 	<ul>
-	<li><a href='account.php'>我的小店</a></li>
+	<li><a href='account.html'>我的小店</a></li>
 	<li><a href='security_settings.php'>安全设置</a></li>
 	<li><a href='user_settings.php'>账户设置</a></li>
 	<li><a href='logout.php'>退出</a></li>
@@ -32,7 +32,7 @@ else {
 	echo "
 	<ul>
 	<li><a href='login.php'>登录</a></li>
-	<li><a href='register.php'>注册小店</a></li>
+	<li><a href='register.html'>注册小店</a></li>
 	<li><a href='forgot-password.php'>登录密码忘记了</a></li>";
 	if ($emailActivation)
 	{

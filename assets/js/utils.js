@@ -57,6 +57,13 @@ define(function (require, exports, module){
                 $('.mask').hide();
                 $('.loadingBox').hide();
             }
+        },
+        //强制将小于10的数字转换为2位数字，如01-09
+        to2Num: function (num){
+            if(num < 10){
+                num = '0'+num;
+            }
+            return num;
         }
     };
 });

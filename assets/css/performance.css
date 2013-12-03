@@ -1,0 +1,41 @@
+.queryForm{
+    margin-bottom: 10px;
+}
+.queryBtn{
+    margin-bottom: 20px;
+}
+.tip{
+    margin-bottom: 20px;
+    text-align: center;
+    display: none;
+}
+.queryForm .box:first-child{
+    margin-right: 10px;
+}
+.queryForm .box{
+    max-width: 110px;
+}
+.queryForm input,
+.queryForm select{
+    height: 44px;
+    line-height: 44px;
+    display: block;
+    margin-top: 5px;
+    width: 100px;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 0px;
+}
+.perf .detail .gotoDetail{
+    top: 1px;
+    height: 163px;
+}
+.perf .detail .gotoDetail img{
+    margin-top: 69px;
+}
+.types{
+    margin: 20px auto;
+    line-height: 25px;
+}
+.charts{
+    margin-bottom: 20px;
+}

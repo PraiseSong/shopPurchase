@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--<html manifest="cache.manifest">-->
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8" />
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta property="qc:admins" content="20612357606212603" />
+    <link href="assets/imgs/logo.png" rel="apple-touch-icon-precomposed" />
+    <title>
+        小店记账宝
+    </title>
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/common.css" />
+    <link rel="stylesheet" href="assets/css/account.css" />
+    <script src="assets/libs/sea.js"></script>
+    <script type="text/javascript">
+        seajs.config({
+            base: './assets/js/',
+            map: [
+                [".js", ".js?t=" + new Date().getTime()]
+            ]
+        });
+    </script>
+</head>
+<body>
+<div class="accountBox">
+    <header class="header">
+        <span class="box" id="J-storeName">...</span>
+    </header>
+    <div class="personalBox">
+        <div class="flexBox">
+          <span class="userAvatarBox">
+            <img src="assets/imgs/avatar_default_100x100.png" width="60" height="60" />
+          </span>
+          <div class="userinfo box">
+              <p class="username">...</p>
+              <p class="email">...</p>
+          </div>
+        </div>
+    </div>
+    <div class="container">
+        <nav class="menu">
+            <a href="performance.html">
+                <img class="icon" src="assets/imgs/calendar.png" alt="历史报表" />
+                <span class="text">
+                    历史报表
+                </span>
+            </a>
+        </nav>
+        <a class="touchStatusBtn btn btn-primary" href="logout.php">安全退出</a>
+    </div>
+</div>
+</body>
+<script>
+    seajs.use("account.js");
+    seajs.use("footer.js");
+</script>
+</html>

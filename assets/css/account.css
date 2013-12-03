@@ -1,0 +1,28 @@
+.accountBox .header{
+    margin-bottom: 0;
+}
+.personalBox{
+    background: #f6f6f6;
+    padding: 10px 5px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+.personalBox .userAvatarBox{
+    margin-right: 10px;
+    -webkit-border-radius: 60px;
+    border: 5px solid #ddd;
+    text-align: center;
+    height: 60px;
+    width: 60px;
+    display: block;
+}
+.personalBox .userinfo{
+    line-height: 25px;
+}
+.accountBox .menu{
+    margin-bottom: 20px;
+}
+.username,
+.email{
+    word-break: break-all;
+}

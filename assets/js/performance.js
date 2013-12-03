@@ -6,8 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 define(function (require, exports, module){
-    var IO = require('io.js');
     var $ = require('zepto.min.js');
+    var IO = require('io.js');
 
     var api = 'controler/performance.php';
 
@@ -47,45 +47,45 @@ define(function (require, exports, module){
             if(cfg.data){
                 defaultCfg.data = cfg.data;
             }
-            new Widgets.IO({
+            new IO({
                 data: defaultCfg.data,
                 url: api,
                 on: {
                     success: function (data){
-                        if(data.bizCode){
-                            if(cfg.range){
-                                (function (){
-                                    var cb = 0;
-                                    var lr = 0;
-                                    var yye = 0;
-                                    $.each(data.data, function (i, o){
-                                        var price = o.p_price * 1;
-                                        var detail = o.detail.split('|');
-                                        $.each(detail, function (j, d){
-                                            if(d){
-                                                var de = d.split('*');
-                                                var selledPrice = de[0];
-                                                var selledCount = de[1];
-                                                yye += selledPrice * selledCount;
-                                                cb += price * selledCount;
-                                            }
-                                        });
-                                    });
-                                    defaultCfg.on.success.call(this, {
-                                        cb: cb,
-                                        lr: lr,
-                                        yye: yye
-                                    });
-                                })();
-                            }else{
-                                var result = success(data.data);
-                                defaultCfg.on.success.call(this, {
-                                    cb: result.cb,
-                                    lr: result.lr,
-                                    yye: result.yye
-                                });
-                            }
-                        }
+//                        if(data.bizCode){
+//                            if(cfg.range){
+//                                (function (){
+//                                    var cb = 0;
+//                                    var lr = 0;
+//                                    var yye = 0;
+//                                    $.each(data.data, function (i, o){
+//                                        var price = o.p_price * 1;
+//                                        var detail = o.detail.split('|');
+//                                        $.each(detail, function (j, d){
+//                                            if(d){
+//                                                var de = d.split('*');
+//                                                var selledPrice = de[0];
+//                                                var selledCount = de[1];
+//                                                yye += selledPrice * selledCount;
+//                                                cb += price * selledCount;
+//                                            }
+//                                        });
+//                                    });
+//                                    defaultCfg.on.success.call(this, {
+//                                        cb: cb,
+//                                        lr: lr,
+//                                        yye: yye
+//                                    });
+//                                })();
+//                            }else{
+//                                var result = success(data.data);
+//                                defaultCfg.on.success.call(this, {
+//                                    cb: result.cb,
+//                                    lr: result.lr,
+//                                    yye: result.yye
+//                                });
+//                            }
+//                        }
                     },
                     error: function (data){
                         defaultCfg.on.error.call(this, data);

@@ -139,7 +139,7 @@ define(function(require, exports, module) {
             position: "absolute",
             top: (viewPortH-244)/2+window.scrollY,
             left: ($(window).width()-containerW)/2,
-            zIndex: 999999999,
+            zIndex: 999999,
             '-webkit-border-radius': "5px",
             color: "#333",
             lineHeight: '22px'

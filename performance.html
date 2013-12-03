@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--<html manifest="cache.manifest">-->
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8" />
+    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta property="qc:admins" content="20612357606212603" />
+    <link href="assets/imgs/logo.png" rel="apple-touch-icon-precomposed" />
+    <title>
+        小店记账宝
+    </title>
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/common.css" />
+    <link rel="stylesheet" href="assets/css/performance.css" />
+    <script src="assets/libs/sea.js"></script>
+    <script type="text/javascript">
+        seajs.config({
+            base: './assets/js/',
+            map: [
+                [".js", ".js?t=" + new Date().getTime()]
+            ]
+        });
+    </script>
+</head>
+<body>
+<header class="header">
+    <span class="box">...</span>
+</header>
+<div class="container">
+    <div class="queryForm flexBox">
+        <div class="start box">
+            开始：
+            <input type="date" id="J-dateStart" />
+        </div>
+        <div class="end box">
+            结束：
+            <input type="date" id="J-dateEnd"/>
+        </div>
+    </div>
+    <a class="touchStatusBtn btn btn-default queryBtn" href="javascript:void(0)" id="J-queryBtn">查询</a>
+    <p class="tip">查询中...</p>
+    <div class="perf">
+        <div class="detail" id="J-perf">
+            <a class="gotoDetail" href="#">
+                <img src="assets/imgs/back-icon-black.png" alt="查看今日的详细业绩"/>
+            </a>
+            <table border="1">
+                <tbody>
+                <tr class="zu">
+                    <td width="50">
+                        <span class="tag">赚</span>
+                    </td>
+                    <td>
+                        0<small>.00</small>元
+                    </td>
+                </tr>
+                <tr class="y">
+                    <td>
+                        <span class="tag">营</span>
+                    </td>
+                    <td>
+                        0<small>.00</small>元
+                    </td>
+                </tr>
+                <tr class="z">
+                    <td>
+                        <span class="tag">租</span>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0)">录入租金</a>
+                    </td>
+                </tr>
+                <tr class="c">
+                    <td>
+                        <span class="tag">成</span>
+                    </td>
+                    <td>
+                        0<small>.00</small>元
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="types">
+        <p>头绳：2个</p>
+        <p>发饰：30个</p>
+    </div>
+</div>
+<ul class="charts">
+    <li class="chart">
+        <div class="back"></div>
+        <div class="front" style="width: 50%;">
+            <p>11-01</p>
+            <p>纯利：300<small>.00</small> 元</p>
+        </div>
+    </li>
+    <li class="chart">
+        <div class="back"></div>
+        <div class="front" style="width: 30%;">
+            <p>11-11</p>
+            <p>纯利：30<small>.00</small> 元</p>
+        </div>
+    </li>
+</ul>
+</body>
+<script>
+    seajs.use("performancelist.js");
+    seajs.use("footer.js");
+</script>
+</html>

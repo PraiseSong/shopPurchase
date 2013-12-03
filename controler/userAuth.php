@@ -12,7 +12,7 @@ require_once("../models/config.php");
 $user_id = null;
 if(isset($loggedInUser) && $loggedInUser->user_id){
     $user_id = $loggedInUser->user_id;
-    $data = array("bizCode"=>1,"memo"=>"","data"=>$loggedInUser);
+    $data = array("bizCode"=>1,"memo"=>"","data"=>array("user" => $loggedInUser));
     echo json_encode($data);
 }
 if(!$user_id){

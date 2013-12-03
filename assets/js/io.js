@@ -45,8 +45,14 @@ define(function (require, exports, module){
         },
         success: function (data){
             var extraResult = this.cfg.on.success.call(this, data);
+            var self = this;
             if(extraResult !== false && data.bizCode === 0 && data.data && data.data.redirect && data.data.redirect.indexOf("login") !== -1){
                 var loginUI = require("loginUI.js");
+                loginUI.callback.complete = function (data){
+                    if(data.data && data.data.user && data.data.user.user_id){
+                        self.send();
+                    }
+                };
                 if(loginUI.ui){
                     loginUI.ui.show();
                     loginUI.ui.syncStyle();
