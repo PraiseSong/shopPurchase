@@ -9,6 +9,7 @@ define(function (require, exports, module){
     var $ = require('zepto.min.js');
     var IO = require("io.js");
     var Utils = require("utils.js");
+    var Rent = require("rent.js");
     require("userAuth.js");
 
     $('#J-showPerfBtn').on("click", function (){
@@ -297,7 +298,7 @@ define(function (require, exports, module){
                             if(data.bizCode === 1){
                                 Utils.loading.warn("收银成功");
                                 updateCount(data.data);
-                                updateCashier();
+                                getTodayPerf();
                                 setTimeout(function (){
                                     Utils.loading.hide();
                                 }, 3000);
@@ -416,7 +417,51 @@ define(function (require, exports, module){
     function updateCount(count){
         $('.J-count').html(count);
     }
-    function updateCashier(){
+    function getTodayPerf(){
+        var perf = require("performance.js");
+        var today = new Date();
+        var y = today.getFullYear();
+        var m = Utils.to2Num(today.getMonth()+1);
+        var d = Utils.to2Num(today.getDate());
+        var date = y+"-"+m+"-"+d;
+        perf.io({
+            range: true,
+            data: "start="+date+'&end='+date,
+            on: {
+                success: function (data){
+                    if(data.bizCode === 0){
+                        return alert(data.memo);
+                    }else if(data.data.products && data.data.products.length === 0){
+                        return alert("没有获取到今日的销售报表");
+                    }
+                    $('#J-tradeCount').html(data.data.products.length);
+                    Rent.getRange(date, date, function (rentData){
+                        if(rentData.data && rentData.data.rents && rentData.data.rents.length >= 1){
+                            $.each(rentData.data.rents, function (i, rent){
+                                data.zj += rent.price*1;
+                            });
+                        }
 
+                        data.lr = data.yye - data.cb - data.zj;
+                        updatePerf(data);
+                    });
+                },
+                error: function (){
+                    alert("获取今日报表数据时发生异常！请重试");
+                }
+            }
+        });
     }
+    function updatePerf(data){
+        var zj = data.zj.toFixed(2).split('.');
+        var lr = data.lr.toFixed(2).split('.');
+        var cb = data.cb.toFixed(2).split('.');
+        var yye = data.yye.toFixed(2).split('.');
+        $('#J-yye').html(yye[0]+"<small>."+yye[1]+"</small>元");
+        $('#J-cb').html(cb[0]+"<small>."+cb[1]+"</small>元");
+        $('#J-lr').html(lr[0]+"<small>."+lr[1]+"</small>元");
+        zj > 0 && ($('#J-zj').html(zj[0]+"<small>."+zj[1]+"</small>元"));
+    }
+
+    getTodayPerf();
 });

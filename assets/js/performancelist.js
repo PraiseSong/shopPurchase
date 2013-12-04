@@ -85,7 +85,7 @@ define(function (require, exports, module){
                             $('.tip').show().css({
                                 color: "#f50"
                             }).html(data.memo);
-                            queryBtn.bind('click', queryPerf);;
+                            queryBtn.bind('click', queryPerf);
                             return;
                         }else if(data.data.products && data.data.products.length === 0){
                             $('.tip').show().css({
