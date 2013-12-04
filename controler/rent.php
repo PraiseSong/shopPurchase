@@ -9,6 +9,7 @@ include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 include_once('../'.$utils_dir.'/utils.php');
 require_once("../models/config.php");
+
 $user_id = null;
 if(isset($loggedInUser) && $loggedInUser->user_id){
     $user_id = $loggedInUser->user_id;
@@ -64,21 +65,31 @@ if(!$action){
       case "add":
         $price = @$_POST['price'];
         if(!$price){
-            $result['bizCode'] = 0;
-            $result['data'] = null;
-            $result['memo'] = '没有传入价格参数';
+            $result = array("bizCode" => 0, "memo" => "没有传入租金参数", "data"=>array());
+            echo json_encode($result);
+            exit;
         }else{
-            $date = date("Y-m-d H:i:s");
+            $date = date("Y-m-d");
+            $query_exist = "select * from rent where((date='$date%') and (user_id=$user_id))";
+            $exist_data = $db->queryUniqueObject($query_exist);
+            if($exist_data && $exist_data->id){
+                $result = array("bizCode" => 1, "memo" => "租金已经录入", "data"=>array("rent"=>$exist_data));
+                echo json_encode($result);
+                exit;
+            }
+            $date =  date("Y-m-d H:i:s");
             $q_sql = "insert into rent(`user_id`, `price`, `date`) values ($user_id, '$price', '$date')";
             $db->query($q_sql);
             $lastId = $db->lastInsertedId();
             if($lastId){
                 $lastInsertData = $db->queryUniqueObject("select * from rent where(id='$lastId' and user_id=$user_id)");
-                $result['bizCode'] = 1;
-                $result['data'] = $lastInsertData;
+                $result = array("bizCode" => 1, "memo" => "租金录入成功", "data"=>array("rent"=>$lastInsertData));
+                echo json_encode($result);
+                exit;
             }else{
-                $result['bizCode'] = 0;
-                $result['data'] = null;
+                $result = array("bizCode" => 0, "memo" => "租金录入操作异常，请重试", "data"=>array());
+                echo json_encode($result);
+                exit;
             }
         }
         break;

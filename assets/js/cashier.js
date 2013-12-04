@@ -12,6 +12,8 @@ define(function (require, exports, module){
     var Rent = require("rent.js");
     require("userAuth.js");
 
+    var globallr = 0;
+
     $('#J-showPerfBtn').on("click", function (){
         showPerf();
     });
@@ -58,6 +60,17 @@ define(function (require, exports, module){
         });
     }, 2000);
     $('#J-cashierBtn').on("click", selling);
+    $('#J-zj a').unbind().bind("click", function (){
+        Rent.add(function (data){
+            if(data.bizCode === 1 && data.data && data.data.rent){
+                var zj = (data.data.rent.price*1).toFixed(2).split('.');
+                $('#J-zj').html(zj[0]+"<small>."+zj[1]+"</small>元");
+                var _lr = (globallr-data.data.rent.price*1).toFixed(2).split('.');
+                $('#J-lr').html(_lr[0]+"<small>."+_lr[1]+"</small>元");
+                alert(data.memo);
+            }
+        });
+    });
 
     function gotoCashier(){
         //window.scrollTo(0, 0);
@@ -453,6 +466,7 @@ define(function (require, exports, module){
         });
     }
     function updatePerf(data){
+        globallr = data.lr;
         var zj = data.zj.toFixed(2).split('.');
         var lr = data.lr.toFixed(2).split('.');
         var cb = data.cb.toFixed(2).split('.');
@@ -460,7 +474,7 @@ define(function (require, exports, module){
         $('#J-yye').html(yye[0]+"<small>."+yye[1]+"</small>元");
         $('#J-cb').html(cb[0]+"<small>."+cb[1]+"</small>元");
         $('#J-lr').html(lr[0]+"<small>."+lr[1]+"</small>元");
-        zj > 0 && ($('#J-zj').html(zj[0]+"<small>."+zj[1]+"</small>元"));
+        (zj[0] > 0 || zj[1] > 0) && ($('#J-zj').html(zj[0]+"<small>."+zj[1]+"</small>元"));
     }
 
     getTodayPerf();

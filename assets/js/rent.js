@@ -10,66 +10,30 @@ define(function (require, exports, module){
     var Util = require('utils.js');
 
     var promptTitle = '请设定今日租金';
-    var defaultPrice = 70;
+    var defaultPrice = 0;
     var ioType = "post";
     var url = 'controler/rent.php';
 
-    function query(){
-        if(localRent = getLocalRent()){
-            var date = new Date();
-            var m = date.getMonth()+1;
-            var d = date.getDate();
-
-            date = date.getFullYear()+'-'+Util.to2Num(m)+'-'+Util.to2Num(d);
-            //如果本地没有今日租金的记录
-            if(localRent.date.indexOf(date) < 0){
-                request();
-            }
-        }else{
-            request();
-        }
-
-        function request(){
-            $.ajax({
-                type: ioType,
-                url: url,
-                dataType: "json",
-                data: "action=query",
-                success: function (data){
-                    if(data.bizCode !== 1){
-                        add();
-                    }else if(data.bizCode === 1 && data.data && data.data.id){
-                        saveToLocal(data.data);
-                    }
-                }
-            });
-        }
-    }
-    function add(){
+    function add(callback){
         var rent = window.prompt(promptTitle, defaultPrice);
         if(rent){
+            if(rent.indexOf(".") <= 0 && !/^\d+$/.test(rent)){
+                return alert("租金输入错误");
+            }else if(rent.indexOf(".") !== -1 && !/^\d+\.?\d+$/.test(rent)){
+                return alert("租金输入错误");
+            }
+            rent = rent*1;
             $.ajax({
                 type: ioType,
                 url: url,
                 dataType: "json",
                 data: 'action=add&price='+rent,
                 success: function (data){
-                    if(data.bizCode === 1 && data.data && data.data.id){
-                        saveToLocal(data.data);
-                    }
+                    callback && callback.call(callback, data);
                 }
             });
         }
     }
-    function saveToLocal(data){
-        localStorage.setItem('currentRent',JSON.stringify(data));
-    }
-    function getLocalRent(){
-        var rent = localStorage.getItem('currentRent');
-        rent && (rent = JSON.parse(rent));
-        return rent;
-    }
-//    query();
 
     return {
         getRange: function (start, end, callback){
@@ -85,6 +49,7 @@ define(function (require, exports, module){
                     }
                 });
             }
-        }
+        },
+        add: add
     };
 });
