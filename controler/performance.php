@@ -8,6 +8,7 @@
  */
 include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
+include_once('../'.$utils_dir.'/utils.php');
 require_once("../models/config.php");
 
 $user_id = null;
@@ -33,80 +34,23 @@ if(!$start || !$end){
 }
 
 $date = date("Y-m-d");
-$start = preg_split("/\-/", $start);
-$end = preg_split("/\-/", $end);
-$start_y = $start[0];
-$start_m = $start[1];
-$start_d = $start[2];
-$end_y = $end[0];
-$end_m = $end[1];
-$end_d = $end[2];
+$dates = getDateRange($start, $end);
 
 if(
-($end_y < $start_y)
-||
-(($end_y === $start_y) && ($end_m < $start_m))
-||
-(($end_y === $start_y) && ($end_m === $start_m) && ($end_d < $start_d))
+is_string($dates)
 ){
-    $result = array("bizCode" => 0, "memo" => "结束时间小于开始时间", "data"=>array());
+    $result = array("bizCode" => 0, "memo" => "$dates", "data"=>array());
     echo json_encode($result);
     exit;
 }
 
-$where = "((user_id=$user_id) and (date like '%{$_POST['start']}%'";
-if($start_y === $end_y){
-    if($start_m === $end_m){
-        for(;($start_d++) < $end_d;){
-            if($start_d < 10){
-                $start_d = '0'.$start_d;
-            }
-            $where .= " or date like '%$start_y-$start_m-$start_d%'";
-        }
-    }else if($start_m < $end_m){
-        $months = array();
-        for($i = $start_m*1; $i < $end_m+1; $i++){
-            array_push($months, $i);
-        }
-        foreach($months as $k => $m){
-            if($m < 10){
-                $m = '0'.$m;
-            }
-            if($k === 0){
-                for($k = ($start_d*1)+1; $k < 32; $k++){
-                    if($k < 10){
-                        $k = '0'.$k;
-                    }
-                    $where .= " or date like '%$start_y-$m-$k%'";
-
-                }
-            }else if($k !== (count($months)-1)){
-                for($k = 1; $k < 32; $k++){
-                    if($k < 10){
-                        $k = '0'.$k;
-                    }
-                    $where .= " or date like '%$start_y-$m-$k%'";
-
-                }
-            }else{
-                for($k = 1; $k < $end_d+1; $k++){
-                    if($k < 10){
-                        $k = '0'.$k;
-                    }
-                    $where .= " or date like '%$end_y-$m-$k%'";
-
-                }
-            }
-        }
-    }
-}else if($end_y > $start_y){
-    $result = array("bizCode" => 0, "memo" => "暂时不支持跨年度查询", "data"=>array());
-    echo json_encode($result);
-    exit;
+$where = "((user_id=$user_id) and (date like '{$dates[0]}%'";
+for($i=1;$i<count($dates);$i++){
+    $where .= " or date like '{$dates[$i]}%'";
 }
 $where .= '))';
 
-$query_sold_sql = "select p_id,detail,count,date from `cashier` where $where";var_dump($query_sold_sql);
+$query_sold_sql = "select p_id,detail,count,date,order_id from `cashier` where $where";
 $sold_data = $db->queryManyObject($query_sold_sql);
 
 $ids = array();
@@ -133,20 +77,24 @@ if(!$where){
     echo json_encode($result);
     exit;
 }
-$query_price_sql = "select p_price,p_id from `products` where $where ";
+$query_price_sql = "select p_price,p_id,p_type from `products` where $where ";
 $query_price_data = $db->queryManyObject($query_price_sql);
-$db->close();
 $operation = array();
+$types = array();
 foreach($query_price_data as $k => $v){
+    $t = $v -> p_type;
+    $query_type_name_sql = "select name from types where (id=$t)";
+    $type = $db->queryObject($query_type_name_sql);
     foreach($sold_data as $kk => $vv){
         if($v-> p_id == $vv -> p_id){
             array_push(
                 $operation,
-                array('p_id' => $v-> p_id, 'detail' => $vv -> detail, 'p_price' => $v->p_price)
+                array('p_id' => $v-> p_id, 'detail' => $vv -> detail, 'p_price' => $v->p_price,'date'=>$vv->date, 'type'=>$type->name, 'order_id'=>$vv->order_id)
             );
         }
     }
 }
+$db->close();
 
 $result = array("bizCode" => 1, "data" => array("products"=>$operation));
 echo json_encode($result);

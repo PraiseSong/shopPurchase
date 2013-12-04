@@ -5,6 +5,7 @@ define(function (require, exports, module){
     var $ = require("zepto.min.js");
     var IO = require("io.js");
     var utils = require("utils.js");
+    var Rent = require("rent.js");
 
     new IO({
         url: "controler/userAuth.php",
@@ -59,19 +60,53 @@ define(function (require, exports, module){
             }else if(!getEndTIme()){
                 return alert('请选择结束时间');
             }
+            var start = getStartTIme()['split']('-');
+            var end = getEndTIme()['split']('-');
+            if(start[0] !== end[0]){
+                return alert("暂时不支持跨年度查询");
+            }else if((start[0] === end[0]) && (start[1] > end[1])){
+                return alert('结束时间小于开始时间');
+            }else if((start[0] === end[0]) && (start[1] === end[1]) && (start[2] > end[2])){
+                return alert('结束时间小于开始时间');
+            }
+
             queryBtn.unbind();
             $('.tip').show().css({
                 color: "inherit"
             }).html("查询中...");
+            updateTitle(start[1]+"."+start[2],end[1]+"."+end[2]);
             var perf = require("performance.js");
             perf.io({
                 range: true,
                 data: "start="+getStartTIme()+'&end='+getEndTIme(),
                 on: {
                     success: function (data){
-                        $('.tip').hide();
+                        if(data.bizCode === 0){
+                            $('.tip').show().css({
+                                color: "#f50"
+                            }).html(data.memo);
+                            queryBtn.bind('click', queryPerf);;
+                            return;
+                        }else if(data.data.products && data.data.products.length === 0){
+                            $('.tip').show().css({
+                                color: "#f50"
+                            }).html("没有相关记录");
+                            queryBtn.bind('click', queryPerf);
+                            return;
+                        }else{
+                            $('.tip').hide();
+                        }
                         queryBtn.bind('click', queryPerf);
-                        console.log(data);
+                        Rent.getRange(getStartTIme(), getEndTIme(), function (rentData){
+                            if(rentData.data && rentData.data.rents && rentData.data.rents.length >= 1){
+                                $.each(rentData.data.rents, function (i, rent){
+                                    data.zj += rent.price*1;
+                                });
+                            }
+
+                            data.lr = data.yye - data.cb - data.zj;
+                            updatePage(data);
+                        });
                     },
                     error: function (){
                         $('.tip').show().css({
@@ -81,6 +116,61 @@ define(function (require, exports, module){
                     }
                 }
             });
+        }
+
+        function updatePage(data){
+            $('.perf').show();
+            $('.charts').empty().show();
+            $('.types').empty().show();
+
+            var zj = data.zj.toFixed(2).split('.');
+            var lr = data.lr.toFixed(2).split('.');
+            var cb = data.cb.toFixed(2).split('.');
+            var yye = data.yye.toFixed(2).split('.');
+            $('#J-yye').html(yye[0]+"<small>."+yye[1]+"</small>元");
+            $('#J-cb').html(cb[0]+"<small>."+cb[1]+"</small>元");
+            $('#J-lr').html(lr[0]+"<small>."+lr[1]+"</small>元");
+            $('#J-zj').html(zj[0]+"<small>."+zj[1]+"</small>元");
+
+
+            var typesHtml = '';
+            for(i in data.types){
+                if(data.types[i].length >= 1){
+                    typesHtml += '<p>'+i+':  '+data.types[i]['length']+' 个</p>';
+                }
+            }
+            $('.types').html(typesHtml);
+
+            var dateTypeHtml = '';
+            var lrs = [];
+            for(k in data.dateType){
+                lrs.push(data.dateType[k]['lr']);
+            }
+            for(k in data.dateType){
+                var date = k.split('-');
+                var lr = data.dateType[k]['lr'].toFixed(2).split('.');
+                var w = getWidth(data.dateType[k]['lr']);
+                dateTypeHtml += '<li class="chart">'+
+                    '<div class="back"></div>'+
+                    '<div class="front" style="width: '+w+';">'+
+                   '     <p>'+(date[1]+"-"+date[2])+'</p>'+
+                  '      <p>纯利：'+lr[0]+'<small>.'+lr[1]+'</small> 元</p>'+
+                 '   </div>'+
+                '</li>';
+            }
+            $('.charts').html(dateTypeHtml);
+            function getWidth(w){
+                var max = Math.max.apply( Math, lrs);
+                var width = 0;
+                width = (w / max)*100;
+                if(width >= max){
+                    width = 100;
+                }else if(width <= 35){
+                    width = 35;
+                }
+
+                return width + '%';
+            }
         }
 
         var queryBtn = $('#J-queryBtn');

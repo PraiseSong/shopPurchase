@@ -25,9 +25,13 @@
     border: 1px solid #ddd;
     -webkit-border-radius: 0px;
 }
+.perf{
+    display: none;
+}
 .perf .detail .gotoDetail{
     top: 1px;
     height: 163px;
+    display: none;
 }
 .perf .detail .gotoDetail img{
     margin-top: 69px;
@@ -35,7 +39,9 @@
 .types{
     margin: 20px auto;
     line-height: 25px;
+    display: none;
 }
 .charts{
     margin-bottom: 20px;
+    display: none;
 }

@@ -69,7 +69,7 @@ define(function (require, exports, module){
         rent && (rent = JSON.parse(rent));
         return rent;
     }
-    query();
+//    query();
 
     return {
         getRange: function (start, end, callback){
@@ -79,11 +79,9 @@ define(function (require, exports, module){
                     type: ioType,
                     url: url,
                     dataType: "json",
-                    data: "action=query&start="+encodeURI(start)+"&end="+encodeURI(end)+"",
+                    data: "action=query&start="+start+"&end="+end+"",
                     success: function (data){
-                        if(data.bizCode === 1){
-                            callback.call(callback, data);
-                        }
+                        callback.call(callback, data);
                     }
                 });
             }

@@ -9,13 +9,12 @@ include_once('../config/config.php');
 include_once('../'.$libs_dir.'/db.php');
 include_once('../'.$utils_dir.'/utils.php');
 require_once("../models/config.php");
-
 $user_id = null;
 if(isset($loggedInUser) && $loggedInUser->user_id){
     $user_id = $loggedInUser->user_id;
 }
 if(!$user_id){
-    $result = array("bizCode" => 0, "memo" => "用户未登", "data"=>array("status" => 100));
+    $result = array("bizCode" => 0, "memo" => "用户未登录", "data"=>array("redirect"=>"login.php"));
     echo json_encode($result);
     exit;
 }
@@ -23,7 +22,6 @@ if(!$user_id){
 $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
 
-$date = date("Y-m-d");
 $action = $_POST['action'];
 $start = @$_POST['start'];
 $end = @$_POST['end'];
@@ -31,34 +29,36 @@ $data = null;
 $result = array();
 
 if(!$action){
-    $result['code'] = 0;
-    $result['data'] = "缺少参数";
+    $result = array("bizCode" => 0, "memo" => "缺少action参数", "data"=>array());
+    echo json_encode($result);
+    exit;
 }else{
     switch($action){
       case "query":
         if($start && $end){
             $dates = getDateRange($start, $end);
-            $where = "((user_id=$user_id) and (date ";
-            foreach($dates as $k => $d){
-                if($k === 0){
-                    $where .= "like '%$d%'";
-                }else{
-                    $where .= " or date like '%$d%')";
-                }
+            if(is_string($dates)){
+                $result = array("bizCode" => 0, "memo" => "$dates", "data"=>array());
+                echo json_encode($result);
+                exit;
             }
-            $where .= ')';
+            $where = "((user_id=$user_id) and (date like '{$dates[0]}%'";
+            for($i=1; $i < count($dates); $i++){
+                $where .= " or date like '{$dates[$i]}%'";
+            }
+            $where .= '))';
             $sql = "select * from rent where $where";
-        }else{
-            $sql = "select * from rent where ((user_id=$user_id) and (date like '%$date%'))";
         }
 
         $data = $db->queryManyObject($sql);
         if(!$data){
-            $result['bizCode'] = 0;
-            $result['data'] = null;
+            $result = array("bizCode" => 0, "memo" => "没有相关租金记录", "data"=>array());
+            echo json_encode($result);
+            exit;
         }else{
-            $result['bizCode'] = 1;
-            $result['data'] = array('dates' => $data);
+            $result = array("bizCode" => 1, "memo" => "", "data"=>array("rents" => $data));
+            echo json_encode($result);
+            exit;
         }
         break;
       case "add":

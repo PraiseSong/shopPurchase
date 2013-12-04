@@ -407,6 +407,10 @@ define(function (require, exports, module){
             tradeData.props = propsData.join('|');
         }
 
+        if(props.length <= 0){
+            tradeData.props = '';
+        }
+
         return result;
     }
     function updateCount(count){
