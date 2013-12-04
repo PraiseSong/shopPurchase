@@ -166,7 +166,20 @@ define(function (require, exports, module){
                 if(width >= max){
                     width = 100;
                 }else if(width <= 35){
+                    width = 35*(w / max);
+                    if(width < 0){
+                        width *= 100;
+                    }else if(width > 0 && width < 10){
+                        width *= 10;
+                    }
+                }
+
+                if(width < 35){
                     width = 35;
+                }
+
+                if(w <= 0){
+                    width = 33.5;
                 }
 
                 return width + '%';
