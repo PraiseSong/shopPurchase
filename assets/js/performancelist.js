@@ -149,10 +149,14 @@ define(function (require, exports, module){
             for(k in data.dateType){
                 var date = k.split('-');
                 var lr = data.dateType[k]['lr'].toFixed(2).split('.');
+                var background = '';
+                if(data.dateType[k]['lr'] >= Math.max.apply( Math, lrs)){
+                    background = "background: #f50;";
+                }
                 var w = getWidth(data.dateType[k]['lr']);
                 dateTypeHtml += '<li class="chart">'+
                     '<div class="back"></div>'+
-                    '<div class="front" style="width: '+w+';">'+
+                    '<div class="front" style="width: '+w+';'+background+'">'+
                    '     <p>'+(date[1]+"-"+date[2])+'</p>'+
                   '      <p>纯利：'+lr[0]+'<small>.'+lr[1]+'</small> 元</p>'+
                  '   </div>'+
