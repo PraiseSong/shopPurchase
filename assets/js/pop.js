@@ -98,12 +98,14 @@ define(function(require, exports, module) {
     };
     Pop.prototype.renderMask = function (){
         var body = $('body');
-        if(!body.find('.J-mask').get(0)){
-            body.append('<div class="J-mask"></div>');
+        var className = 'J-mask'+this.id;
+        if(!body.find('.'+className+'').get(0)){
+            body.append('<div class="'+className+'"></div>');
         }
-        $('.J-mask').css({
+        $('.'+className+'').css({
             display: 'none'
         });
+        this.maskSelector = className;
     };
     Pop.prototype.renderHTML = function (){
         var html = 'body';
@@ -124,7 +126,7 @@ define(function(require, exports, module) {
         }else{
             containerW = 240;
         }
-        $('.J-mask').css({
+        $('.'+this.maskSelector+'').css({
             background: 'rgba(0, 0, 0, .5)',
             position: "absolute",
             top: 0,
@@ -162,7 +164,7 @@ define(function(require, exports, module) {
         }else{
             containerW = 240;
         }
-        $('.J-mask').css({
+        $('.'+this.maskSelector+'').css({
             height: docH
         });
         this.container.css({
@@ -203,12 +205,12 @@ define(function(require, exports, module) {
     Pop.prototype.show = function (){
         var self = this;
 
-        $('.J-mask').show();
+        $('.'+self.maskSelector+'').show();
         this.container.show();
         return this;
     };
     Pop.prototype.hide = function (){
-        $('.J-mask').hide();
+        $('.'+this.maskSelector+'').hide();
         this.container.hide();
     };
 
