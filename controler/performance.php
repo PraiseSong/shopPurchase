@@ -50,7 +50,7 @@ for($i=1;$i<count($dates);$i++){
 }
 $where .= '))';
 
-$query_sold_sql = "select p_id,detail,count,date,order_id from `cashier` where $where";
+$query_sold_sql = "select p_id,detail,count,date,order_id,prop from `cashier` where $where";
 $sold_data = $db->queryManyObject($query_sold_sql);
 
 $ids = array();
@@ -77,7 +77,7 @@ if(!$where){
     echo json_encode($result);
     exit;
 }
-$query_price_sql = "select p_price,p_id,p_type from `products` where $where ";
+$query_price_sql = "select p_price,p_id,p_type,p_pic,p_name from `products` where $where ";
 $query_price_data = $db->queryManyObject($query_price_sql);
 $operation = array();
 $types = array();
@@ -89,7 +89,7 @@ foreach($query_price_data as $k => $v){
         if($v-> p_id == $vv -> p_id){
             array_push(
                 $operation,
-                array('p_id' => $v-> p_id, 'detail' => $vv -> detail, 'p_price' => $v->p_price,'date'=>$vv->date, 'type'=>$type->name, 'order_id'=>$vv->order_id)
+                array('p_id' => $v-> p_id, 'detail' => $vv -> detail, 'p_price' => $v->p_price,'date'=>$vv->date, 'type'=>$type->name, 'order_id'=>$vv->order_id, 'prop'=>$vv->prop, 'p_pic'=>$v->p_pic,'p_name'=>$v->p_name)
             );
         }
     }

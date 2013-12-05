@@ -39,14 +39,7 @@ define(function (require, exports, module){
     $('#J-shortMenu .mainMenu').unbind().bind('click', function (e){
         e.preventDefault();
         if($.os && $.os.android){
-            if(fullMenu.css('display') === 'block'){
-                fullMenu.css('display', 'none');
-            }else{
-                fullMenu.css('display', 'block').css({
-                    left: 90,
-                    bottom: 90
-                });
-            }
+
             return;
         }
         if(fullMenu.hasClass('scale-in')){

@@ -226,7 +226,7 @@ define(function (require, exports, module){
     }
     function renderProducts(data){
         tipBox.hide();
-        var data2html = require("template.js?t=1");
+        var data2html = require("template.js");
         var html = '';
         var tem = '<li class="flexBox touchStatusBtn" data-id="{p_id}">'+
             '<input type="hidden" value="{p_props}">'+
@@ -437,15 +437,22 @@ define(function (require, exports, module){
         var m = Utils.to2Num(today.getMonth()+1);
         var d = Utils.to2Num(today.getDate());
         var date = y+"-"+m+"-"+d;
+        var href = $('.gotoDetail').attr('href');
+        if(href.indexOf("?") !== -1){
+            href += '&date='+date;
+        }else{
+            href += '?date='+date;
+        }
+        $('.gotoDetail').attr('href', href);
         perf.io({
             range: true,
             data: "start="+date+'&end='+date,
             on: {
                 success: function (data){
                     if(data.bizCode === 0){
-                        return alert(data.memo);
+                        return;
                     }else if(data.data.products && data.data.products.length === 0){
-                        return alert("没有获取到今日的销售报表");
+                        return;// alert("没有获取到今日的销售报表");
                     }
                     $('#J-tradeCount').html(data.data.products.length);
                     Rent.getRange(date, date, function (rentData){
@@ -460,7 +467,7 @@ define(function (require, exports, module){
                     });
                 },
                 error: function (){
-                    alert("获取今日报表数据时发生异常！请重试");
+                    //alert("获取今日报表数据时发生异常！请重试");
                 }
             }
         });
@@ -477,5 +484,7 @@ define(function (require, exports, module){
         (zj[0] > 0 || zj[1] > 0) && ($('#J-zj').html(zj[0]+"<small>."+zj[1]+"</small>元"));
     }
 
-    getTodayPerf();
+    setTimeout(function (){
+        getTodayPerf();
+    }, 3000);
 });

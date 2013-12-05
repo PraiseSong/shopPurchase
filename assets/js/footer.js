@@ -8,6 +8,8 @@
 define(function (require, exports, module){
     var $ = require('zepto.min.js');
 
+    require('menu.js');
+
     //隐藏地址栏控件
     window.onload = function (){
         setTimeout(function (){

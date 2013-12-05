@@ -15,7 +15,7 @@ if(isset($loggedInUser) && $loggedInUser->user_id){
     $user_id = $loggedInUser->user_id;
 }
 if(!$user_id){
-    $result = array("bizCode" => 0, "memo" => "用户未登", "data"=>array("status" => 100));
+    $result = array("bizCode" => 0, "memo" => "用户未登录", "data"=>array("redirect"=>"login.php"));
     echo json_encode($result);
     exit;
 }
@@ -27,26 +27,85 @@ $id = @$_POST['id'];
 $details = @$_POST['details'];
 $result = array();
 if(!$id || !$details){
-    $result['bizCode'] = 0;
-    $result['memo'] = '缺少参数';
-}else if($details === 'null'){
+    $result = array("bizCode" => 0, "memo" => "缺少参数", "data"=>array());
+    echo json_encode($result);
+    exit;
+}
+
+$query_exist_sql = "select order_id,detail from cashier where (user_id=$user_id and order_id='$id')";
+$query_exist_data = $db -> queryUniqueObject($query_exist_sql);
+if(!$query_exist_data || !$query_exist_data->order_id){
+    $result = array("bizCode" => 0, "memo" => "这条销售记录不存在或者全部退货", "data"=>array());
+    echo json_encode($result);
+    exit;
+}
+$query_exist_detail = $query_exist_data->detail;
+if(!$query_exist_detail){
+    $result = array("bizCode" => 0, "memo" => "这条销售记录存在异常，请刷新页面", "data"=>array());
+    echo json_encode($result);
+    exit;
+}
+if($details === 'null'){
     $sql = "delete from cashier where (user_id=$user_id and order_id='$id')";
     $data = $db->query($sql);
     if($data){
-        $result['bizCode'] = 1;
-        $result['data'] = array('deleted'=>true);
-        $result['memo'] = '删除成功';
+        $result = array("bizCode" => 1, "memo" => "删除销售记录成功", "data"=>array('deleted'=>true));
+        echo json_encode($result);
+        exit;
+    }else{
+        $result = array("bizCode" => 0, "memo" => "删除销售记录失败，请重试", "data"=>array());
+        echo json_encode($result);
+        exit;
     }
+}
+if(strpos($query_exist_detail, '|')){
+    $query_exist_detail = preg_split("/\|/", $query_exist_detail);
 }else{
-    $sql = "update cashier set detail='$details' where (user_id=$user_id and order_id='$id')";
+    $query_exist_detail = array($query_exist_detail);
+}
+$details = json_decode($details);
+$new_detail = array();
+foreach($query_exist_detail as $k => $del){
+    $index =(String) ($k+1);
+    $del = preg_split('/\*/', $del);
+    $exist_max = $del[1];
+    if(!property_exists($details, $index)){
+        array_push($new_detail, implode('*', $del));
+        continue;
+    }
+    $extra = $details -> $index;
+    $extra = preg_split('/\,/', $extra[0]);
+    if($extra[0] !== $exist_max){
+        $result = array("bizCode" => 0, "memo" => "退货发生异常，请刷新页面", "data"=>array());
+        echo json_encode($result);
+        break;
+        exit;
+    }
+    $new_count = $exist_max - $extra[1];
+    if($new_count < 0){
+        $result = array("bizCode" => 0, "memo" => "退货数量大于销售时的数量", "data"=>array());
+        echo json_encode($result);
+        break;
+        exit;
+    }
+    if($new_count > 0){
+        array_push($new_detail, $del[0].'*'.$new_count);
+    }
+}
+$new_detail = implode('|', $new_detail);
+if($new_detail){
+    $sql = "update cashier set detail='$new_detail' where (user_id=$user_id and order_id='$id')";
     $data = $db->query($sql);
     if($data){
         $last_data = $db->queryUniqueObject("select * from cashier where (user_id=$user_id and order_id='$id')");
-        $result['bizCode'] = 1;
-        $result['deleted'] = false;
-        $result['data'] = array('sold'=>$last_data);
-        $result['memo'] = '删除成功';
+        $result = array("bizCode" => 1, "memo" => "退货成功", "data"=>array('sold'=>true));
+        echo json_encode($result);
+        exit;
     }
+}else{
+    $result = array("bizCode" => 0, "memo" => "重新计算销售记录时发生异常，请重试", "data"=>array());
+    echo json_encode($result);
+    exit;
 }
 $db->close();
 

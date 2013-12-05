@@ -154,12 +154,12 @@ define(function (require, exports, module){
                     background = "background: #f50;";
                 }
                 var w = getWidth(data.dateType[k]['lr']);
-                dateTypeHtml += '<li class="chart">'+
+                dateTypeHtml += '<li class="chart"><a href="productlist.php?date='+(data.dateType[k][0]['date'].split(' ')[0])+'" class="trigger" target="_blank">'+
                     '<div class="back"></div>'+
                     '<div class="front" style="width: '+w+';'+background+'">'+
                    '     <p>'+(date[1]+"-"+date[2])+'</p>'+
                   '      <p>纯利：'+lr[0]+'<small>.'+lr[1]+'</small> 元</p>'+
-                 '   </div>'+
+                 '   </div></a>'+
                 '</li>';
             }
             $('.charts').html(dateTypeHtml);

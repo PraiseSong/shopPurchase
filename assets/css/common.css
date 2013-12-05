@@ -332,6 +332,19 @@ a:hover{
     -webkit-border-radius: 3px;
     width: auto;
 }
+.plist li footer{
+    height: 30px;
+    line-height: 30px;
+    background: #f4f4f4;
+    border-top: 1px solid #ddd;
+}
+.plist li footer a{
+    text-align: center;
+    border-right: 1px solid #ddd;
+}
+.plist li footer a:last-child{
+    border-right: none;
+}
 .plist li img{
     max-width: 100px;
 }
@@ -431,6 +444,11 @@ a:hover{
     position: relative;
     height: 45px;
 }
+.charts .chart .trigger{
+    display: block;
+    height: 45px;
+    width: 100%;
+}
 .charts .chart .back,
 .charts .chart .front{
     position: absolute;
@@ -456,4 +474,144 @@ a:hover{
 }
 .charts .chart:last-child{
     margin-bottom: 0;
+}
+
+/*快捷按钮*/
+.shortMenu,
+.shortFullMenu{
+    position: fixed;
+    z-index: 99999999;
+    left: 10px;
+    bottom: 10px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.shortMenu .mainMenu,
+.shortFullMenu .bd{
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, .7);
+    -webkit-border-radius: 60px;
+    position: relative;
+    cursor: pointer;
+    -webkit-box-shadow: 0 0 8px #606060;
+}
+.shortMenu .mainMenu{
+    overflow: hidden;
+    background: #fff;
+    border: 5px solid #fff;
+}
+.shortFullMenu .bd a{
+    color: #000;
+}
+.shortMenu .mainMenu .lt,
+.shortMenu .mainMenu .rt,
+.shortMenu .mainMenu .lb,
+.shortMenu .mainMenu .rb{
+    display: block;
+    position: absolute;
+    width:15px;
+    height: 15px;
+    background: #ddd;
+    -webkit-border-radius: 15px;
+}
+.shortMenu .mainMenu .lt,
+.shortMenu .mainMenu .lb{
+    left: 13px;
+}
+.shortMenu .mainMenu .rt,
+.shortMenu .mainMenu .rb{
+    right: 13px;
+}
+.shortMenu .mainMenu .lt,
+.shortMenu .mainMenu .rt{
+    top: 13px;
+}
+.shortMenu .mainMenu .lb,
+.shortMenu .mainMenu .rb{
+    bottom: 13px;
+}
+.shortFullMenu{
+    left: -200px;
+    bottom: -200px;
+    display: none;
+}
+.shortFullMenu .bd{
+    width: 200px;
+    height: 200px;
+    -webkit-border-radius: 10px;
+    background: rgba(255, 255, 255, .9);
+}
+.shortFullMenu .bd img{
+    display: block;
+    margin-bottom: 5px;
+    width: 36px;
+    height: 36px;
+    margin: 0 auto 5px;
+}
+.shortFullMenu .bd .t,
+.shortFullMenu .bd .r,
+.shortFullMenu .bd .b,
+.shortFullMenu .bd .l,
+.shortFullMenu .bd .c{
+    position: absolute;
+    width: 70px;
+    height: 60px;
+    -webkit-border-radius: 10px;
+    text-align: center;
+}
+.shortFullMenu .bd .t,
+.shortFullMenu .bd .b{
+    left: 65px;
+}
+.shortFullMenu .bd .t{
+    top: 5px;
+}
+.shortFullMenu .bd .b{
+    bottom: 5px;
+}
+.shortFullMenu .bd .l,
+.shortFullMenu .bd .r{
+    top: 70px;
+}
+.shortFullMenu .bd .l{
+    left: 5px;
+}
+.shortFullMenu .bd .r{
+    right: 5px;
+}
+.shortFullMenu .bd .c{
+    top: 70px;
+    left: 65px;
+}
+
+/*css3 animation*/
+@-webkit-keyframes scale-in{
+    0%{
+        -webkit-transform: scale(0);
+        left: -200px;
+        bottom: -200px;
+    }
+    100%{
+        -webkit-transform: scale(1);
+        left: 90px;
+        bottom: 90px;
+    }
+}
+@-webkit-keyframes scale-out{
+    0%{
+        -webkit-transform: scale(1);
+        left: 90px;
+        bottom: 90px;
+    }
+    100%{
+        -webkit-transform: scale(0);
+        left: -200px;
+        bottom: -200px;
+    }
+}
+.scale-in{
+    -webkit-animation: scale-in .5s both;
+}
+.scale-out{
+    -webkit-animation: scale-out .5s both;
 }

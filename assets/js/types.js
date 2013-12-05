@@ -31,6 +31,7 @@ define(function (require, exports, module){
             on: {
                 success: function (data){
                     callback && callback.call(callback, data);
+                    return false;
                 }
             }
         }).send();
