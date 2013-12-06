@@ -16,13 +16,13 @@ define(function (require, exports, module){
                 '<div class="shortFullMenu">'+
                 '<div class="bd">'+
                 '<div class="t">'+
-                '<a href="performance.html"><img src="assets/imgs/money_bag.png" alt="历史报表"/>历史报表</a>'+
+                '<a href="cashier.html"><img src="assets/imgs/cashier-48.png" alt="记账台"/>记账台</a>'+
                 '</div>'+
                 '<div class="b">'+
                 '<a href="account.html"><img src="assets/imgs/home-48.png" alt="主页"/>我的小店</a>'+
                 '</div>'+
                 '<div class="l">'+
-                '<a href="cashier.html"><img src="assets/imgs/cashier-48.png" alt="记账台"/>记账台</a>'+
+                '<a href="security_settings.php" target="_blank"><img src="assets/imgs/lock.png" alt="安全设置"/>安全设置</a>'+
                 '</div>'+
                 '<div class="c"></div>'+
                 '</div>'+

@@ -66,7 +66,7 @@
             dataType: "json",
             type: "post",
             success: function (data){
-                if(data.data && data.data.user.user_id){
+                if(data.data && data.data.user && data.data.user.user_id){
                     location.href = "cashier.html";
                 }
             }
