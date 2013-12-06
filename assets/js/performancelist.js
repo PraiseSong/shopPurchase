@@ -37,7 +37,7 @@ define(function (require, exports, module){
             updateTitle(m+"."+d, m+"."+d);
         }
         function updateTitle(start, end){
-            $('.header .box').html(start+"-"+end+" 报表");
+            $('.header .title').html(start+"-"+end+" 报表");
         }
         function getStartTIme(){
             var val = $.trim($('#J-dateStart').val());

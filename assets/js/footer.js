@@ -7,6 +7,7 @@
  */
 define(function (require, exports, module){
     var $ = require('zepto.min.js');
+    var Routing = require("routing.js");
 
     require('menu.js');
 
@@ -69,5 +70,15 @@ define(function (require, exports, module){
                 }
             }
         );
+    }
+
+    Routing.init();
+    if(routingBack = Routing.getBackPage()){
+        $('.header .back').attr("href", routingBack);
+    }else{
+        $('.header .back').on('click', function (e){
+            e.preventDefault();
+            history.go(-1);
+        });
     }
 });

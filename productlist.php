@@ -96,6 +96,7 @@ if(!empty($_GET)){
 </head>
 <body>
 <header class="header">
+    <a class="back box touchStatusBtn" href="javascript:void(0)"><img src="assets/imgs/back-icon.png" alt="返回" />返回</a>
     <span class="box">商品列表</span>
 </header>
 <div class="container">
