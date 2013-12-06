@@ -9,7 +9,9 @@ define(function (require, exports, module){
     var $ = require('zepto.min.js');
     var Routing = require("routing.js");
 
-    require('menu.js');
+    if(((location.href.indexOf(".html") !== -1) || (location.href.indexOf(".php") !== -1)) && (location.href.indexOf("index") === -1)){
+        require('menu.js');
+    }
 
     //隐藏地址栏控件
     window.onload = function (){
@@ -75,10 +77,12 @@ define(function (require, exports, module){
     Routing.init();
     if(routingBack = Routing.getBackPage()){
         $('.header .back').attr("href", routingBack);
+    }else if(history.length <= 1){
+        $('.header .back').attr("href", "javascript:window.open('','_self').close()");
     }else{
         $('.header .back').on('click', function (e){
             e.preventDefault();
-            history.go(-1);
+            history.back();
         });
     }
 });
