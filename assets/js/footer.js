@@ -75,14 +75,21 @@ define(function (require, exports, module){
     }
 
     Routing.init();
-    if(routingBack = Routing.getBackPage()){
-        $('.header .back').attr("href", routingBack);
-    }else if(history.length <= 1){
-        $('.header .back').attr("href", "javascript:window.open('','_self').close()");
-    }else{
-        $('.header .back').on('click', function (e){
-            e.preventDefault();
-            history.back();
+    var backs = $('.header .back');
+    if(backs.length >= 1){
+        $.each(backs, function (i, back){
+            if(!$(back).attr("data-norouting")){
+                if(routingBack = Routing.getBackPage()){
+                    $(back).attr("href", routingBack);
+                }else if(history.length <= 1){
+                    $(back).attr("href", "javascript:window.open('','_self').close()");
+                }else{
+                    $(back).on('click', function (e){
+                        e.preventDefault();
+                        history.back();
+                    });
+                }
+            }
         });
     }
 });
