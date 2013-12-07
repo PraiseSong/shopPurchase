@@ -486,12 +486,12 @@ define(function (require, exports, module){
     }
     function resetCashier(){
         $('#J-soldCount').val('');
-        $('#J-prices input[type=number]').val();
+        $('#J-prices input[type=number]').val('');
         $('#J-prices select').html('<option value="0">0</option>');
         $('#J-cashierProductPreview').empty().attr('data-id', '');
     }
 
     setTimeout(function (){
         getTodayPerf();
-    }, 3000);
+    }, 2000);
 });

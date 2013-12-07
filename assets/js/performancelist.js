@@ -24,6 +24,8 @@ define(function (require, exports, module){
     }).send();
 
     function initPage(){
+        var rents = {};
+
         function setDate(){
             var today = new Date();
             var y = today.getFullYear();
@@ -101,6 +103,7 @@ define(function (require, exports, module){
                             if(rentData.data && rentData.data.rents && rentData.data.rents.length >= 1){
                                 $.each(rentData.data.rents, function (i, rent){
                                     data.zj += rent.price*1;
+                                    rents[rent.date.split(' ')[0]] = rent.price*1;
                                 });
                             }
 
@@ -144,6 +147,7 @@ define(function (require, exports, module){
             var dateTypeHtml = '';
             var lrs = [];
             for(k in data.dateType){
+                data.dateType[k]['lr'] -= rents[k];
                 lrs.push(data.dateType[k]['lr']);
             }
             for(k in data.dateType){
@@ -158,7 +162,7 @@ define(function (require, exports, module){
                     '<div class="back"></div>'+
                     '<div class="front" style="width: '+w+';'+background+'">'+
                    '     <p>'+(date[1]+"-"+date[2])+'</p>'+
-                  '      <p>利润：'+lr[0]+'<small>.'+lr[1]+'</small> 元</p>'+
+                  '      <p>纯利：'+lr[0]+'<small>.'+lr[1]+'</small> 元</p>'+
                  '   </div></a>'+
                 '</li>';
             }
