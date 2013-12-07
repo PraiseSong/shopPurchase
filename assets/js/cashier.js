@@ -346,9 +346,9 @@ define(function (require, exports, module){
         }else if(!getCount()){
             result = false;
         }else if(getCount() > ($.trim($('#J-cashierProductPreview .J-count').html())*1)){
-            result = false;
-            return alert("销售数量大于当前商品的库存！");
-        }else if(pricesNode.length >= 1){
+            alert("销售数量大于当前商品的库存！");
+        }
+        if(pricesNode.length >= 1){
             var totalCount = 0;
             $.each(pricesNode, function (i, pn){
                 var price = $.trim($(pn).find("input[type=number]").val())*1;

@@ -9,7 +9,7 @@ define(function (require, exports, module){
     var $ = require('zepto.min.js');
 
     var html =  '<div class="shortMenu" id="J-shortMenu">'+
-                '<div class="mainMenu">'+
+                '<div class="mainMenu touchStatusBtn">'+
                 '<img src="assets/imgs/logo.png" width="60" height="60" alt="小店记账宝" />'+
                 '</div>'+
                 '</div>'+

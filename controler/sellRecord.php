@@ -35,10 +35,10 @@ if(!$man){
 }
 
 if(!$id){
-    json_encode(array("bizCode" => 0, 'memo' => "缺少商品id"));
+    echo son_encode(array("bizCode" => 0, 'memo' => "缺少商品id"));
     exit;
 }else if(!$detail){
-    json_encode(array("bizCode" => 0, 'memo' => "缺少销售价格"));
+    echo json_encode(array("bizCode" => 0, 'memo' => "缺少销售价格"));
     exit;
 }
 
@@ -47,19 +47,20 @@ $kc_data = $db->queryObject($query_kc_sql);
 if(!$kc_data){
     echo json_encode(array("bizCode"=>0, "memo" => "该商品不存"));
     exit;
-}else if($kc_data->p_count <= 0){
-    echo json_encode(array("bizCode"=>0, "memo" => "该商品的库存为 0"));
-    exit;
 }
+//else if($kc_data->p_count <= 0){
+//    echo json_encode(array("bizCode"=>0, "memo" => "该商品的库存为 0"));
+//    exit;
+//}
 
 $sql = "insert into cashier(`user_id`, `p_id`, `count`, `prop`, `detail`, `man`, `date`) values($user_id, '$id', $count, '$props', '$detail', '$man', '$date')";
 $insert_to_cashier_result = $db->query($sql);
 
 
 $new_count = $kc_data-> p_count - $count;
-if($new_count <= 0){
-    $new_count = 0;
-}
+//if($new_count <= 0){
+//    $new_count = 0;
+//}
 
 if($insert_to_cashier_result){
     $update_kc_sql = "update `products` set `p_count` = $new_count where (`user_id`=$user_id and `p_id` = '$id')";
@@ -68,11 +69,12 @@ if($insert_to_cashier_result){
     echo json_encode(array("bizCode"=>0, "memo" => "记账失败，请重试"));
     exit;
 }
-
+$db->close();
 if($updated_kc_result){
     echo json_encode(array("bizCode"=>1, "memo" => "记账成功", "data" => $new_count));
-
-    $db->close();
+    exit;
+}else{
+    echo json_encode(array("bizCode"=>1, "memo" => "记账成功，但是更新库存失败", "data" => $new_count));
     exit;
 }
 ?>
