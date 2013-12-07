@@ -26,7 +26,7 @@ $db->query("SET NAMES 'UTF8'");
 $action = @$_POST['action'];
 
 if(!$action){
-    exit(json_encode(array("code" => 0, "memo" => "缺少参数")));
+    exit(json_encode(array("bizCode" => 0, "memo" => "缺少参数", "data" => array())));
 }
 
 switch($action){
@@ -37,12 +37,28 @@ switch($action){
     case "add":
         $name = @$_POST['name'];
         if(!$name){
-            exit(json_encode(array("code" => 0, "memo" => "缺少分类名称")));
+            exit(json_encode(array("bizCode" => 0, "memo" => "缺少分类名称", "data"=>array())));
+        }
+        $query_exist_sql = "select * from types where ((user_id = $user_id) and (name='$name'))";
+        $exist_data = $db->queryUniqueObject($query_exist_sql);
+        if($exist_data && ($exist_data->name === $name)){
+            $result = array("bizCode" => 0, "memo" => "$name 分类已经存在", "data"=>array());
+            echo json_encode($result);
+            exit;
         }
         $sql = "insert into types(`user_id`, `name`) values($user_id, '$name')";
         $data = $db->query($sql);
+        if($data){
+            $result = array("bizCode" => 1, "memo" => "添加成功", "data"=>array("id" => $db->lastInsertedId()));
+            echo json_encode($result);
+            exit;
+        }else{
+            $result = array("bizCode" => 0, "memo" => "$name 分类添加失败，请重试", "data"=>array());
+            echo json_encode($result);
+            exit;
+        }
         break;
 }
 
-echo json_encode(array("bizCode" => 1, "data" => array('types' => $data)));
+echo json_encode(array("bizCode" => 1, "memo" => "", "data" => array('types' => $data)));
 ?>

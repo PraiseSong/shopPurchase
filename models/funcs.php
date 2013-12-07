@@ -46,6 +46,8 @@ function destroySession($name)
             $_SESSION[$name] = NULL;
             unset($_SESSION[$name]);
         //}
+        setcookie("rib_user_name", '');
+        setcookie("rib_user_pw", '');
 	}
 }
 
@@ -1185,6 +1187,26 @@ function securePage($uri){
 			return false;	
 		}
 	}
+}
+
+function logining($userdetails){
+    $loggedInUser = new loggedInUser();
+    $loggedInUser->email = $userdetails["email"];
+    $loggedInUser->user_id = $userdetails["id"];
+    $loggedInUser->hash_pw = $userdetails["password"];
+    $loggedInUser->title = $userdetails["title"];
+    $loggedInUser->displayname = $userdetails["display_name"];
+    $loggedInUser->username = $userdetails["user_name"];
+
+    //Update last sign in
+    $loggedInUser->updateLastSignIn();
+    $_SESSION["userCakeUser"] = $loggedInUser;
+    $time = time()+3600*24;
+    setcookie("rib_user_name", $loggedInUser->username, $time);
+    setcookie("rib_user_pw", $loggedInUser->hash_pw, $time);
+    $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+
+    return $loggedInUser;
 }
 
 ?>

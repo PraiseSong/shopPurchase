@@ -1,0 +1,80 @@
+#error,
+#success{
+    margin-bottom: 10px;
+}
+.form-default{
+    margin-bottom: 50px;
+}
+.addPropsForm{
+    margin-bottom: 0;
+}
+.form-default .flexBox{
+    line-height: 44px;
+}
+.typesBox{
+    margin-left: 10px;
+}
+.form-default .flexBox p{
+    padding-left: 10px;
+}
+.btn-primary{
+    margin: 10px auto;
+    width: 80%;
+}
+.form-default .propsBox,
+.form-default .attachmentBox,
+.form-default .typesContainer{
+    height: auto;
+}
+#J-photoPreview img{
+    max-width: 150px;
+}
+.J-takePhotoBox{
+    padding-left: 10px;
+}
+.valueBox,
+#J-propsHTMLBox .prop{
+    margin: 0 0 0 5px;
+    padding: 5px 5px 0 0;
+    display: -webkit-box;
+}
+#J-propsHTMLBox .prop{
+    margin: 0;
+    padding-top: 0;
+}
+#J-propsHTMLBox .prop .v{
+    display: block;
+}
+.valueBox .btn,
+#J-propsHTMLBox .prop .btn{
+    display: block;
+    margin-left: 5px;
+    color: #f50;
+    line-height: 44px;
+    -webkit-box-flex: 1;
+    font-size: 16px;
+}
+#J-propsHTMLBox .prop .btn{
+    text-align: left;
+    padding-let: 15px;
+}
+.form-default .valueBox input{
+    border: 1px solid #ddd;
+    -webkit-border-radius: 5px;
+    -webkit-box-flex: 1;
+}
+.typesBox select{
+    background: url(../imgs/icon-down-black.png) no-repeat center right;
+    background-size: 24px 24px;
+    height: 37px;
+    line-height: 37px;
+    -webkit-appearance: button;
+    border: none;
+    -webkit-border-radius: 5px;
+    padding: 0 30px 0 0;
+    font-size: 16px;
+}
+#J-addType{
+    display: block;
+    margin-top: 5px;
+}

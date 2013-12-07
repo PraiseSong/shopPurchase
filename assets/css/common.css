@@ -135,6 +135,7 @@ a:hover{
     color: #fff;
     text-align: center;
     font-size: 20px;
+    border: none;
 }
 .btn:hover{
     color: #fff;
@@ -210,6 +211,25 @@ a:hover{
     color: #f50;
 }
 
+#error,
+#success{
+    -webkit-border-radius: 5px;
+    line-height: 30px;
+}
+#error li,
+#success li{
+    padding: 0 10px;
+}
+#error{
+    color: #a94442;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+}
+#success{
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+}
 .warn,
 .info,
 .error{

@@ -158,7 +158,7 @@ define(function (require, exports, module){
                     '<div class="back"></div>'+
                     '<div class="front" style="width: '+w+';'+background+'">'+
                    '     <p>'+(date[1]+"-"+date[2])+'</p>'+
-                  '      <p>纯利：'+lr[0]+'<small>.'+lr[1]+'</small> 元</p>'+
+                  '      <p>利润：'+lr[0]+'<small>.'+lr[1]+'</small> 元</p>'+
                  '   </div></a>'+
                 '</li>';
             }

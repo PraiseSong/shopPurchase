@@ -15,10 +15,13 @@ define(function (require, exports, module){
         var self = this;
         new IO({
             url: api,
-            data: "action=add&name="+name,
+            data: "action=add&name="+encodeURI(name),
             on: {
                 success: function (data){
                     callback && callback.call(callback, data);
+                },
+                error: function (){
+                    alert('添加分类时发生异常，请重试');
                 }
             }
         }).send();
@@ -32,6 +35,9 @@ define(function (require, exports, module){
                 success: function (data){
                     callback && callback.call(callback, data);
                     return false;
+                },
+                error: function (){
+                    alert('查询分类时发生异常，请重试');
                 }
             }
         }).send();

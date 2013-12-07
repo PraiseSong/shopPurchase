@@ -315,6 +315,7 @@ define(function (require, exports, module){
                                 setTimeout(function (){
                                     Utils.loading.hide();
                                 }, 3000);
+                                resetCashier();
                             }else{
                                 Utils.loading.error(data.memo);
                                 setTimeout(function (){
@@ -482,6 +483,12 @@ define(function (require, exports, module){
         $('#J-cb').html(cb[0]+"<small>."+cb[1]+"</small>元");
         $('#J-lr').html(lr[0]+"<small>."+lr[1]+"</small>元");
         (zj[0] > 0 || zj[1] > 0) && ($('#J-zj').html(zj[0]+"<small>."+zj[1]+"</small>元"));
+    }
+    function resetCashier(){
+        $('#J-soldCount').val('');
+        $('#J-prices input[type=number]').val();
+        $('#J-prices select').html('<option value="0">0</option>');
+        $('#J-cashierProductPreview').empty().attr('data-id', '');
     }
 
     setTimeout(function (){

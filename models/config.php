@@ -54,5 +54,11 @@ session_start();
 if(isset($_SESSION["userCakeUser"]) && is_object($_SESSION["userCakeUser"]))
 {
 	$loggedInUser = $_SESSION["userCakeUser"];
+}else if(isset($_COOKIE['rib_user_name']) && isset($_COOKIE['rib_user_pw']) && $_COOKIE['rib_user_name'] && $_COOKIE['rib_user_pw']){
+    $userdetails = fetchUserDetails($_COOKIE['rib_user_name']);
+
+    if($_COOKIE['rib_user_pw'] === $userdetails["password"]){
+        $loggedInUser = logining($userdetails);
+    }
 }
 ?>
