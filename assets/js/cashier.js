@@ -58,7 +58,7 @@ define(function (require, exports, module){
                 });
             }
         });
-    }, 2000);
+    }, 1000);
     $('#J-cashierBtn').on("click", selling);
     $('#J-zj a').unbind().bind("click", function (){
         Rent.add(function (data){

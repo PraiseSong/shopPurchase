@@ -1,0 +1,55 @@
+#J-requestMoreBtn{
+    margin: 20px auto;
+    width: 80%;
+}
+.queryProductsBox{
+    padding: 0 10px 20px;
+}
+.queryProductsBox form select{
+    -webkit-appearance: button;
+    border: none;
+    background: url(../imgs/icon-down-black.png) no-repeat center right;
+    background-size: 24px 24px;
+    height: 24px;
+    line-height: 24px;
+    padding-right: 30px;
+    font-size: 15px;
+    margin: 0 10px 10px 0;
+}
+.queryProductsBox form input[type=search]{
+    height: 44px;
+    line-height: 44px;
+    display: block;
+    background: #fff;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 5px;
+    margin-bottom: 10px;
+    outline: none;
+    font-size: 15px;
+}
+.queryProductsBox form span{
+    background: url(../imgs/query.png) no-repeat center left;
+    background-size: 24px 24px;
+    padding-right: 30px;
+    overflow: hidden;
+    text-indent: -10000px;
+    height: 44px;
+    margin-left: 5px;
+    cursor: pointer;
+    display: block;
+}
+.queryProductsBox .tip{
+    text-align: center;
+    display: none;
+    margin-bottom: 15px;
+}
+.queryProductsBox .tip a{
+    margin-left: 5px;
+    font-weight: 700;
+}
+.queryProductsBox .plist{
+    margin: 0 0 20px;
+}
+.queryProductsBox .plist ul{
+    margin: 0 0 20px;
+}

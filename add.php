@@ -74,10 +74,6 @@
           $query_isExist = $db->queryUniqueObject($query_isExist_sql);
           if($query_isExist){
               $errors[] = '商品名称重复';
-              $p_name = '';
-              $p_count = '';
-              $p_price = '';
-              $p_types = '';
           }else if($pic){
               $attachment_name = md5($date) . '_' . str_replace(' ', '', $pic["name"]);
 

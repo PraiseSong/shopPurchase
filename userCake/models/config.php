@@ -5,11 +5,9 @@ http://usercake.com
 */
 require_once("db-settings.php"); //Require DB connection
 
-date_default_timezone_set('Asia/Shanghai');
-
 //Retrieve settings
 $stmt = $mysqli->prepare("SELECT id, name, value
-	FROM ".$db_table_prefix."configuration");
+	FROM ".$db_table_prefix."configuration");	
 $stmt->execute();
 $stmt->bind_result($id, $name, $value);
 
@@ -25,20 +23,20 @@ $websiteName = $settings['website_name']['value'];
 $websiteUrl = $settings['website_url']['value'];
 $emailAddress = $settings['email']['value'];
 $resend_activation_threshold = $settings['resend_activation_threshold']['value'];
-$date = date("Y-m-d H:i:s");
+$emailDate = date('dmy');
 $language = $settings['language']['value'];
 $template = $settings['template']['value'];
 
 $master_account = -1;
 
 $default_hooks = array("#WEBSITENAME#","#WEBSITEURL#","#DATE#");
-$default_replace = array($websiteName,$websiteUrl,$date);
+$default_replace = array($websiteName,$websiteUrl,$emailDate);
 
 if (!file_exists($language)) {
-	$language = "languages/en.php";
+	$language = "models/languages/en.php";
 }
 
-if(!isset($language)) $language = "languages/en.php";
+if(!isset($language)) $language = "models/languages/en.php";
 
 //Pages to require
 require_once($language);
@@ -54,11 +52,6 @@ session_start();
 if(isset($_SESSION["userCakeUser"]) && is_object($_SESSION["userCakeUser"]))
 {
 	$loggedInUser = $_SESSION["userCakeUser"];
-}else if(isset($_COOKIE['rib_user_name']) && isset($_COOKIE['rib_user_pw']) && $_COOKIE['rib_user_name'] && $_COOKIE['rib_user_pw']){
-    $userdetails = fetchUserDetails($_COOKIE['rib_user_name']);
-
-    if($_COOKIE['rib_user_pw'] === $userdetails["password"]){
-        $loggedInUser = logining($userdetails);
-    }
 }
+
 ?>

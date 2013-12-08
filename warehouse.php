@@ -12,7 +12,6 @@ if(!$user_id){
     header("Location: login.html");
     exit;
 }
-@$date = $_GET['date'];
 
 $db = new DB($db_name,$db_host,$db_username,$db_password);
 $db->query("SET NAMES 'UTF8'");
@@ -26,34 +25,37 @@ $limit = @$_GET['limit'];
 $type = @$_GET['type'];
 $start = @$_GET['start'];
 $end = @$_GET['end'];
-$countIs0 = @$_GET['countIs0'];
-$count_condition = 'p_count>0';
+$count = @$_GET['count'];
 $name = @$_GET['name'];
-if($countIs0){
-    $count_condition = 'p_count<=0';
+if($count){
+    $count_condition = "(p_count <= $count)";
 }
 if(!$limit){
-    $limit = 1000;
+    $limit = 10;
 }
 $limit_end = (int)$limit;
 $limit_start = (int)$limit*((int)$page_num-1);
+$where = "(user_id=$user_id)";
+if(isset($count_condition)){
+    $where .= ' and '.$count_condition;
+}
 
-$sql = "select * from `products` where ($count_condition and user_id=$user_id) limit $limit_start,$limit_end";
 if($name){
-    $sql = "select * from `products` where ($count_condition and user_id=$user_id and (p_name like '%$name%')) limit $limit_start,$limit_end";
+    $where .= " and (p_name like '%$name%')";
+
 }
 if($type){
-    $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where (p_type=$type and $count_condition and user_id=$user_id) ".
-        "limit $limit_start,$limit_end";
-    if($name){
-        $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where (p_type=$type and $count_condition and user_id=$user_id and (p_name like '%$name%')) ".
-            "limit $limit_start,$limit_end";
-    }
+    $where .= " and (p_type=$type)";
 }
-
+$sql = "select * from `products` where ($where) limit $limit_start,$limit_end";
 $data = $db->queryManyObject($sql);
-//$data = array('products' => $data);
 $db->close();
+
+if(isset($_GET['ajax'])){
+    $data = array('products' => $data);
+    echo json_encode(array("bizCode"=>1, "memo"=>"", "data"=>$data));
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <!--<html manifest="cache.manifest">-->
@@ -71,7 +73,7 @@ $db->close();
     </title>
     <link rel="stylesheet" href="assets/css/reset.css" />
     <link rel="stylesheet" href="assets/css/common.css" />
-    <link rel="stylesheet" href="assets/css/productlist.css" />
+    <link rel="stylesheet" href="assets/css/warehouse.css" />
     <script src="assets/libs/sea.js"></script>
     <script type="text/javascript">
         seajs.config({
@@ -87,58 +89,76 @@ $db->close();
     <a class="back box touchStatusBtn" href="javascript:void(0)"><img src="assets/imgs/back-icon.png" alt="返回" />返回</a>
     <span class="box">仓库</span>
 </header>
-<div class="container">
-    <div class="plist" id="J-productList">
-        <ul>
+<div class="queryProductsBox">
+    <form action="">
+        <select id="J-parentTypes">
+            <option value="">商品分类</option>
+        </select>
+        <!--<select name="" id="">-->
+        <!--<option value="0">子分类</option>-->
+        <!--</select>-->
+        <div class="flexBox">
+            <input type="search" placeholder="输入商品名称" autocapitalize="off" class="box" id="J-searchText" />
+            <span class="touchStatusBtn" id="J-queryBtn">查询</span>
+        </div>
+    </form>
+    <div class="result">
+        <p class="tip" id="J-tip">
+            没有您要的商品，现在就<a href="add.php" target="_blank" title="添加商品">添加</a>
+        </p>
+        <div class="plist" id="J-productList">
             <?php if(isset($data) && count($data) >= 1): ?>
-                <?php
-                $html = '';
+                <ul>
+                    <?php
+                    $html = '';
 
-                foreach($data as $k => $product){
-                    $price = toFixed2($product->p_price);
-                    $html .= "<li><div class=\"flexBox touchStatusBtn\" data-id=\"{$product->p_id}\">".
-                        '<div class="imgSkin box">'.
-                        "<img src=\"{$product->p_pic}\" alt=\"{$product->p_name}\"/>".
-                        '</div>'.
-                        '<div class="information box">'.
-                        "<p class=\"name\">{$product->p_name}</p>".
-                        "<p class=\"count\">库存：{$product->p_count}</p>".
-                        "<p class=\"price\">单价：{$price} 元</p>".
-                    ($product->p_from ? "<p class=\"from\">采购地：{$product->p_from}</p>" : "").
-                        ($product->p_man ? "<p class=\"man\">采购人：{$product->p_man}</p>" : "");
+                    foreach($data as $k => $product){
+                        $price = toFixed2($product->p_price);
+                        $html .= "<li><div class=\"flexBox touchStatusBtn\" data-id=\"{$product->p_id}\">".
+                            '<div class="imgSkin box">'.
+                            "<img src=\"{$product->p_pic}\" alt=\"{$product->p_name}\"/>".
+                            '</div>'.
+                            '<div class="information box">'.
+                            "<p class=\"name\">{$product->p_name}</p>".
+                            "<p class=\"count\">库存：{$product->p_count}</p>".
+                            "<p class=\"price\">单价：{$price} 元</p>".
+                            ($product->p_from ? "<p class=\"from\">采购地：{$product->p_from}</p>" : "").
+                            ($product->p_man ? "<p class=\"man\">采购人：{$product->p_man}</p>" : "");
 
-                    if(strpos($product->p_props, '|')){
-                        $p_props = preg_split('/\|/', $product->p_props);
-                    }else{
-                        $p_props = array($product->p_props);
-                    }
-                    $p_props_html = '';
-
-                    foreach($p_props as $j => $prop){
-                        if($prop){
-                            $p_props_html .= "<p class=\"prop\">". $prop . "</p>";
+                        if(strpos($product->p_props, '|')){
+                            $p_props = preg_split('/\|/', $product->p_props);
+                        }else{
+                            $p_props = array($product->p_props);
                         }
+                        $p_props_html = '';
+
+                        foreach($p_props as $j => $prop){
+                            if($prop){
+                                $p_props_html .= "<p class=\"prop\">". $prop . "</p>";
+                            }
+                        }
+
+                        $html .= $p_props_html;
+                        $html .= "<p class=\"date\">入库时间：{$product->p_date}</p></div></div>";
+                        $html .= "<footer class=\"flexBox\"><a href=\"edit_product.php?id={$product->p_id}\" class=\"J-edit box\" target='_blank'>修改</a></footer>";
+                        $html .= '</li>';
                     }
 
-                    $html .= $p_props_html;
-                    $html .= "<p class=\"date\">入库时间：{$product->p_date}</p></div></div>";
-                    $html .= "<footer class=\"flexBox\"><a href=\"edit_product.php?id={$product->p_id}\" class=\"J-edit box\" target='_blank'>修改</a></footer>";
-                    $html .= '</li>';
-                }
-
-                echo $html;
-                ?>
+                    echo $html;
+                    ?>
+                </ul>
+                <a class="touchStatusBtn btn btn-default" href="javascript:void(0)" id="J-requestMoreBtn">更多商品</a>
             <?php else: ?>
                 <p style="text-align: center">
                     在仓库里没有查询到您要的商品
                 </p>
             <?php endif; ?>
-        </ul>
+        </div>
     </div>
 </div>
 </body>
 <script>
-    //seajs.use("warehouse.js");
+    seajs.use("warehouse.js");
     seajs.use("footer.js");
 </script>
 </html>

@@ -40,14 +40,11 @@ function getPageFiles()
 //Destroys a session as part of logout
 function destroySession($name)
 {
-	if(isset($_SESSION[$name])){
-        //if                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 3600*24)) {
-            $_SESSION[$name] = NULL;
-            unset($_SESSION[$name]);
-        //}
+	if(isset($_SESSION[$name]))
+	{
+		$_SESSION[$name] = NULL;
+		unset($_SESSION[$name]);
 	}
-    setcookie("rib_user_name", NULL);
-    setcookie("rib_user_pw", NULL);
 }
 
 //Generate a unique code
@@ -149,6 +146,7 @@ function resultBlock($errors,$successes){
 	if(count($errors) > 0)
 	{
 		echo "<div id='error'>
+		<a href='#' onclick=\"showHide('error');\">[X]</a>
 		<ul>";
 		foreach($errors as $error)
 		{
@@ -161,6 +159,7 @@ function resultBlock($errors,$successes){
 	if(count($successes) > 0)
 	{
 		echo "<div id='success'>
+		<a href='#' onclick=\"showHide('success');\">[X]</a>
 		<ul>";
 		foreach($successes as $success)
 		{
@@ -174,7 +173,7 @@ function resultBlock($errors,$successes){
 //Completely sanitizes text
 function sanitize($str)
 {
-	return strip_tags(trim(($str)));
+	return strtolower(strip_tags(trim(($str))));
 }
 
 //Functions that interact mainly with .users table
@@ -228,9 +227,6 @@ function displayNameExists($displayname)
 //Check if an email exists in the DB
 function emailExists($email)
 {
-    if(!$email){
-        return false;
-    }
 	global $mysqli,$db_table_prefix;
 	$stmt = $mysqli->prepare("SELECT active
 		FROM ".$db_table_prefix."users
@@ -311,8 +307,6 @@ function fetchAllUsers()
 //Retrieve complete user information by username, token or ID
 function fetchUserDetails($username=NULL,$token=NULL, $id=NULL)
 {
-    $row = null;
-
 	if($username!=NULL) {
 		$column = "user_name";
 		$data = $username;
@@ -385,7 +379,7 @@ function isUserLoggedIn()
 		AND
 		active = 1
 		LIMIT 1");
-	$stmt->bind_param("is", $loggedInUser->user_id, $loggedInUser->hash_pw);
+	$stmt->bind_param("is", $loggedInUser->user_id, $loggedInUser->hash_pw);	
 	$stmt->execute();
 	$stmt->store_result();
 	$num_returns = $stmt->num_rows;
@@ -1124,7 +1118,7 @@ function removePage($page, $permission) {
 
 //Check if a user has access to a page
 function securePage($uri){
-
+	
 	//Separate document name from uri
 	$tokens = explode('/', $uri);
 	$page = $tokens[sizeof($tokens)-1];
@@ -1156,7 +1150,7 @@ function securePage($uri){
 	//If user is not logged in, deny access
 	elseif(!isUserLoggedIn()) 
 	{
-		header("Location: login.html");
+		header("Location: login.php");
 		return false;
 	}
 	else {
@@ -1182,33 +1176,10 @@ function securePage($uri){
 			return true;
 		}
 		else {
-			header("Location: account.html");
+			header("Location: account.php");
 			return false;	
 		}
 	}
 }
 
-function logining($userdetails){
-    $loggedInUser = new loggedInUser();
-    $loggedInUser->email = $userdetails["email"];
-    $loggedInUser->user_id = $userdetails["id"];
-    $loggedInUser->hash_pw = $userdetails["password"];
-    $loggedInUser->title = $userdetails["title"];
-    $loggedInUser->displayname = $userdetails["display_name"];
-    $loggedInUser->username = $userdetails["user_name"];
-    //Update last sign in
-    $loggedInUser->updateLastSignIn();
-    $_SESSION["userCakeUser"] = $loggedInUser;
-    $time = time()+3600*24;
-    setcookie("rib_user_name", $loggedInUser->username, $time);
-    setcookie("rib_user_pw", $loggedInUser->hash_pw, $time);
-    $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
-
-    return $loggedInUser;
-}
-
-function toFixed2($num){
-   $_num = preg_split('/\./', number_format($num, 2, '.', ','));
-   return "<span>{$_num[0]}</span><small>.{$_num[1]}</small>";
-}
 ?>

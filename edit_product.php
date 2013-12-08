@@ -66,7 +66,7 @@ if(!$edit && $id){
             if($price !== $exist_data->p_price){
                 $successes[] = "单价：{$exist_data->p_price} 变更为 $price";
             }
-            if($new_count !== $exist_data->p_count){
+            if($new_count*1 !== ($exist_data->p_count*1)){
                 $successes[] = "库存：{$exist_data->p_count}个 变更为 $new_count 个";
             }
             if($type !== $exist_data->p_type){
