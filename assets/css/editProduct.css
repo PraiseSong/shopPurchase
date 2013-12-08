@@ -83,3 +83,9 @@
     display: block;
     margin-top: 5px;
 }
+#count{
+    width: 100px;
+    -webkit-box-flex: 0;
+    border-right: 1px solid #ddd;
+    padding-right: 10px;
+}

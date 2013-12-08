@@ -1209,4 +1209,8 @@ function logining($userdetails){
     return $loggedInUser;
 }
 
+function toFixed2($num){
+   $_num = preg_split('/\./', number_format($num, 2, '.', ','));
+   return "<span>{$_num[0]}</span><small>.{$_num[1]}</small>";
+}
 ?>

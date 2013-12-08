@@ -152,7 +152,7 @@
           resultBlock($errors, $successes);
       }
     ?>
-<form class="form-default" method="post" action="<?php echo $action; ?>" enctype="multipart/form-data" novalidate>
+<form class="form-default" method="post" action="add.php" enctype="multipart/form-data" novalidate>
         <div class="input-skin first-child">
             <?php
             if(isset($p_name) && $p_name){

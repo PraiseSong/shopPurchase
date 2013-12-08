@@ -33,7 +33,7 @@ if($countIs0){
     $count_condition = 'p_count<=0';
 }
 if(!$limit){
-    $limit = 10;
+    $limit = 1000;
 }
 $limit_end = (int)$limit;
 $limit_start = (int)$limit*((int)$page_num-1);
@@ -95,12 +95,17 @@ $db->close();
                 $html = '';
 
                 foreach($data as $k => $product){
+                    $price = toFixed2($product->p_price);
                     $html .= "<li><div class=\"flexBox touchStatusBtn\" data-id=\"{$product->p_id}\">".
                         '<div class="imgSkin box">'.
                         "<img src=\"{$product->p_pic}\" alt=\"{$product->p_name}\"/>".
                         '</div>'.
                         '<div class="information box">'.
-                        "<p class=\"name\">{$product->p_name}</p>";
+                        "<p class=\"name\">{$product->p_name}</p>".
+                        "<p class=\"count\">库存：{$product->p_count}</p>".
+                        "<p class=\"price\">单价：{$price} 元</p>".
+                    ($product->p_from ? "<p class=\"from\">采购地：{$product->p_from}</p>" : "").
+                        ($product->p_man ? "<p class=\"man\">采购人：{$product->p_man}</p>" : "");
 
                     if(strpos($product->p_props, '|')){
                         $p_props = preg_split('/\|/', $product->p_props);
@@ -116,8 +121,8 @@ $db->close();
                     }
 
                     $html .= $p_props_html;
-                    $html .= "<p class=\"date\">时间：{$product->p_date}</p></div></div>";
-                    $html .= "<footer class=\"flexBox\"><a href=\"edit_product.php?id={$product->p_id}\" class=\"J-edit box\"</a>修改</a></footer>";
+                    $html .= "<p class=\"date\">入库时间：{$product->p_date}</p></div></div>";
+                    $html .= "<footer class=\"flexBox\"><a href=\"edit_product.php?id={$product->p_id}\" class=\"J-edit box\" target='_blank'>修改</a></footer>";
                     $html .= '</li>';
                 }
 

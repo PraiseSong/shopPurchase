@@ -378,7 +378,7 @@ a:hover{
     margin-bottom: 0;
 }
 .plist li .information{
-    line-height: 23px;
+    line-height: 25px;
     max-width: 50%;
     padding: 3px 5px 3px 0;
 }
@@ -387,6 +387,9 @@ a:hover{
 }
 .plist li .information .count{
     color: #578c0c;
+}
+.plist li .information .price{
+    color: #660711;
 }
 
 .mask{
