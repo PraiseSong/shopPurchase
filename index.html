@@ -29,6 +29,19 @@
 </div>
 </body>
 <script>
+    seajs.use("zepto.min.js", function ($){
+        $.ajax({
+            timeout: 3000,
+            url: "controler/userAuth.php",
+            dataType: "json",
+            type: "post",
+            success: function (data){
+                if(data.data && data.data.user && data.data.user.user_id){
+                    location.href = "cashier.html";
+                }
+            }
+        });
+    });
     seajs.use("footer.js");
 </script>
 </html>

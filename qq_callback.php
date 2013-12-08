@@ -58,19 +58,7 @@ if(!$userdetails){
 function request_login($userdetails){
     //Construct a new logged in user object
     //Transfer some db data to the session object
-    $loggedInUser = new loggedInUser();
-    $loggedInUser->email = $userdetails["email"];
-    $loggedInUser->user_id = $userdetails["id"];
-    $loggedInUser->hash_pw = $userdetails["password"];
-    $loggedInUser->title = $userdetails["title"];
-    $loggedInUser->displayname = $userdetails["display_name"];
-    $loggedInUser->username = $userdetails["user_name"];
-
-    //Update last sign in
-    $loggedInUser->updateLastSignIn();
-    $_SESSION["userCakeUser"] = $loggedInUser;
-    setcookie("rib_user_name", $loggedInUser->username, time()+3600*24);
-    $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+    $loggedInUser = logining($userdetails);
 
     if(!$loggedInUser->email || !$loggedInUser->displayname){
         header("Location: user_settings.php");

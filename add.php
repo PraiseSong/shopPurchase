@@ -27,11 +27,6 @@
 //      $data = $db->queryUniqueObject($sql);
 //      $db->close();
 //  }
-  if($data){
-    $action = 'update.php';
-  }else{
-    $action = 'add.php';
-  }
 
   if(!empty($_POST)){
       include_once('libraries/imageResize.php');
@@ -159,63 +154,45 @@
     ?>
 <form class="form-default" method="post" action="<?php echo $action; ?>" enctype="multipart/form-data" novalidate>
         <div class="input-skin first-child">
-            <?php if($data): ?>
-                <input id="id" name="id" type="hidden" value="<?php echo $data->p_id; ?>">
-                <input autocapitalize="off" id="name" name="name" type="text" value="<?php echo $data->p_name; ?>">
-            <?php else: ?>
-                <?php
-                  if(isset($p_name) && $p_name){
-                    echo "<input autocapitalize=\"off\" id=\"name\" name=\"name\" type=\"text\" value=\"$p_name\" placeholder=\"商品名称\">";
-                  }else{
-                      echo '<input autocapitalize="off" id="name" name="name" type="text" placeholder="商品名称">';
-                  }
-                ?>
-            <?php endif; ?>
+            <?php
+            if(isset($p_name) && $p_name){
+                echo "<input autocapitalize=\"off\" id=\"name\" name=\"name\" type=\"text\" value=\"$p_name\" placeholder=\"商品名称\">";
+            }else{
+                echo '<input autocapitalize="off" id="name" name="name" type="text" placeholder="商品名称">';
+            }
+            ?>
         </div>
 
         <div class="input-skin">
-            <?php if($data): ?>
-                <input autocapitalize="off" id="price" name="price" type="number" value="<?php echo $data->p_price; ?>">
-            <?php else: ?>
-                <?php
-                  if(isset($p_price) && $p_price){
-                      echo "<input autocapitalize=\"off\" id=\"price\" value=\"$p_price\" name=\"price\" type=\"number\" placeholder=\"商品单价\">";
-                  }else{
-                      echo '<input autocapitalize="off" id="price" name="price" type="number" placeholder="商品单价">';
-                  }
-                ?>
-            <?php endif; ?>
+            <?php
+            if(isset($p_price) && $p_price){
+                echo "<input autocapitalize=\"off\" id=\"price\" value=\"$p_price\" name=\"price\" type=\"number\" placeholder=\"商品单价\">";
+            }else{
+                echo '<input autocapitalize="off" id="price" name="price" type="number" placeholder="商品单价">';
+            }
+            ?>
         </div>
 
         <div class="input-skin">
-            <?php if($data): ?>
-                <input autocapitalize="off" id="count" name="count" type="tel" placeholder="本次采购数量" />
-                <p class="">当前库存为：<small class="kc"><?php echo $data->p_count; ?></small>个</p>
-            <?php else: ?>
-                <?php
-                  if(isset($p_count) && $p_count){
-                      echo "<input autocapitalize=\"off\" value=\"$p_count\" id=\"count\" name=\"count\" type=\"tel\" placeholder=\"采购数量\">";
-                  }else{
-                      echo '<input autocapitalize="off" id="count" name="count" type="tel" placeholder="采购数量">';
-                  }
-                ?>
-            <?php endif; ?>
+            <?php
+            if(isset($p_count) && $p_count){
+                echo "<input autocapitalize=\"off\" value=\"$p_count\" id=\"count\" name=\"count\" type=\"tel\" placeholder=\"采购数量\">";
+            }else{
+                echo '<input autocapitalize="off" id="count" name="count" type="tel" placeholder="采购数量">';
+            }
+            ?>
         </div>
 
         <div class="input-skin flexBox typesContainer">
             <p>
                 分类：
-                <?php if($data): ?>
-                    <input type="hidden" id="J-types-hide" name="types" value="<?php echo $data->p_type; ?>" />
-                <?php else: ?>
-                    <?php
-                      if(isset($p_types) && $p_types){
-                          echo "<input type=\"hidden\" value=\"$p_types\" id=\"J-types-hide\" name=\"types\"/>";
-                      }else{
-                          echo '<input type="hidden" id="J-types-hide" name="types"/>';
-                      }
-                    ?>
-                <?php endif; ?>
+                <?php
+                if(isset($p_types) && $p_types){
+                    echo "<input type=\"hidden\" value=\"$p_types\" id=\"J-types-hide\" name=\"types\"/>";
+                }else{
+                    echo '<input type="hidden" id="J-types-hide" name="types"/>';
+                }
+                ?>
             </p>
             <div class="typesBox box">
                 <div id="J-typesSelector">加载分类...</div>
@@ -265,9 +242,6 @@
 <!--            </div>-->
 <!--        </div>-->
 
-<?php if($data): ?>
-    <input type="hidden" id="J-properties-field" name="properties" value="<?php echo $data->props; ?>" />
-<?php else: ?>
     <div class="input-skin flexBox propsBox">
         <p>属性：</p>
         <div class="box propsBox">
@@ -278,16 +252,12 @@
             <a href="javascript:void(0)" id="J-addProps-btn">&#43; 添加属性</a>
         </div>
     </div>
-<?php endif; ?>
 
 
         <div class="input-skin flexBox attachmentBox">
-            <?php if($data): ?>
-                <img src="<?php echo $data->p_pic; ?>" alt=""/>
-            <?php else: ?>
             <div class="J-takePhotoBox box">
                 <input type="file" name="pic" id="J-takePhoto-btn"/>
-                <a href="javascript:void(0)" class="J-takePhoto-btn-skin">
+                <a href="javascript:void(0)" class="J-takePhoto-btn-skin" style="display: none;">
                     <?php
                       if ( $detect->isMobile() || $detect->isTablet()) {
                           echo '<span class="camera"></span>拍产品';
@@ -299,23 +269,12 @@
             </div>
             <div id="J-photoPreview" class="box">
             </div>
-            <?php endif; ?>
         </div>
 
         <button type="submit" class="touchStatusBtn btn btn-primary" id="J-addPropduct-btn">确定</button>
 </form>
 </div>
-<script>
-    <?php
-      if($update):
-    ?>
-    seajs.use('update.js');
-    <?php
-      else:
-    ?>
-    seajs.use('add.js');
-    <?php endif; ?>
-    </script>
+<script>seajs.use('add.js');</script>
 <?php
   include_once('templates/footer.php');
 ?>
