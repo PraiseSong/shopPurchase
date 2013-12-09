@@ -77,6 +77,9 @@ define(function (require, exports, module){
                 }else if(data.data.sold){
                     alert("退货成功");
                     location.reload();
+                }else{
+                    alert(data.memo)
+                    location.reload();
                 }
             });
         });

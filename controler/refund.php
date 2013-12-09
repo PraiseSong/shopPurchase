@@ -32,8 +32,10 @@ if(!$id || !$details){
     exit;
 }
 
-$query_exist_sql = "select order_id,detail from cashier where (user_id=$user_id and order_id='$id')";
+$query_exist_sql = "select order_id,detail,count,p_id from cashier where (user_id=$user_id and order_id='$id')";
 $query_exist_data = $db -> queryUniqueObject($query_exist_sql);
+$p_id = $query_exist_data -> p_id;
+$refund_count = 0;
 if(!$query_exist_data || !$query_exist_data->order_id){
     $result = array("bizCode" => 0, "memo" => "这条销售记录不存在或者全部退货", "data"=>array());
     echo json_encode($result);
@@ -49,9 +51,23 @@ if($details === 'null'){
     $sql = "delete from cashier where (user_id=$user_id and order_id='$id')";
     $data = $db->query($sql);
     if($data){
-        $result = array("bizCode" => 1, "memo" => "删除销售记录成功", "data"=>array('deleted'=>true));
-        echo json_encode($result);
-        exit;
+        $refund_count = $query_exist_data->count;
+        $query_kc_sql = "select p_count from `products` where (`user_id`=$user_id and `p_id` = '$p_id')";
+        $kc_data = $db->queryObject($query_kc_sql);
+        if(!$kc_data){
+            echo json_encode(array("bizCode"=>1, "memo" => "删除销售记录完成，但是更新仓库失败", "data"=>array('deleted'=>true)));
+            exit;
+        }else{
+            $new_warehouse_count = $kc_data -> p_count + $refund_count;
+            $update_kc_sql = "update `products` set `p_count` = $new_warehouse_count where (`user_id`=$user_id and `p_id` = '$p_id')";
+            $updated_kc_result = $db->query($update_kc_sql);
+            if($updated_kc_result){
+                echo json_encode(array("bizCode"=>1, "memo" => "删除销售记录完成并且更新商品库存成功", "data"=>array('deleted'=>true)));
+                exit;
+            }
+            echo json_encode($result);
+            exit;
+        }
     }else{
         $result = array("bizCode" => 0, "memo" => "删除销售记录失败，请重试", "data"=>array());
         echo json_encode($result);
@@ -91,16 +107,31 @@ foreach($query_exist_detail as $k => $del){
     if($new_count > 0){
         array_push($new_detail, $del[0].'*'.$new_count);
     }
+    $refund_count += $extra[1];
 }
 $new_detail = implode('|', $new_detail);
+$new_total_count = $query_exist_data->count - $refund_count;
 if($new_detail){
-    $sql = "update cashier set detail='$new_detail' where (user_id=$user_id and order_id='$id')";
+    $sql = "update cashier set detail='$new_detail',count=$new_total_count where (user_id=$user_id and order_id='$id')";
     $data = $db->query($sql);
     if($data){
-        $last_data = $db->queryUniqueObject("select * from cashier where (user_id=$user_id and order_id='$id')");
         $result = array("bizCode" => 1, "memo" => "退货成功", "data"=>array('sold'=>true));
-        echo json_encode($result);
-        exit;
+        $query_kc_sql = "select p_count from `products` where (`user_id`=$user_id and `p_id` = '$p_id')";
+        $kc_data = $db->queryObject($query_kc_sql);
+        if(!$kc_data){
+            echo json_encode(array("bizCode"=>1, "memo" => "退货成功，但是更新仓库失败", "data"=>array()));
+            exit;
+        }else{
+            $new_warehouse_count = $kc_data -> p_count + $refund_count;
+            $update_kc_sql = "update `products` set `p_count` = $new_warehouse_count where (`user_id`=$user_id and `p_id` = '$p_id')";
+            $updated_kc_result = $db->query($update_kc_sql);
+            if($updated_kc_result){
+                echo json_encode(array("bizCode"=>1, "memo" => "退货完成并且更新商品库存成功", "data"=>array()));
+                exit;
+            }
+            echo json_encode($result);
+            exit;
+        }
     }
 }else{
     $result = array("bizCode" => 0, "memo" => "重新计算销售记录时发生异常，请重试", "data"=>array());
