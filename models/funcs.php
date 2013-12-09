@@ -46,8 +46,8 @@ function destroySession($name)
             unset($_SESSION[$name]);
         //}
 	}
-    setcookie("rib_user_name", NULL);
-    setcookie("rib_user_pw", NULL);
+    setcookie("rib_user_name", NULL, time()-3600*24, '/');
+    setcookie("rib_user_pw", NULL, time()-3600*24, '/');
 }
 
 //Generate a unique code
@@ -1200,8 +1200,8 @@ function logining($userdetails){
     $loggedInUser->updateLastSignIn();
     $_SESSION["userCakeUser"] = $loggedInUser;
     $time = time()+3600*24;
-    setcookie("rib_user_name", $loggedInUser->username, $time);
-    setcookie("rib_user_pw", $loggedInUser->hash_pw, $time);
+    setcookie("rib_user_name", $loggedInUser->username, $time, '/');
+    setcookie("rib_user_pw", $loggedInUser->hash_pw, $time, '/');
     $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 
     return $loggedInUser;
