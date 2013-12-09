@@ -74,6 +74,7 @@
           $query_isExist = $db->queryUniqueObject($query_isExist_sql);
           if($query_isExist){
               $errors[] = '商品名称重复';
+              $p_name = '';
           }else if($pic){
               $attachment_name = md5($date) . '_' . str_replace(' ', '', $pic["name"]);
 
@@ -180,8 +181,7 @@
         </div>
 
         <div class="input-skin flexBox typesContainer">
-            <p>
-                分类：
+            <p>分类：
                 <?php
                 if(isset($p_types) && $p_types){
                     echo "<input type=\"hidden\" value=\"$p_types\" id=\"J-types-hide\" name=\"types\"/>";

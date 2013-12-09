@@ -110,26 +110,25 @@ require_once("models/header.php");
             <div class="input-skin first-child">
                 <?php if(isset($data) && $data->p_id): ?>
                     <input id="id" name="id" type="hidden" value="<?php echo $data->p_id; ?>">
-                    <input autocapitalize="off" id="name" name="name" type="text" value="<?php echo $data->p_name; ?>">
+                    <input autocapitalize="off" id="name" name="name" type="text" value="<?php echo $data->p_name; ?>" placeholder="商品名称">
                 <?php endif; ?>
             </div>
 
             <div class="input-skin">
                 <?php if(isset($data) && $data->p_id): ?>
-                    <input autocapitalize="off" id="price" name="price" type="number" value="<?php echo $data->p_price; ?>">
+                    <input autocapitalize="off" id="price" name="price" type="number" value="<?php echo $data->p_price; ?>" placeholder="商品单价">
                 <?php endif; ?>
             </div>
 
             <div class="input-skin flexBox">
                 <?php if(isset($data) && $data->p_id): ?>
                     <input autocapitalize="off" id="count" name="count" type="tel" class="box" placeholder="本次采购数量" />
-                    <p class="box">当前库存为：<small class="kc"><?php echo $data->p_count; ?></small>个</p>
+                    <p class="box"><strong>当前库存为：<small class="kc"><?php echo $data->p_count; ?></small>个</strong></p>
                 <?php endif; ?>
             </div>
 
             <div class="input-skin flexBox typesContainer">
-                <p>
-                    分类：
+                <p>分类：
                     <?php if(isset($data) && $data->p_id): ?>
                         <input type="hidden" id="J-types-hide" name="type" value="<?php echo $data->p_type; ?>" />
                     <?php endif; ?>

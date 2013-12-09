@@ -38,6 +38,8 @@
             success: function (data){
                 if(data.data && data.data.user && data.data.user.user_id){
                     location.href = "cashier.html";
+                }else{
+                    $('.touchStatusBtn').attr("href", "login.html");
                 }
             }
         });

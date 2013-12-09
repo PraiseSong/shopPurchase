@@ -58,20 +58,22 @@ define(function (require, exports, module){
 
     //在standalone模式下，保持链接不外跳
     if(navigator.standalone){
-        $('a').on("click",
-            function( e ){
-                e.preventDefault();
-                var href = $( e.currentTarget ).attr( "href" );
-                if(!href){
-                    return false;
+        setInterval(function (){
+            $('a').unbind("click.standalone").bind("click.standalone",
+                function( e ){
+                    e.preventDefault();
+                    var href = $( e.currentTarget ).attr( "href" );
+                    if(!href){
+                        return false;
+                    }
+                    if($.trim(href) && href === "javascript:void(0)"){
+                        return false;
+                    }else if($.trim(href)){
+                        location.href = href;
+                    }
                 }
-                if($.trim(href) && href === "javascript:void(0)"){
-                    return false;
-                }else if($.trim(href)){
-                    location.href = href;
-                }
-            }
-        );
+            );
+        }, 500);
     }
 
     Routing.init();
@@ -80,8 +82,9 @@ define(function (require, exports, module){
         $.each(backs, function (i, back){
             if(!$(back).attr("data-norouting")){
                 if(routingBack = Routing.getBackPage()){
-                    $(back).attr("href", routingBack);
-                }else if(history.length <= 1){
+                    //$(back).attr("href", routingBack);
+                }
+                if(history.length <= 1){
                     $(back).attr("href", "javascript:window.open('','_self').close()");
                 }else{
                     $(back).on('click', function (e){

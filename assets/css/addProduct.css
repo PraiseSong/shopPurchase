@@ -11,9 +11,6 @@
 .form-default .flexBox{
     line-height: 44px;
 }
-.typesBox{
-    margin-left: 10px;
-}
 .form-default .flexBox p{
     padding-left: 10px;
 }
@@ -31,7 +28,7 @@
 }
 #J-photoPreview{
     -webkit-box-flex: 3;
-    padding-left: 10px;
+    padding: 5px 0 5px 10px;
 }
 .J-takePhotoBox{
     width: 50px;
