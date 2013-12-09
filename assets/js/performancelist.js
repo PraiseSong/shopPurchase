@@ -92,9 +92,10 @@ define(function (require, exports, module){
                         }else if(data.data.products && data.data.products.length === 0){
                             $('.tip').show().css({
                                 color: "#f50"
-                            }).html("没有相关记录");
-                            queryBtn.bind('click', queryPerf);
-                            return;
+                            }).html("没有销售记录");
+                            data.yye = 0;
+                            data.cb = 0;
+                            data.zj = 0;
                         }else{
                             $('.tip').hide();
                         }
