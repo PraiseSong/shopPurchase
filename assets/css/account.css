@@ -26,3 +26,6 @@
 .email{
     word-break: break-all;
 }
+.btn{
+    width: auto;
+}

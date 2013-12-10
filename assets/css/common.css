@@ -137,6 +137,8 @@ a:hover{
     font-size: 20px;
     border: none;
     cursor: pointer;
+}
+input.btn{
     -webkit-appearance: button;
 }
 .btn:hover{
@@ -527,6 +529,7 @@ a:hover{
 }
 .shortFullMenu .bd a{
     color: #000;
+    display: block;
 }
 .shortMenu .mainMenu .lt,
 .shortMenu .mainMenu .rt,
