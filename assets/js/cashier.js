@@ -42,23 +42,6 @@ define(function (require, exports, module){
     $('#J-requestMoreBtn').on("click", function (){
         queryProducts($(this));
     });
-    setTimeout(function (){
-        var type = require("types.js");
-        type.query(function (data){
-            if(data.bizCode === 1 && data.data && data.data.types.length >= 1){
-                var options = '<option value="">商品分类</option>';
-                $.each(data.data.types, function (i, type){
-                    options += '<option value="'+type.id+'">'+type.name+'</option>';
-                });
-                $('#J-parentTypes').html(options);
-                $('#J-parentTypes').unbind().bind("change", function (){
-                    if($('#J-parentTypes').val()){
-                        resetQueryProducts();
-                    }
-                });
-            }
-        });
-    }, 1000);
     $('#J-cashierBtn').on("click", selling);
     $('#J-zj a').unbind().bind("click", function (){
         Rent.add(function (data){
@@ -453,7 +436,10 @@ define(function (require, exports, module){
                     if(data.bizCode === 0){
                         return;
                     }else if(data.data.products && data.data.products.length === 0){
-                        return;// alert("没有获取到今日的销售报表");
+                        data.yye = 0;
+                        data.cb = 0;
+                        data.zj = 0;
+                        data.lr = 0;
                     }
                     $('#J-tradeCount').html(data.data.products.length);
                     Rent.getRange(date, date, function (rentData){
@@ -465,10 +451,8 @@ define(function (require, exports, module){
 
                         data.lr = data.yye - data.cb - data.zj;
                         updatePerf(data);
+                        getTypes();
                     });
-                },
-                error: function (){
-                    //alert("获取今日报表数据时发生异常！请重试");
                 }
             }
         });
@@ -489,6 +473,23 @@ define(function (require, exports, module){
         $('#J-prices input[type=number]').val('');
         $('#J-prices select').html('<option value="0">0</option>');
         $('#J-cashierProductPreview').empty().attr('data-id', '');
+    }
+    function getTypes(){
+        var type = require("types.js");
+        type.query(function (data){
+            if(data.bizCode === 1 && data.data && data.data.types.length >= 1){
+                var options = '<option value="">商品分类</option>';
+                $.each(data.data.types, function (i, type){
+                    options += '<option value="'+type.id+'">'+type.name+'</option>';
+                });
+                $('#J-parentTypes').html(options);
+                $('#J-parentTypes').unbind().bind("change", function (){
+                    if($('#J-parentTypes').val()){
+                        resetQueryProducts();
+                    }
+                });
+            }
+        });
     }
 
     setTimeout(function (){
