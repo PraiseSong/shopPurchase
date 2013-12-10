@@ -94,6 +94,7 @@ if(!empty($_POST))
                 //This function will create the new hash and update the hash_pw property.
                 $loggedInUser->updatePassword($password_new);
                 $successes[] = lang("ACCOUNT_PASSWORD_UPDATED");
+                $password_successed = true;
             }
         }
     }
@@ -149,3 +150,11 @@ echo "
 </html>";
 
 ?>
+<?php
+  if(isset($password_successed)):
+?>
+<script>
+    alert("登录密码已更新，请重新登录");
+    location.href = "logout.php";
+</script>
+<?php endif; ?>
