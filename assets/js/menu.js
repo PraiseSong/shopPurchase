@@ -24,6 +24,9 @@ define(function (require, exports, module){
                 '<div class="l">'+
                 '<a href="security_settings.php" target="_blank"><img src="assets/imgs/lock.png" alt="安全设置"/>安全设置</a>'+
                 '</div>'+
+                '<div class="r">'+
+                '<a href="user_settings.php" target="_blank"><img src="assets/imgs/settings.png" alt="用户设置"/>用户设置</a>'+
+                '</div>'+
                 '<div class="c"></div>'+
                 '</div>'+
                 '</div>';
