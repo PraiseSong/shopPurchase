@@ -36,7 +36,9 @@ if(!empty($_POST))
 	if(minMaxRange(5,25,$displayname))
 	{
 		$errors[] = lang("ACCOUNT_DISPLAY_CHAR_LIMIT",array(5,25));
-	}
+	}else if(displayNameExists($displayname)){
+        $errors[] = lang("ACCOUNT_DISPLAYNAME_IN_USE");
+    }
 	if(minMaxRange(8,50,$password) && minMaxRange(8,50,$confirm_pass))
 	{
 		$errors[] = lang("ACCOUNT_PASS_CHAR_LIMIT",array(8,50));

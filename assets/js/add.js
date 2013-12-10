@@ -54,15 +54,19 @@ define(function (require, exports, module){
     var prev = $('#J-photoPreview');
     function readURL(input) {
         if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                if(e.target.result.indexOf("data:image") < 0){
-                    return alert("您上传的可能不是图片！");
+            if(window.FileReader){
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    if(e.target.result.indexOf("data:image") < 0){
+                        return alert("您上传的可能不是图片！");
+                    }
+                    prev.html('<img src="'+e.target.result+'">');
                 }
-                prev.html('<img src="'+e.target.result+'">');
-            }
 
-            reader.readAsDataURL(input.files[0]);
+                reader.readAsDataURL(input.files[0]);
+            }else{
+                alert('对不起，您的设备不支持文件上传功能');
+            }
         }
     }
     var takePhoto = function (e){

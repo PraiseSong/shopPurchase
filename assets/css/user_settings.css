@@ -1,0 +1,16 @@
+.form-default input[type=submit]{
+    width: 90%;
+    margin: 10px auto;
+}
+.form-default .flexBox{
+    line-height: 44px;
+}
+.form-default p{
+    padding: 0 10px;
+    border-right: 1px solid #ddd;
+    width: 60px;
+}
+#error,
+#success{
+    margin-bottom: 10px;
+}
