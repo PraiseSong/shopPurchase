@@ -52,7 +52,6 @@ define(function (require, exports, module){
             }
         },
         error: function (data){
-            alert("登录时发生异常，请重试");
             $('#J-loginBtn').bind('click', requestLogin).html('登录');
         },
         requestLogin: requestLogin

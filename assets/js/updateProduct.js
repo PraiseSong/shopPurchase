@@ -8,7 +8,6 @@
 define(function (require, exports, module){
     var $ = require('zepto.min.js');
     var Pop = require('pop.js');
-    var IO = require("io.js");
     var type = require('types.js');
 
     function queryTypes(){

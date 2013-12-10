@@ -60,6 +60,13 @@ define(function (require, exports, module){
             }
         },
         error: function (data){
+            if(!IO.showError){
+                IO.showError = true;
+                alert("网络异常！请检查网络后，再重试");
+                setTimeout(function (){
+                    IO.showError = false;
+                }, 5000);
+            }
             this.cfg.on.error.call(this, data);
         },
         send: function (){

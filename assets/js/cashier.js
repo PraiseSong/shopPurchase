@@ -305,11 +305,11 @@ define(function (require, exports, module){
                     data: "count="+tradeData.count+"&detail="+tradeData.detail+"&props="+tradeData.props+"&id="+tradeData.id,
                     on: {
                         start: function (){
-                            Utils.loading.show("正在收银...");
+                            Utils.loading.show("正在记账...");
                         },
                         success: function (data){
                             if(data.bizCode === 1){
-                                Utils.loading.warn("收银成功");
+                                Utils.loading.warn("记账成功");
                                 updateCount(data.data);
                                 getTodayPerf();
                                 setTimeout(function (){
@@ -324,7 +324,7 @@ define(function (require, exports, module){
                             }
                         },
                         error: function (){
-                            Utils.loading.error("收银发生异常，请重试");
+                            Utils.loading.error("记账发生异常，请重试");
                             setTimeout(function (){
                                 Utils.loading.hide();
                             }, 3000);

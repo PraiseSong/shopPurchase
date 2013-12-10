@@ -25,7 +25,7 @@ define(function (require, exports, module){
                 '<a href="cashier.php"><img src="static/imgs/home-48.png" alt="主页"/>主页</a>'+
                 '</div>'+
                 '<div class="l">'+
-                '<a href="cashier.php"><img src="static/imgs/cashier-48.png" alt="收银台"/>收银台</a>'+
+                '<a href="cashier.php"><img src="static/imgs/cashier-48.png" alt="记账台"/>记账台</a>'+
                 '</div>'+
                 '<div class="c"></div>'+
                 '</div>'+

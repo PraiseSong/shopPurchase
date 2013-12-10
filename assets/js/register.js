@@ -112,7 +112,6 @@ define(function (require, exports, module){
             }
         },
         error: function (data){
-            alert("注册时发生异常，请重试");
             $('#J-registerBtn').bind('click', requestRegister).html('确认');
         },
         requestRegister: requestRegister

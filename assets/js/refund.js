@@ -72,9 +72,6 @@ define(function (require, exports, module){
                 on: {
                     success: function (data){
                         callback.call(callback, data);
-                    },
-                    error: function (){
-                        alert("退货过程中发生异常，请重试")
                     }
                 }
             }).send();

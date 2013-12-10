@@ -17,7 +17,6 @@ define(function (require, exports, module){
                 }
             },
             error: function (){
-                alert("获取用户信息时发生异常，请重新登录");
                 location.href = "login.html";
             }
         }

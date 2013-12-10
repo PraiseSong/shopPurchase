@@ -19,9 +19,6 @@ define(function (require, exports, module){
             on: {
                 success: function (data){
                     callback && callback.call(callback, data);
-                },
-                error: function (){
-                    alert('添加分类时发生异常，请重试');
                 }
             }
         }).send();
@@ -35,9 +32,6 @@ define(function (require, exports, module){
                 success: function (data){
                     callback && callback.call(callback, data);
                     return false;
-                },
-                error: function (){
-                    alert('查询分类时发生异常，请重试');
                 }
             }
         }).send();

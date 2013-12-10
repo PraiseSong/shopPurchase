@@ -8,7 +8,6 @@
 define(function (require, exports, module){
     var $ = require('zepto.min.js');
     var Pop = require('pop.js');
-    var IO = require("io.js");
     var type = require('types.js');
 
     function queryTypes(){
@@ -65,7 +64,7 @@ define(function (require, exports, module){
 
                 reader.readAsDataURL(input.files[0]);
             }else{
-                alert('对不起，您的设备不支持文件上传功能');
+                alert('对不起，您的设备不支持高级上传功能');
             }
         }
     }
