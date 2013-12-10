@@ -12,18 +12,18 @@ if(!isUserLoggedIn()) { header("Location: login.html"); die(); }
 
 if(!empty($_POST))
 {
-	$errors = array();
-	$successes = array();
+    $errors = array();
+    $successes = array();
 
     $displayname = trim($_POST['displayname']);
     $email = trim($_POST['email']);
 
-	if($displayname)
-	{
-		if($displayname === $loggedInUser->displayname)
-		{
-			$errors[] = lang("ACCOUNT_DISPLAY_NOTHING");
-		}else if(minMaxRange(5,25,$displayname))
+    if($displayname)
+    {
+        if($displayname === $loggedInUser->displayname)
+        {
+            $errors[] = lang("ACCOUNT_DISPLAY_NOTHING");
+        }else if(minMaxRange(5,25,$displayname))
         {
             $errors[] = lang("ACCOUNT_DISPLAY_CHAR_LIMIT",array(5,25));
         }else if(displayNameExists($displayname)){
@@ -33,7 +33,7 @@ if(!empty($_POST))
             $origin_displayname = $loggedInUser->displayname;
             $successes[] = lang("ACCOUNT_DISPLAYNAME_UPDATED", array($displayname));
         }
-	}else{
+    }else{
         $errors[] = lang("ACCOUNT_DISPLAY_CHAR_LIMIT",array(5,25));
     }
 
@@ -71,36 +71,6 @@ if(!empty($_POST))
 }
 
 require_once("models/header.php");
-//echo "
-//<body>
-//<link rel=\"stylesheet\" href=\"static/css/user_settings.css\" />
-//<div id='wrapper'>
-//<div id='content'>
-//<div id='portal'>";
-//include("portal.php");
-//
-//echo "
-//</div>
-//<div id='main'>";
-//
-//echo resultBlock($errors,$successes);
-//
-//echo "
-//<div id='regbox'>
-//<form name='updateAccount' action='".$_SERVER['PHP_SELF']."' method='post'>
-//<p>
-//<label>小店名:</label>
-//<input type='text' name='displayname' value=\"$origin_displayname\" />
-//</p>
-//<p>
-//<input type='submit' value='更新' class='submit' />
-//</p>
-//</form>
-//</div>
-//</div>
-//</div>
-//</body>
-//</html>";
 ?>
 <body>
 <link rel="stylesheet" href="assets/css/user_settings.css" />
@@ -110,7 +80,7 @@ require_once("models/header.php");
 </header>
 <div class="container">
     <?php
-      resultBlock($errors, $successes);
+    resultBlock($errors, $successes);
     ?>
     <form class="form-default" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" novalidate="novalidate">
         <div class="input-skin first-child flexBox">
