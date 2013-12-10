@@ -194,7 +194,7 @@ echo "
 <form name='newLostPass' action='".$_SERVER['PHP_SELF']."' method='post'>
 <p>
 <label>用户名:</label>
-<input type='text' name='username' value='$username' />
+<input type='text' name='username' value='' />
 </p>
 <p>    
 <label>注册时的邮箱:</label>
