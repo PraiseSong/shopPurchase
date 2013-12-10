@@ -79,7 +79,7 @@ if(!empty($_POST))
             $result = array("bizCode" => 0, "memo" => "注册失败", "data"=>array("msg"=>$errors));
             echo json_encode($result);
         }else{
-            $result = array("bizCode" => 1, "memo" => "注册成功", "data"=>array("user"=>$loggedInUser, "redirect" => "login.html"));
+            $result = array("bizCode" => 1, "memo" => "注册成功", "data"=>array("redirect" => "login.html"));
             echo json_encode($result);
             exit;
         }
