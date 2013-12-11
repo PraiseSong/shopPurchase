@@ -42,7 +42,11 @@ define(function (require, exports, module){
     $('#J-requestMoreBtn').on("click", function (){
         queryProducts($(this));
     });
-    $('#J-cashierBtn').on("click", selling);
+    $('#J-cashierBtn').on("click", function (e){
+        e.preventDefault();
+        e.stopPropagation();
+        selling();
+    });
     $('#J-zj a').unbind().bind("click", function (){
         Rent.add(function (data){
             if(data.bizCode === 1 && data.data && data.data.rent){
