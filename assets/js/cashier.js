@@ -459,6 +459,7 @@ define(function (require, exports, module){
 
                         data.lr = data.yye - data.cb - data.zj;
                         updatePerf(data);
+                        getTypes();
                     });
                 }
             }
@@ -502,5 +503,4 @@ define(function (require, exports, module){
     setTimeout(function (){
         getTodayPerf();
     }, 2000);
-    getTypes();
 });

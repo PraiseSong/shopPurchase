@@ -35,7 +35,9 @@ define(function (require, exports, module){
             data: "action=query",
             on: {
                 success: function (data){
-                    sava2local(data);
+                    if(data.bizCode === 1 && data.data && data.data.types.length >= 1){
+                        sava2local(data);
+                    }
                     callback && callback.call(callback, data);
                     return false;
                 }
