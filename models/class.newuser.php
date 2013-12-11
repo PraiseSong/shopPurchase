@@ -14,6 +14,7 @@ class User
 	private $username;
 	private $displayname;
     private $from;
+    private $websiteName;
 	public $sql_failure = false;
 	public $mail_failure = false;
 	public $email_taken = false;
@@ -23,8 +24,10 @@ class User
 	public $success = NULL;
     public $registered_date;
 	
-	function __construct($user,$display,$pass,$email, $from)
+	function __construct($user,$display,$pass,$email, $from="")
 	{
+        $this->websiteName = "小店记账宝";
+
 		//Used for display only
 		$this->displayname = $display;
 		
@@ -33,8 +36,8 @@ class User
 		$this->clean_password = trim($pass);
 		$this->username = $user;
         $this->registered_date = date("Y-m-d H:i:s");
-        if(!isset($from)){
-            $from = $websiteName;
+        if(!$from){
+            $from = $this->websiteName;
         }
         $this -> from = $from;
 
@@ -79,7 +82,7 @@ class User
 				$mail = new userCakeMail();
 				
 				//Build the activation message
-				$activation_message = lang("ACCOUNT_ACTIVATION_MESSAGE",array($websiteName,$websiteUrl,$this->activation_token));
+				$activation_message = lang("ACCOUNT_ACTIVATION_MESSAGE",array($this->websiteName,$websiteUrl,$this->activation_token));
 				
 				//Define more if you want to build larger structures
 				$hooks = array(
