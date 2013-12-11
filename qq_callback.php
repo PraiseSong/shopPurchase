@@ -72,7 +72,7 @@ function request_register(){
     global $uinfo,$userdetails;
     $errors = array();
     $successes = array();
-    $user = new User($uinfo['nickname'],$uinfo['nickname']."的小店","","");
+    $user = new User($uinfo['nickname'],$uinfo['nickname']."的小店","","",'qq');
 
     //Checking this flag tells us whether there were any errors such as possible data duplication occured
     if(!$user->status)

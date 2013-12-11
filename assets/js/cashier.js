@@ -89,7 +89,7 @@ define(function (require, exports, module){
             options += '<option value="'+i+'" '+selected+'>'+i+'</option>';
         }
         var html = '<li class="flexBox">'+
-            '<input type="number" autocapitalize="off" class="box" />'+
+            '<input type="number" autocapitalize="off" class="box" placeholder="销售价格" />'+
             '<span>&Chi;</span>'+
             '<select class="box">'+
             options+
@@ -331,7 +331,7 @@ define(function (require, exports, module){
         }else if(getCount() > ($.trim($('#J-cashierProductPreview .J-count').html())*1)){
             alert("销售数量大于当前商品的库存！");
         }
-        if(pricesNode.length >= 1){
+        if(result && pricesNode.length >= 1){
             var totalCount = 0;
             $.each(pricesNode, function (i, pn){
                 var price = $.trim($(pn).find("input[type=number]").val())*1;
@@ -358,7 +358,11 @@ define(function (require, exports, module){
 
             if(result && (totalCount !== getCount())){
                 result = false;
-                alert("总销售量与"+pricesNode.length+"种价格的销售量不相等");
+                if(pricesNode.length > 1){
+                    alert("总销售量与"+pricesNode.length+"种价格的销售量不相等");
+                }else{
+                    alert("总销售量与销售价格对应的数量不匹配");
+                }
             }
             $.each(pricesNode, function (i, pn){
                 var price = $.trim($(pn).find("input[type=number]").val())*1;

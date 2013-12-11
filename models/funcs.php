@@ -337,6 +337,7 @@ function fetchUserDetails($username=NULL,$token=NULL, $id=NULL)
 		lost_password_request,
 		active,
 		title,
+		f,
 		sign_up_stamp,
 		last_sign_in_stamp
 		FROM ".$db_table_prefix."users
@@ -346,9 +347,9 @@ function fetchUserDetails($username=NULL,$token=NULL, $id=NULL)
 		$stmt->bind_param("s", $data);
 	
 	$stmt->execute();
-	$stmt->bind_result($id, $user, $display, $password, $email, $token, $activationRequest, $passwordRequest, $active, $title, $signUp, $signIn);
+	$stmt->bind_result($id, $user, $display, $password, $email, $token, $activationRequest, $passwordRequest, $active, $title, $from, $signUp, $signIn);
 	while ($stmt->fetch()){
-		$row = array('id' => $id, 'user_name' => $user, 'display_name' => $display, 'password' => $password, 'email' => $email, 'activation_token' => $token, 'last_activation_request' => $activationRequest, 'lost_password_request' => $passwordRequest, 'active' => $active, 'title' => $title, 'sign_up_stamp' => $signUp, 'last_sign_in_stamp' => $signIn);
+		$row = array('id' => $id, 'user_name' => $user, 'display_name' => $display, 'password' => $password, 'email' => $email, 'activation_token' => $token, 'last_activation_request' => $activationRequest, 'lost_password_request' => $passwordRequest, 'active' => $active, 'title' => $title, 'from' => $from, 'sign_up_stamp' => $signUp, 'last_sign_in_stamp' => $signIn);
 	}
 	$stmt->close();
 	return ($row);
@@ -1196,6 +1197,7 @@ function logining($userdetails){
     $loggedInUser->title = $userdetails["title"];
     $loggedInUser->displayname = $userdetails["display_name"];
     $loggedInUser->username = $userdetails["user_name"];
+    $loggedInUser->from = $userdetails["from"];
     //Update last sign in
     $loggedInUser->updateLastSignIn();
     $_SESSION["userCakeUser"] = $loggedInUser;

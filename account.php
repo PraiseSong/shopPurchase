@@ -15,7 +15,6 @@ echo "
 <div id='portal'>";
 
 include("portal.php");
-
 echo "
 </div>
 <div id='main'>

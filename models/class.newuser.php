@@ -13,6 +13,7 @@ class User
 	private $clean_password;
 	private $username;
 	private $displayname;
+    private $from;
 	public $sql_failure = false;
 	public $mail_failure = false;
 	public $email_taken = false;
@@ -22,7 +23,7 @@ class User
 	public $success = NULL;
     public $registered_date;
 	
-	function __construct($user,$display,$pass,$email)
+	function __construct($user,$display,$pass,$email, $from)
 	{
 		//Used for display only
 		$this->displayname = $display;
@@ -32,6 +33,10 @@ class User
 		$this->clean_password = trim($pass);
 		$this->username = $user;
         $this->registered_date = date("Y-m-d H:i:s");
+        if(!isset($from)){
+            $from = $websiteName;
+        }
+        $this -> from = $from;
 
 		if(usernameExists($this->username))
 		{
@@ -122,6 +127,7 @@ class User
 					lost_password_request, 
 					active,
 					title,
+					f,
 					sign_up_stamp,
 					last_sign_in_stamp,
 					registered_date
@@ -136,11 +142,17 @@ class User
 					'0',
 					?,
 					'New Member',
+					?,
 					'".time()."',
 					'0',
 					'$this->registered_date'
 					)");
-				$stmt->bind_param("sssssi", $this->username, $this->displayname, $secure_pass, $this->clean_email, $this->activation_token, $this->user_active);
+                if(!$stmt){
+                    echo $mysqli->error;
+                    echo "<br />";
+                    exit;
+                }
+				$stmt->bind_param("sssssis", $this->username, $this->displayname, $secure_pass, $this->clean_email, $this->activation_token, $this->user_active,$this->from);
 				$stmt->execute();
 				$inserted_id = $mysqli->insert_id;
 				$stmt->close();
