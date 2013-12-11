@@ -5,8 +5,7 @@ require_once("models/config.php");
 if (!securePage($_SERVER['PHP_SELF'])){die();}
 ?>
 <!DOCTYPE html>
-<!--<html manifest="cache.manifest">-->
-<html>
+<html manifest="cache.manifest">
 <head>
     <meta charset="utf-8" />
     <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
@@ -23,7 +22,10 @@ if (!securePage($_SERVER['PHP_SELF'])){die();}
     <script src="static/libs/sea.js"></script>
     <script type="text/javascript">
         seajs.config({
-            base: './static/js/'
+            base: './assets/js/',
+            map: [
+                //[".js", ".js?t=" + new Date().getTime()]
+            ]
         });
     </script>
 </head>

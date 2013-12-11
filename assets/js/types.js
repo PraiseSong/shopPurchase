@@ -25,16 +25,26 @@ define(function (require, exports, module){
     }
 
     function queryTypes(callback){
+        if(types = localStorage.getItem("types")){
+            types = JSON.parse(types);
+            callback && callback.call(callback, types);
+            return false;
+        }
         new IO({
             url: api,
             data: "action=query",
             on: {
                 success: function (data){
+                    sava2local(data);
                     callback && callback.call(callback, data);
                     return false;
                 }
             }
         }).send();
+    }
+
+    function sava2local(data){
+        localStorage.setItem("types", JSON.stringify(data));
     }
 
     return {

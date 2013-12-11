@@ -38,6 +38,7 @@ define(function (require, exports, module){
            type.add(prompt, function (data){console.log(data)
                if(data.bizCode === 1 && data.data && data.data.id){
                    $('#J-types-hide').val(data.data.id);
+                   localStorage.removeItem("types");
                    queryTypes();
                }else{
                    alert(data.memo);

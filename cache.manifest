@@ -1,39 +1,77 @@
 CACHE MANIFEST
 
-# VERSION 1.7
+# VERSION 1.3
 
 # 直接缓存的文件
 CACHE:
-index.php
-add.php
-operation.php
-templates/footer.php
-templates/header.php
-static/css/app.css
-static/css/reset.css
-static/imgs/ajax-loader.gif
-static/imgs/camera.png
-static/imgs/filter.png
-static/imgs/logo.png
-static/js/add.js
-static/js/cashier.js
-static/js/footer.js
-static/js/handlebars.js
-static/js/index.js
-static/js/operation.js
-static/js/productsGetter.js
-static/js/queryAllOperations.js
-static/js/rent.js
-static/js/types.js
-static/js/utils.js
-static/js/widgets.js
-static/js/zepto.min.js
-static/libs/sea.js
+account.html
+index.html
+performance.html
+cashier.html
+login.html
+register.html
+assets/css/account.css
+assets/css/editProduct.css
+assets/css/register.css
+assets/css/addProduct.css
+assets/css/login.css
+assets/css/reset.css
+assets/css/app.css
+assets/css/performance.css
+assets/css/security_settings.css
+assets/css/cashier.css
+assets/css/portal.css
+assets/css/user_settings.css
+assets/css/common.css
+assets/css/productlist.css
+assets/css/warehouse.css
+assets/js/account.js
+assets/js/performance.js
+assets/js/tooltip.js
+assets/js/add.js
+assets/js/performancelist.js
+assets/js/types.js
+assets/js/ajaxForm.js
+assets/js/pop.js
+assets/js/updateProduct.js
+assets/js/productlist.js
+assets/js/userAuth.js
+assets/js/cashier.js
+assets/js/footer.js
+assets/js/refund.js
+assets/js/utils.js
+assets/js/io.js
+assets/js/register.js
+assets/js/warehouse.js
+assets/js/login.js
+assets/js/rent.js
+assets/js/zepto.min.js
+assets/js/loginUI.js
+assets/js/routing.js
+assets/js/menu.js
+assets/js/template.js
+assets/imgs/avatar_default_100x100.png
+assets/imgs/logo.png
+assets/imgs/back-icon-black.png
+assets/imgs/money_bag.png
+assets/imgs/back-icon.png
+assets/imgs/plus.png
+assets/imgs/calendar.png
+assets/imgs/portal_logo.png
+assets/imgs/cashier-48.png
+assets/imgs/qq_logo.png
+assets/imgs/home-48.png
+assets/imgs/query.png
+assets/imgs/icon-down-black.png
+assets/imgs/settings.png
+assets/imgs/lock.png
+assets/imgs/small-personal.png
+assets/imgs/logo-skin.png
+assets/imgs/warehouse.png
+assets/libs/sea.js
 
 # 需要在时间在线的文件
 NETWORK:
-/wp-admin/
 
 # 替代方案
 FALLBACK:
-/ajax/ ajax.html

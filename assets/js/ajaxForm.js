@@ -48,7 +48,10 @@ define(function (require, exports, module){
                     data: data.join("&"),
                     type: this.cfg.node.attr("method"),
                     success: success,
-                    error: error
+                    error: function (data){
+                        alert("网络异常！请检查网络后，再重试");
+                        error(data);
+                    }
                 });
             }else{
                 this.cfg.showErrorMsg.call(this, this.errorMsg);
