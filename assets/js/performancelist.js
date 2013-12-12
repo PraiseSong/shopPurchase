@@ -106,7 +106,6 @@ define(function (require, exports, module){
                                     rents[rent.date.split(' ')[0]] = rent.price*1;
                                 });
                             }
-
                             data.lr = data.yye - data.cb - data.zj;
                             updatePage(data);
                         });
@@ -147,6 +146,9 @@ define(function (require, exports, module){
             var dateTypeHtml = '';
             var lrs = [];
             for(k in data.dateType){
+                if(!rents[k]){
+                    rents[k] = 0;
+                }
                 data.dateType[k]['lr'] -= rents[k];
                 lrs.push(data.dateType[k]['lr']);
             }

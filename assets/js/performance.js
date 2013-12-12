@@ -11,28 +11,6 @@ define(function (require, exports, module){
 
     var api = 'controler/performance.php';
 
-    function success(data){
-        var cb = 0;//成本
-        var lr = 0;//利润
-        var yye = 0;//营业额
-
-        $.each(data, function (i, o){
-            var price = o.p_price * 1;
-            var detail = o.detail.split('|');
-            $.each(detail, function (j, d){
-                if(d){
-                    var de = d.split('*');
-                    var selledPrice = de[0];
-                    var selledCount = de[1];
-                    yye += selledPrice * selledCount;
-                    cb += price * selledCount;
-                }
-            });
-        });
-
-        return {cb: cb, lr: lr, yye: yye};
-    }
-
     return {
         io: function (cfg){
             var defaultCfg = {
@@ -64,11 +42,16 @@ define(function (require, exports, module){
                                 var detail = o.detail.split('|');
                                 var type = o.type;
                                 var date = o.date.split(' ');
+
                                 !dateType[date[0]] && (dateType[date[0]] = []);
                                 dateType[date[0]]['push'](o);
+
                                 !dateType[date[0]]['lr'] && (dateType[date[0]]['lr'] = 0);
                                 !types[type] && (types[type] = []);
-                                types[type]['push'](o);
+
+                                for(var k = 0; k < (o.p_count*1);k++){
+                                    types[type]['push'](o);
+                                }
                                 $.each(detail, function (j, d){
                                     if(d){
                                         var de = d.split('*');

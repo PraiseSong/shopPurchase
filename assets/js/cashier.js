@@ -313,7 +313,7 @@ define(function (require, exports, module){
                                 getTodayPerf();
                                 setTimeout(function (){
                                     Utils.loading.hide();
-                                }, 3000);
+                                }, 1500);
                                 resetCashier();
                             }else{
                                 Utils.loading.error(data.memo);
