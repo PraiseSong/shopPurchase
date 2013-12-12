@@ -61,7 +61,7 @@ function request_login($userdetails){
     $loggedInUser = logining($userdetails);
 
     if(!$loggedInUser->email || !$loggedInUser->displayname){
-        header("Location: user_settings.php");
+        header("Location: user_settings.php?t=".time());
     }else{
         header("Location: cashier.html");
     }
