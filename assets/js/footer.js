@@ -87,8 +87,13 @@ define(function (require, exports, module){
                 if(history.length <= 1){
                     //$(back).attr("href", "javascript:window.open('','_self').close()");
                     //if(navigator.standalone){
-                        $(back).attr("href", "account.html");
+                    //    $(back).attr("href", "account.html");
                     //}
+                    if(Routing.getBackPage()){
+                        $(back).attr("href", Routing.getBackPage());
+                    }else{
+                        $(back).attr("href", "account.html");
+                    }
                 }else{
                     $(back).on('click', function (e){
                         e.preventDefault();
