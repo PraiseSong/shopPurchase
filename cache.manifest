@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# VERSION 1.3
+# VERSION 1.4
 
 # 直接缓存的文件
 CACHE:
@@ -70,8 +70,9 @@ assets/imgs/logo-skin.png
 assets/imgs/warehouse.png
 assets/libs/sea.js
 
-# 需要在时间在线的文件
+# 需要在线的文件
 NETWORK:
+*
 
 # 替代方案
 FALLBACK:
