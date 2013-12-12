@@ -10,7 +10,19 @@ define(function (require, exports, module){
     var IO = require("io.js");
     var Utils = require("utils.js");
     var Rent = require("rent.js");
-    require("userAuth.js");
+
+    $.ajax({
+        url: "controler/userAuth.php",
+        dataType: "json",
+        type: "post",
+        success: function (data){
+            if(data.data && data.data.user && data.data.user.user_id){
+                getTodayPerf();
+            }else{
+                location.href = "login.html";
+            }
+        }
+    });
 
     var globallr = 0;
 
@@ -499,8 +511,4 @@ define(function (require, exports, module){
             }
         });
     }
-
-    setTimeout(function (){
-        getTodayPerf();
-    }, 2000);
 });
