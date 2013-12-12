@@ -522,6 +522,21 @@ input.btn{
     cursor: pointer;
     -webkit-box-shadow: 0 0 8px #606060;
 }
+.shortFullMenu .bd .close{
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    -webkit-border-radius: 30px;
+    text-align: center;
+    line-height: 30px;
+    background: #f50;
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+}
 .shortMenu .mainMenu{
     overflow: hidden;
     background: #fff;

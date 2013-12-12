@@ -15,6 +15,7 @@ define(function (require, exports, module){
                 '</div>'+
                 '<div class="shortFullMenu">'+
                 '<div class="bd">'+
+                '<span class="close">X</span>'+
                 '<div class="t">'+
                 '<a href="cashier.html"><img src="assets/imgs/cashier-48.png" alt="记账台"/>记账台</a>'+
                 '</div>'+
@@ -22,10 +23,10 @@ define(function (require, exports, module){
                 '<a href="account.html"><img src="assets/imgs/home-48.png" alt="主页"/>我的小店</a>'+
                 '</div>'+
                 '<div class="l">'+
-                '<a href="security_settings.php" target="_blank"><img src="assets/imgs/lock.png" alt="安全设置"/>安全设置</a>'+
+                '<a href="security_settings.php?v='+new Date().getTime()+'" target="_blank"><img src="assets/imgs/lock.png" alt="安全设置"/>安全设置</a>'+
                 '</div>'+
                 '<div class="r">'+
-                '<a href="user_settings.php" target="_blank"><img src="assets/imgs/settings.png" alt="用户设置"/>用户设置</a>'+
+                '<a href="user_settings.php?v='+new Date().getTime()+'" target="_blank"><img src="assets/imgs/settings.png" alt="用户设置"/>用户设置</a>'+
                 '</div>'+
                 '<div class="c"></div>'+
                 '</div>'+
@@ -35,6 +36,36 @@ define(function (require, exports, module){
     var fullMenu = $('.shortFullMenu');
     fullMenu.bind('click', function (e){
         e.stopPropagation();
+    });
+    var menu = $('#J-shortMenu').get(0);
+    var startX = 0;
+    var startY = 0;
+    var endX = 0;
+    var endY = 0;
+    menu.addEventListener("touchstart", function (e){
+        //e.preventDefault();
+        var target = e.targetTouches[0];
+        if(target){
+            startX = target.clientX;
+            startY = target.clientY;
+        }
+    });
+    menu.addEventListener("touchmove", function (e){
+        e.preventDefault();
+        var target = e.changedTouches[0];
+        if(target){
+            updateMenuPos(target.clientX-startX, target.clientY-startY);
+            startX = target.clientX;
+            startY = target.clientY;
+        }
+    });
+    menu.addEventListener("touchend", function (e){
+        //e.preventDefault();
+        var target = e.changedTouches[0];
+        if(target){
+            startX = target.clientX;
+            startY = target.clientY;
+        }
     });
     $('#J-shortMenu .mainMenu').unbind().bind('click', function (e){
         e.preventDefault();
@@ -49,9 +80,33 @@ define(function (require, exports, module){
         }
         return;
     });
-    $('body').bind('click', function (e){
+    $('body').bind('click', hide);
+    fullMenu.find('.close').bind('click', hide);
+    function updateMenuPos(x, y){
+        var winW = $(window).width();
+        var winH = $(window).height();
+        var menuW = parseInt($(menu).css("width"), 10);
+        var menuH = parseInt($(menu).css("height"), 10);
+        var origin_x = parseInt($(menu).offset().left, 10);
+        var origin_y = parseInt($(menu).offset().top, 10);
+        x += origin_x;
+        y += origin_y;
+        if((x > (winW-menuW)) || (y > (winH -menuH))){
+            return;
+        }
+        if(x < 0 || y < 0){
+            return;
+        }
+        $(menu).css({
+            "position": "absolute",
+            left: x,
+            top: y,
+            bottom: 'auto'
+        });
+    }
+    function hide(){
         if(fullMenu.css('display') === 'block'){
             fullMenu.css('display', 'none');
         }
-    });
+    }
 });
