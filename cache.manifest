@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# VERSION 4.2
+# VERSION 4.3
 
 # 直接缓存的文件
 CACHE:
@@ -50,6 +50,7 @@ assets/js/loginUI.js
 assets/js/routing.js
 assets/js/menu.js
 assets/js/template.js
+assets/js/cleaner.js
 assets/imgs/avatar_default_100x100.png
 assets/imgs/logo.png
 assets/imgs/back-icon-black.png

@@ -6,6 +6,8 @@ define(function (require, exports, module){
     var Tooltip = require('tooltip.js');
     var AjaxForm = require('ajaxForm.js');
 
+    require("cleaner.js");
+
     new Tooltip({
         node: $('#J-username')
     });
