@@ -29,7 +29,7 @@
 //  }
 
   if(!empty($_POST)){
-      include_once('libraries/imageResize.php');
+      //include_once('libraries/imageResize.php');
 
       $user_id = null;
       if(isset($loggedInUser) && $loggedInUser->user_id){
@@ -53,8 +53,9 @@
       $from = @$_POST['from'];
       $props = @$_POST['properties'];
       $p_types = @$_POST['types'];
-      $pic = @$_FILES['pic'];
-      $pic_link = false;
+      //$pic = @$_FILES['pic'];
+      $pic = @$_POST['pic'];
+      //$pic_link = false;
       $date = date("Y-m-d H:i:s");
       $saved_img_to_base64_error_msg = null;
       $writed_product = false;
@@ -76,29 +77,29 @@
               $errors[] = '商品名称重复';
               $p_name = '';
           }else if($pic){
-              $attachment_name = md5($date) . '_' . str_replace(' ', '', $pic["name"]);
-
-              if ($pic["error"] > 0){
-                  $errors[] = '商品图片上传出现错误';
-              }else{
-                  if (file_exists("$attachments_dir/" . $attachment_name)){
-                      $errors[] = '商品图片已存在';
-                  }else{
-                      if(move_uploaded_file($pic["tmp_name"], "$attachments_dir/" . $attachment_name)){
-                          $pic_link = "$attachments_dir/" . $attachment_name;
-                          $pic_thumb_link = "$attachments_dir/thumb_" . $attachment_name;
-                          $saved_thumb = img2thumb($pic_link, $pic_thumb_link, 100, 100, 0, 0);
-                      }else{
-                          $errors[] = '商品图片保存失败';
-                      }
-                  }
-              }
+//              $attachment_name = md5($date) . '_' . str_replace(' ', '', $pic["name"]);
+//
+//              if ($pic["error"] > 0){
+//                  $errors[] = '商品图片上传出现错误';
+//              }else{
+//                  if (file_exists("$attachments_dir/" . $attachment_name)){
+//                      $errors[] = '商品图片已存在';
+//                  }else{
+//                      if(move_uploaded_file($pic["tmp_name"], "$attachments_dir/" . $attachment_name)){
+//                          $pic_link = "$attachments_dir/" . $attachment_name;
+//                          $pic_thumb_link = "$attachments_dir/thumb_" . $attachment_name;
+//                          $saved_thumb = img2thumb($pic_link, $pic_thumb_link, 100, 100, 0, 0);
+//                      }else{
+//                          $errors[] = '商品图片保存失败';
+//                      }
+//                  }
+//              }
           }else{
               $errors[] = '请上传商品图片';
           }
-          if($pic_link){
+          //if($pic_link){
               $sql = "insert into products(`user_id`, `p_name`, `p_count`, `p_from`, `p_man`, `p_price`, `p_pic`, `p_props`, `p_date`, ".
-                  "`p_type`) values ($user_id, '$p_name', '$p_count', '$from', '$man', '$p_price', '$pic_thumb_link', '$props', '$date', ".
+                  "`p_type`) values ($user_id, '$p_name', '$p_count', '$from', '$man', '$p_price', '$pic', '$props', '$date', ".
                   "'$p_types')";
               $writed_product = $db->query($sql);
               if($writed_product){
@@ -127,7 +128,7 @@
 //        }else{
 //            $saved_img_to_base64_error_msg = '商品图片缓存失败';
 //        }
-          }
+        //}
       }
 
       $db->close();
@@ -252,7 +253,7 @@
 
         <div class="input-skin flexBox attachmentBox">
             <div class="J-takePhotoBox box">
-                <input type="file" name="pic" id="J-takePhoto-btn"/>
+                <input type="file" id="J-takePhoto-btn"/>
                 <a href="javascript:void(0)" class="J-takePhoto-btn-skin" style="display: none;">
                     <?php
                       if ( $detect->isMobile() || $detect->isTablet()) {

@@ -54,20 +54,78 @@ define(function (require, exports, module){
     var prev = $('#J-photoPreview');
     function readURL(input) {
         if (input.files && input.files[0]) {
-            if(window.FileReader){
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    if(e.target.result.indexOf("data:image") < 0){
-                        return alert("您上传的可能不是图片！");
+            var type = input.files[0]['type'];
+            if(
+                    (/image\/jpeg/).test(type)
+                    ||
+                    (/image\/png/).test(type)
+                    ||
+                    (/image\/gif/).test(type)
+                    ||
+                    (/image\/jpg/).test(type)
+            ){
+                if(window.FileReader){
+                    var reader = new FileReader();
+                    reader.readAsArrayBuffer(input.files[0]);
+                    reader.onload = function (e) {
+                        var blob = new Blob([event.target.result]); // create blob...
+                        window.URL = window.URL || window.webkitURL;
+                        var blobURL = window.URL.createObjectURL(blob); // and get it's URL
+                        var image = new Image();
+                        image.src = blobURL;
+                        prev.empty();
+                        image.onload = function() {
+                            // have to wait till it's loaded
+                            var resized = resizeMe(image, type); // send it to canvas
+                            var newinput = document.createElement("input");
+                            newinput.type = 'hidden';
+                            newinput.name = 'pic';
+                            newinput.value = resized; // put result from canvas into new hidden input
+                            prev.append(newinput);
+                        }
                     }
-                    prev.html('<img src="'+e.target.result+'">');
+                }else{
+                    alert('对不起，您的设备不支持高级上传功能');
                 }
-
-                reader.readAsDataURL(input.files[0]);
             }else{
-                alert('对不起，您的设备不支持高级上传功能');
+                alert( ""+ input.files[0]['name'] +" 不是一个有效的图片文件" );
+                return false;
             }
         }
+    }
+    function resizeMe(img, type) {
+        var max_width = 300;
+        var max_height = 300;
+        var canvas = document.createElement('canvas');
+
+        var width = img.width;
+        var height = img.height;
+
+        // calculate the width and height, constraining the proportions
+        if (width > height) {
+            if (width > max_width) {
+                //height *= max_width / width;
+                height = Math.round(height *= max_width / width);
+                width = max_width;
+            }
+        } else {
+            if (height > max_height) {
+                //width *= max_height / height;
+                width = Math.round(width *= max_height / height);
+                height = max_height;
+            }
+        }
+
+        // resize the canvas and draw the image data into it
+        canvas.width = width;
+        canvas.height = height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        prev.append(canvas); // do the actual resized preview
+
+        return canvas.toDataURL(type, .8); // get the data from canvas as 70% JPG (can be also PNG, etc.)
+
     }
     var takePhoto = function (e){
         e.preventDefault();

@@ -92,7 +92,7 @@ define(function (require, exports, module){
                     if(Routing.getBackPage()){
                         $(back).attr("href", Routing.getBackPage());
                     }else{
-                        $(back).attr("href", "account.html");
+                        $(back).attr("href", "cashier.html");
                     }
                 }else{
                     $(back).on('click', function (e){

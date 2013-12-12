@@ -23,7 +23,8 @@
 .form-default .typesContainer{
     height: auto;
 }
-#J-photoPreview img{
+#J-photoPreview img,
+#J-photoPreview canvas{
     max-width: 150px;
 }
 #J-photoPreview{
