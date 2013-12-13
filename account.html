@@ -43,7 +43,7 @@
     </div>
     <div class="container">
         <nav class="menu">
-            <a href="performance.html" target="_blank">
+            <a href="performance.html?d=3" target="_blank">
                 <img class="icon" src="assets/imgs/calendar.png" alt="历史报表" />
                 <span class="text">
                     历史报表
@@ -69,5 +69,17 @@
 <script>
     seajs.use("account.js");
     seajs.use("footer.js");
+    seajs.use("zepto.min.js", function ($){
+        var navlinks = $('.menu a');
+        $.each(navlinks, function (i, link){
+            var href = $(link).attr('href');
+            if(href.indexOf("?") !== -1){
+                href += "&t="+new Date().getTime();
+            }else{
+                href += "?t="+new Date().getTime();
+            }
+            $(link).attr('href', href);
+        });
+    });
 </script>
 </html>

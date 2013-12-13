@@ -56,35 +56,10 @@ if(isset($_GET['ajax'])){
     echo json_encode(array("bizCode"=>1, "memo"=>"", "data"=>$data));
     exit;
 }
+require_once("models/header.php");
 ?>
-<!DOCTYPE html>
-<!--<html manifest="cache.manifest">-->
-<html xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="utf-8" />
-    <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport" />
-    <meta content="telephone=no" name="format-detection" />
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-    <meta property="qc:admins" content="20612357606212603" />
-    <link href="assets/imgs/logo.png" rel="apple-touch-icon-precomposed" />
-    <title>
-        小店记账宝
-    </title>
-    <link rel="stylesheet" href="assets/css/reset.css" />
-    <link rel="stylesheet" href="assets/css/common.css" />
-    <link rel="stylesheet" href="assets/css/warehouse.css" />
-    <script src="assets/libs/sea.js"></script>
-    <script type="text/javascript">
-        seajs.config({
-            base: './assets/js/',
-            map: [
-                [".js", ".js?t=" + new Date().getTime()]
-            ]
-        });
-    </script>
-</head>
 <body>
+<link rel="stylesheet" href="assets/css/warehouse.css" />
 <header class="header">
     <a class="back box touchStatusBtn" href="javascript:void(0)"><img src="assets/imgs/back-icon.png" alt="返回" />返回</a>
     <span class="box">仓库</span>

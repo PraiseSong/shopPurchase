@@ -84,7 +84,10 @@ define(function (require, exports, module){
     fullMenu.find('.close').bind('click', hide);
     function updateMenuPos(x, y){
         var winW = $(window).width();
-        var winH = $(window).height();
+        var winH = $(document).height();
+        if(winH <= $(window).height()){
+            winH = $(window).height();
+        }
         var menuW = parseInt($(menu).css("width"), 10);
         var menuH = parseInt($(menu).css("height"), 10);
         var origin_x = parseInt($(menu).offset().left, 10);
