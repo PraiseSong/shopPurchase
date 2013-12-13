@@ -23,8 +23,6 @@ if(!$page_num){
 $limit_start = 0;
 $limit = @$_GET['limit'];
 $type = @$_GET['type'];
-$start = @$_GET['start'];
-$end = @$_GET['end'];
 $count = @$_GET['count'];
 $name = @$_GET['name'];
 if($count){

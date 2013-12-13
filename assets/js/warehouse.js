@@ -39,13 +39,13 @@ define(function (require, exports, module){
         var searchText = $.trim($('#J-searchText').val());
         var data = '';
         if(parentType){
-            data+="type="+parentType;
+            data+="type="+parentType+'&';
         }
         if(searchText){
             if(data){
-                data+='&name='+encodeURI(searchText);
+                data+='&name='+encodeURI(searchText)+'&';
             }else{
-                data+='name='+encodeURI(searchText);
+                data+='name='+encodeURI(searchText)+'&';
             }
         }
 
