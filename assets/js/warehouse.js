@@ -28,13 +28,13 @@ define(function (require, exports, module){
             resetQueryProducts();
         }
     });
-    $('#J-requestMoreBtn').on("click", function (){
+    $('#J-requestMoreBtn').bind("click", function (){
         queryProducts($(this));
     });
-    var pageNum = 2;
+    var pageNum = ($('#J-pageNum').val()*1+1);
     var tipBox = $('#J-tip');
     var productList = $('#J-productList');
-    function queryProducts(byMoreBtn){
+    function queryProducts(byMoreBtn, extraData){
         var parentType = $.trim($('#J-parentTypes').val());
         var searchText = $.trim($('#J-searchText').val());
         var data = '';
@@ -49,47 +49,54 @@ define(function (require, exports, module){
             }
         }
 
-        $('#J-requestMoreBtn').html("更多商品");
-            new IO({
-                url: "warehouse.php",
-                type: "get",
-                data: data+"&pageNum="+pageNum+"&ajax=true",
-                on: {
-                    start: function (){
-                        if(byMoreBtn){
-                            byMoreBtn.html("正在查询...");
+        if(!extraData){
+            extraData = "pageNum="+pageNum+"&ajax=true";
+        }
+
+        new IO({
+            url: "warehouse.php",
+            type: "get",
+            data: data+extraData,
+            on: {
+                start: function (){
+                    $('#J-requestMoreBtn').unbind().html("正在查询...");
+                    if(byMoreBtn){
+
+                    }else{
+                        tipBox.html("正在查询...").show().removeClass("t-f50");
+                        productList.hide();
+                    }
+                },
+                success: function (result){
+                    $('#J-requestMoreBtn').html("更多商品").bind("click", function (){
+                        queryProducts($(this));
+                    });
+                    if(result.bizCode === 1){
+                        if(result.data.products.length >= 1){
+                            pageNum++;
+                            renderProducts(result.data.products);
                         }else{
-                            tipBox.html("正在查询...").show().removeClass("t-f50");
-                            productList.hide();
-                        }
-                    },
-                    success: function (result){
-                        if(byMoreBtn){
-                            byMoreBtn.html("更多商品");
-                        }
-                        if(result.bizCode === 1){
-                            if(result.data.products.length >= 1){
-                                pageNum++;
-                                renderProducts(result.data.products);
+                            if(byMoreBtn){
+                                byMoreBtn.html("没有了");
                             }else{
-                                if(byMoreBtn){
-                                    byMoreBtn.html("没有了");
-                                }else{
-                                    noData(data);
-                                }
+                                noData(data);
                             }
                         }
-                    },
-                    error: function (){
-                        if(byMoreBtn){
-                            byMoreBtn.html("发生异常，点击重试");
-                        }else{
-                            tipBox.html("查询商品发生异常").show().addClass("t-f50");
-                            productList.hide();
-                        }
+                    }
+                },
+                error: function (){
+                    $('#J-requestMoreBtn').html("发生异常，点击重试").bind("click", function (){
+                        queryProducts($(this));
+                    });
+                    if(byMoreBtn){
+
+                    }else{
+                        tipBox.html("查询商品发生异常").show().addClass("t-f50");
+                        productList.hide();
                     }
                 }
-            }).send();
+            }
+        }).send();
     }
     function noData(data){
         tipBox.html("没有查询到相关商品").show();
@@ -102,7 +109,8 @@ define(function (require, exports, module){
         $.each(products, function (j, data){
             var price = (data.p_price*1).toFixed(2).split('.');
             data.price = "<span>"+price[0]+"</span>"+".<small>"+price[1]+"</small>";
-            var tem = "<li><div class=\"flexBox touchStatusBtn\" data-id=\"{p_id}\">"+
+            data.pageNum = pageNum - 1;
+            var tem = "<li data-id=\"{p_id}\"><div class=\"flexBox touchStatusBtn\" data-id=\"{p_id}\">"+
                 '<div class="imgSkin box">'+
                 "<img src=\"{p_pic}\" alt=\"{p_name}\"/>"+
                 '</div>'+
@@ -115,8 +123,8 @@ define(function (require, exports, module){
 
             var p_props = [];
             var p_props_html = '';
-            if(data.props){
-                if(data.props.indexOf("|") !== -1){
+            if(data.p_props){
+                if(data.p_props.indexOf("|") !== -1){
                     p_props = data.p_props.split('|');
                 }else{
                     p_props = [data.p_props];
@@ -131,15 +139,40 @@ define(function (require, exports, module){
 
             tem += p_props_html;
             tem += "<p class=\"date\">入库时间：{p_date}</p></div></div>";
-            tem += "<footer class=\"flexBox\"><a href=\"edit_product.php?id={p_id}\" class=\"J-edit box\" target='_blank'>修改</a></footer>";
+            tem += "<footer class=\"flexBox\"><a href=\"edit_product.php?id={p_id}&pageNum={pageNum}\" class=\"J-edit box\" target='_blank' data-id=\"{p_id}\">修改</a></footer>";
             tem += '</li>';
             html += data2html(tem, data);
         });
         productList.show().find("ul").append(html);
+        bindUItoList();
+        scrollPosByPID();
     }
     function resetQueryProducts(){
         pageNum = 1;
         productList.find("ul").html("");
         queryProducts();
     }
+    function bindUItoList(){
+        productList.find("ul .J-edit").unbind().bind('click', function (e){
+            var id = $(this).attr("data-id");
+            localStorage.setItem("warehousePID", id);
+        });
+    }
+    function scrollPosByPID(){
+      if(pid = localStorage.getItem("warehousePID")){
+          var lis = productList.find("ul li");
+          $.each(lis, function (i, li){
+              if($(li).attr("data-id") == pid){
+                  window.onload = function (){
+                      window.scrollTo(0, $(li).offset().top-30);
+                  };
+                  $(li).addClass("selected");
+                  localStorage.removeItem("warehousePID");
+                  return false;
+              }
+          });
+      }
+    }
+    bindUItoList();
+    scrollPosByPID();
 });

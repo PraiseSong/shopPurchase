@@ -59,6 +59,7 @@ if(isset($_GET['ajax'])){
 require_once("models/header.php");
 ?>
 <body>
+<input type="hidden" id="J-pageNum" value="<?php echo $page_num; ?>">
 <link rel="stylesheet" href="assets/css/warehouse.css" />
 <header class="header">
     <a class="back box touchStatusBtn" href="javascript:void(0)"><img src="assets/imgs/back-icon.png" alt="返回" />返回</a>
@@ -89,7 +90,7 @@ require_once("models/header.php");
 
                     foreach($data as $k => $product){
                         $price = toFixed2($product->p_price);
-                        $html .= "<li><div class=\"flexBox touchStatusBtn\" data-id=\"{$product->p_id}\">".
+                        $html .= "<li data-id=\"{$product->p_id}\"><div class=\"flexBox touchStatusBtn\" data-id=\"{$product->p_id}\">".
                             '<div class="imgSkin box">'.
                             "<img src=\"{$product->p_pic}\" alt=\"{$product->p_name}\"/>".
                             '</div>'.
@@ -115,7 +116,7 @@ require_once("models/header.php");
 
                         $html .= $p_props_html;
                         $html .= "<p class=\"date\">入库时间：{$product->p_date}</p></div></div>";
-                        $html .= "<footer class=\"flexBox\"><a href=\"edit_product.php?id={$product->p_id}\" class=\"J-edit box\" target='_blank'>修改</a></footer>";
+                        $html .= "<footer class=\"flexBox\"><a href=\"edit_product.php?id={$product->p_id}&pageNum={$page_num}\" class=\"J-edit box\" target='_blank' data-id=\"{$product->p_id}\">修改</a></footer>";
                         $html .= '</li>';
                     }
 

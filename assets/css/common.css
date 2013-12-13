@@ -356,6 +356,9 @@ input.btn{
     -webkit-border-radius: 3px;
     width: auto;
 }
+.plist .selected{
+    background: #FAF7AC;
+}
 .plist li footer{
     height: 30px;
     line-height: 30px;

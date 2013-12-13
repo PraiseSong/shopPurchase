@@ -20,8 +20,12 @@ $successes = array();
 
 $id = @$_GET['id'];
 $edit = @$_GET['edit'];
+$pageNum = @$_GET['pageNum'];
 if(!$id){
     $errors[] = "缺少商品id";
+}
+if(!$pageNum){
+    $pageNum = 1;
 }
 $detect = new Mobile_Detect;
 $db = new DB($db_name,$db_host,$db_username,$db_password);
@@ -90,7 +94,7 @@ require_once("models/header.php");
 
     <link rel="stylesheet" href="assets/css/editProduct.css" />
     <header class="header">
-        <a class="back box touchStatusBtn" href="javascript:void(0)"><img src="assets/imgs/back-icon.png" alt="返回" />返回</a>
+        <a class="back box touchStatusBtn" href="warehouse.php?pageNum=<?php echo $pageNum;?>&id=<?php echo $id;?>" data-norouting="true"><img src="assets/imgs/back-icon.png" alt="返回" />返回</a>
         <span class="box">
             <?php
             if(isset($data) && $data->p_id){
