@@ -31,6 +31,9 @@ if($count){
 if(!$limit){
     $limit = 10;
 }
+if(!$type){
+    $type = 0;
+}
 $limit_end = (int)$limit;
 $limit_start = (int)$limit*((int)$page_num-1);
 $where = "(user_id=$user_id)";
@@ -58,6 +61,7 @@ require_once("models/header.php");
 ?>
 <body>
 <input type="hidden" id="J-pageNum" value="<?php echo $page_num; ?>">
+<input type="hidden" id="J-typeId" value="<?php echo $type; ?>">
 <link rel="stylesheet" href="assets/css/warehouse.css" />
 <header class="header">
     <a class="back box touchStatusBtn" href="javascript:void(0)"><img src="assets/imgs/back-icon.png" alt="返回" />返回</a>
@@ -114,7 +118,7 @@ require_once("models/header.php");
 
                         $html .= $p_props_html;
                         $html .= "<p class=\"date\">入库时间：{$product->p_date}</p></div></div>";
-                        $html .= "<footer class=\"flexBox\"><a href=\"edit_product.php?id={$product->p_id}&pageNum={$page_num}\" class=\"J-edit box\" target='_blank' data-id=\"{$product->p_id}\">修改</a></footer>";
+                        $html .= "<footer class=\"flexBox\"><a href=\"edit_product.php?id={$product->p_id}&pageNum=$page_num&type=$type\" class=\"J-edit box\" target='_blank' data-id=\"{$product->p_id}\">修改</a></footer>";
                         $html .= '</li>';
                     }
 

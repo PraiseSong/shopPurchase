@@ -11,8 +11,13 @@ define(function (require, exports, module){
         type.query(function (data){
             if(data.bizCode === 1 && data.data && data.data.types.length >= 1){
                 var options = '<option value="">商品分类</option>';
+                var typeId = $.trim($('#J-typeId').val());
                 $.each(data.data.types, function (i, type){
-                    options += '<option value="'+type.id+'">'+type.name+'</option>';
+                    var selected = "";
+                    if(typeId && typeId == type.id){
+                        selected = "selected=selected";
+                    }
+                    options += '<option value="'+type.id+'" '+selected+'>'+type.name+'</option>';
                 });
                 $('#J-parentTypes').html(options);
                 $('#J-parentTypes').unbind().bind("change", function (){
@@ -106,6 +111,7 @@ define(function (require, exports, module){
         tipBox.hide();
         var data2html = require("template.js");
         var html = '';
+        var parentType = $.trim($('#J-parentTypes').val());
         $.each(products, function (j, data){
             var price = (data.p_price*1).toFixed(2).split('.');
             data.price = "<span>"+price[0]+"</span>"+".<small>"+price[1]+"</small>";
@@ -137,9 +143,14 @@ define(function (require, exports, module){
                 }
             });
 
+            if(parentType){
+                data.parentType = parentType;
+            }else{
+                data.parentType = 0;
+            }
             tem += p_props_html;
             tem += "<p class=\"date\">入库时间：{p_date}</p></div></div>";
-            tem += "<footer class=\"flexBox\"><a href=\"edit_product.php?id={p_id}&pageNum={pageNum}\" class=\"J-edit box\" target='_blank' data-id=\"{p_id}\">修改</a></footer>";
+            tem += "<footer class=\"flexBox\"><a href=\"edit_product.php?id={p_id}&pageNum={pageNum}&type={parentType}\" class=\"J-edit box\" target='_blank' data-id=\"{p_id}\">修改</a></footer>";
             tem += '</li>';
             html += data2html(tem, data);
         });
