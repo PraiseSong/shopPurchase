@@ -82,7 +82,7 @@ define(function (require, exports, module){
                 }
             }
             this.ajaxObj = $.ajax({
-                timeout: 3000,
+                timeout: 10000,
                 url: this.cfg.url,
                 dataType: this.cfg.dataType,
                 data: this.cfg.data,

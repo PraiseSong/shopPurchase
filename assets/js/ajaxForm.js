@@ -42,7 +42,7 @@ define(function (require, exports, module){
                 });
                 start && start();
                 $.ajax({
-                    timeout: 3000,
+                    timeout: 10000,
                     url: this.cfg.node.attr("action"),
                     dataType: "json",
                     data: data.join("&"),

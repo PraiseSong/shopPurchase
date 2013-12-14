@@ -319,14 +319,14 @@ define(function (require, exports, module){
                                 Utils.loading.error(data.memo);
                                 setTimeout(function (){
                                     Utils.loading.hide();
-                                }, 3000);
+                                }, 1500);
                             }
                         },
                         error: function (){
                             Utils.loading.error("记账发生异常，请重试");
                             setTimeout(function (){
                                 Utils.loading.hide();
-                            }, 3000);
+                            }, 1500);
                         }
                     }
                 }).send();
