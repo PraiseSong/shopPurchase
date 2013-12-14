@@ -115,6 +115,9 @@ require_once("models/header.php");
         ?>
         <form class="form-default" method="get" action="edit_product.php" enctype="multipart/form-data" novalidate>
             <input type="hidden" name="edit" value="edit" />
+            <input type="hidden" name="pageNum" value="<?php echo $pageNum; ?>"/>
+            <input type="hidden" name="id" value="<?php echo $id; ?>"/>
+            <input type="hidden" name="type" value="<?php echo $type; ?>"/>
             <div class="input-skin first-child">
                 <?php if(isset($data) && $data->p_id): ?>
                     <input id="id" name="id" type="hidden" value="<?php echo $data->p_id; ?>">
