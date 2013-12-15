@@ -9,6 +9,7 @@ define(function (require, exports, module){
     var $ = require('zepto.min.js');
     var Pop = require('pop.js');
     var IO = require("io.js");
+    var Utils = require("utils.js");
 
     var html = '';
     var pop = null;
@@ -70,8 +71,30 @@ define(function (require, exports, module){
                 url: 'controler/refund.php',
                 data: 'id='+data.id+"&details="+(details === 'null' ? details : JSON.stringify(details)),
                 on: {
+                    start: function (){
+                        Utils.loading.show("正在退货...");
+                    },
                     success: function (data){
+                        if(data.data.sold || data.data.deleted){
+                            Utils.loading.warn("退货成功");
+                            setTimeout(function (){
+                                Utils.loading.hide();
+                            }, 1500);
+                        }
+                        if(data.bizCode === 0){
+                            Utils.loading.error("退货失败，请重试");
+                            setTimeout(function (){
+                                Utils.loading.hide();
+                            }, 1500);
+                        }
+
                         callback.call(callback, data);
+                    },
+                    error: function (){
+                        Utils.loading.error("退货发生异常，请重试");
+                        setTimeout(function (){
+                            Utils.loading.hide();
+                        }, 1500);
                     }
                 }
             }).send();

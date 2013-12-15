@@ -48,7 +48,7 @@ if($name){
 if($type){
     $where .= " and (p_type=$type)";
 }
-$sql = "select * from `products` where ($where) limit $limit_start,$limit_end";
+$sql = "select * from `products` where ($where) ORDER BY p_date DESC limit $limit_start,$limit_end";
 $data = $db->queryManyObject($sql);
 $db->close();
 

@@ -34,14 +34,14 @@ if(!$id || !$details){
 
 $query_exist_sql = "select order_id,detail,count,p_id from cashier where (user_id=$user_id and order_id='$id')";
 $query_exist_data = $db -> queryUniqueObject($query_exist_sql);
-$p_id = $query_exist_data -> p_id;
-$refund_count = 0;
 if(!$query_exist_data || !$query_exist_data->order_id){
     $result = array("bizCode" => 0, "memo" => "这条销售记录不存在或者全部退货", "data"=>array());
     echo json_encode($result);
     exit;
 }
 $query_exist_detail = $query_exist_data->detail;
+$p_id = $query_exist_data -> p_id;
+$refund_count = 0;
 if(!$query_exist_detail){
     $result = array("bizCode" => 0, "memo" => "这条销售记录存在异常，请刷新页面", "data"=>array());
     echo json_encode($result);

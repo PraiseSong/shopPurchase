@@ -25,7 +25,7 @@ if(!empty($_GET)){
     $where = "((user_id=$user_id) and (date like '{$date}%'";
     $where .= '))';
 
-    $query_sold_sql = "select p_id,detail,count,date,order_id,prop from `cashier` where $where";
+    $query_sold_sql = "select p_id,detail,count,date,order_id,prop from `cashier` where $where ORDER BY date DESC";
     $sold_data = $db->queryManyObject($query_sold_sql);
 
     $ids = array();
@@ -47,7 +47,7 @@ if(!empty($_GET)){
         $where = "(user_id=$user_id)";
     }
 
-    $query_price_sql = "select p_price,p_id,p_type,p_pic,p_name from `products` where $where ";
+    $query_price_sql = "select p_price,p_id,p_type,p_pic,p_name from `products` where $where ORDER BY p_date DESC";
     $query_price_data = $db->queryManyObject($query_price_sql);
     $operation = array();
     $types = array();

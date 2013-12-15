@@ -45,15 +45,15 @@ if(!$limit){
 $limit_end = (int)$limit;
 $limit_start = (int)$limit*((int)$page_num-1);
 
-$sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where ($count_condition and user_id=$user_id) limit $limit_start,$limit_end";
+$sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where ($count_condition and user_id=$user_id) ORDER BY p_date DESC limit $limit_start,$limit_end";
 if($name){
-    $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where ($count_condition and user_id=$user_id and (p_name like '%$name%')) limit $limit_start,$limit_end";
+    $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where ($count_condition and user_id=$user_id and (p_name like '%$name%')) ORDER BY p_date DESC limit $limit_start,$limit_end";
 }
 if($type){
-    $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where (p_type=$type and $count_condition and user_id=$user_id) ".
+    $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where (p_type=$type and $count_condition and user_id=$user_id) ORDER BY p_date DESC ".
            "limit $limit_start,$limit_end";
     if($name){
-        $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where (p_type=$type and $count_condition and user_id=$user_id and (p_name like '%$name%')) ".
+        $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where (p_type=$type and $count_condition and user_id=$user_id and (p_name like '%$name%')) ORDER BY p_date DESC ".
             "limit $limit_start,$limit_end";
     }
 }
