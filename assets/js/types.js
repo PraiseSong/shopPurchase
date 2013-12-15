@@ -46,7 +46,7 @@ define(function (require, exports, module){
     }
 
     function sava2local(data){
-        localStorage.setItem("types", JSON.stringify(data));
+        //localStorage.setItem("types", JSON.stringify(data));
     }
 
     return {
