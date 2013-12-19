@@ -342,6 +342,7 @@ define(function (require, exports, module){
         if(!$('#J-cashierProductPreview').attr("data-id")){
             result = false;
             alert("请先选择一个商品");
+            gotoQueryProducts();
         }else if(!getCount()){
             result = false;
         }else if(getCount() > ($.trim($('#J-cashierProductPreview .J-count').html())*1)){

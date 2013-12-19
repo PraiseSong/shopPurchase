@@ -61,4 +61,6 @@ if(isset($_SESSION["userCakeUser"]) && is_object($_SESSION["userCakeUser"]))
         $loggedInUser = logining($userdetails);
     }
 }
+
+header("Access-Control-Allow-Origin: *");
 ?>
