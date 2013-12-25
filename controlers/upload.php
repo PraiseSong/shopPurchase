@@ -72,9 +72,9 @@ if(is_dir($user_attachments_dir)){
             $pic_thumb_link = "$user_attachments_dir/thumb_" . $attachment_name;
             img2thumb($pic_link, $pic_thumb_link, 100, 100, 0, 0);
             if($action === 'phonegap'){
-                exit($pic_thumb_link);
+                exit($attachment_name);
             }
-            $result = array("bizCode" =>1, "memo" => "", "data"=>array("pic" => $pic_thumb_link));
+            $result = array("bizCode" =>1, "memo" => "", "data"=>array("pic" => $attachment_name));
             echo json_encode($result);
             exit;
         }else{

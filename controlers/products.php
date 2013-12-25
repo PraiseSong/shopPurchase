@@ -146,4 +146,60 @@ if($client_action==="update"){
     }
     $db->close();
 }
+
+if($client_action === "add"){
+    $name = @$_POST['name'];
+    $price = @$_POST['price'];
+    $count = @$_POST['count'];
+    $type = @$_POST['type'];
+    $attachment = @$_POST['attachment'];
+    $props = @$_POST['props'];
+    $man = @$_POST['man'];
+    $from = @$_POST['from'];
+
+    $date = date("Y-m-d H:i:s");
+
+    if(!$name){
+        echo json_encode(array("bizCode" => 0, "memo" => "没有商品名称参数", "data" => array()));
+        exit;
+    }
+    if(!$price){
+        echo json_encode(array("bizCode" => 0, "memo" => "没有商品价格参数", "data" => array()));
+        exit;
+    }
+    if(!$count){
+        echo json_encode(array("bizCode" => 0, "memo" => "没有商品数量参数", "data" => array()));
+        exit;
+    }
+    if(!$attachment){
+        echo json_encode(array("bizCode" => 0, "memo" => "没有商品图片参数", "data" => array()));
+        exit;
+    }
+
+    if(!$from){
+        $from = '';
+    }
+    if(!$man){
+        $man = '';
+    }
+    if(!$props){
+        $props = "";
+    }
+
+    $query_isExist_sql = "select p_name from products where (p_name='$name' and user_id=$user_id and p_type='$type')";
+    $query_isExist = $db->queryUniqueObject($query_isExist_sql);
+    if($query_isExist){
+        echo json_encode(array("bizCode" => 0, "memo" => "商品名称重复", "data" => array()));
+        exit;
+    }
+    $sql = "insert into products(`user_id`, `p_name`, `p_count`, `p_from`, `p_man`, `p_price`, `p_pic`, `p_props`, `p_date`, ".
+        "`p_type`) values ($user_id, '$name', '$count', '$from', '$man', '$price', '$attachment', '$props', '$date', ".
+        "'$type')";
+    $writed_product = $db->query($sql);
+    if($writed_product){
+        echo json_encode(array("bizCode" => 1, "memo" => "录入成功", "data" => array()));
+        exit;
+    }
+
+}
 ?>
