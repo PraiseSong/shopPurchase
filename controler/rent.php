@@ -71,7 +71,7 @@ if(!$action){
         }else{
             $date = date("Y-m-d");
             $query_exist = "select * from rent where ((date like '$date%') and (user_id=$user_id))";
-            $exist_data = $db->queryUniqueObject($query_exist);var_dump($query_exist);
+            $exist_data = $db->queryUniqueObject($query_exist);
             if($exist_data && $exist_data->id){
                 $result = array("bizCode" => 1, "memo" => "租金已经录入", "data"=>array("rent"=>$exist_data));
                 echo json_encode($result);
