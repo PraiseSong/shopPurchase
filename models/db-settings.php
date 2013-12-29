@@ -22,6 +22,7 @@ $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
 /* change character set to utf8 */
 @$mysqli->set_charset("utf8");
+@$mysqli->query("SET NAMES utf8");
 
 GLOBAL $mysqli;
 

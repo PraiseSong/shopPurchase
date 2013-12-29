@@ -5,6 +5,8 @@ http://usercake.com
 */
 require_once("db-settings.php"); //Require DB connection
 
+ini_set("display_errors", "1");
+error_reporting(E_ALL);
 date_default_timezone_set('Asia/Shanghai');
 
 //Retrieve settings

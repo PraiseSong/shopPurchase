@@ -6,8 +6,6 @@
  * Time: 6:44 PM
  * To change this template use File | Settings | File Templates.
  */
-include_once('config/config.php');
-include_once($libs_dir.'/db.php');
 require_once("models/config.php");
 
 $user_id = null;
@@ -20,9 +18,6 @@ if(!$user_id){
     exit;
 }
 
-$db = new DB($db_name,$db_host,$db_username,$db_password);
-$db->query("SET NAMES 'UTF8'");
-
 switch($client_action){
     case "query":
         $start = @$_POST['start'];
@@ -32,6 +27,11 @@ switch($client_action){
             $result = array("bizCode" => 0, "memo" => "缺少开始时间和结束时间参数", "data"=>array());
             echo json_encode($result);
             exit;
+        }
+
+        if($start === $end){
+            $end_split = preg_split("/\-/", $end);
+            $end = $end_split[0].'-'.$end_split[1].'-'.($end_split[2]+1);
         }
 
         $sold_data = array();
@@ -81,7 +81,20 @@ switch($client_action){
             exit;
         }
         $query_p_detail_sql = "select p_price,p_id,p_type,p_name from `products` where $where ";
-        $query_p_detail_data = $db->queryManyObject($query_p_detail_sql);
+        $query_p_detail_data = array();
+        $stmt = $mysqli->prepare($query_p_detail_sql);
+        $stmt->execute();
+        $stmt->bind_result($p_price, $p_id, $p_type, $p_name);
+        while ($stmt->fetch()){
+            $object = new stdClass();
+            $object->p_price = $p_price;
+            $object->p_id = $p_id;
+            $object->p_type = $p_type;
+            $object->p_name = $p_name;
+            array_push($query_p_detail_data, $object);
+        }
+        $stmt->close();
+
         $operation = array();
         $types = array();
         if($query_p_detail_data){
@@ -90,13 +103,14 @@ switch($client_action){
                     if($v-> p_id == $vv -> p_id){
                         array_push(
                             $operation,
-                            array('p_id' => $v-> p_id, 'detail' => $vv -> detail, 'p_price' => $v->p_price,'date'=>$vv->date, 'type'=>$v->p_type, 'order_id'=>$vv->order_id, 'prop'=>$vv->prop,'p_name'=>$v->p_name,'p_count'=>$vv->count)
+                            array('p_id' => $v-> p_id, 'detail' => $vv -> detail, 'p_price' => $v->p_price,
+                                'date'=>$vv->date, 'type'=>$v->p_type, 'order_id'=>$vv->order_id, 'prop'=>$vv->prop,
+                                'p_name'=>$v->p_name, 'p_count'=>$vv->count)
                         );
                     }
                 }
             }
         }
-        $db->close();
 
         $result = array("bizCode" => 1, "memo" => "", "data" => array("products"=>$operation));
         echo json_encode($result);
