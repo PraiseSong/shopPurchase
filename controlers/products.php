@@ -202,4 +202,27 @@ if($client_action === "add"){
     }
 
 }
+
+if($client_action === "delete"){
+    if(!$_POST['id']){
+        $result = array("bizCode" => 0, "memo" => "没有传入商品id", "data" => array());
+        echo json_encode($result);
+        exit;
+    }
+    $data = queryProductById($_POST['id']);
+    if(!$data){
+        $result = array("bizCode" => 0, "memo" => "该商品不存在或被删除", "data" => array());
+        $db->close();
+        echo json_encode($result);
+    }else{
+        $delete_sql = "delete from `products` where (p_id=$data->p_id and user_id=$user_id)";
+        $delete_result = $db -> query($delete_sql);
+        $db->close();
+        if($delete_result){
+            echo json_encode(array("bizCode" => 1, "memo" => "删除成功", "data" => array()));
+        }else{
+            echo json_encode(array("bizCode" => 0, "memo" => "删除失败", "data" => array()));
+        }
+    }
+}
 ?>
