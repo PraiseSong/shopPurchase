@@ -28,7 +28,7 @@ function queryProductById($id){
     if(!$id){
         return false;
     }
-    $sql = "select * from `products` where (p_id=$id and user_id=$user_id)";
+    $sql = "select * from `products` where (p_id=$id and user_id=$user_id and (p_status=1 or p_status is null))";
     $data = $db -> queryUniqueObject($sql);
 
     return $data;
@@ -54,15 +54,15 @@ if($client_action === "query"){
     $limit_end = (int)$limit;
     $limit_start = (int)$limit*((int)$page_num-1);
 
-    $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where ($count_condition and user_id=$user_id) ORDER BY p_date DESC limit $limit_start,$limit_end";
+    $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where ($count_condition and user_id=$user_id and (p_status=1 or p_status is null)) ORDER BY p_date DESC limit $limit_start,$limit_end";
     if($name){
-        $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where ($count_condition and user_id=$user_id and (p_name like '%$name%')) ORDER BY p_date DESC limit $limit_start,$limit_end";
+        $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where ($count_condition and user_id=$user_id and (p_name like '%$name%') and (p_status=1 or p_status is null)) ORDER BY p_date DESC limit $limit_start,$limit_end";
     }
     if($type){
-        $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where (p_type=$type and $count_condition and user_id=$user_id) ORDER BY p_date DESC ".
+        $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where (p_type=$type and $count_condition and user_id=$user_id and (p_status=1 or p_status is null)) ORDER BY p_date DESC ".
             "limit $limit_start,$limit_end";
         if($name){
-            $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where (p_type=$type and $count_condition and user_id=$user_id and (p_name like '%$name%')) ORDER BY p_date DESC ".
+            $sql = "select p_id,p_name,p_count,p_price,p_pic,p_props from `products` where (p_type=$type and $count_condition and user_id=$user_id and (p_name like '%$name%') and (p_status=1 or p_status is null)) ORDER BY p_date DESC ".
                 "limit $limit_start,$limit_end";
         }
     }
@@ -193,8 +193,8 @@ if($client_action === "add"){
         exit;
     }
     $sql = "insert into products(`user_id`, `p_name`, `p_count`, `p_from`, `p_man`, `p_price`, `p_pic`, `p_props`, `p_date`, ".
-        "`p_type`) values ($user_id, '$name', '$count', '$from', '$man', '$price', '$attachment', '$props', '$date', ".
-        "'$type')";
+        "`p_type`, `p_status`) values ($user_id, '$name', '$count', '$from', '$man', '$price', '$attachment', '$props', '$date', ".
+        "'$type', 1)";
     $writed_product = $db->query($sql);
     if($writed_product){
         echo json_encode(array("bizCode" => 1, "memo" => "录入成功", "data" => array()));
@@ -215,7 +215,7 @@ if($client_action === "delete"){
         $db->close();
         echo json_encode($result);
     }else{
-        $delete_sql = "delete from `products` where (p_id=$data->p_id and user_id=$user_id)";
+        $delete_sql = "update `products` set `p_status`=0 where (p_id=$data->p_id and user_id=$user_id)";
         $delete_result = $db -> query($delete_sql);
         $db->close();
         if($delete_result){

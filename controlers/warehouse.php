@@ -38,7 +38,7 @@ if($client_action === "query"){
     }
     $limit_end = (int)$limit;
     $limit_start = (int)$limit*((int)$page_num-1);
-    $where = "(user_id=$user_id)";
+    $where = "((p_status=1 or p_status is null) and user_id=$user_id)";
     if(isset($count_condition)){
         $where .= ' and '.$count_condition;
     }
