@@ -77,6 +77,7 @@ $lang = array_merge($lang,array(
 $lang = array_merge($lang,array(
 	"FORGOTPASS_INVALID_TOKEN"		=> "激活Token失效",
 	"FORGOTPASS_NEW_PASS_EMAIL"		=> "已经向邮箱发送了新的密码",
+    "FORGOTPASS_NEW_PASS_EMAIL_CLIENT"		=> "您的登录密码已经更新，请重新登录",
 	"FORGOTPASS_REQUEST_CANNED"		=> "您已取消找回密码",
 	"FORGOTPASS_REQUEST_EXISTS"		=> "已经有一个找回密码的请求在处理中。建议到邮箱中查找我们给您发送的邮件",
 	"FORGOTPASS_REQUEST_SUCCESS"		=> "我们已经发邮件给您，请按照邮件里的步骤找回登录密码",
