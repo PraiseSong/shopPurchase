@@ -52,7 +52,6 @@ class userCakeMail {
         require_once("PHPMailer_5.2.4/class.smtp.php");
 
         $mail  = new PHPMailer();
-
         $mail->IsHTML(true);
         $mail->CharSet    ="UTF-8";                 //设定邮件编码，默认ISO-8859-1，如果发中文此项必须设置为 UTF-8
         $mail->IsSMTP();                            // 设定使用SMTP服务
@@ -71,7 +70,7 @@ class userCakeMail {
         $mail->MsgHTML($message);                         // 设置邮件内容
         $mail->AddAddress($email, "");
         if(!$mail->Send()) {
-            return "发送失败：" . $mail->ErrorInfo;
+            return false;
         } else {
             return true;
         }

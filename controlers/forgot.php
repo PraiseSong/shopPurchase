@@ -10,7 +10,7 @@ require_once("models/config.php");
 if ($client_action === "find") {
     if (!empty($_POST)) {
         $errors = array();
-        $email = @$_POST["email"];
+        $email = @trim($_POST["email"]);
         $username = @sanitize($_POST["username"]);
         $captcha = @md5($_POST["captcha"]);
 
