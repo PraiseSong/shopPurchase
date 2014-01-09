@@ -29,10 +29,8 @@ switch($client_action){
             exit;
         }
 
-        if($start === $end){
-            $end_split = preg_split("/\-/", $end);
-            $end = $end_split[0].'-'.$end_split[1].'-'.($end_split[2]+1);
-        }
+        $end_split = preg_split("/\-/", $end);
+        $end = $end_split[0].'-'.$end_split[1].'-'.($end_split[2]+1);
 
         $sold_data = array();
 
