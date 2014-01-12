@@ -16,6 +16,7 @@ $lang = array_merge($lang,array(
 	"ACCOUNT_SPECIFY_PASSWORD" 		=> "请输入登录密码",
 	"ACCOUNT_SPECIFY_EMAIL"			=> "请输入常用邮箱，比如QQ邮箱",
 	"ACCOUNT_INVALID_EMAIL"			=> "无效的邮箱",
+    "ACCOUNT_NOEXIST_EMAIL"     => "该邮箱没有在 %m1% 注册过",
 	"ACCOUNT_USER_OR_EMAIL_INVALID"		=> "用户名或邮箱错误",
 	"ACCOUNT_USER_OR_PASS_INVALID"		=> "用户名或登录密码错误",
 	"ACCOUNT_ALREADY_ACTIVE"		=> "账户已经激活，可以正常使用啦。",
@@ -75,7 +76,7 @@ $lang = array_merge($lang,array(
 
 //Forgot Password
 $lang = array_merge($lang,array(
-	"FORGOTPASS_INVALID_TOKEN"		=> "激活Token失效",
+	"FORGOTPASS_INVALID_TOKEN"		=> "激活密钥失效",
 	"FORGOTPASS_NEW_PASS_EMAIL"		=> "已经向邮箱发送了新的密码",
     "FORGOTPASS_NEW_PASS_EMAIL_CLIENT"		=> "您的登录密码已经更新，请重新登录",
 	"FORGOTPASS_REQUEST_CANNED"		=> "您已取消找回密码",
@@ -85,7 +86,7 @@ $lang = array_merge($lang,array(
 
 //Mail
 $lang = array_merge($lang,array(
-	"MAIL_ERROR"				=> "尝试发送邮箱失败，请联系 %m1% 管理员",
+	"MAIL_ERROR"				=> "尝试发送邮件失败，请联系 %m1% 管理员",
 	"MAIL_TEMPLATE_BUILD_ERROR"		=> "邮件模版处理失败",
 	"MAIL_TEMPLATE_DIRECTORY_ERROR"		=> "不能打开邮箱模版目录，请尝试修改为： %m1%",
 	"MAIL_TEMPLATE_FILE_EMPTY"		=> "邮件模版文件为空，没有内容发送",
