@@ -15,6 +15,7 @@ class User
 	private $displayname;
     private $from;
     private $position;
+    private $ua;
     private $websiteName;
 	public $sql_failure = false;
 	public $mail_failure = false;
@@ -25,7 +26,7 @@ class User
 	public $success = NULL;
     public $registered_date;
 	
-	function __construct($user,$display,$pass,$email, $from="", $position)
+	function __construct($user,$display,$pass,$email, $from="", $position, $ua)
 	{
         $this->websiteName = "小店记账宝";
 
@@ -42,6 +43,7 @@ class User
         }
         $this -> from = $from;
         $this -> position = $position;
+        $this -> ua = $ua;
 
 		if(usernameExists($this->username))
 		{
@@ -134,6 +136,7 @@ class User
 					title,
 					f,
 					position,
+					ua,
 					sign_up_stamp,
 					last_sign_in_stamp,
 					registered_date
@@ -150,6 +153,7 @@ class User
 					'New Member',
 					?,
 					?,
+					?,
 					'".time()."',
 					'0',
 					'$this->registered_date'
@@ -159,7 +163,7 @@ class User
                     echo "<br />";
                     exit;
                 }
-				$stmt->bind_param("sssssiss", $this->username, $this->displayname, $secure_pass, $this->clean_email, $this->activation_token, $this->user_active,$this->from, $this->position);
+				$stmt->bind_param("sssssisss", $this->username, $this->displayname, $secure_pass, $this->clean_email, $this->activation_token, $this->user_active,$this->from, $this->position, $this->ua);
 				$stmt->execute();
 				$inserted_id = $mysqli->insert_id;
 				$stmt->close();

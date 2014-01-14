@@ -20,9 +20,13 @@ if(!empty($_POST))
     $password = trim($_POST["password"]);
     $confirm_pass = trim($_POST["passwordc"]);
     $position = @trim($_POST['position']);
+    $ua = @trim($_POST['ua']);
 
     if(!$position){
         $position = '';
+    }
+    if(!$ua){
+        $ua = '';
     }
     //$captcha = md5($_POST["captcha"]);
 
@@ -63,7 +67,7 @@ if(!empty($_POST))
         $displayname = $username."的小店";
         //Construct a user object
 
-        $user = new User($username,$displayname,$password,$email, '小店记账宝', $position);
+        $user = new User($username,$displayname,$password,$email, '小店记账宝', $position, $ua);
 
         //Checking this flag tells us whether there were any errors such as possible data duplication occured
         if(!$user->status)
