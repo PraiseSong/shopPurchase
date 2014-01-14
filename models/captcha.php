@@ -9,7 +9,7 @@ $security_code = substr($md5_hash, 25, 5);
 $enc = md5($security_code);
 $_SESSION['captcha'] = $enc;
 
-$width = 150;
+$width = 50;
 $height = 30; 
 
 $image = ImageCreate($width, $height);  

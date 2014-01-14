@@ -13,23 +13,28 @@ if(!empty($_POST))
     $username = "";
     $displayname = "";
 
-	$errors = array();
-	$email = trim($_POST["email"]);
-	$username = sanitize(trim($_POST["username"]));
-	//$displayname = trim($_POST["displayname"]);
-	$password = trim($_POST["password"]);
-	$confirm_pass = trim($_POST["passwordc"]);
-	//$captcha = md5($_POST["captcha"]);
-	
-	
+    $errors = array();
+    $email = trim($_POST["email"]);
+    $username = sanitize(trim($_POST["username"]));
+    //$displayname = trim($_POST["displayname"]);
+    $password = trim($_POST["password"]);
+    $confirm_pass = trim($_POST["passwordc"]);
+    $position = @trim($_POST['position']);
+
+    if(!$position){
+        $position = '';
+    }
+    //$captcha = md5($_POST["captcha"]);
+
+
 //	if ($captcha != $_SESSION['captcha'])
 //	{
 //		$errors[] = lang("CAPTCHA_FAIL");
 //	}
-	if(minMaxRange(2,25,$username))
-	{
-		$errors[] = lang("ACCOUNT_USER_CHAR_LIMIT",array(2,25));
-	}
+    if(minMaxRange(2,25,$username))
+    {
+        $errors[] = lang("ACCOUNT_USER_CHAR_LIMIT",array(2,25));
+    }
 //	if(!ctype_alnum($username)){
 //		$errors[] = lang("ACCOUNT_USER_INVALID_CHARACTERS");
 //	}
@@ -39,42 +44,43 @@ if(!empty($_POST))
 //	}else if(displayNameExists($displayname)){
 //        $errors[] = lang("ACCOUNT_DISPLAYNAME_IN_USE", array($displayname));
 //    }
-	if(minMaxRange(6,50,$password) && minMaxRange(6,50,$confirm_pass))
-	{
-		$errors[] = lang("ACCOUNT_PASS_CHAR_LIMIT",array(6,50));
-	}
-	else if($password != $confirm_pass)
-	{
-		$errors[] = lang("ACCOUNT_PASS_MISMATCH");
-	}
-	if(!isValidEmail($email))
-	{
-		$errors[] = lang("ACCOUNT_INVALID_EMAIL");
-	}
+    if(minMaxRange(6,50,$password) && minMaxRange(6,50,$confirm_pass))
+    {
+        $errors[] = lang("ACCOUNT_PASS_CHAR_LIMIT",array(6,50));
+    }
+    else if($password != $confirm_pass)
+    {
+        $errors[] = lang("ACCOUNT_PASS_MISMATCH");
+    }
+    if(!isValidEmail($email))
+    {
+        $errors[] = lang("ACCOUNT_INVALID_EMAIL");
+    }
 
-	//End data validation
-	if(count($errors) == 0)
-	{
+    //End data validation
+    if(count($errors) == 0)
+    {
         $displayname = $username."的小店";
-		//Construct a user object
-		$user = new User($username,$displayname,$password,$email);
+        //Construct a user object
 
-		//Checking this flag tells us whether there were any errors such as possible data duplication occured
-		if(!$user->status)
-		{
-			if($user->username_taken) $errors[] = lang("ACCOUNT_USERNAME_IN_USE",array($username));
-			if($user->displayname_taken) $errors[] = lang("ACCOUNT_DISPLAYNAME_IN_USE",array($displayname));
-			if($user->email_taken) 	  $errors[] = lang("ACCOUNT_EMAIL_IN_USE",array($email));
-		}
-		else
-		{
-			//Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
-			if(!$user->userCakeAddUser())
-			{
-				if($user->mail_failure) $errors[] = lang("MAIL_ERROR", array($websiteName));
-				if($user->sql_failure)  $errors[] = lang("SQL_ERROR");
-			}
-		}
+        $user = new User($username,$displayname,$password,$email, '小店记账宝', $position);
+
+        //Checking this flag tells us whether there were any errors such as possible data duplication occured
+        if(!$user->status)
+        {
+            if($user->username_taken) $errors[] = lang("ACCOUNT_USERNAME_IN_USE",array($username));
+            if($user->displayname_taken) $errors[] = lang("ACCOUNT_DISPLAYNAME_IN_USE",array($displayname));
+            if($user->email_taken) 	  $errors[] = lang("ACCOUNT_EMAIL_IN_USE",array($email));
+        }
+        else
+        {
+            //Attempt to add the user to the database, carry out finishing  tasks like emailing the user (if required)
+            if(!$user->userCakeAddUser())
+            {
+                if($user->mail_failure) $errors[] = lang("MAIL_ERROR", array($websiteName));
+                if($user->sql_failure)  $errors[] = lang("SQL_ERROR");
+            }
+        }
 
         if(count($errors) > 0){
             $result = array("bizCode" => 0, "memo" => "注册失败", "data"=>array("msg"=>$errors));
@@ -82,9 +88,23 @@ if(!empty($_POST))
         }else{
             $result = array("bizCode" => 1, "memo" => "注册成功", "data"=>array("redirect" => "login.html"));
             echo json_encode($result);
+
+            $mail = new userCakeMail();
+            $hooks = array(
+                "searchStrs" => array("#WEBSITENAME#", "#USERNAME#"),
+                "subjectStrs" => array($websiteName, $username)
+            );
+            if (!$mail->newTemplateMsg("register-client.txt", $hooks)) {
+                $errors[] = lang("MAIL_TEMPLATE_BUILD_ERROR");
+            } else {
+                if (!$mail->sendMail($email, "注册成功")) {
+                    //$errors[] = lang("MAIL_ERROR", array($websiteName));
+                }
+            }
+
             exit;
         }
-	}else{
+    }else{
         $result = array("bizCode" => 0, "memo" => "注册失败", "data"=>array("msg"=>$errors));
         echo json_encode($result);
         exit;

@@ -27,7 +27,7 @@ if ($client_action === "find") {
     else if (!isValidEmail($email)) {
         $errors[] = lang("ACCOUNT_INVALID_EMAIL");
     } else if (!emailExists($email)) {
-        $errors[] = lang("ACCOUNT_NOMATCH_EMAIL");
+        $errors[] = lang("EMAIL_NO_REGISTER", array($email));
     }
 
     if (trim($username) == "") {
@@ -45,6 +45,9 @@ if ($client_action === "find") {
             $userdetails = fetchUserDetails($username);
             if ($userdetails["lost_password_request"] == 1) {
                 $errors[] = lang("FORGOTPASS_REQUEST_EXISTS");
+                $result = array("bizCode" => 2, "memo" => "", "data" => array("msg" => $errors));
+                echo json_encode($result);
+                exit;
             } else {
                 //Email the user asking to confirm this change password request
                 //We can use the template builder here
