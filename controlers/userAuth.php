@@ -10,7 +10,11 @@ include_once($libs_dir.'/db.php');
 require_once("models/config.php");
 
 if($client_action === "update"){
-    $password = $_POST['password'];
+    $password = @$_POST['password'];
+
+    if(!$password){
+        $password = '';
+    }
 
     if(!$password || ($loggedInUser -> hash_pw !== $password)){
         $data = array("bizCode"=>0,"memo"=>"验证不通过，用户未登录","data"=>array());
