@@ -52,12 +52,13 @@ if($client_action === "query"){
     $query_price_data = $db->queryManyObject($query_price_sql);
     $operation = array();
     $types = array();
-    foreach($query_price_data as $k => $v){
-        $t = $v -> p_type;
-        $query_type_name_sql = "select name from types where (id=$t)";
-        $type = $db->queryObject($query_type_name_sql);
-        foreach($sold_data as $kk => $vv){
-            if($v-> p_id == $vv -> p_id){
+    foreach($sold_data as $kk => $vv){
+        foreach($query_price_data as $k => $v){
+            if($vv-> p_id == $v -> p_id){
+                $t = $v -> p_type;
+                $query_type_name_sql = "select name from types where (id=$t)";
+                $type = $db->queryObject($query_type_name_sql);
+
                 array_push(
                     $operation,
                     array('p_id' => $v-> p_id, 'detail' => $vv -> detail, 'p_price' => $v->p_price,'date'=>$vv->date, 'type'=>$type->name, 'order_id'=>$vv->order_id, 'prop'=>$vv->prop, 'p_pic'=>$v->p_pic,'p_name'=>$v->p_name)
@@ -65,6 +66,19 @@ if($client_action === "query"){
             }
         }
     }
+//    foreach($query_price_data as $k => $v){
+//        $t = $v -> p_type;
+//        $query_type_name_sql = "select name from types where (id=$t)";
+//        $type = $db->queryObject($query_type_name_sql);
+//        foreach($sold_data as $kk => $vv){
+//            if($v-> p_id == $vv -> p_id){
+//                array_push(
+//                    $operation,
+//                    array('p_id' => $v-> p_id, 'detail' => $vv -> detail, 'p_price' => $v->p_price,'date'=>$vv->date, 'type'=>$type->name, 'order_id'=>$vv->order_id, 'prop'=>$vv->prop, 'p_pic'=>$v->p_pic,'p_name'=>$v->p_name)
+//                );
+//            }
+//        }
+//    }
     $db->close();
 
     $result = array("bizCode" => 1, "memo" => "", "data"=>array("products" => $operation));
