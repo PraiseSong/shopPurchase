@@ -33,7 +33,7 @@ if ($client_action === "find") {
     if (trim($username) == "") {
         $errors[] = lang("ACCOUNT_SPECIFY_USERNAME");
     } else if (!usernameExists($username)) {
-        $errors[] = lang("ACCOUNT_NOEXIST_EMAIL", array($websiteName));
+        $errors[] = lang("ACCOUNT_NOEXIST_USERNAME", array($websiteName));
     }
 
     if (count($errors) == 0) {
