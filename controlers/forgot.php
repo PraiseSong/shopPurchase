@@ -112,8 +112,8 @@ if ($client_action === "reset") {
 
         //Setup our custom hooks
         $hooks = array(
-            "searchStrs" => array("#USERNAME#"),
-            "subjectStrs" => array($userdetails["user_name"])
+            "searchStrs" => array("#WEBSITENAME#", "#USERNAME#"),
+            "subjectStrs" => array($websiteName, $userdetails["user_name"])
         );
 
         if (!$mail->newTemplateMsg("your-lost-password-client.txt", $hooks)) {

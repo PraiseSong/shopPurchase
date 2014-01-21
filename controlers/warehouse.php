@@ -2,7 +2,6 @@
 include_once('config/config.php');
 include_once($libs_dir.'/db.php');
 require_once("models/config.php");
-if (!securePage($_SERVER['PHP_SELF'])){die();}
 
 $user_id = null;
 if(isset($loggedInUser) && $loggedInUser->user_id){
@@ -57,6 +56,9 @@ if($client_action === "query"){
     if(isset($_POST['ajax'])){
         $data = array('products' => $data);
         echo json_encode(array("bizCode"=>1, "memo"=>"", "data"=>$data));
+        exit;
+    }else{
+        echo json_encode(array("bizCode"=>0, "memo"=>"非ajax请求", "data"=>array()));
         exit;
     }
 }
