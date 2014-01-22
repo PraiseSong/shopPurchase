@@ -5,6 +5,11 @@ http://usercake.com
 */
 
 require_once("models/config.php");
+include_once('config/config.php');
+include_once($libs_dir.'/db.php');
+
+$db = new DB($db_name,$db_host,$db_username,$db_password);
+$db->query("SET NAMES 'UTF8'");
 
 //Forms posted
 if(!empty($_POST))
@@ -55,9 +60,20 @@ if(!empty($_POST))
 					
 					//Construct a new logged in user object
 					//Transfer some db data to the session object
+                    $redirect = "cashier.html";
                     $loggedInUser = logining($userdetails);
+                    $user_id = $loggedInUser->user_id;
 
-                    $result = array("bizCode" => 1, "memo" => "登录成功", "data"=>array("user"=>$loggedInUser, "redirect" => "cashier.html"));
+                    $where = "(user_id=$user_id)";
+                    $sql = "select p_id from `products` where ($where)";
+                    $data = $db->queryUniqueObject($sql);
+                    $db->close();
+
+                    if(!$data){
+                        $redirect = "guide.html";
+                    }
+
+                    $result = array("bizCode" => 1, "memo" => "登录成功", "data"=>array("user"=>$loggedInUser, "redirect" => $redirect));
                     echo json_encode($result);
                     exit;
 				}

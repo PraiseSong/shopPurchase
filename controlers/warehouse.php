@@ -62,4 +62,18 @@ if($client_action === "query"){
         exit;
     }
 }
+if($client_action === "isThere"){
+    $where = "(user_id=$user_id)";
+    $sql = "select p_id from `products` where ($where)";
+    $data = $db->queryUniqueObject($sql);
+    $db->close();
+
+    if($data){
+        echo json_encode(array("bizCode"=>1, "memo"=>"", "data"=>$data));
+        exit;
+    }else{
+        echo json_encode(array("bizCode"=>0, "memo"=>"仓库里没有商品", "data"=>array()));
+        exit;
+    }
+}
 ?>
