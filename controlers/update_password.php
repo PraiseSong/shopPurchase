@@ -41,6 +41,7 @@ if ($client_action === "update") {
             $entered_pass = generateHash($password, $loggedInUser->hash_pw);
 
             if ($entered_pass != $loggedInUser->hash_pw) {
+                $errors[] = lang("ACCOUNT_PASSWORD_INVALID");
             } else {
                 if (minMaxRange(6, 50, $password_new)) {
                     $errors[] = lang("ACCOUNT_NEW_PASSWORD_LENGTH", array(6, 50));
