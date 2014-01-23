@@ -30,12 +30,14 @@ switch($client_action){
         }
 
         $end_split = preg_split("/\-/", $end);
-        $end = $end_split[0].'-'.$end_split[1].'-'.($end_split[2]+1);
+        //$end = $end_split[0].'-'.$end_split[1].'-'.($end_split[2]+1)." 23:59:59";
+        $start .= ' 00:00:00';
+        $end .= ' 23:59:59';
 
         $sold_data = array();
 
         $where = "(";
-        $where .= "(user_id=?) and (date BETWEEN ? and ?)";
+        $where .= "(user_id=?) and (date >= ? and date <= ?)";
         $where .= ')';
 
         $stmt = $mysqli->prepare("select p_id,detail,count,date,order_id,prop from `cashier` where $where");
