@@ -6,7 +6,7 @@ $ua_checker = array(
     'android' => preg_match('/android/', $ua),
     'iphone' => preg_match('/iphone|ipod|ipad/', $ua)
 );
-$device = "";
+$device = "iPhone";
 if ($ua_checker['android']) {
     $device = "android";
 } else if ($ua_checker['iphone']) {
@@ -99,7 +99,7 @@ if ($ua_checker['android']) {
                       下载安卓版
                   </span>
             </a>
-            <a href="#" title="下载越狱版" target="_blank" class="yy flexBox">
+            <a href="itms-services://?action=download-manifest&url=http://jizhangbao.com.cn/app.plist" title="下载越狱版" target="_blank" class="yy flexBox">
                 <img src="assets/imgs/skullcandy.png" width="32" alt="下载越狱版"/>
                   <span class="box">
                       下载越狱版
