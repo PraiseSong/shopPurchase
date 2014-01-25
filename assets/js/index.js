@@ -4,6 +4,12 @@
 define(function (require, exports, module) {
     var $ = require('zepto.min.js');
 
+    window.onload = function (){
+        setTimeout(function (){
+            window.scrollTo(0, 0);
+        }, 1000);
+    };
+
     window.mySwipe = new Swipe(document.getElementById('slider'), {
         speed: 100,
         auto: 5000,
