@@ -7,20 +7,14 @@ define(function (require, exports, module){
     var utils = require("utils.js");
     var Rent = require("rent.js");
 
-    new IO({
-        url: "controler/userAuth.php",
-        on: {
-            success: function (data){
-                if(data.data && data.data.user && data.data.user.user_id){
-                    initPage();
-                    return ;
-                }
-            },
-            error: function (){
-                location.href = "login.html";
-            }
-        }
-    }).send();
+    window.alert = function (msg){
+        navigator.notification.alert(
+            msg,  // message
+            function (){},         // callback
+            '小店记账宝',            // title
+            '知道了'                  // buttonName
+        );
+    };
 
     function initPage(){
         var rents = {};
@@ -79,10 +73,10 @@ define(function (require, exports, module){
             var perf = require("performance.js");
             perf.io({
                 range: true,
-                data: "start="+getStartTIme()+'&end='+getEndTIme(),
+                data: "action=query&start="+getStartTIme()+'&end='+getEndTIme(),
                 on: {
                     success: function (data){
-                        if(data.bizCode === 0){
+                        if(data.bizCode !== 1){
                             $('.tip').show().css({
                                 color: "#f50"
                             }).html(data.memo);
@@ -94,12 +88,14 @@ define(function (require, exports, module){
                             }).html("没有销售记录");
                             data.yye = 0;
                             data.cb = 0;
-                            data.zj = 0;
                         }else{
                             $('.tip').hide();
                         }
                         queryBtn.bind('click', queryPerf);
                         Rent.getRange(getStartTIme(), getEndTIme(), function (rentData){
+                            if (data.data.products && data.data.products.length === 0) {
+                                data.zj = 0;
+                            }
                             if(rentData.data && rentData.data.rents && rentData.data.rents.length >= 1){
                                 $.each(rentData.data.rents, function (i, rent){
                                     data.zj += rent.price*1;
@@ -160,7 +156,7 @@ define(function (require, exports, module){
                     background = "background: #f50;";
                 }
                 var w = getWidth(data.dateType[k]['lr']);
-                dateTypeHtml += '<li class="chart"><a href="productlist.php?date='+(data.dateType[k][0]['date'].split(' ')[0])+'" class="trigger" target="_blank">'+
+                dateTypeHtml += '<li class="chart"><a href="productlist.html?date='+(data.dateType[k][0]['date'].split(' ')[0])+'" class="trigger" target="_blank">'+
                     '<div class="back"></div>'+
                     '<div class="front" style="width: '+w+';'+background+'">'+
                    '     <p>'+(date[1]+"-"+date[2])+'</p>'+
@@ -206,4 +202,6 @@ define(function (require, exports, module){
         queryBtn.bind('click', queryPerf);
         setDate();
     }
+
+    initPage();
 });

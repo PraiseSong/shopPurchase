@@ -15,24 +15,15 @@
     padding-left: 10px;
 }
 .btn-primary{
-    margin: 10px auto;
-    width: 80%;
+    margin: 30px auto;
 }
 .form-default .propsBox,
 .form-default .attachmentBox,
 .form-default .typesContainer{
     height: auto;
 }
-#J-photoPreview img,
-#J-photoPreview canvas{
-    max-width: 150px;
-}
-#J-photoPreview{
-    -webkit-box-flex: 3;
-    padding: 5px 0 5px 10px;
-}
 .J-takePhotoBox{
-    width: 50px;
+    width: 70px;
     overflow: hidden;
 }
 .valueBox,
@@ -66,6 +57,9 @@
     -webkit-border-radius: 5px;
     -webkit-box-flex: 1;
 }
+.typesBox{
+    height: auto;
+}
 .typesBox select{
     background: url(../imgs/icon-down-black.png) no-repeat center right;
     background-size: 24px 24px;
@@ -79,5 +73,84 @@
 }
 #J-addType{
     display: block;
-    margin-top: 5px;
+}
+.J-takePhoto-btn-skin{
+    padding-left: 10px;
+}
+
+.steps{
+    margin-bottom: 20px;
+}
+.steps header{
+    font-size: 16px;
+    line-height: 25px;
+    margin-bottom: 10px;
+}
+.steps header .stepNum{
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    -webkit-border-radius: 25px;
+    text-align: center;
+    font-weight: 700;
+    display: inline-block;
+    background: #5ea9d8;
+}
+.steps nav{
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #5ea9d8;
+    -webkit-border-radius: 3px;
+    display: -webkit-box;
+    margin-bottom: 10px;
+}
+.steps nav a:first-child{
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+}
+.steps nav a{
+    text-align: center;
+    font-size: 16px;
+    color: #26506a;
+    -webkit-box-flex: 1;
+    display: block;
+}
+.steps nav a.active{
+    background: #5ea9d8;
+    color: #fff;
+}
+.steps nav a:last-child{
+    -webkit-border-top-right-radius: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+    border-left: 1px solid #5ea9d8;
+}
+.uploadImgBox{
+    display: -webkit-box;
+}
+.uploadImgBox #J-photoPreview{
+    -webkit-box-flex: 1;
+}
+.uploadImgBox .uploadStatus{
+    margin-left: 5px;
+    width: 90px;
+}
+.uploadImgBox .uploadStatus .error,
+.uploadImgBox .uploadStatus .loading{
+    text-align: center;
+    line-height: 23px;
+    display: none;
+}
+.uploadImgBox #J-photoPreview img,
+.uploadImgBox #J-photoPreview canvas{
+    max-width: 100%;
+    display: block;
+}
+.uploadImgBox #J-photoPreview img{
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .5);
+}
+.field-group{
+    margin-bottom: 10px;
+}
+.field-group .label{
+    width: 50px;
 }

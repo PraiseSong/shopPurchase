@@ -1,6 +1,5 @@
 #J-requestMoreBtn{
     margin: 20px auto;
-    width: 80%;
 }
 .queryProductsBox{
     padding: 0 10px 20px;
@@ -49,6 +48,7 @@
 }
 .queryProductsBox .plist{
     margin: 0 0 20px;
+    display: none;
 }
 .queryProductsBox .plist ul{
     margin: 0 0 20px;

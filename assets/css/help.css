@@ -1,0 +1,31 @@
+.helplist header{
+    font-weight: 700;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+.helplist .content{
+    line-height: 22px;
+    font-size: 14px;
+}
+.helplist code{
+    background: #ececec;
+    padding: 3px 5px;
+}
+.helplist footer{
+    margin: 15px 0;
+    color: #ae4f0b;
+}
+.helplist .btns a{
+    display: block;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin: 10px 10px 0 0;
+    text-align: center;
+    line-height: 30px;
+}
+.helplist .btns a img{
+    margin-top: 3px;
+}

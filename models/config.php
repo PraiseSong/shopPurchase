@@ -26,6 +26,7 @@ $mail_templates_dir = "models/mail-templates/";
 $websiteName = $settings['website_name']['value'];
 $websiteUrl = $settings['website_url']['value'];
 $emailAddress = $settings['email']['value'];
+$version = $settings['version']['value'];
 $resend_activation_threshold = $settings['resend_activation_threshold']['value'];
 $date = date("Y-m-d H:i:s");
 $language = $settings['language']['value'];

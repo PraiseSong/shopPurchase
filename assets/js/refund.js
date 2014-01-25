@@ -11,6 +11,16 @@ define(function (require, exports, module){
     var IO = require("io.js");
     var Utils = require("utils.js");
 
+    window.alert = function (msg) {
+        navigator.notification.alert(
+            msg,  // message
+            function () {
+            },         // callback
+            '小店记账宝',            // title
+            '知道了'                  // buttonName
+        );
+    };
+
     var html = '';
     var pop = null;
     pop = new Pop({
@@ -61,15 +71,23 @@ define(function (require, exports, module){
             return alert('请勾选一个退货商品');
         }
         if(checkeds === detailNodes.length && selectCountMax === selectCount){
-            confirm = window.confirm("系统将直接删除这条销售记录");
+            navigator.notification.confirm("系统将直接删除这条销售记录", function (which){
+                if(which === 1){
+                    requestRefundIO();
+                }
+            }, "请注意", "退,取消");
             details = 'null';
         }else{
-            confirm = window.confirm(data.name+" 退货："+refundDetail.join('和 ').replace(/\*/g, ' x '));
+            navigator.notification.confirm(data.name+" 退货："+refundDetail.join('和 ').replace(/\*/g, ' x '), function (which){
+                if(which === 1){
+                    requestRefundIO();
+                }
+            }, "请注意", "退,取消");
         }
-        if(confirm){
+        function requestRefundIO(){
             new IO({
-                url: 'controler/refund.php',
-                data: 'id='+data.id+"&details="+(details === 'null' ? details : JSON.stringify(details)),
+                url: 'refund.php',
+                data: 'action=refund&id='+data.id+"&details="+(details === 'null' ? details : JSON.stringify(details)),
                 on: {
                     start: function (){
                         Utils.loading.show("正在退货...");
@@ -81,7 +99,7 @@ define(function (require, exports, module){
                                 Utils.loading.hide();
                             }, 1500);
                         }
-                        if(data.bizCode === 0){
+                        if(data.bizCode !== 1){
                             Utils.loading.error("退货失败，请重试");
                             setTimeout(function (){
                                 Utils.loading.hide();

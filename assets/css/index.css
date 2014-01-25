@@ -1,0 +1,103 @@
+.swipe {
+    overflow: hidden;
+    visibility: hidden;
+    position: relative;
+}
+.swipe-wrap {
+    overflow: hidden;
+    position: relative;
+}
+.swipe-wrap > div {
+    float:left;
+    width:100%;
+    position: relative;
+}
+
+body{
+    background: #efebe3;
+}
+.container{
+    padding: 10px 5px;
+    max-width: 240px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.downloadBtnBox{
+}
+.logoBox{
+    margin-right: 10px;
+    text-align: center;
+    line-height: 25px;
+}
+.version{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #8d8d8d;
+    font-size: 12px;
+    margin-top: 15px;
+}
+.downloadBtnBox  a{
+    margin-bottom: 10px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 15px;
+    -webkit-border-radius: 5px;
+    width: auto;
+    padding-right: 5px;
+    margin-left: 0;
+}
+.downloadBtnBox  a img{
+    margin-top: 4px;
+}
+.downloadBtnBox .ios{
+    background: #000;
+    color: #fff;
+}
+.downloadBtnBox .android{
+    background: #fff;
+    color: #72920B;
+}
+.downloadBtnBox .yy{
+    background: #000;
+    color: #fff;
+}
+.downloadBtnBox a:last-child{
+    margin-bottom: 0;
+}
+.logoanddownload{
+    margin-bottom: 20px;
+}
+.screenshots{
+    max-width: 200px;
+    margin: 0 auto 30px;
+}
+.triggerBox{
+    margin-bottom: 10px;
+}
+.currentScreenName{
+    font-size: 14px;
+    width: 50px;
+}
+.triggers span{
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    -webkit-border-radius: 7px;
+    background: #cac7c2;
+    margin-right: 3px;
+}
+.triggers span.current{
+    background: #1c80ac;
+}
+.triggers span:last-child{
+    margin-right: 0;
+}
+.screenshots img{
+    max-width: 200px;
+}
+.swipe{
+    -webkit-box-shadow: 0 0 10px #333;
+}
+.swipe-wrap > div{
+    height: 300px;
+    overflow: hidden;
+}

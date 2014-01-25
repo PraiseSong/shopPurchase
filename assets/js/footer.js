@@ -7,99 +7,24 @@
  */
 define(function (require, exports, module){
     var $ = require('zepto.min.js');
-    var Routing = require("routing.js");
-
-    if(((location.href.indexOf(".html") !== -1) || (location.href.indexOf(".php") !== -1)) && (location.href.indexOf("index") === -1)){
-        require('menu.js');
-    }
-
-    //隐藏地址栏控件
-    window.onload = function (){
-        setTimeout(function (){
-            window.scrollTo(0, 1);
-        }, 100);
-    };
-
-    //为所有touchStatusBtn按钮添加touch状态，提升用户体验
-    setInterval(function (){
-        var touchStatusBtns = $('.touchStatusBtn');
-        $.each(touchStatusBtns, function (i, btn){
-            if(!$(btn).attr("data-hasTouchStatusListener")){
-                $(btn).get(0).removeEventListener("touchstart");
-                $(btn).get(0).removeEventListener("touchmove");
-                $(btn).get(0).removeEventListener("touchend");
-
-                $(btn).attr("data-hasTouchStatusListener", 1);
-
-                $(btn).get(0).addEventListener("touchstart", function (e){
-                    var self = e.currentTarget;
-                    $(self).css({
-                        "-webkit-transform": "scale(.97)",
-                        opacity: .6
-                    });
-                });
-                $(btn).get(0).addEventListener("touchmove", function (e){
-                    var self = e.currentTarget;
-                    $(self).css({
-                        "-webkit-transform": "scale(1)",
-                        opacity: 1
-                    });
-                });
-                $(btn).get(0).addEventListener("touchend", function (e){
-                    var self = e.currentTarget;
-                    $(self).css({
-                        "-webkit-transform": "scale(1)",
-                        opacity: 1
-                    });
-                });
-            }
-        });
-    }, 1500);
-
-    //在standalone模式下，保持链接不外跳
-    if(navigator.standalone){
-        setInterval(function (){
-            $('a').unbind("click.standalone").bind("click.standalone",
-                function( e ){
-                    e.preventDefault();
-                    var href = $( e.currentTarget ).attr( "href" );
-                    if(!href){
-                        return false;
-                    }
-                    if($.trim(href) && href === "javascript:void(0)"){
-                        return false;
-                    }else if($.trim(href)){
-                        location.href = href;
-                    }
-                }
-            );
-        }, 500);
-    }
-
-    Routing.init();
     var backs = $('.header .back');
     if(backs.length >= 1){
         $.each(backs, function (i, back){
             if(!$(back).attr("data-norouting")){
-                if(routingBack = Routing.getBackPage()){
-                    //$(back).attr("href", routingBack);
-                }
-                if(history.length <= 1){
-                    //$(back).attr("href", "javascript:window.open('','_self').close()");
-                    //if(navigator.standalone){
-                    //    $(back).attr("href", "account.html");
-                    //}
-                    if(Routing.getBackPage()){
-                        $(back).attr("href", Routing.getBackPage());
+                var prev = localStorage.getItem("prev");
+                if(prev === location.href || !prev){
+                    if(!localStorage.getItem("user")){
+                        prev = "login.html";
                     }else{
-                        $(back).attr("href", "cashier.html");
+                        prev = "cashier.html";
                     }
-                }else{
-                    $(back).on('click', function (e){
-                        e.preventDefault();
-                        history.back();
-                    });
                 }
+                $(back).attr("href", "javascript:void(0)");
+                $(back).unbind().bind("click", function (){
+                    window.plugins.nativeControls.hideTabBar();
+                    history.back();
+                });
+                localStorage.setItem("prev", location.href);
             }
         });
     }

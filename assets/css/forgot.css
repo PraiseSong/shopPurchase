@@ -1,0 +1,48 @@
+.field-group{
+    margin-bottom: 10px;
+}
+.forgotBox{
+    padding-bottom: 50px;
+}
+.forgotBox .warn{
+    margin-bottom: 10px;
+    width: auto;
+}
+.forgotBox .warn img{
+    float: left;
+}
+.forgotBox .warn a{
+    line-height: 24px;
+    margin-left: 10px;
+    width: 70px;
+    display: inline-block;
+}
+.forgotBox .checkcodeBox{
+    height: auto;
+}
+.forgotBox .checkcodeBox span.box{
+    margin-left: 5px;
+    display: block;
+}
+#J-checkCodeImgBox{
+    height: 30px;
+    display: block;
+}
+.forgotBox .btn-primary{
+    margin: 30px auto;
+}
+.forgotBox .gotoLogin{
+    text-align: center;
+    display: block;
+}
+.forgotBox .getCheckcode{
+    display: block;
+    text-align: left;
+    line-height: 18px;
+}
+.gotoLogin{
+    font-size: 14px;
+    color: #fff;
+    margin-right: 5px;
+    display: block;
+}

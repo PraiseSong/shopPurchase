@@ -9,22 +9,54 @@ define(function (require, exports, module){
     var $ = require('zepto.min.js');
     var IO = require('io.js');
 
-    var api = 'controler/types.php';
+    var api = 'types.php';
 
-    function addType(name, callback){
+    function addType(name, callback, timeoutcallback){
         var self = this;
-        new IO({
+        var io = new IO({
             url: api,
             data: "action=add&name="+encodeURI(name),
+            timeoutcallback: function (){
+                navigator.notification.alert(
+                    "处理超时，请重试",  // message
+                    function () {
+                        timeoutcallback && timeoutcallback.call(this);
+                    },         // callback
+                    '添加分类',            // title
+                    '知道了'                  // buttonName
+                );
+            },
             on: {
                 success: function (data){
-                    callback && callback.call(callback, data);
+			       if(data.bizCode === 1 && data.data && data.data.id){
+			         localStorage.removeItem("types");
+                   }else{
+                       navigator.notification.alert(
+                           data.memo,  // message
+                           function () {
+                           },         // callback
+                           '添加分类',            // title
+                           '知道了'                  // buttonName
+                       );
+                   }
+				   callback && callback.call(callback, data);
+                },
+                error: function (data){
+                    navigator.notification.alert(
+                        data.memo,  // message
+                        function () {
+                        },         // callback
+                        '添加分类',            // title
+                        '知道了'                  // buttonName
+                    );
                 }
             }
-        }).send();
+        });
+        io.send();
+        return io;
     }
 
-    function queryTypes(callback){
+    function queryTypes(callback, timeoutcallback){
         if(types = localStorage.getItem("types")){
             types = JSON.parse(types);
             callback && callback.call(callback, types);
@@ -33,6 +65,9 @@ define(function (require, exports, module){
         new IO({
             url: api,
             data: "action=query",
+            timeoutcallback: function (){
+                timeoutcallback && timeoutcallback.call(this);
+            },
             on: {
                 success: function (data){
                     if(data.bizCode === 1 && data.data && data.data.types.length >= 1){
@@ -46,11 +81,14 @@ define(function (require, exports, module){
     }
 
     function sava2local(data){
-        //localStorage.setItem("types", JSON.stringify(data));
+        localStorage.setItem("types", JSON.stringify(data));
     }
 
     return {
         add: addType,
-        query: queryTypes
+        query: queryTypes,
+        clear: function(){
+            localStorage.removeItem("types");
+        }
     };
 });

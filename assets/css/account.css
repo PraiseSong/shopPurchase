@@ -6,6 +6,7 @@
     padding: 10px 5px;
     border-bottom: 1px solid #ddd;
     margin-bottom: 20px;
+    /*margin-top: -10px;*/
 }
 .personalBox .userAvatarBox{
     margin-right: 10px;
@@ -28,4 +29,21 @@
 }
 .btn{
     width: auto;
+    margin: 30px auto;
+}
+.feedback{
+    font-size: 14px;
+    color: #f50;
+    display: block;
+    margin-bottom: 10px;
+    height: 24px;
+    line-height: 24px;
+}
+.feedback img{
+    display: inline-block;
+    float: left;
+    margin-right: 5px;
+}
+.accountBox{
+    padding-bottom: 20px;
 }

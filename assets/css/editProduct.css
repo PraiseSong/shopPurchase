@@ -11,15 +11,11 @@
 .form-default .flexBox{
     line-height: 44px;
 }
-.typesBox{
-    margin-left: 10px;
-}
 .form-default .flexBox p{
     padding-left: 10px;
 }
 .btn-primary{
-    margin: 10px auto;
-    width: 80%;
+    margin: 30px auto;
 }
 .form-default .propsBox,
 .form-default .attachmentBox,
@@ -84,8 +80,10 @@
     margin-top: 5px;
 }
 #count{
-    width: 100px;
-    -webkit-box-flex: 0;
+    -webkit-box-flex: 1;
     border-right: 1px solid #ddd;
     padding-right: 10px;
+}
+.field-group{
+    margin-bottom: 10px;
 }
