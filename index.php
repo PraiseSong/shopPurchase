@@ -7,6 +7,7 @@ $ua_checker = array(
     'iphone' => preg_match('/iphone|ipod|ipad/', $ua)
 );
 $device = "iPhone";
+$imgs = array();
 if ($ua_checker['android']) {
     $device = "android";
 } else if ($ua_checker['iphone']) {
@@ -16,21 +17,20 @@ if ($ua_checker['android']) {
   $screenshots_dir = "assets/imgs/screenshots/".$device;
 
   if(!is_dir($screenshots_dir)){
-      exit($screenshots_dir." 不是一个有效的目录");
+      //exit($screenshots_dir." 不是一个有效的目录");
   }
   $config = $screenshots_dir.'/config.json';
 
   $config_handle = $handle = fopen($config, "r");
   if(!$config_handle){
-      exit("产品缩略图的config.json无法打开");
+      //exit("产品缩略图的config.json无法打开");
   }
   $config_text = fread($config_handle, filesize($config));
   if(!$config_text){
-      exit("无法读取产品缩略图的config.json或config.json没有内容");
+      //exit("无法读取产品缩略图的config.json或config.json没有内容");
   }
   $config_text = json_decode($config_text);
 
-  $imgs = array();
   if ($screenshots_dir_handle = opendir($screenshots_dir)) {
     while (($file = readdir($screenshots_dir_handle)) !== false) {
         if ($file!="." && $file!=".." && $file !== "config.json") {
@@ -42,7 +42,7 @@ if ($ua_checker['android']) {
     }
     closedir($screenshots_dir_handle);
   }else{
-      exit($screenshots_dir." 无法打开");
+      //exit($screenshots_dir." 无法打开");
   }
 ?>
 <!DOCTYPE html>
