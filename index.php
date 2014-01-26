@@ -16,33 +16,32 @@ if ($ua_checker['android']) {
 
   $screenshots_dir = "assets/imgs/screenshots/".$device;
 
-  if(!is_dir($screenshots_dir)){
-      //exit($screenshots_dir." 不是一个有效的目录");
-  }
-  $config = $screenshots_dir.'/config.json';
+  if(is_dir($screenshots_dir)){
+      $config = $screenshots_dir.'/config.json';
 
-  $config_handle = $handle = fopen($config, "r");
-  if(!$config_handle){
-      //exit("产品缩略图的config.json无法打开");
-  }
-  $config_text = fread($config_handle, filesize($config));
-  if(!$config_text){
-      //exit("无法读取产品缩略图的config.json或config.json没有内容");
-  }
-  $config_text = json_decode($config_text);
+      $config_handle = $handle = fopen($config, "r");
+      if(!$config_handle){
+          //exit("产品缩略图的config.json无法打开");
+      }
+      $config_text = fread($config_handle, filesize($config));
+      if(!$config_text){
+          //exit("无法读取产品缩略图的config.json或config.json没有内容");
+      }
+      $config_text = json_decode($config_text);
 
-  if ($screenshots_dir_handle = opendir($screenshots_dir)) {
-    while (($file = readdir($screenshots_dir_handle)) !== false) {
-        if ($file!="." && $file!=".." && $file !== "config.json") {
-            $filename = preg_split('/\./', $file);
-            $alt = $config_text->$filename[0];
-            $src = $screenshots_dir."/$file";
-            array_push($imgs, "<img src=\"$src\" alt=\"$alt\">");
-        }
-    }
-    closedir($screenshots_dir_handle);
-  }else{
-      //exit($screenshots_dir." 无法打开");
+      if ($screenshots_dir_handle = opendir($screenshots_dir)) {
+          while (($file = readdir($screenshots_dir_handle)) !== false) {
+              if ($file!="." && $file!=".." && $file !== "config.json") {
+                  $filename = preg_split('/\./', $file);
+                  $alt = $config_text->$filename[0];
+                  $src = $screenshots_dir."/$file";
+                  array_push($imgs, "<img src=\"$src\" alt=\"$alt\">");
+              }
+          }
+          closedir($screenshots_dir_handle);
+      }else{
+          //exit($screenshots_dir." 无法打开");
+      }
   }
 ?>
 <!DOCTYPE html>
