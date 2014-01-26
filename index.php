@@ -53,6 +53,7 @@ if ($ua_checker['android']) {
     <meta content="telephone=no" name="format-detection"/>
     <meta content="yes" name="apple-mobile-web-app-capable"/>
     <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta name="baidu-tc-cerfication" content="816c8ab30314eda7a925cae8918fb130" />
     <link href="assets/imgs/logo.png" rel="apple-touch-icon-precomposed"/>
     <title>
         小店记账宝
