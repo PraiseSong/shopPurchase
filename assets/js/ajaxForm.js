@@ -81,7 +81,7 @@ define(function (require, exports, module) {
 
                     this.ajaxObj = $.ajax({
                         timeout: 30000,
-                        url: 'http://115.29.39.106/client.php'+"?t="+new Date().getTime(),
+                        url: 'http://jzb.rib.hk/client.php'+"?t="+new Date().getTime(),
                         dataType: this.cfg.dataType,
                         data: this.cfg.data,
                         type: this.cfg.type,

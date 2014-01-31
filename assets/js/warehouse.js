@@ -145,12 +145,12 @@ define(function (require, exports, module){
         var parentType = $.trim($('#J-parentTypes').val());
         $.each(products, function (j, data){
             if(data.p_pic.indexOf("attachments") !== -1){
-                data.p_pic = "http://115.29.39.106/"+data.p_pic;
+                data.p_pic = "http://jzb.rib.hk/"+data.p_pic;
             }
 
             if(data.p_pic.indexOf("base64") < 0 && data.p_pic.indexOf("attachments") < 0){
                 var user = JSON.parse(localStorage.getItem("user"));
-                data.p_pic = "http://115.29.39.106/attachments/"+user.attachmentsDir + "/thumb_"+data.p_pic;
+                data.p_pic = "http://jzb.rib.hk/attachments/"+user.attachmentsDir + "/thumb_"+data.p_pic;
             }
 
             var price = (data.p_price*1).toFixed(2).split('.');

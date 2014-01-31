@@ -60,12 +60,12 @@ define(function (require, exports, module){
 
         $.each(data, function (k, product){
             if(product.p_pic.indexOf("attachments") !== -1){
-                product.p_pic = "http://115.29.39.106/"+product.p_pic;
+                product.p_pic = "http://jzb.rib.hk/"+product.p_pic;
             }
 
             if(product.p_pic.indexOf("base64") < 0 && product.p_pic.indexOf("attachments") < 0){
                 var user = JSON.parse(localStorage.getItem("user"));
-                product.p_pic = "http://115.29.39.106/attachments/"+user.attachmentsDir + "/thumb_"+product.p_pic;
+                product.p_pic = "http://jzb.rib.hk/attachments/"+user.attachmentsDir + "/thumb_"+product.p_pic;
             }
             html += "<li><div class=\"flexBox touchStatusBtn\" data-id="+product.order_id+">"+
             '<div class="imgSkin box">'+

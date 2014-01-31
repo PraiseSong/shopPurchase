@@ -22,7 +22,7 @@ define(function (require, exports, module){
             imgBox.find('img').remove();
         }
         imgBox.html("<p>获取中...</p>");
-        imgBox.append("<img src=\"http://115.29.39.106/models/captcha.php?t="+new Date().getTime()+"\" alt=\"验证码\" style='display:none;' />");
+        imgBox.append("<img src=\"http://jzb.rib.hk/models/captcha.php?t="+new Date().getTime()+"\" alt=\"验证码\" style='display:none;' />");
         imgBox.find("img").unbind().on("load", function (){
             imgBox.find("p").remove();
             imgBox.find("img").show();
