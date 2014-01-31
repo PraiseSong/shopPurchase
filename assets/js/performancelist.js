@@ -166,27 +166,11 @@ define(function (require, exports, module){
             }
             $('.charts').html(dateTypeHtml);
             function getWidth(w){
-                var max = Math.max.apply( Math, lrs);
-                var width = 0;
-                width = (w / max)*100;
-                if(width >= max){
-                    width = 100;
-                }else if(width <= 35){
-                    width = 35*(w / max);
-                    if(width < 0){
-                        width *= 100;
-                    }else if(width > 0 && width < 10){
-                        width *= 10;
-                    }
-                }
-
-                if(width < 35){
-                    width = 35;
-                }
-
-                if(w <= 0){
-                    width = 33.5;
-                }
+                var maxlr = Math.max.apply( Math, lrs);
+                var minWidth = 35;
+                var maxWidth = 100;
+                var ratio = w / (maxWidth-minWidth);
+                width = minWidth+ratio;
 
                 return width + '%';
             }
