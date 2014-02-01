@@ -37,7 +37,7 @@ $loggedInUser = logining(fetchUserDetails($client_username));
 
 if($client_api !== 'login.php' && $client_api !== "register.php"
    && $client_api !== 'account_settings.php' && $client_api !== 'forgot.php' && $client_api !== 'help.php'
-   && $client_api !== 'update_password.php' && $client_api !== 'login.php' && $client_api !== "getProductInfo.php"){
+   && $client_api !== 'update_password.php' && $client_api !== "getProductInfo.php"){
     if(!$localpassword || ($loggedInUser -> hash_pw !== $localpassword)){
         $data = array("bizCode"=>4,"memo"=>"安全验证不通过，请退出后重新登录","data"=>array($_POST));
         exit(json_encode($data));
