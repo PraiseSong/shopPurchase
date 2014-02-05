@@ -355,6 +355,40 @@ function fetchUserDetails($username=NULL,$token=NULL, $id=NULL)
 	return ($row);
 }
 
+function fetchUserStoreSettings($username=NULL,$token=NULL, $id=NULL)
+{
+    $row = "";
+
+    if($username!=NULL) {
+        $column = "user_name";
+        $data = $username;
+    }
+    elseif($token!=NULL) {
+        $column = "activation_token";
+        $data = $token;
+    }
+    elseif($id!=NULL) {
+        $column = "id";
+        $data = $id;
+    }
+    global $mysqli,$db_table_prefix;
+    $stmt = $mysqli->prepare("SELECT
+		store_settings
+		FROM ".$db_table_prefix."users
+		WHERE
+		$column = ?
+		LIMIT 1");
+    $stmt->bind_param("s", $data);
+
+    $stmt->execute();
+    $stmt->bind_result($settings);
+    while ($stmt->fetch()){
+        $row = $settings;
+    }
+    $stmt->close();
+    return ($row);
+}
+
 //Toggle if lost password request flag on or off
 function flagLostPasswordRequest($username,$value)
 {
