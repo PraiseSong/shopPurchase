@@ -42,7 +42,7 @@ switch($action){
         $query_exist_sql = "select * from types where ((user_id = $user_id) and (name='$name'))";
         $exist_data = $db->queryUniqueObject($query_exist_sql);
         if($exist_data && ($exist_data->name === $name)){
-            $result = array("bizCode" => 0, "memo" => "$name 分类已经存在", "data"=>array());
+            $result = array("bizCode" => 2, "memo" => "$name 分类已经存在", "data"=>array($name));
             echo json_encode($result);
             exit;
         }
