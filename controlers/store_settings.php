@@ -21,15 +21,14 @@ switch($client_action){
         }
         $exist_store_settings = fetchUserStoreSettings($client_username);
         if(!$exist_store_settings){
-            $store_settings = array($role => $status);
+            $store_settings = json_decode(json_encode(array($role => $status)));
         }else{
             $store_settings = json_decode($exist_store_settings);
+            if($store_settings -> $role === $status){
+                exit(json_encode(array("bizCode" => 1, "memo" => "未执行任何操作", "data" => array("status" => $store_settings -> $role))));
+            }
         }
-        if($store_settings -> $role === $status){
-            exit(json_encode(array("bizCode" => 1, "memo" => "未执行任何操作", "data" => array("status" => $store_settings -> $role))));
-        }else{
-            $store_settings -> $role = $status;
-        }
+        $store_settings -> $role = $status;
         $store_settings = json_encode($store_settings);
         $stmt = $mysqli->prepare("UPDATE ".$db_table_prefix."users
 		SET store_settings = ?
