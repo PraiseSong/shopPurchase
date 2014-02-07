@@ -89,7 +89,7 @@ if ($ua_checker['android']) {
             </p>
         </div>
         <div class="downloadBtnBox box">
-            <a href="#" title="下载iOS版" target="_blank" class="ios flexBox">
+            <a href="https://itunes.apple.com/us/app/xiao-dian-ji-zhang-bao/id805541586?ls=1&mt=8" title="下载iOS版" target="_blank" class="ios flexBox">
                 <img src="assets/imgs/iphone.png" width="32" alt="下载iOS版"/>
                   <span class="box">
                       下载iOS版

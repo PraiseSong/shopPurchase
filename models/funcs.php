@@ -128,9 +128,9 @@ function lang($key,$markers = NULL)
 //Checks if a string is within a min and max length
 function minMaxRange($min, $max, $what)
 {
-	if(strlen(trim($what)) < $min)
+	if(mb_strlen(trim($what), "UTF8") < $min)
 		return true;
-	else if(strlen(trim($what)) > $max)
+	else if(mb_strlen(trim($what), "UTF8") > $max)
 		return true;
 	else
 	return false;
