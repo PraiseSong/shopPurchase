@@ -33,9 +33,13 @@ if ($ua_checker['android']) {
           while (($file = readdir($screenshots_dir_handle)) !== false) {
               if ($file!="." && $file!=".." && $file !== "config.json") {
                   $filename = preg_split('/\./', $file);
-                  $alt = $config_text->$filename[0];
-                  $src = $screenshots_dir."/$file";
-                  array_push($imgs, "<img src=\"$src\" alt=\"$alt\">");
+                  if($filename[0]){
+                      $alt = $config_text->$filename[0];
+                      $src = $screenshots_dir."/$file";
+                      if($alt && $src){
+                          array_push($imgs, "<img src=\"$src\" alt=\"$alt\">");
+                      }
+                  }
               }
           }
           closedir($screenshots_dir_handle);
