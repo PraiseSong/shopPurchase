@@ -59,6 +59,7 @@ if ($ua_checker['android']) {
     <meta content="telephone=no" name="format-detection"/>
     <meta content="yes" name="apple-mobile-web-app-capable"/>
     <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta name="apple-itunes-app" content="app-id=805541586">
     <link href="assets/imgs/logo.png" rel="apple-touch-icon-precomposed"/>
     <title>
         小店记账宝
