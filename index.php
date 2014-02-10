@@ -100,13 +100,13 @@ if ($ua_checker['android']) {
                       下载iOS版
                   </span>
             </a>
-            <a href="#" title="下载安卓版" target="_blank" class="android flexBox">
+            <a href="download/xiaodianjizhangbao.apk" title="下载安卓版" target="_blank" class="android flexBox">
                 <img src="assets/imgs/android.png" width="32" alt="下载安卓版"/>
                   <span class="box">
                       下载安卓版
                   </span>
             </a>
-            <a href="itms-services://?action=download-manifest&url=http://jizhangbao.com.cn/app.plist" title="下载越狱版" target="_blank" class="yy flexBox">
+            <a href="itms-services://?action=download-manifest&url=app.plist" title="下载越狱版" target="_blank" class="yy flexBox">
                 <img src="assets/imgs/skullcandy.png" width="32" alt="下载越狱版"/>
                   <span class="box">
                       下载越狱版
