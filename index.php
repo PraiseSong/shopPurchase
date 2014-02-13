@@ -66,8 +66,8 @@ if ($ua_checker['android']) {
     </title>
     <link rel="stylesheet" href="assets/css/reset.css"/>
     <link rel="stylesheet" href="assets/css/common.css"/>
-    <link rel="stylesheet" href="assets/css/index.css"/>
     <link rel="stylesheet" href="assets/libs/style.css"/>
+    <link rel="stylesheet" href="assets/css/index.css"/>
     <script src="assets/libs/swipe.js"></script>
     <script src="assets/libs/sea.js"></script>
     <script type="text/javascript">
@@ -80,6 +80,9 @@ if ($ua_checker['android']) {
     </script>
 </head>
 <body>
+<header id="header">
+    让小店的记账更简单
+</header>
 <div class="container">
     <div class="flexBox logoanddownload">
         <div class="box logoBox">
@@ -90,7 +93,7 @@ if ($ua_checker['android']) {
             </p>
 
             <p class="version">
-                当前版本 <?php echo $version; ?>
+                最新版本 <?php echo $version; ?>
             </p>
         </div>
         <div class="downloadBtnBox box">
@@ -145,6 +148,32 @@ if ($ua_checker['android']) {
         </div>
     </div>
     <? endif; ?>
+</div>
+
+<div class="partners">
+    <div class="container">
+        <div class="content">
+            <header>应用市场下载</header>
+            <ul>
+                <li>
+                    <a href="http://www.25pp.com" target="_blank" class="flexBox">
+                        <img src="http://pro.25pp.com/data/link/121227/121227034128vmcvas.gif" alt="PP助手(iPhone游戏)"/>
+                        <span class="box">
+                            PP助手(iPhone游戏)
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://zhushou.360.cn/" target="_blank" class="flexBox">
+                        <img src="http://zhushou.360.cn/style/img_w/logo_0413.png" alt="360手机助手"/>
+                        <span class="box">
+                            360手机助手
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 </body>
 <script>

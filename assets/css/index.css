@@ -44,6 +44,7 @@ body{
     width: auto;
     padding-right: 5px;
     margin-left: 0;
+    overflow: hidden;
 }
 .downloadBtnBox  a img{
     margin-top: 4px;
@@ -98,6 +99,32 @@ body{
     -webkit-box-shadow: 0 0 10px #333;
 }
 .swipe-wrap > div{
-    height: 300px;
     overflow: hidden;
+}
+#header{
+    line-height: 25px;
+    padding: 5px 0;
+    font-size: 16px;
+    text-align: center;
+    color: #333;
+    display: block;
+    -webkit-box-shadow: 0 1px 5px #d0ccc1;
+    background: #f4f4f4;
+}
+.partners .content header{
+    font-size: 15px;
+    border-bottom: 1px solid #c5c1ba;
+    margin-bottom: 10px;
+    line-height: 30px;
+}
+.partners .content ul li{
+    padding: 3px 0;
+    display: block;
+}
+.partners .content ul li a{
+    margin: 0;
+}
+.partners .content ul li img{
+    margin-right: 5px;
+    max-width: 130px;
 }
