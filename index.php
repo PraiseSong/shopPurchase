@@ -103,7 +103,7 @@ if ($ua_checker['android']) {
                       下载iOS版
                   </span>
             </a>
-            <a href="download/xiaodianjizhangbao.apk" title="下载安卓版" target="_blank" class="android flexBox">
+            <a href="download/xiaodianjizhangbao.apk#weixin.qq.com" title="下载安卓版" target="_blank" class="android flexBox">
                 <img src="assets/imgs/android.png" width="32" alt="下载安卓版"/>
                   <span class="box">
                       下载安卓版
@@ -153,7 +153,7 @@ if ($ua_checker['android']) {
 <div class="partners">
     <div class="container">
         <div class="content">
-            <header>应用市场下载</header>
+            <header>去应用市场下载</header>
             <ul>
                 <li>
                     <a href="http://www.25pp.com" target="_blank" class="flexBox">
