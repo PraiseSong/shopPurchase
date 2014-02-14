@@ -98,19 +98,19 @@ if ($ua_checker['android']) {
         </div>
         <div class="downloadBtnBox box">
             <a href="https://itunes.apple.com/us/app/xiao-dian-ji-zhang-bao/id805541586?ls=1&mt=8" title="下载iOS版" target="_blank" class="ios flexBox">
-                <img src="assets/imgs/iphone.png" width="32" alt="下载iOS版"/>
+                <img src="assets/imgs/iphone.png" width="32" alt="下载<?php echo $websiteName; ?>iOS版"/>
                   <span class="box">
                       下载iOS版
                   </span>
             </a>
             <a href="download/xiaodianjizhangbao.apk#weixin.qq.com" title="下载安卓版" target="_blank" class="android flexBox">
-                <img src="assets/imgs/android.png" width="32" alt="下载安卓版"/>
+                <img src="assets/imgs/android.png" width="32" alt="下载<?php echo $websiteName; ?>安卓版"/>
                   <span class="box">
                       下载安卓版
                   </span>
             </a>
             <a href="itms-services://?action=download-manifest&url=app.plist" title="下载越狱版" target="_blank" class="yy flexBox">
-                <img src="assets/imgs/skullcandy.png" width="32" alt="下载越狱版"/>
+                <img src="assets/imgs/skullcandy.png" width="32" alt="下载<?php echo $websiteName; ?>越狱版"/>
                   <span class="box">
                       下载越狱版
                   </span>
@@ -168,6 +168,46 @@ if ($ua_checker['android']) {
                         <img src="assets/imgs/360zs.png" alt="360手机助手"/>
                         <span class="box">
                             360手机助手
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://android.app.qq.com/" target="_blank" class="flexBox">
+                        <img src="assets/imgs/qq.png" alt="应用宝"/>
+                        <span class="box">
+                            应用宝
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://as.baidu.com/a/appsearch?pre=web_am_index" target="_blank" class="flexBox">
+                        <img src="assets/imgs/baidu.png" alt="百度手机助手"/>
+                        <span class="box">
+                            百度手机助手
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://zs.91.com/" target="_blank" class="flexBox">
+                        <img src="assets/imgs/91.png" alt="91手机助手"/>
+                        <span class="box">
+                            91手机助手
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://apk.hiapk.com/himarket/" target="_blank" class="flexBox">
+                        <img src="http://cdn.r.apk.hiapk.com/web2/themes/t1/images/logo72.png" alt="安卓市场"/>
+                        <span class="box">
+                            安卓市场
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://www.appchina.com/" target="_blank" class="flexBox">
+                        <img src="http://static.yingyonghui.com/icon/72/9999.png" alt="应用汇"/>
+                        <span class="box">
+                            应用汇
                         </span>
                     </a>
                 </li>
