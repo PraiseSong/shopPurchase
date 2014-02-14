@@ -62,7 +62,7 @@ if ($ua_checker['android']) {
     <meta name="apple-itunes-app" content="app-id=805541586">
     <link href="assets/imgs/logo.png" rel="apple-touch-icon-precomposed"/>
     <title>
-        小店记账宝
+        记账宝
     </title>
     <link rel="stylesheet" href="assets/css/reset.css"/>
     <link rel="stylesheet" href="assets/css/common.css"/>
@@ -157,7 +157,7 @@ if ($ua_checker['android']) {
             <ul>
                 <li>
                     <a href="http://www.25pp.com" target="_blank" class="flexBox">
-                        <img src="http://pro.25pp.com/data/link/121227/121227034128vmcvas.gif" alt="PP助手(iPhone游戏)"/>
+                        <img src="assets/imgs/ppzs.png" alt="PP助手(iPhone游戏)"/>
                         <span class="box">
                             PP助手(iPhone游戏)
                         </span>
@@ -165,7 +165,7 @@ if ($ua_checker['android']) {
                 </li>
                 <li>
                     <a href="http://zhushou.360.cn/" target="_blank" class="flexBox">
-                        <img src="http://zhushou.360.cn/style/img_w/logo_0413.png" alt="360手机助手"/>
+                        <img src="assets/imgs/360zs.png" alt="360手机助手"/>
                         <span class="box">
                             360手机助手
                         </span>
@@ -175,6 +175,15 @@ if ($ua_checker['android']) {
         </div>
     </div>
 </div>
+
+<footer id="footer">
+    <p>
+        记账宝版权所有 © 2014 - 2015
+    </p>
+    <p>
+        浙ICP备08107985号-4
+    </p>
+</footer>
 </body>
 <script>
     seajs.use("index.js");
