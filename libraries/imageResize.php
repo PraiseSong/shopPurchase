@@ -23,6 +23,9 @@ function img2thumb($src_img, $dst_img, $width = 75, $height = 75, $cut = 0, $pro
         return false;
     }
     $ot = fileext($dst_img);
+    if(!$ot){
+        $ot = 'jpg';
+    }
     $otfunc = 'image' . ($ot == 'jpg' ? 'jpeg' : $ot);
     $srcinfo = getimagesize($src_img);
     $src_w = $srcinfo[0];

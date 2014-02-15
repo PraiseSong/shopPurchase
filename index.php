@@ -60,6 +60,8 @@ if ($ua_checker['android']) {
     <meta content="yes" name="apple-mobile-web-app-capable"/>
     <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
     <meta name="apple-itunes-app" content="app-id=805541586">
+    <meta name="google-site-verification" content="_cWcSIxwgfYWssv1sEMxhHvb-YzjhTO6inWfuogdnBY" />
+    <meta name="msvalidate.01" content="71BE92EDF492EA24798598C27A3134E2" />
     <link href="assets/imgs/logo.png" rel="apple-touch-icon-precomposed"/>
     <title>
         记账宝
@@ -109,7 +111,7 @@ if ($ua_checker['android']) {
                       下载安卓版
                   </span>
             </a>
-            <a href="itms-services://?action=download-manifest&url=app.plist" title="下载越狱版" target="_blank" class="yy flexBox">
+            <a href="itms-services://?action=download-manifest&url=http://jizhangbao.com.cn/app.plist" title="下载越狱版" target="_blank" class="yy flexBox">
                 <img src="assets/imgs/skullcandy.png" width="32" alt="下载<?php echo $websiteName; ?>越狱版"/>
                   <span class="box">
                       下载越狱版
