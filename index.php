@@ -63,8 +63,9 @@ if ($ua_checker['android']) {
     <meta name="google-site-verification" content="_cWcSIxwgfYWssv1sEMxhHvb-YzjhTO6inWfuogdnBY" />
     <meta name="msvalidate.01" content="71BE92EDF492EA24798598C27A3134E2" />
     <link href="assets/imgs/logo.png" rel="apple-touch-icon-precomposed"/>
+    <link rel="shortcut icon" href="assets/imgs/favicon.ico" type="image/x-icon" />
     <title>
-        记账宝
+        小店记账宝
     </title>
     <link rel="stylesheet" href="assets/css/reset.css"/>
     <link rel="stylesheet" href="assets/css/common.css"/>
