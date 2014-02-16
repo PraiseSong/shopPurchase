@@ -213,6 +213,14 @@ if ($ua_checker['android']) {
                         </span>
                     </a>
                 </li>
+                <li>
+                    <a href="http://www.wandoujia.com/apps" target="_blank" class="flexBox">
+                        <img src="assets/imgs/wdj.png" alt="碗豆荚"/>
+                        <span class="box">
+                            碗豆荚
+                        </span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
