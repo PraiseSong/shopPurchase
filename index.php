@@ -100,7 +100,7 @@ if ($ua_checker['android']) {
             </p>
         </div>
         <div class="downloadBtnBox box">
-            <a href="https://itunes.apple.com/us/app/xiao-dian-ji-zhang-bao/id805541586?ls=1&mt=8" title="下载iOS版" target="_blank" class="ios flexBox">
+            <a href="https://itunes.apple.com/us/app/xiao-dian-ji-zhang-bao/id805541586?ls=1&mt=8#weixin.qq.com" title="下载iOS版" target="_blank" class="ios flexBox">
                 <img src="assets/imgs/iphone.png" width="32" alt="下载<?php echo $websiteName; ?>iOS版"/>
                   <span class="box">
                       下载iOS版
@@ -112,7 +112,7 @@ if ($ua_checker['android']) {
                       下载安卓版
                   </span>
             </a>
-            <a href="itms-services://?action=download-manifest&url=http://jizhangbao.com.cn/app.plist" title="下载越狱版" target="_blank" class="yy flexBox">
+            <a href="itms-services://?action=download-manifest&url=http://jizhangbao.com.cn/app.plist#weixin.qq.com" title="下载越狱版" target="_blank" class="yy flexBox">
                 <img src="assets/imgs/skullcandy.png" width="32" alt="下载<?php echo $websiteName; ?>越狱版"/>
                   <span class="box">
                       下载越狱版
