@@ -59,6 +59,10 @@ if($client_action === "query"){
                 $query_type_name_sql = "select name from types where (id=$t)";
                 $type = $db->queryObject($query_type_name_sql);
 
+                if(!$type){
+                    $type = new stdClass();
+                    $type -> name = "未知分类";
+                }
                 array_push(
                     $operation,
                     array('p_id' => $v-> p_id, 'detail' => $vv -> detail, 'p_price' => $v->p_price,'date'=>$vv->date, 'type'=>$type->name, 'order_id'=>$vv->order_id, 'prop'=>$vv->prop, 'p_pic'=>$v->p_pic,'p_name'=>$v->p_name)

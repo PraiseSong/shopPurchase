@@ -53,7 +53,7 @@ if ($ua_checker['android']) {
 <head>
     <meta name="baidu-tc-cerfication" content="816c8ab30314eda7a925cae8918fb130" />
     <meta name="description" content="小店记账宝是一款面向小商户的轻量级记账工具。帮助您轻松管理小店日常运营数据、货品数据。您再也不需要手抄本了，随身带部手机即可完成店铺每日的运营；您再也不需要在电脑里安装一大堆记账软件，现在只需要在您心爱的手机里打开小店记账宝即可">
-    <meta name="keywords" content="记账宝,小店记账宝/账务管理/店铺账务管理/手机记账,手机进销存/iPhone记账/Android记账/小店铺记账/夜市记账/摆摊记账,货品管理/销售数据管理,记账宝网站,小店记账宝网站,记账宝官方网站,下载小店记账宝,下载记账宝,小店数据管理,小店运营管理,小店货品管理">
+    <meta name="keywords" content="记账宝,小店记账宝/账务管理/店铺账务管理/手机记账,手机进销存/iPhone记账/Android记账/小店铺记账/夜市记账/摆摊记账,货品管理/销售数据管理,记账宝网站,小店记账宝网站,记账宝官方网站,下载小店记账宝,下载记账宝,小店数据管理,小店运营管理,小店货品管理,小店记账软件">
     <meta charset="utf-8"/>
     <meta content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" name="viewport"/>
     <meta content="telephone=no" name="format-detection"/>

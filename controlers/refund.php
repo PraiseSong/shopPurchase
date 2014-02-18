@@ -85,30 +85,33 @@ if($client_action === 'refund'){
     foreach($query_exist_detail as $k => $del){
         $index =(String) ($k+1);
         $del = preg_split('/\*/', $del);
-        $exist_max = $del[1];
-        if(!property_exists($details, $index)){
-            array_push($new_detail, implode('*', $del));
-            continue;
+
+        if(count($del) > 1){
+            $exist_max = $del[1];
+            if(!property_exists($details, $index)){
+                array_push($new_detail, implode('*', $del));
+                continue;
+            }
+            $extra = $details -> $index;
+            $extra = preg_split('/\,/', $extra[0]);
+            if($extra[0] !== $exist_max){
+                $result = array("bizCode" => 0, "memo" => "退货发生异常，请刷新页面", "data"=>array());
+                echo json_encode($result);
+                break;
+                exit;
+            }
+            $new_count = $exist_max - $extra[1];
+            if($new_count < 0){
+                $result = array("bizCode" => 0, "memo" => "退货数量大于销售时的数量", "data"=>array());
+                echo json_encode($result);
+                break;
+                exit;
+            }
+            if($new_count > 0){
+                array_push($new_detail, $del[0].'*'.$new_count);
+            }
+            $refund_count += $extra[1];
         }
-        $extra = $details -> $index;
-        $extra = preg_split('/\,/', $extra[0]);
-        if($extra[0] !== $exist_max){
-            $result = array("bizCode" => 0, "memo" => "退货发生异常，请刷新页面", "data"=>array());
-            echo json_encode($result);
-            break;
-            exit;
-        }
-        $new_count = $exist_max - $extra[1];
-        if($new_count < 0){
-            $result = array("bizCode" => 0, "memo" => "退货数量大于销售时的数量", "data"=>array());
-            echo json_encode($result);
-            break;
-            exit;
-        }
-        if($new_count > 0){
-            array_push($new_detail, $del[0].'*'.$new_count);
-        }
-        $refund_count += $extra[1];
     }
     $new_detail = implode('|', $new_detail);
     $new_total_count = $query_exist_data->count - $refund_count;
