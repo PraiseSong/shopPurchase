@@ -222,6 +222,30 @@ if ($ua_checker['android']) {
                         </span>
                     </a>
                 </li>
+                <li>
+                    <a href="http://apk.gfan.com/apps_7_1_1.html" target="_blank" class="flexBox">
+                        <img src="assets/imgs/jf.png" alt="机锋市场"/>
+                        <span class="box">
+                            机锋市场
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://m.163.com/android/" target="_blank" class="flexBox">
+                        <img src="assets/imgs/wy.png" alt="网易应用市场"/>
+                        <span class="box">
+                            网易应用市场
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://mm.10086.cn/" target="_blank" class="flexBox">
+                        <img src="http://u5.mm-img.com/rs/res1/21/2013/12/14/a278/699/32699278/logo1140x1407031345623_src.jpg" alt="中国移动MM应用市场"/>
+                        <span class="box">
+                            中国移动MM应用市场
+                        </span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
