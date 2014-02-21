@@ -6,7 +6,7 @@ $ua_checker = array(
     'android' => preg_match('/android/', $ua),
     'iphone' => preg_match('/iphone|ipod|ipad/', $ua)
 );
-$device = "iPhone";
+$device = false;
 $imgs = array();
 if ($ua_checker['android']) {
     $device = "android";
@@ -14,39 +14,45 @@ if ($ua_checker['android']) {
     $device = "iPhone";
 }
 
-  $screenshots_dir = "assets/imgs/screenshots/".$device;
+if(stripos($ua, 'webkit') && !$device){
+    $device = "iPhone";
+}
 
-  if(is_dir($screenshots_dir)){
-      $config = $screenshots_dir.'/config.json';
+if($device){
+    $screenshots_dir = "assets/imgs/screenshots/".$device;
 
-      $config_handle = $handle = fopen($config, "r");
-      if(!$config_handle){
-          //exit("产品缩略图的config.json无法打开");
-      }
-      $config_text = fread($config_handle, filesize($config));
-      if(!$config_text){
-          //exit("无法读取产品缩略图的config.json或config.json没有内容");
-      }
-      $config_text = json_decode($config_text);
+    if(is_dir($screenshots_dir)){
+        $config = $screenshots_dir.'/config.json';
 
-      if ($screenshots_dir_handle = opendir($screenshots_dir)) {
-          while (($file = readdir($screenshots_dir_handle)) !== false) {
-              if ($file!="." && $file!=".." && $file !== "config.json") {
-                  $filename = preg_split('/\./', $file);
-                  if($filename[0]){
-                      $alt = $config_text->$filename[0];
-                      $src = $screenshots_dir."/$file";
-                      if($alt && $src){
-                          array_push($imgs, "<img src=\"$src\" alt=\"$alt\">");
-                      }
-                  }
-              }
-          }
-          closedir($screenshots_dir_handle);
-      }else{
-          //exit($screenshots_dir." 无法打开");
-      }
-  }
+        $config_handle = $handle = fopen($config, "r");
+        if(!$config_handle){
+            //exit("产品缩略图的config.json无法打开");
+        }
+        $config_text = fread($config_handle, filesize($config));
+        if(!$config_text){
+            //exit("无法读取产品缩略图的config.json或config.json没有内容");
+        }
+        $config_text = json_decode($config_text);
+
+        if ($screenshots_dir_handle = opendir($screenshots_dir)) {
+            while (($file = readdir($screenshots_dir_handle)) !== false) {
+                if ($file!="." && $file!=".." && $file !== "config.json") {
+                    $filename = preg_split('/\./', $file);
+                    if($filename[0]){
+                        $alt = $config_text->$filename[0];
+                        $src = $screenshots_dir."/$file";
+                        if($alt && $src){
+                            array_push($imgs, "<img src=\"$src\" alt=\"$alt\">");
+                        }
+                    }
+                }
+            }
+            closedir($screenshots_dir_handle);
+        }else{
+            //exit($screenshots_dir." 无法打开");
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -83,9 +89,9 @@ if ($ua_checker['android']) {
     </script>
 </head>
 <body>
-<header id="header">
+<div id="header">
     让小店的记账更简单
-</header>
+</div>
 <div class="container">
     <div class="flexBox logoanddownload">
         <div class="box logoBox">
@@ -120,7 +126,7 @@ if ($ua_checker['android']) {
             </a>
         </div>
     </div>
-    <?php if(count($imgs) > 0): ?>
+    <?php if(count($imgs) > 0 && ($device === 'iPhone' || $device === 'android')): ?>
     <div class="screenshots">
         <div class="triggerBox flexBox">
             <div class="triggers box" id="J-triggers">
@@ -156,7 +162,7 @@ if ($ua_checker['android']) {
 <div class="partners">
     <div class="container">
         <div class="content">
-            <header>去应用市场下载</header>
+            <div class="h">去应用市场下载</div>
             <ul>
                 <li>
                     <a href="http://www.25pp.com" target="_blank" class="flexBox">
@@ -246,19 +252,27 @@ if ($ua_checker['android']) {
                         </span>
                     </a>
                 </li>
+                <li>
+                    <a href="http://www.anzhi.com/applist.html" target="_blank" class="flexBox">
+                        <img src="http://img4.anzhi.com/data1/icon/201401/17/cn.goapk.market_97869700.jpg" alt="安智市场"/>
+                        <span class="box">
+                            安智市场
+                        </span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </div>
 
-<footer id="footer">
+<div id="footer">
     <p>
         记账宝版权所有 © 2014 - 2015
     </p>
     <p>
         浙ICP备08107985号-4
     </p>
-</footer>
+</div>
 </body>
 <script>
     seajs.use("index.js");

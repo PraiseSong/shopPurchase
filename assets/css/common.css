@@ -163,12 +163,20 @@ input.btn{
 }
 
 .flexBox{
-    display: -webkit-box;
     width: 100%;
+    zoom: 1;
+}
+.flexBox:after{
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }
 .flexBox .box{
     display: block;
     -webkit-box-flex: 1;
+    float: left;
 }
 
 .tooltip{
