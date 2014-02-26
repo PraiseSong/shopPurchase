@@ -68,6 +68,7 @@ if($device){
     <meta name="apple-itunes-app" content="app-id=805541586">
     <meta name="google-site-verification" content="_cWcSIxwgfYWssv1sEMxhHvb-YzjhTO6inWfuogdnBY" />
     <meta name="msvalidate.01" content="71BE92EDF492EA24798598C27A3134E2" />
+    <meta name="alexaVerifyID" content="SSTIswfgfD1KofSe8U-zr7qWazg" />
     <meta name="renderer" content="webkit" />
     <link href="assets/imgs/logo.png" rel="apple-touch-icon-precomposed"/>
     <link rel="shortcut icon" href="assets/imgs/favicon.ico" type="image/x-icon" />
