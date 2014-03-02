@@ -77,7 +77,7 @@ if($device){
     </title>
     <style type="text/css">
         dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,em,b,i,ins,del{zoom:1;margin:0;padding:0}
-        input{vertical-align:middle;margin-left:-4px 0 0 -2px;zoom:1}
+        input{vertical-align:middle;zoom:1}
         table{border-collapse:collapse;border-spacing:0}
         ins,del{text-decoration:none}
         fieldset,img{border:none}

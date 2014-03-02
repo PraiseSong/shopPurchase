@@ -28,6 +28,7 @@ $websiteUrl = $settings['website_url']['value'];
 $emailAddress = $settings['email']['value'];
 $version = $settings['version']['value'];
 $android_version = $settings['android_version']['value'];
+$android_update_log = $settings['android_update_log']['value'];
 $resend_activation_threshold = $settings['resend_activation_threshold']['value'];
 $date = date("Y-m-d H:i:s");
 $language = $settings['language']['value'];

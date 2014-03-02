@@ -121,7 +121,7 @@ if($client_action==="update"){
             $price = $_POST['price'];
         }
         if($_POST['count']){
-            $count = ((int) $exist_count) + (int) $_POST['count'];
+            $count = $exist_count + $_POST['count'];
         }
         if($_POST['type']){
             $type = $_POST['type'];
