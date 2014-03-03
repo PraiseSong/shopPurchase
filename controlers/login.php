@@ -60,7 +60,7 @@ if(!empty($_POST))
 					
 					//Construct a new logged in user object
 					//Transfer some db data to the session object
-                    $redirect = "cashier.html";
+                    $redirect = "account.html";
                     $loggedInUser = logining($userdetails);
                     $user_id = $loggedInUser->user_id;
 
