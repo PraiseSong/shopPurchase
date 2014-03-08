@@ -8,6 +8,7 @@ $ua_checker = array(
 );
 $device = false;
 $imgs = array();
+$ua = $_SERVER['HTTP_USER_AGENT'];
 if ($ua_checker['android']) {
     $device = "android";
 } else if ($ua_checker['iphone']) {
@@ -311,6 +312,23 @@ if($device){
     </script>
 </head>
 <body>
+<?php
+  $appstore = 'https://itunes.apple.com/us/app/xiao-dian-ji-zhang-bao/id805541586?ls=1&mt=8';
+  $android = 'download/xiaodianjizhangbao.apk';
+  $yueyu = 'itms-services://?action=download-manifest&url=http://jizhangbao.com.cn/app.plist';
+  //可恶的微信
+  if(stripos($ua, 'micromessenger')){
+      $appstore .= '#weixin.qq.com';
+      $android .= '#weixin.qq.com';
+      $yueyu .= '#weixin.qq.com';
+
+      echo '<div class="warn" style="-webkit-border-radius:0;border-width: 0 0 1px 0;line-height: 20px;">';
+      echo '因为微信做了手脚，您可能无法下载'.$websiteName.'，请点击右上角的按钮，选择［在'.
+          ($device == 'iPhone' ? "Safari" : "浏览器")
+           .'中打开］就可以了。';
+      echo '</div>';
+  }
+?>
 <div id="header">
     让小店的记账更简单
 </div>
@@ -328,19 +346,19 @@ if($device){
             </p>
         </div>
         <div class="downloadBtnBox box">
-            <a href="https://itunes.apple.com/us/app/xiao-dian-ji-zhang-bao/id805541586?ls=1&mt=8#weixin.qq.com" title="下载iOS版" target="_blank" class="ios flexBox">
+            <a href="<?php echo $appstore; ?>" title="下载iOS版" target="_blank" class="ios flexBox">
                 <img src="assets/imgs/iphone.png" width="32" alt="下载<?php echo $websiteName; ?>iOS版"/>
                   <span class="box">
                       下载iOS版
                   </span>
             </a>
-            <a href="download/xiaodianjizhangbao.apk#weixin.qq.com" title="下载安卓版" target="_blank" class="android flexBox">
+            <a href="<?php echo $android; ?>" title="下载安卓版" target="_blank" class="android flexBox">
                 <img src="assets/imgs/android.png" width="32" alt="下载<?php echo $websiteName; ?>安卓版"/>
                   <span class="box">
                       下载安卓版
                   </span>
             </a>
-            <a href="itms-services://?action=download-manifest&url=http://jizhangbao.com.cn/app.plist#weixin.qq.com" title="下载越狱版" target="_blank" class="yy flexBox">
+            <a href="<?php echo $yueyu; ?>" title="下载越狱版" target="_blank" class="yy flexBox">
                 <img src="assets/imgs/skullcandy.png" width="32" alt="下载<?php echo $websiteName; ?>越狱版"/>
                   <span class="box">
                       下载越狱版
